@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "178017219806",
+    "project_id": "push-notification-clover-16df7",
+    "storage_bucket": "push-notification-clover-16df7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178017219806:android:40080f59b585498f0abe4f",
+        "android_client_info": {
+          "package_name": "com.example.cloverleaf_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCURmImawnocOpkoGaI_IEepM4E4I5cHKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
