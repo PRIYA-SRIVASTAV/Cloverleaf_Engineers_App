@@ -1,10 +1,11 @@
 var baseUrl = "https://clickcloud.in/cloverleaf/public/api";
 class ApiEndpoints {
+  //Api's for Engineer
   /// post apis
   static String Login_url = "$baseUrl/login";
   static String Update_profile_url = "$baseUrl/user-update";
   static String Upadate_is_active_url = "$baseUrl/update-is-active";
-  static String update_wo_status_url = "$baseUrl/update-wo-status";
+  static String Eng_update_wo_status_url = "$baseUrl/update-wo-status";
   static String raise_leave_url = "$baseUrl/post-calender";
   static String post_location_url = "$baseUrl/update-location";
   static String post_work_parts_url = "$baseUrl/post-work-parts";
@@ -20,4 +21,11 @@ class ApiEndpoints {
   static String get_dashboard_data_Url = "$baseUrl/get-user-pie-detail";
   static String get_payout_data_Url = "$baseUrl/get-payout";
   static String get_Add_Parts_list_Url = "$baseUrl/get-parts/";
+
+ //Api's for Engineer
+/// post apis
+  static String SE_update_wo_status_url = "$baseUrl/update-se-status";
+
+/// get apis
+  static String SE_Work_order_List_Url = "$baseUrl/sub-ex-work-list?wo_status=";
 }

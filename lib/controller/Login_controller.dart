@@ -1,12 +1,11 @@
 import 'dart:developer';
-
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../constant/prefsConstant.dart';
 import '../core/apiCall.dart';
-import '../screens/commonScreens/BottomNavigationPage.dart';
+import '../screens/EngineerScreen/BottomNavigationPage.dart';
+import '../screens/subjectExpertScreen/BottomNavigationPageSE.dart';
 import '../utils/helperMethods.dart';
 import '../utils/helperWidget.dart';
 
@@ -17,22 +16,36 @@ class Login_Controller {
     } else if (password.toString().isEmpty) {
       customFlutterToast("password can't be empty");
     } else {
-      var r = await ApiCalling().Login(email, password,type);
+      var r = await ApiCalling().Login(email, password, type);
       log("rrrrrrrrrrrrrrrrrrr $r");
       if (r['status'].toString() == 'true') {
-        await getPref().then((value) {
-          value.setString(KEYTOKEN, r['token'].toString());
-          value.setString(KEYID, r['data']['id'].toString());
-        });
-        customFlutterToast(r["message"]);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  BottomNavigationPage(),
-          ),
-        );
-      }
-      else{
+        if(r['data']['user_type']=='engineer'){
+          await getPref().then((value) {
+            value.setString(KEYENGTOKEN, r['token'].toString());
+            value.setString(KEYENGID, r['data']['eng_id'].toString());
+            value.setString(KEYENGNAME, r['data']['name'].toString());
+          });
+          customFlutterToast(r["message"]);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BottomNavigationPage(),
+            ),
+          );
+        }
+        else{
+          await getPref().then((value) {
+            value.setString(KEYSETOKEN, r['token'].toString());
+          });
+          customFlutterToast(r["message"]);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BottomNavigationPageSE(),
+            ),
+          );
+        }
+      } else {
         return customFlutterToast(r["message"]);
       }
     }

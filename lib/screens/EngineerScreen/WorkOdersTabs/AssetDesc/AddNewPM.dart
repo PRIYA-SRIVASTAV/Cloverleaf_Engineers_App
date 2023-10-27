@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../constant/colorConstant.dart';
-import '../../../constant/testStyleConstant.dart';
+import '../../../../constant/colorConstant.dart';
+import '../../../../constant/testStyleConstant.dart';
 class AddNewPM extends StatefulWidget {
   const AddNewPM({super.key});
 

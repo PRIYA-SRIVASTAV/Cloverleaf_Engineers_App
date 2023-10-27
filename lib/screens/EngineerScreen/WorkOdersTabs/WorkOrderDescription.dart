@@ -1,20 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../constant/colorConstant.dart';
-import '../../constant/prefsConstant.dart';
-import '../../constant/stringsConstant.dart';
-import '../../constant/testStyleConstant.dart';
-import '../../controller/Get_Add_Parts_list_controller.dart';
-import '../../controller/Get_Parts_List_Controller.dart';
-import '../../controller/post_work_parts_controller.dart';
-import '../../controller/post_work_reason_controller.dart';
-import '../../controller/update_wo_status_Controller.dart';
-import '../../controller/work_order_list_controller.dart';
-import '../../model/GetAddPartsListModel.dart';
-import '../../model/GetPartsModel.dart';
-import '../../model/WorkOrderModel.dart';
-import '../../utils/helperMethods.dart';
+import '../../../constant/colorConstant.dart';
+import '../../../constant/stringsConstant.dart';
+import '../../../constant/testStyleConstant.dart';
+import '../../../controller/Get_Add_Parts_list_controller.dart';
+import '../../../controller/Get_Parts_List_Controller.dart';
+import '../../../controller/post_work_parts_controller.dart';
+import '../../../controller/post_work_reason_controller.dart';
+import '../../../controller/work_order_list_controller.dart';
+import '../../../model/GetAddPartsListModel.dart';
+import '../../../model/GetPartsModel.dart';
+import '../../../model/WorkOrderModel.dart';
+
 
 class WorkOrderDescriptionPage extends StatefulWidget {
   var index;
@@ -440,27 +438,27 @@ class _WorkOrderDescriptionPageState extends State<WorkOrderDescriptionPage> {
                                                                     .primaryColor),
                                                       ),
                                                       onPressed: () async {
-                                                        var Work_id;
-                                                        await getPref()
-                                                            .then((value) {
-                                                          value.setString(
-                                                              KEYWORKID,
-                                                              get_work_order_status2
-                                                                  .data[widget
-                                                                      .index]
-                                                                  .workId
-                                                                  .toString());
-                                                        });
-                                                        await getPref()
-                                                            .then((value) {
-                                                          Work_id =
-                                                              value.getString(
-                                                                  KEYWORKID);
-                                                        });
-                                                        await update_wo_status_Controller()
-                                                            .update_wo_status_completed_Controller_method(
-                                                                Work_id,
-                                                                context);
+                                                        // var Work_id;
+                                                        // await getPref()
+                                                        //     .then((value) {
+                                                        //   value.setString(
+                                                        //       KEYWORKID,
+                                                        //       get_work_order_status2
+                                                        //           .data[widget
+                                                        //               .index]
+                                                        //           .workId
+                                                        //           .toString());
+                                                        // });
+                                                        // await getPref()
+                                                        //     .then((value) {
+                                                        //   Work_id =
+                                                        //       value.getString(
+                                                        //           KEYWORKID);
+                                                        // });
+                                                        // await update_wo_status_Controller()
+                                                        //     .update_wo_status_completed_Controller_method(
+                                                        //         Work_id,
+                                                        //         context);
                                                       },
                                                       child: Text(
                                                         "Submit",

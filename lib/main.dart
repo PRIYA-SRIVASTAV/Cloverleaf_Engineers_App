@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cloverleaf_project/screens/commonScreens/BottomNavigationPage.dart';
 import 'package:cloverleaf_project/screens/commonScreens/splashScreen.dart';
 import 'package:cloverleaf_project/utils/helperMethods.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';

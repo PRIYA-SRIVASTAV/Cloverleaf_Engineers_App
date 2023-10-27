@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final getProfileDetailsModel = getProfileDetailsModelFromJson(jsonString);
+
 import 'dart:convert';
 
 GetProfileDetailsModel getProfileDetailsModelFromJson(String str) => GetProfileDetailsModel.fromJson(json.decode(str));
@@ -39,11 +43,22 @@ class Data {
   String address2;
   String city;
   String state;
-  int zipCode;
+  String zipCode;
   String isDeleted;
   DateTime createdAt;
   DateTime updatedAt;
   String image;
+  int isActive;
+  String isFreelancer;
+  String location;
+  String calender;
+  String applicationName;
+  String language;
+  String experiance;
+  String machine;
+  String technical;
+  String engId;
+  String deviceType;
 
   Data({
     required this.id,
@@ -61,6 +76,17 @@ class Data {
     required this.createdAt,
     required this.updatedAt,
     required this.image,
+    required this.isActive,
+    required this.isFreelancer,
+    required this.location,
+    required this.calender,
+    required this.applicationName,
+    required this.language,
+    required this.experiance,
+    required this.machine,
+    required this.technical,
+    required this.engId,
+    required this.deviceType,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -79,6 +105,17 @@ class Data {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     image: json["image"],
+    isActive: json["is_active"],
+    isFreelancer: json["is_freelancer"],
+    location: json["location"],
+    calender: json["calender"],
+    applicationName: json["application_name"],
+    language: json["language"],
+    experiance: json["experiance"],
+    machine: json["machine"],
+    technical: json["technical"],
+    engId: json["eng_id"],
+    deviceType: json["device_type"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -97,5 +134,16 @@ class Data {
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
     "image": image,
+    "is_active": isActive,
+    "is_freelancer": isFreelancer,
+    "location": location,
+    "calender": calender,
+    "application_name": applicationName,
+    "language": language,
+    "experiance": experiance,
+    "machine": machine,
+    "technical": technical,
+    "eng_id": engId,
+    "device_type": deviceType,
   };
 }

@@ -11,6 +11,7 @@ import '../model/GetPartsModel.dart';
 import '../model/GetPayoutDataModel.dart';
 import '../model/GetUserStatusModel.dart';
 import '../model/GetprofilePageModel.dart';
+import '../model/SE_Work_order_model.dart';
 import '../model/WorkOrderModel.dart';
 import '../utils/helperMethods.dart';
 import '../utils/helperWidget.dart';
@@ -19,20 +20,41 @@ import 'apiEndpoints.dart';
 class ApiCalling {
   var client = http.Client();
 
-  headerWithoutContentType() async {
+  headerWithoutContentTypeENG() async {
     var pref = await getPref();
     String token = "";
-    if (pref.getString(KEYTOKEN) != null) token = pref.getString(KEYTOKEN);
+    if (pref.getString(KEYENGTOKEN) != null) token = pref.getString(KEYENGTOKEN);
     Map<String, String> WithToken = {
       "Authorization": "Bearer $token",
     };
     return WithToken;
   }
 
-  headerWithContentType() async {
+  headerWithoutContentTypeSE() async {
     var pref = await getPref();
     String token = "";
-    if (pref.getString(KEYTOKEN) != null) token = pref.getString(KEYTOKEN);
+    if (pref.getString(KEYSETOKEN) != null) token = pref.getString(KEYSETOKEN);
+    Map<String, String> WithToken = {
+      "Authorization": "Bearer $token",
+    };
+    return WithToken;
+  }
+
+  headerWithContentTypeENG() async {
+    var pref = await getPref();
+    String token = "";
+    if (pref.getString(KEYENGTOKEN) != null) token = pref.getString(KEYENGTOKEN);
+    Map<String, String> headerToken = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    };
+    return headerToken;
+  }
+
+  headerWithContentTypeSE() async {
+    var pref = await getPref();
+    String token = "";
+    if (pref.getString(KEYSETOKEN) != null) token = pref.getString(KEYSETOKEN);
     Map<String, String> headerToken = {
       "Content-Type": "application/json",
       "Authorization": "Bearer $token",
@@ -89,7 +111,7 @@ class ApiCalling {
         var Update_Profile_details_Url_Response = await client.post(
             Update_Profile_details_Url,
             body: map,
-            headers: await headerWithoutContentType());
+            headers: await headerWithoutContentTypeENG());
         MYAPILOGS("Update profile Api", Update_Profile_details_Url_Response);
         if (Update_Profile_details_Url_Response.statusCode == 200) {
           return jsonDecode(Update_Profile_details_Url_Response.body);
@@ -116,7 +138,7 @@ class ApiCalling {
         map['is_active'] = is_active;
 
         var Login_Response = await client.post(is_Update_active_Uri,
-            body: map, headers: await headerWithoutContentType());
+            body: map, headers: await headerWithoutContentTypeENG());
         MYAPILOGS("is_Update_active Api", Login_Response);
         if (Login_Response.statusCode == 200) {
           return jsonDecode(Login_Response.body);
@@ -136,19 +158,45 @@ class ApiCalling {
   Future update_wo_status(work_id, work_order_status) async {
     if (await isConnectedToInternet()) {
       try {
-        Uri update_wo_status_Uri = Uri.parse(ApiEndpoints.update_wo_status_url);
+        Uri update_wo_status_Uri = Uri.parse(ApiEndpoints.Eng_update_wo_status_url);
         var map = Map<String, dynamic>();
         map['work_id'] = work_id;
         map['wo_status'] = work_order_status;
 
         var update_wo_status_Response = await client.post(update_wo_status_Uri,
-            body: map, headers: await headerWithoutContentType());
+            body: map, headers: await headerWithoutContentTypeENG());
         MYAPILOGS(" update_wo_status Api", update_wo_status_Response);
         if (update_wo_status_Response.statusCode == 200) {
           return jsonDecode(update_wo_status_Response.body);
         } else {
           customFlutterToast(
             jsonDecode(update_wo_status_Response.body)['message'].toString(),
+          );
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+  Future SE_update_wo_status(work_id, se_wo_status) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri SE_update_wo_status_uri = Uri.parse(ApiEndpoints.SE_update_wo_status_url);
+        var map = Map<String, dynamic>();
+        map['work_id'] = work_id;
+        map['se_wo_status'] = se_wo_status;
+
+        var SE_update_wo_status_Response = await client.post(SE_update_wo_status_uri,
+            body: map, headers: await headerWithoutContentTypeENG());
+        MYAPILOGS(" SE_update_wo_status Api", SE_update_wo_status_Response);
+        if (SE_update_wo_status_Response.statusCode == 200) {
+          return jsonDecode(SE_update_wo_status_Response.body);
+        } else {
+          customFlutterToast(
+            jsonDecode(SE_update_wo_status_Response.body)['message'].toString(),
           );
         }
       } catch (e) {
@@ -183,7 +231,7 @@ class ApiCalling {
         var Raise_leave_request_Response = await client.post(
             Raise_leave_request_Uri,
             body: map,
-            headers: await headerWithoutContentType());
+            headers: await headerWithoutContentTypeENG());
         MYAPILOGS(" Raise leave request Api", Raise_leave_request_Response);
         if (Raise_leave_request_Response.statusCode == 200) {
           return jsonDecode(Raise_leave_request_Response.body);
@@ -216,7 +264,7 @@ class ApiCalling {
         };
         print("--------map2---------$map2");
         var Post_location_Response = await client.post(Post_location_Uri,
-            body: map2, headers: await headerWithoutContentType());
+            body: map2, headers: await headerWithoutContentTypeENG());
         print("+++++++++++++++${Post_location_Response.body}");
         MYAPILOGS(" Post location Api", Post_location_Response);
         if (Post_location_Response.statusCode == 200) {
@@ -243,7 +291,7 @@ class ApiCalling {
         map['reason'] = reason;
 
         var post_work_reason_Response = await client.post(post_work_reason_Uri,
-            body: map, headers: await headerWithoutContentType());
+            body: map, headers: await headerWithoutContentTypeENG());
         MYAPILOGS(" post work reason Api", post_work_reason_Response);
         if (post_work_reason_Response.statusCode == 200) {
           return jsonDecode(post_work_reason_Response.body);
@@ -270,7 +318,7 @@ class ApiCalling {
         map['parts_name'] = parts_name;
 
         var post_work_parts_Response = await client.post(post_work_parts_Uri,
-            body: map, headers: await headerWithoutContentType());
+            body: map, headers: await headerWithoutContentTypeENG());
         MYAPILOGS(" post work parts Api", post_work_parts_Response);
         if (post_work_parts_Response.statusCode == 200) {
           return jsonDecode(post_work_parts_Response.body);
@@ -295,7 +343,7 @@ class ApiCalling {
         var map = Map<String, dynamic>();
         map['fcm_token'] = FCM_token;
         var Post_FCM_Token_Response = await client.post(Post_FCM_Token_Uri,
-            body: map, headers: await headerWithoutContentType());
+            body: map, headers: await headerWithoutContentTypeENG());
         MYAPILOGS("Post_FCM_Token Api", Post_FCM_Token_Response);
         if (Post_FCM_Token_Response.statusCode == 200) {
           return jsonDecode(Post_FCM_Token_Response.body);
@@ -324,7 +372,7 @@ class ApiCalling {
 
         var get_Work_order_list_for_unaccepted_Res = await client.get(
             get_Work_order_list_for_unaccepted_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("unaccepted Work order list api",
             get_Work_order_list_for_unaccepted_Res);
         if (get_Work_order_list_for_unaccepted_Res.statusCode == 200) {
@@ -347,7 +395,7 @@ class ApiCalling {
 
         var get_Work_order_list_for_pending_Res = await client.get(
             get_Work_order_list_for_pending_uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS(
             "pending Work order list api", get_Work_order_list_for_pending_Res);
         if (get_Work_order_list_for_pending_Res.statusCode == 200) {
@@ -370,7 +418,7 @@ class ApiCalling {
 
         var get_Work_order_list_for_accelerated_Res = await client.get(
             get_Work_order_list_for_accelerated_uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS(
             "Accelerated Work order list api", get_Work_order_list_for_accelerated_Res);
         if (get_Work_order_list_for_accelerated_Res.statusCode == 200) {
@@ -393,7 +441,7 @@ class ApiCalling {
 
         var get_Work_order_list_for_completed_Uri_Res = await client.get(
             get_Work_order_list_for_completed_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("completed Work order list api",
             get_Work_order_list_for_completed_Uri_Res);
         if (get_Work_order_list_for_completed_Uri_Res.statusCode == 200) {
@@ -408,12 +456,101 @@ class ApiCalling {
     } catch (_) {}
   }
 
+  Future get_SE_Work_order_list_for_unaccepted(SE_Work_Order_status1) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_Work_order_list_for_unaccepted_Uri =
+        Uri.parse("${ApiEndpoints.SE_Work_order_List_Url}$SE_Work_Order_status1");
+        var get_SE_Work_order_list_for_unaccepted_Res = await client.get(
+            get_SE_Work_order_list_for_unaccepted_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("SE_unaccepted Work order list api",
+            get_SE_Work_order_list_for_unaccepted_Res);
+        if (get_SE_Work_order_list_for_unaccepted_Res.statusCode == 200) {
+          return getSeWorkOrderListModelFromJson(
+              get_SE_Work_order_list_for_unaccepted_Res.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+  Future get_SE_Work_order_list_for_Pending(SE_Work_Order_status2) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_Work_order_list_for_Prnding_Uri =
+        Uri.parse("${ApiEndpoints.SE_Work_order_List_Url}$SE_Work_Order_status2");
+        var get_SE_Work_order_list_for_Prnding_Res = await client.get(
+            get_SE_Work_order_list_for_Prnding_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("SE_Pending Work order list api",
+            get_SE_Work_order_list_for_Prnding_Res);
+        if (get_SE_Work_order_list_for_Prnding_Res.statusCode == 200) {
+          return getSeWorkOrderListModelFromJson(
+              get_SE_Work_order_list_for_Prnding_Res.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+  Future get_SE_Work_order_list_for_Rejected(SE_Work_Order_status3) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_Work_order_list_for_accelerated_Uri =
+        Uri.parse("${ApiEndpoints.SE_Work_order_List_Url}$SE_Work_Order_status3");
+        var get_SE_Work_order_list_for_accelerated_Res = await client.get(
+            get_SE_Work_order_list_for_accelerated_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("SE_Rejected Work order list api",
+            get_SE_Work_order_list_for_accelerated_Res);
+        if (get_SE_Work_order_list_for_accelerated_Res.statusCode == 200) {
+          return getSeWorkOrderListModelFromJson(
+              get_SE_Work_order_list_for_accelerated_Res.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+  Future get_SE_Work_order_list_for_Completed(SE_Work_Order_status4) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_Work_order_list_for_Completed_Uri =
+        Uri.parse("${ApiEndpoints.SE_Work_order_List_Url}$SE_Work_Order_status4");
+        var get_SE_Work_order_list_for_Completed_Res = await client.get(
+            get_SE_Work_order_list_for_Completed_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("SE_Rejected Work order list api",
+            get_SE_Work_order_list_for_Completed_Res);
+        if (get_SE_Work_order_list_for_Completed_Res.statusCode == 200) {
+          return getSeWorkOrderListModelFromJson(
+              get_SE_Work_order_list_for_Completed_Res.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+
   Future get_Parts_list() async {
     try {
       if (await isConnectedToInternet()) {
         Uri get_Parts_list_Uri = Uri.parse(ApiEndpoints.get_parts_Url);
         var get_Parts_list_Uri_Res = await client.get(get_Parts_list_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("get Parts list api", get_Parts_list_Uri_Res);
         if (get_Parts_list_Uri_Res.statusCode == 200) {
           return getPartsModelFromJson(get_Parts_list_Uri_Res.body);
@@ -435,7 +572,7 @@ class ApiCalling {
             Uri.parse(ApiEndpoints.Profile_detail_Url);
         var get_Profile_Details_Response = await client.get(
             get_Profile_Details_Url,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("Get Profile details api", get_Profile_Details_Response);
         if (get_Profile_Details_Response.statusCode == 200) {
           return getProfileDetailsModelFromJson(
@@ -454,7 +591,7 @@ class ApiCalling {
       if (await isConnectedToInternet()) {
         Uri get_USer_status_Uri = Uri.parse(ApiEndpoints.get_user_status_Url);
         var get_USer_status_Uri_Res = await client.get(get_USer_status_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("get User status api", get_USer_status_Uri_Res);
         if (get_USer_status_Uri_Res.statusCode == 200) {
           return getUserStatusModelFromJson(get_USer_status_Uri_Res.body);
@@ -474,7 +611,7 @@ class ApiCalling {
             Uri.parse(ApiEndpoints.get_leave_calender_Url);
         var get_leave_calender_Uri_Res = await client.get(
             get_leave_calender_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("get leave calender api", get_leave_calender_Uri_Res);
         if (get_leave_calender_Uri_Res.statusCode == 200) {
           return getLeaveCalendarModelFromJson(get_leave_calender_Uri_Res.body);
@@ -493,7 +630,7 @@ class ApiCalling {
         Uri get_dashboard_data_Uri = Uri.parse(ApiEndpoints.get_dashboard_data_Url);
 
         var get_dashboard_data_Response = await client.get(get_dashboard_data_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("get dashboard data api", get_dashboard_data_Response);
         if (get_dashboard_data_Response.statusCode == 200) {
           return getDashboardDataModelFromJson(
@@ -513,7 +650,7 @@ class ApiCalling {
       if (await isConnectedToInternet()) {
         Uri get_Payout_data_Uri = Uri.parse(ApiEndpoints.get_payout_data_Url);
         var get_Payout_data_Response = await client.get(get_Payout_data_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("get Payout data api", get_Payout_data_Response);
         if (get_Payout_data_Response.statusCode == 200) {
           return getPayoutDataModelFromJson(
@@ -533,7 +670,7 @@ class ApiCalling {
       if (await isConnectedToInternet()) {
         Uri get_Add_Parts_list_Uri = Uri.parse("${ApiEndpoints.get_Add_Parts_list_Url}$Work_id");
         var get_Add_Parts_list_Response = await client.get(get_Add_Parts_list_Uri,
-            headers: await headerWithContentType());
+            headers: await headerWithContentTypeENG());
         MYAPILOGS("get Add Parts List api", get_Add_Parts_list_Response);
         if (get_Add_Parts_list_Response.statusCode == 200) {
           return getAddPartsListModelFromJson(

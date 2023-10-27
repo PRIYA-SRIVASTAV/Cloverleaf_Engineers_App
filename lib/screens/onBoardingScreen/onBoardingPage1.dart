@@ -7,7 +7,7 @@ import '../../constant/testStyleConstant.dart';
 import '../../core/navigatorService.dart';
 import '../../utils/helperMethods.dart';
 import '../../utils/helperWidget.dart';
-import '../commonScreens/BottomNavigationPage.dart';
+import '../EngineerScreen/BottomNavigationPage.dart';
 import '../commonScreens/Login_Page.dart';
 import 'dotIndicator.dart';
 import 'onBoardContent.dart';

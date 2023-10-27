@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../../constant/colorConstant.dart';
-import '../../../constant/testStyleConstant.dart';
+
+import '../../../../constant/colorConstant.dart';
+import '../../../../constant/testStyleConstant.dart';
+
 
 class AssetDescrptionPage extends StatefulWidget {
   const AssetDescrptionPage({super.key});

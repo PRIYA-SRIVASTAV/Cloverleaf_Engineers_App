@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../../constant/colorConstant.dart';
+
+import '../../../../constant/colorConstant.dart';
 class SeeHistoryPage extends StatefulWidget {
   const SeeHistoryPage({super.key});
 

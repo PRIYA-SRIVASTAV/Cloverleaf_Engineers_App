@@ -1,67 +1,64 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
-import '../../core/navigatorService.dart';
-import '../../utils/helperMethods.dart';
-import '../WorkOdersTabs/WorkOrders.dart';
-import '../SupportTab/Support.dart';
-import '../DashboardTab/dashBoardPage.dart';
+import 'CallLogsTab/CallLogsTab.dart';
+import 'DashboardTab/DashboardSETab.dart';
+import 'WorkOrdersTabSE/WorkOdersTabSE.dart';
 
-class MainClass extends StatefulWidget {
-  const MainClass({super.key});
+class MainClassSE extends StatefulWidget {
+  const MainClassSE({super.key});
 
   @override
-  State<MainClass> createState() => _MainClassState();
+  State<MainClassSE> createState() => _MainClassSEState();
 }
 
-class _MainClassState extends State<MainClass> {
+class _MainClassSEState extends State<MainClassSE> {
   @override
-  void initState() {
-    AwesomeNotifications().actionStream.listen(
-      (event) async {
-        if (event.buttonKeyPressed == "REJECT") {
-          debugPrint("Work Order rejected");
-          AudioNotificationPlayStop(0);
-        } else if (event.buttonKeyPressed == "ACCEPT") {
-          debugPrint("Work Order Accepted");
-          AudioNotificationPlayStop(0);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => BottomNavigationPage(BottomIndex: 1,SendTabIndex: 1,)));
-        } else {
-          debugPrint("Clicked on notification");
-          AudioNotificationPlayStop(0);
-        }
-      },
-    );
-    super.initState();
-  }
+  // void initState() {
+  //   AwesomeNotifications().actionStream.listen(
+  //         (event) async {
+  //       if (event.buttonKeyPressed == "REJECT") {
+  //         debugPrint("Work Order rejected");
+  //         AudioNotificationPlayStop(0);
+  //       } else if (event.buttonKeyPressed == "ACCEPT") {
+  //         debugPrint("Work Order Accepted");
+  //         AudioNotificationPlayStop(0);
+  //         Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //                 builder: (_) => BottomNavigationPageSE(BottomIndex: 1,SendTabIndex: 1,)));
+  //       } else {
+  //         debugPrint("Clicked on notification");
+  //         AudioNotificationPlayStop(0);
+  //       }
+  //     },
+  //   );
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationPage();
+    return BottomNavigationPageSE();
   }
 }
 
-class BottomNavigationPage extends StatefulWidget {
+class BottomNavigationPageSE extends StatefulWidget {
   var BottomIndex;
   var SendTabIndex;
 
-  BottomNavigationPage({this.BottomIndex, this.SendTabIndex, super.key});
+  BottomNavigationPageSE({this.BottomIndex, this.SendTabIndex, super.key});
 
   @override
-  State<BottomNavigationPage> createState() => _BottomNavigationPageState();
+  State<BottomNavigationPageSE> createState() => _BottomNavigationPageSEState();
 }
 
-class _BottomNavigationPageState extends State<BottomNavigationPage> {
+class _BottomNavigationPageSEState extends State<BottomNavigationPageSE> {
   int _selectedIndex = 0;
   bool selectedTabs = true;
 
   void _onItemTapped(int index) {
     setState(
-      () {
+          () {
         _selectedIndex = index;
       },
     );
@@ -82,11 +79,11 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   @override
   Widget build(BuildContext context) {
     List _pages = [
-      dashBoardPage(),
-      WorkOrders(
+      DashboardSE(),
+      WorkOrderSE(
         TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex,
       ),
-      SupportPage(),
+      CallLogsTab(),
     ];
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
@@ -103,14 +100,14 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.support_agent),
-              label: 'Support',
+              label: 'Call Logs',
             ),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white,
           selectedLabelStyle:
-              TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+          TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
           iconSize: 15.sp,
           onTap: _onItemTapped,
           elevation: 5),

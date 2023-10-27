@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloverleaf_project/controller/Post_FCM_Token_Controller.dart';
-import 'package:cloverleaf_project/screens/commonScreens/BottomNavigationPage.dart';
+import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -14,6 +14,7 @@ import '../../core/locator.dart';
 import '../../core/navigatorService.dart';
 import '../../utils/helperMethods.dart';
 import '../onBoardingScreen/onBoardingPage1.dart';
+import '../subjectExpertScreen/BottomNavigationPageSE.dart';
 
 class splashScreen extends StatefulWidget {
   const splashScreen({super.key});
@@ -23,7 +24,6 @@ class splashScreen extends StatefulWidget {
 }
 
 class _splashScreenState extends State<splashScreen> {
-
   // @override
   // void initState() {
   //   super.initState();
@@ -79,11 +79,8 @@ class _splashScreenState extends State<splashScreen> {
   // }
   @override
   void initState() {
-    super.initState();
-
-
     routingFunction();
-
+    super.initState();
 
     // 1. This method call when app in terminated state and you get a notification
     // when you click on notification app open from terminated state and you can get notification data in this method
@@ -105,11 +102,7 @@ class _splashScreenState extends State<splashScreen> {
     //     }
     //   },
     // );
-
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,24 +137,45 @@ class _splashScreenState extends State<splashScreen> {
   }
 
   void routingFunction() async {
-    var auth_token;
+    var auth_eng_token;
+    var auth_se_token;
     await getPref().then((value) {
-      auth_token = value.getString(KEYTOKEN);
+      auth_eng_token = value.getString(KEYENGTOKEN);
+    });
+    await getPref().then((value) {
+      auth_se_token = value.getString(KEYSETOKEN);
     });
     var fcm_token;
     await FirebaseMessaging.instance.getToken().then((value) {
       fcm_token = value;
       log("FCM-TOKEN====$fcm_token");
     });
-    if (auth_token.toString() != "KEY_TOKEN" &&
-        auth_token.toString() != "null") {
-      debugPrint(auth_token.toString());
+    if (auth_eng_token.toString() != "KEY_ENG_TOKEN" &&
+        auth_eng_token.toString() != "null") {
+      debugPrint(auth_eng_token.toString());
       Post_FCM_Token_Controller().Post_FCM_Token_Controller_method(fcm_token);
       Timer(
-          const Duration(seconds: 3),
-          () => Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => MainClass())));
-    } else {
+        const Duration(seconds: 3),
+        () => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainClassEng(),
+          ),
+        ),
+      );
+    } else if (auth_se_token.toString() != "KEY_SE_TOKEN" &&
+        auth_se_token.toString() != "null") {
+      Timer(
+        const Duration(seconds: 3),
+            () => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainClassSE(),
+          ),
+        ),
+      );
+    }
+    else {
       Timer(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(

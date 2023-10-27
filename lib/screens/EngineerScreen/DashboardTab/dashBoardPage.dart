@@ -1,21 +1,23 @@
 import 'package:cloverleaf_project/controller/Get_Dashboard_percentage%20Details_Controller.dart';
 import 'package:cloverleaf_project/controller/Get_User_status_controller.dart';
-import 'package:cloverleaf_project/screens/commonScreens/BottomNavigationPage.dart';
-import 'package:cloverleaf_project/screens/commonScreens/Drawer/PayoutPage.dart';
+import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:sizer/sizer.dart';
-import '../../constant/colorConstant.dart';
-import '../../constant/stringsConstant.dart';
-import '../../constant/testStyleConstant.dart';
-import '../../controller/Post_current_location_controller.dart';
-import '../../controller/is_update_active_controller.dart';
-import '../../model/GetDashboardDataModel.dart';
-import '../../model/GetUserStatusModel.dart';
-import '../commonScreens/Drawer/customDrawer.dart';
+import '../../../constant/colorConstant.dart';
+import '../../../constant/stringsConstant.dart';
+import '../../../constant/testStyleConstant.dart';
+import '../../../controller/Post_current_location_controller.dart';
+import '../../../controller/is_update_active_controller.dart';
+import '../../../model/GetDashboardDataModel.dart';
+import '../../../model/GetUserStatusModel.dart';
+import '../../subjectExpertScreen/BottomNavigationPageSE.dart';
+import '../Drawer/PayoutPage.dart';
+import '../Drawer/customDrawer.dart';
+
 
 class dashBoardPage extends StatefulWidget {
   dashBoardPage({super.key});
@@ -474,6 +476,40 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                           ),
                                         ],
                                       )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MainClassSE(),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              height: 8.h,
+                              width: double.infinity,
+                              child: Card(
+                                shape: OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.grey.shade200),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Subject Experts",
+                                          style: dashboardCardStyle),
                                     ],
                                   ),
                                 ),

@@ -41,9 +41,8 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   void initState() {
-    super.initState();
     get_profile_details_data_method();
-    //get_Leave_calendar_data_method();
+    super.initState();
   }
 
   @override
@@ -564,7 +563,8 @@ class _AppDrawerState extends State<AppDrawer> {
                         onTap: () async {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => PayoutPage()),
+                            MaterialPageRoute(
+                                builder: (context) => PayoutPage()),
                           );
                         },
                         child: profileListTrailingContainer(
@@ -588,14 +588,19 @@ class _AppDrawerState extends State<AppDrawer> {
                       ),
                       trailing: InkWell(
                         onTap: () async {
-                          await is_update_active_controller()
-                              .is_update_active_controller_method(false);
-                          SharedPreferences preferences =
-                              await SharedPreferences.getInstance();
-                          await preferences.clear();
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (c) => Login_Page()),
-                              (route) => false);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Login_Page(),
+                              ));
+                          // await is_update_active_controller()
+                          //     .is_update_active_controller_method(false);
+                          // SharedPreferences preferences =
+                          //     await SharedPreferences.getInstance();
+                          // await preferences.clear();
+                          // Navigator.of(context).pushAndRemoveUntil(
+                          //     MaterialPageRoute(builder: (c) => Login_Page()),
+                          //     (route) => false);
                         },
                         child: profileListTrailingContainer(
                             const Icon(Icons.arrow_forward_ios), context),
@@ -606,9 +611,11 @@ class _AppDrawerState extends State<AppDrawer> {
               ],
             ),
           )
-        : Center(child: CircularProgressIndicator(
-      color: Colors.white,
-    ));
+        : Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
   }
 
   void get_profile_details_data_method() async {
@@ -629,19 +636,19 @@ class _AppDrawerState extends State<AppDrawer> {
     }
   }
 
-  // void get_Leave_calendar_data_method() async {
-  //   get_Leave_calendar_data = await Get_Leave_calendar_controller()
-  //       .Get_Leave_calendar_controller_method();
-  //   print("/////////////// ${get_Leave_calendar_data}");
-  //   //noteController.text = get_Leave_calendar_data.data.note.toString();
-  //   setState(() {
-  //     if (get_Leave_calendar_data.status.toString() == "true") {
-  //       on_leave_status = true;
-  //       is_load_Leave_calendar_data = true;
-  //     } else {
-  //       on_leave_status = false;
-  //       is_load_Leave_calendar_data = true;
-  //     }
-  //   });
-  // }
+// void get_Leave_calendar_data_method() async {
+//   get_Leave_calendar_data = await Get_Leave_calendar_controller()
+//       .Get_Leave_calendar_controller_method();
+//   print("/////////////// ${get_Leave_calendar_data}");
+//   //noteController.text = get_Leave_calendar_data.data.note.toString();
+//   setState(() {
+//     if (get_Leave_calendar_data.status.toString() == "true") {
+//       on_leave_status = true;
+//       is_load_Leave_calendar_data = true;
+//     } else {
+//       on_leave_status = false;
+//       is_load_Leave_calendar_data = true;
+//     }
+//   });
+// }
 }

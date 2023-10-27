@@ -7,11 +7,15 @@ String Work_order_status2 ="pending";
 String Work_order_status3 ="accelerated";
 String Work_order_status4 ="completed";
 String Work_order_status5 ="rejected";
+String SE_Work_order_status1 ="unaccepted";
+String SE_Work_order_status2 ="pending";
+String SE_Work_order_status3 ="rejected";
+String SE_Work_order_status4 ="completed";
 String User_is_active = "1";
 String User_not_active  ="0";
 String User_is_on_leave = "1";
 String User_is_not_on_leave = "0";
-String type = "eng_app";
+String type = "mobile";
 
 /// On boarding page content
 //on Boarding first page.
@@ -29,3 +33,7 @@ String title6 = "Use our digital Market Place \nfor prompt supply of quality \n 
 //on Boarding Fourth page.
 String title7 ="     Does it take too long to \ndiagnose the root cause of the \n                   problem?";
 String title8 = "Take help of our Digital tool \nand expert panel for timely \n                resolution.";
+class MyZegoConst{
+  static const int appId = 867701892;
+  static const String appSign = "03839347958b3a0f1f232a0570a7c68bd08f081a380fbcfad04f1a92c7b2fe5a";
+}
