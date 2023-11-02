@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/testStyleConstant.dart';
-import '../../EngineerScreen/Drawer/customDrawer.dart';
 import '../DrawerSE/DrawerSE.dart';
 class CallLogsTab extends StatefulWidget {
   const CallLogsTab({super.key});
@@ -55,16 +54,29 @@ class _CallLogsTabState extends State<CallLogsTab> {
               SizedBox(height: 2.h,),
               ListView.builder(
                 shrinkWrap: true,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   //final callLog = callLogs[index];
                   return Card(
                     child: ListTile(
                       title: Text("Priya Srivastav"),
-                      subtitle: Text("8700604679"),
-                      trailing: Text("2m 22s"),
+                      subtitle: Column(mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text("01 Nov 2023"),
+                              SizedBox(width: 1.w,),
+                              Text("1:08:23"),
+                            ],
+                          ),
+                          Text("2m 22s")
+                        ],
+                      ),
+                      trailing: Icon(
+                        Icons.call
+                      ),
                     ),
                   );
                 },
@@ -74,16 +86,29 @@ class _CallLogsTabState extends State<CallLogsTab> {
               SizedBox(height: 2.h,),
               ListView.builder(
                 shrinkWrap: true,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                itemCount: 2,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   //final callLog = callLogs[index];
                   return Card(
                     child: ListTile(
                       title: Text("Priya Srivastav"),
-                      subtitle: Text("8700604679"),
-                      trailing: Text("2m 22s"),
+                      subtitle: Column(mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text("01 Nov 2023"),
+                              SizedBox(width: 1.w,),
+                              Text("1:08:23"),
+                            ],
+                          ),
+                          Text("2m 22s")
+                        ],
+                      ),
+                      trailing: Icon(
+                          Icons.video_call
+                      ),
                     ),
                   );
                 },
@@ -93,16 +118,29 @@ class _CallLogsTabState extends State<CallLogsTab> {
               SizedBox(height: 2.h,),
               ListView.builder(
                 shrinkWrap: true,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                itemCount: 2,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   //final callLog = callLogs[index];
                   return Card(
                     child: ListTile(
                       title: Text("Priya Srivastav"),
-                      subtitle: Text("8700604679"),
-                      trailing: Text("2m 22s"),
+                      subtitle: Column(mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text("01 Nov 2023"),
+                              SizedBox(width: 1.w,),
+                              Text("1:08:23"),
+                            ],
+                          ),
+                          Text("2m 22s")
+                        ],
+                      ),
+                      trailing: Icon(
+                          Icons.video_call
+                      ),
                     ),
                   );
                 },

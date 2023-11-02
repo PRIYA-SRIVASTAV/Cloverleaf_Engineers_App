@@ -391,16 +391,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Center(
                       child: Stack(
                         children: [
-                          InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return openProfilePhoto(context);
-                                  },
-                                );
-                              },
-                              child: imageWidget()),
+                          imageWidget(),
                           Positioned(
                             bottom: 0.h,
                             right: 1.5.h,
@@ -491,118 +482,113 @@ class _AppDrawerState extends State<AppDrawer> {
                     SizedBox(
                       height: 1.h,
                     ),
-                    ListTile(
-                      leading: profileListLeadingContainer(
-                          Icon(
-                            Icons.settings_suggest_outlined,
-                            color: Colors.white,
-                            size: 18.sp,
-                          ),
-                          context),
-                      title: Text(
-                        "Edit Profile",
-                        style: profileOptionsStyle,
-                      ),
-                      trailing: InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return editProfile(context);
-                            },
-                          );
-                        },
-                        child: profileListTrailingContainer(
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return editProfile(context);
+                          },
+                        );
+                      },
+                      child: ListTile(
+                        leading: profileListLeadingContainer(
+                            Icon(
+                              Icons.settings_suggest_outlined,
+                              color: Colors.white,
+                              size: 18.sp,
+                            ),
+                            context),
+                        title: Text(
+                          "Edit Profile",
+                          style: profileOptionsStyle,
+                        ),
+                        trailing: profileListTrailingContainer(
                             const Icon(Icons.arrow_forward_ios), context),
                       ),
                     ),
                     SizedBox(
                       height: 1.h,
                     ),
-                    ListTile(
-                      leading: profileListLeadingContainer(
-                          Icon(
-                            Icons.holiday_village_outlined,
-                            color: Colors.white,
-                            size: 18.sp,
-                          ),
-                          context),
-                      title: Text(
-                        "Leave Calendar",
-                        style: profileOptionsStyle,
-                      ),
-                      trailing: InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return EventCalendarScreen();
-                            },
-                          );
-                        },
-                        child: profileListTrailingContainer(
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return EventCalendarScreen();
+                          },
+                        );
+                      },
+                      child: ListTile(
+                        leading: profileListLeadingContainer(
+                            Icon(
+                              Icons.holiday_village_outlined,
+                              color: Colors.white,
+                              size: 18.sp,
+                            ),
+                            context),
+                        title: Text(
+                          "Leave Calendar",
+                          style: profileOptionsStyle,
+                        ),
+                        trailing: profileListTrailingContainer(
                             const Icon(Icons.arrow_forward_ios), context),
                       ),
                     ),
                     SizedBox(
                       height: 1.h,
                     ),
-                    ListTile(
-                      leading: profileListLeadingContainer(
-                          Icon(
-                            Icons.payment_outlined,
-                            color: Colors.white,
-                            size: 18.sp,
-                          ),
-                          context),
-                      title: Text(
-                        "PayOut",
-                        style: profileOptionsStyle,
-                      ),
-                      trailing: InkWell(
-                        onTap: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PayoutPage()),
-                          );
-                        },
-                        child: profileListTrailingContainer(
+                    InkWell(
+                      onTap: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PayoutPage()),
+                        );
+                      },
+                      child: ListTile(
+                        leading: profileListLeadingContainer(
+                            Icon(
+                              Icons.payment_outlined,
+                              color: Colors.white,
+                              size: 18.sp,
+                            ),
+                            context),
+                        title: Text(
+                          "PayOut",
+                          style: profileOptionsStyle,
+                        ),
+                        trailing: profileListTrailingContainer(
                             const Icon(Icons.arrow_forward_ios), context),
                       ),
                     ),
                     SizedBox(
                       height: 1.h,
                     ),
-                    ListTile(
-                      leading: profileListLeadingContainer(
-                          Icon(
-                            Icons.logout,
-                            color: Colors.white,
-                            size: 18.sp,
-                          ),
-                          context),
-                      title: Text(
-                        "Logout",
-                        style: profileOptionsStyle,
-                      ),
-                      trailing: InkWell(
-                        onTap: () async {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Login_Page(),
-                              ));
-                          // await is_update_active_controller()
-                          //     .is_update_active_controller_method(false);
-                          // SharedPreferences preferences =
-                          //     await SharedPreferences.getInstance();
-                          // await preferences.clear();
-                          // Navigator.of(context).pushAndRemoveUntil(
-                          //     MaterialPageRoute(builder: (c) => Login_Page()),
-                          //     (route) => false);
-                        },
-                        child: profileListTrailingContainer(
+                    InkWell(
+                      onTap: () async {
+                        await is_update_active_controller()
+                            .is_update_active_controller_method(false);
+                        SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                        await preferences.clear();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (c) => Login_Page()),
+                                (route) => false);
+                      },
+                      child: ListTile(
+                        leading: profileListLeadingContainer(
+                            Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                              size: 18.sp,
+                            ),
+                            context),
+                        title: Text(
+                          "Logout",
+                          style: profileOptionsStyle,
+                        ),
+                        trailing: profileListTrailingContainer(
                             const Icon(Icons.arrow_forward_ios), context),
                       ),
                     ),

@@ -1,13 +1,9 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
 import '../../constant/stringsConstant.dart';
 import '../../constant/testStyleConstant.dart';
-import '../../core/navigatorService.dart';
-import '../../utils/helperMethods.dart';
 import '../../utils/helperWidget.dart';
-import '../EngineerScreen/BottomNavigationPage.dart';
 import '../commonScreens/Login_Page.dart';
 import 'dotIndicator.dart';
 import 'onBoardContent.dart';
@@ -27,8 +23,6 @@ class _OnBoardingPage1State extends State<OnBoardingPage1> {
   @override
   void initState() {
     pageController = PageController(initialPage: 0);
-
-
 
     super.initState();
   }
@@ -119,7 +113,8 @@ class _OnBoardingPage1State extends State<OnBoardingPage1> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Login_Page()),
+                              builder: (context) => const Login_Page(),
+                            ),
                           );
                         },
                         child: Text(

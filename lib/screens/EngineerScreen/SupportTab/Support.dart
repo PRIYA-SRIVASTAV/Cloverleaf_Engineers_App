@@ -660,7 +660,7 @@ class _SupportPageState extends State<SupportPage> {
                               underline: const SizedBox(),
                               isExpanded: true,
                               hint: const Text('Select Work order'),
-                              items: get_work_order_status2.data?.map((item) {
+                              items: get_work_order_status2.data.map((item) {
                                 return DropdownMenuItem(
                                   value: item.workId.toString(),
                                   child: Row(
@@ -682,11 +682,11 @@ class _SupportPageState extends State<SupportPage> {
                                 setState(
                                   () {
                                     dropdownvalue = val!;
-                                    var a = get_work_order_status2.data!
+                                    var a = get_work_order_status2.data
                                         .indexWhere(
                                             (e) => e.workId.toString() == val);
                                     dropdownvalueName =
-                                        get_work_order_status2.data![a].subject;
+                                        get_work_order_status2.data[a].subject;
                                   },
                                 );
                               },
@@ -715,7 +715,7 @@ class _SupportPageState extends State<SupportPage> {
                                 await getPref().then((value) {
                                   value.setString(
                                       KEYWORKID,
-                                      get_work_order_status2.data![index].workId
+                                      get_work_order_status2.data[index].workId
                                           .toString());
                                 });
                                 await getPref().then((value) {

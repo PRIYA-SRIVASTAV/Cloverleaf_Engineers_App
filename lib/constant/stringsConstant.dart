@@ -1,16 +1,30 @@
+/// WO_STATUS
+// =========Engineer============
+/// 2 => 'assign',//   assigned work order list by cluster
+/// 3 => 'ongoing', // accept by engineer
+/// 4 => 'accelerate',// by engineer
+/// 7 => 'Completed', // completed by eng
+/// 10 => 'Rejected' // rejected by engineer
+
+// =========Subject expert=======
+/// 5 => 'assign',// assigned work order list by cluster
+/// 6 => 'ongoing',// accept by se
+/// 8 => 'Rejected', // rejected by se
+
+
 String getStarted = "Get Started";
 String skip = "Skip";
 String dashboard = "Dashboard";
 String workOrders = "Work Orders";
-String Work_order_status1 ="unaccepted";
-String Work_order_status2 ="pending";
-String Work_order_status3 ="accelerated";
-String Work_order_status4 ="completed";
-String Work_order_status5 ="rejected";
-String SE_Work_order_status1 ="unaccepted";
-String SE_Work_order_status2 ="pending";
-String SE_Work_order_status3 ="rejected";
-String SE_Work_order_status4 ="completed";
+String Work_order_status1 ="2";
+String Work_order_status2 ="3";
+String Work_order_status3 ="4";
+String Work_order_status4 ="7";
+String Work_order_status5 ="10";
+String SE_Work_order_status1 ="5";
+String SE_Work_order_status2 ="6";
+String SE_Work_order_status3 ="7";
+String SE_Work_order_status4 ="8";
 String User_is_active = "1";
 String User_not_active  ="0";
 String User_is_on_leave = "1";
@@ -33,7 +47,8 @@ String title6 = "Use our digital Market Place \nfor prompt supply of quality \n 
 //on Boarding Fourth page.
 String title7 ="     Does it take too long to \ndiagnose the root cause of the \n                   problem?";
 String title8 = "Take help of our Digital tool \nand expert panel for timely \n                resolution.";
+
 class MyZegoConst{
-  static const int appId = 867701892;
-  static const String appSign = "03839347958b3a0f1f232a0570a7c68bd08f081a380fbcfad04f1a92c7b2fe5a";
+  static const int appId = 1382134047;
+  static const String appSign = "c0c0758fa12bcc6354425a65706a5651cf27b8cfc9ec35b4731f50e9fe85cb08";
 }

@@ -9,6 +9,8 @@ import '../model/GetDashboardDataModel.dart';
 import '../model/GetLeaveCalenderModel.dart';
 import '../model/GetPartsModel.dart';
 import '../model/GetPayoutDataModel.dart';
+import '../model/GetProfileSEModel.dart';
+import '../model/GetSEDashbordDataModel.dart';
 import '../model/GetUserStatusModel.dart';
 import '../model/GetprofilePageModel.dart';
 import '../model/SE_Work_order_model.dart';
@@ -128,6 +130,41 @@ class ApiCalling {
     }
   }
 
+  Future Update_SE_Profile_details(
+      name, phone, address1, address2, city, state, zip) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri Update_SE_Profile_details_Url =
+        Uri.parse(ApiEndpoints.Update_profile_url);
+        var map = {
+          "name": name,
+          "phone": phone,
+          "address_1": address1,
+          "address_2": address2,
+          "city": city,
+          "state": state,
+          "zip_code": zip,
+        };
+        var Update_SE_Profile_details_Url_Response = await client.post(
+            Update_SE_Profile_details_Url,
+            body: map,
+            headers: await headerWithoutContentTypeSE());
+        MYAPILOGS("Update profile Api", Update_SE_Profile_details_Url_Response);
+        if (Update_SE_Profile_details_Url_Response.statusCode == 200) {
+          return jsonDecode(Update_SE_Profile_details_Url_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(Update_SE_Profile_details_Url_Response.body)["message"]
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
   /// Api for is update active
   Future is_Update_active(is_active) async {
     if (await isConnectedToInternet()) {
@@ -190,7 +227,7 @@ class ApiCalling {
         map['se_wo_status'] = se_wo_status;
 
         var SE_update_wo_status_Response = await client.post(SE_update_wo_status_uri,
-            body: map, headers: await headerWithoutContentTypeENG());
+            body: map, headers: await headerWithoutContentTypeSE());
         MYAPILOGS(" SE_update_wo_status Api", SE_update_wo_status_Response);
         if (SE_update_wo_status_Response.statusCode == 200) {
           return jsonDecode(SE_update_wo_status_Response.body);
@@ -335,6 +372,33 @@ class ApiCalling {
     }
   }
 
+  Future post_SE_work_parts(work_id, parts_id,parts_name) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri post_SE_work_parts_Uri = Uri.parse(ApiEndpoints.post_work_parts_url);
+        var map = Map<String, dynamic>();
+        map['work_id'] = work_id;
+        map['parts_id'] = parts_id;
+        map['parts_name'] = parts_name;
+
+        var post_SE_work_parts_Response = await client.post(post_SE_work_parts_Uri,
+            body: map, headers: await headerWithoutContentTypeSE());
+        MYAPILOGS(" post SE work parts Api", post_SE_work_parts_Response);
+        if (post_SE_work_parts_Response.statusCode == 200) {
+          return jsonDecode(post_SE_work_parts_Response.body);
+        } else {
+          customFlutterToast(
+            jsonDecode(post_SE_work_parts_Response.body)['message'].toString(),
+          );
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
   Future Post_FCM_Token(FCM_token) async {
     if (await isConnectedToInternet()) {
       try {
@@ -358,8 +422,6 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
-
 
   /// ===============================================get Apis=================================================================
 
@@ -544,7 +606,6 @@ class ApiCalling {
     } catch (_) {}
   }
 
-
   Future get_Parts_list() async {
     try {
       if (await isConnectedToInternet()) {
@@ -562,6 +623,25 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
+  Future get_SE_Parts_list() async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_Parts_list_Uri = Uri.parse(ApiEndpoints.get_parts_Url);
+        var get_SE_Parts_list_Uri_Res = await client.get(get_SE_Parts_list_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("get SE Parts list api", get_SE_Parts_list_Uri_Res);
+        if (get_SE_Parts_list_Uri_Res.statusCode == 200) {
+          return getPartsModelFromJson(get_SE_Parts_list_Uri_Res.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
 
   /// Api for get profile detail
 
@@ -585,6 +665,28 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
+  Future get_SE_Profile_Details() async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_Profile_Details_Url =
+        Uri.parse(ApiEndpoints.SE_Profile_detail_Url);
+        var get_SE_Profile_Details_Response = await client.get(
+            get_SE_Profile_Details_Url,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("Get SE Profile details api", get_SE_Profile_Details_Response);
+        if (get_SE_Profile_Details_Response.statusCode == 200) {
+          return getProfileSeDetailsModelFromJson(
+              get_SE_Profile_Details_Response.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
 
   Future get_User_status() async {
     try {
@@ -645,6 +747,27 @@ class ApiCalling {
     } catch (_) {}
   }
 
+  Future get_SE_dashboard_data() async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_dashboard_data_Uri = Uri.parse(ApiEndpoints.SE_Dashboard_data_Url);
+        var get_SE_dashboard_data_Response = await client.get(get_SE_dashboard_data_Uri,
+            headers: await headerWithoutContentTypeSE());
+        MYAPILOGS("get SE dashboard data api", get_SE_dashboard_data_Response);
+        if (get_SE_dashboard_data_Response.statusCode == 200) {
+          return getSeDashbordDataModelFromJson(
+              get_SE_dashboard_data_Response.body
+          );
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+
   Future get_Payout_data() async {
     try {
       if (await isConnectedToInternet()) {
@@ -684,6 +807,27 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
+  Future get_Add_SE_Parts_list(Work_id) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_Add_SE_Parts_list_Uri = Uri.parse("${ApiEndpoints.get_Add_Parts_list_Url}$Work_id");
+        var get_Add_SE_Parts_list_Response = await client.get(get_Add_SE_Parts_list_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("get SE Add Parts List api", get_Add_SE_Parts_list_Response);
+        if (get_Add_SE_Parts_list_Response.statusCode == 200) {
+          return getAddPartsListModelFromJson(
+              get_Add_SE_Parts_list_Response.body
+          );
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
 
 }
 

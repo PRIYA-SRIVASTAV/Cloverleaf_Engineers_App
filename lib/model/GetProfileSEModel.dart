@@ -1,25 +1,25 @@
 // To parse this JSON data, do
 //
-//     final getProfileDetailsModel = getProfileDetailsModelFromJson(jsonString);
+//     final getProfileSeDetailsModel = getProfileSeDetailsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetProfileDetailsModel getProfileDetailsModelFromJson(String str) => GetProfileDetailsModel.fromJson(json.decode(str));
+GetProfileSeDetailsModel getProfileSeDetailsModelFromJson(String str) => GetProfileSeDetailsModel.fromJson(json.decode(str));
 
-String getProfileDetailsModelToJson(GetProfileDetailsModel data) => json.encode(data.toJson());
+String getProfileSeDetailsModelToJson(GetProfileSeDetailsModel data) => json.encode(data.toJson());
 
-class GetProfileDetailsModel {
+class GetProfileSeDetailsModel {
   String status;
   Data data;
   String message;
 
-  GetProfileDetailsModel({
+  GetProfileSeDetailsModel({
     required this.status,
     required this.data,
     required this.message,
   });
 
-  factory GetProfileDetailsModel.fromJson(Map<String, dynamic> json) => GetProfileDetailsModel(
+  factory GetProfileSeDetailsModel.fromJson(Map<String, dynamic> json) => GetProfileSeDetailsModel(
     status: json["status"],
     data: Data.fromJson(json["data"]),
     message: json["message"],
@@ -43,7 +43,7 @@ class Data {
   String address2;
   String city;
   String state;
-  String zipCode;
+  int zipCode;
   String isDeleted;
   DateTime createdAt;
   DateTime updatedAt;

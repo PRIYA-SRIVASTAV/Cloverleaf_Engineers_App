@@ -50,6 +50,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   zego_uikit_prebuilt_call: ^3.3.21
+  zego_uikit_signaling_plugin:
   firebase_core: ^2.10.1
   firebase_messaging: ^14.6.2
   permission_handler: ^10.2.0

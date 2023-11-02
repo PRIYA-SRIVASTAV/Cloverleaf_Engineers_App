@@ -430,24 +430,24 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                       Colors.grey),
                                                 ),
                                                 onPressed: () async {
-                                                  // var Work_id;
-                                                  // await getPref().then((value) {
-                                                  //   value.setString(
-                                                  //       KEYWORKID,
-                                                  //       get_work_order_status1
-                                                  //           .data[index].workId
-                                                  //           .toString());
-                                                  // });
-                                                  // await getPref().then((value) {
-                                                  //   Work_id = value
-                                                  //       .getString(KEYWORKID);
-                                                  // });
-                                                  // debugPrint(
-                                                  //     "@@@@@@@@@@@@@@@@@@@ $Work_id");
-                                                  // await update_wo_status_Controller()
-                                                  //     .update_wo_status_rejected_Controller_method(
-                                                  //     Work_id, context);
-                                                  // get_work_order_status1_method();
+                                                  var Work_id;
+                                                  await getPref().then((value) {
+                                                    value.setString(
+                                                        KEYWORKID,
+                                                        get_work_order_status1
+                                                            .data[index].workId
+                                                            .toString());
+                                                  });
+                                                  await getPref().then((value) {
+                                                    Work_id = value
+                                                        .getString(KEYWORKID);
+                                                  });
+                                                  debugPrint(
+                                                      "@@@@@@@@@@@@@@@@@@@ $Work_id");
+                                                  await update_wo_status_Controller()
+                                                      .update_wo_status_rejected_Controller_method(
+                                                      Work_id, context);
+                                                  get_work_order_status1_method();
                                                 },
                                                 child: Text(
                                                   "Reject",

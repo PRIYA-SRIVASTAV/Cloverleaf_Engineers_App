@@ -11,13 +11,8 @@ class Get_SE_Work_Order_List_Controller{
     print("SE_pending_Work_order ====> $r");
     return r;
   }
-  SE_work_order_list_Rejected_controller_method(SE_Work_Order_status3)async{
-    var r = await ApiCalling().get_SE_Work_order_list_for_Rejected(SE_Work_Order_status3);
-    print("SE_accelerated_Work_order ====> $r");
-    return r;
-  }
-  SE_work_order_list_completed_controller_method(SE_Work_Order_status4)async{
-    var r = await ApiCalling().get_SE_Work_order_list_for_Completed(SE_Work_Order_status4);
+  SE_work_order_list_completed_controller_method(SE_Work_Order_status3)async{
+    var r = await ApiCalling().get_SE_Work_order_list_for_Completed(SE_Work_Order_status3);
     print("SE_completed_work_order ====> $r");
     return r;
   }

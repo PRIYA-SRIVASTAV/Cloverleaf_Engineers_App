@@ -1,4 +1,4 @@
-var baseUrl = "https://clickcloud.in/cloverleaf/public/api";
+var baseUrl = "https://getmeacard.com/cloverleaf123/public/api";
 class ApiEndpoints {
   //Api's for Engineer
   /// post apis
@@ -22,10 +22,16 @@ class ApiEndpoints {
   static String get_payout_data_Url = "$baseUrl/get-payout";
   static String get_Add_Parts_list_Url = "$baseUrl/get-parts/";
 
- //Api's for Engineer
+//============================== Api's for Subject Expert =============================================================
+
 /// post apis
   static String SE_update_wo_status_url = "$baseUrl/update-se-status";
+  static String SE_Update_profile_url = "$baseUrl/user-update";
 
-/// get apis
+
+  /// get apis
   static String SE_Work_order_List_Url = "$baseUrl/sub-ex-work-list?wo_status=";
+  static String SE_Profile_detail_Url = "$baseUrl/user-details/";
+  static String SE_Dashboard_data_Url = "$baseUrl/subject-expert-dashboard";
+
 }

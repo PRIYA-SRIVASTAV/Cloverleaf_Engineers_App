@@ -33,10 +33,10 @@ class GetDashboardDataModel {
 }
 
 class Data {
-  int pending;
-  int unassign;
+  int assign;
+  int ongoing;
+  int accelerate;
   int completed;
-  int accelerated;
   int rejected;
   String payout;
   String pendingPerc;
@@ -45,10 +45,10 @@ class Data {
   String accPerc;
 
   Data({
-    required this.pending,
-    required this.unassign,
+    required this.assign,
+    required this.ongoing,
+    required this.accelerate,
     required this.completed,
-    required this.accelerated,
     required this.rejected,
     required this.payout,
     required this.pendingPerc,
@@ -58,10 +58,10 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    pending: json["pending"],
-    unassign: json["unassign"],
+    assign: json["assign"],
+    ongoing: json["ongoing"],
+    accelerate: json["accelerate"],
     completed: json["completed"],
-    accelerated: json["accelerated"],
     rejected: json["rejected"],
     payout: json["payout"],
     pendingPerc: json["pending_perc"],
@@ -71,10 +71,10 @@ class Data {
   );
 
   Map<String, dynamic> toJson() => {
-    "pending": pending,
-    "unassign": unassign,
+    "assign": assign,
+    "ongoing": ongoing,
+    "accelerate": accelerate,
     "completed": completed,
-    "accelerated": accelerated,
     "rejected": rejected,
     "payout": payout,
     "pending_perc": pendingPerc,

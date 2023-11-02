@@ -1,9 +1,12 @@
+import 'package:cloverleaf_project/controller/Get_SE_Dashboard_percentage_details_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
+import '../../../model/GetSEDashbordDataModel.dart';
+import '../BottomNavigationPageSE.dart';
 import '../DrawerSE/DrawerSE.dart';
 
 class DashboardSE extends StatefulWidget {
@@ -16,41 +19,19 @@ class DashboardSE extends StatefulWidget {
 class _DashboardSEState extends State<DashboardSE> {
   Map<String, double> dataMap = {};
   int key1 = 0;
-
-  Widget pieChartsOne(context) {
-    return PieChart(
-      key: ValueKey(key1),
-      dataMap: dataMap,
-      initialAngleInDegree: 0,
-      animationDuration: const Duration(milliseconds: 2000),
-      chartType: ChartType.ring,
-      chartRadius: 8.h,
-      ringStrokeWidth: 10.h,
-      colorList: colorList1,
-      chartLegendSpacing: 10.h,
-      chartValuesOptions: ChartValuesOptions(
-          showChartValuesOutside: true,
-          // showChartValuesInPercentage: true,
-          //showChartValueBackground: true,
-          showChartValues: true,
-          chartValueStyle: chartValueStyle),
-      //centerText: 'Task Status',
-      legendOptions: LegendOptions(
-        showLegendsInRow: false,
-        showLegends: true,
-        legendShape: BoxShape.rectangle,
-        // legendPosition: LegendPosition.right,
-        legendTextStyle: legendTextStyle,
-      ),
-    );
-  }
-
   List<Color> colorList1 = [
     appThemeColor,
     Colors.orange,
     Colors.blue,
-    Colors.grey
   ];
+  bool is_load_SE_Dashboard_data = false;
+  late GetSeDashbordDataModel get_SE_dashboard_data;
+
+  @override
+  void initState() {
+    super.initState();
+    Get_SE_Dashboard_data_method();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,251 +101,280 @@ class _DashboardSEState extends State<DashboardSE> {
           ),
           color: Colors.white,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: ListView(
-            children: [
-              Container(
-                height: 28.h,
-                width: double.infinity,
-                child: Card(
-                  shape: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade200),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Summary",
-                          style: dashboardCardStyle,
-                        ),
-                      ),
-                      // SizedBox(
-                      //   height: 5.h,
-                      // ),
-                      // Padding(
-                      //   padding: EdgeInsets.only(left: 12.w),
-                      //   child: pieChartsOne(context),
-                      // ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              InkWell(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BottomNavigationPage(
-                  //         BottomIndex: 1, SendTabIndex: 3),
-                  //   ),
-                  // );
-                },
-                child: SizedBox(
-                  height: 8.h,
-                  width: double.infinity,
-                  child: Card(
-                    shape: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade200),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: is_load_SE_Dashboard_data
+            ? Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: get_SE_dashboard_data.data.compPerc.isEmpty
+                    ? Center(
+                        child:
+                            Text("${get_SE_dashboard_data.message.toString()}"),
+                      )
+                    : ListView(
                         children: [
-                          Text("Completed Work Orders",
-                              style: dashboardCardStyle),
-                          Text(
-                            "lll",
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                                color: appThemeColor),
+                          Container(
+                            height: 28.h,
+                            width: double.infinity,
+                            child: Card(
+                              shape: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade200),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Summary",
+                                      style: dashboardCardStyle,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 12.w),
+                                    child: pieChartsOne(context),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              InkWell(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BottomNavigationPage(
-                  //         BottomIndex: 1, SendTabIndex: 1),
-                  //   ),
-                  // );
-                },
-                child: SizedBox(
-                  height: 8.h,
-                  width: double.infinity,
-                  child: Card(
-                    shape: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade200),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("OnGoing Work Orders",
-                              style: dashboardCardStyle),
-                          Text(
-                            "lll",
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.orange),
+                          SizedBox(
+                            height: 2.h,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              InkWell(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BottomNavigationPage(
-                  //         BottomIndex: 1, SendTabIndex: 2),
-                  //   ),
-                  // );
-                },
-                child: SizedBox(
-                  height: 8.h,
-                  width: double.infinity,
-                  child: Card(
-                    shape: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade200),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Rejected Work Orders",
-                              style: dashboardCardStyle),
-                          Text(
-                            "lll",
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BottomNavigationPageSE(
+                                      BottomIndex: 1, SendTabIndex: 2),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              height: 8.h,
+                              width: double.infinity,
+                              child: Card(
+                                shape: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey.shade200),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Completed Work Orders",
+                                          style: dashboardCardStyle),
+                                      Text(
+                                        get_SE_dashboard_data.data.completed
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: appThemeColor),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BottomNavigationPageSE(
+                                      BottomIndex: 1, SendTabIndex: 1),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              height: 8.h,
+                              width: double.infinity,
+                              child: Card(
+                                shape: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.grey.shade200),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("OnGoing Work Orders",
+                                          style: dashboardCardStyle),
+                                      Text(
+                                        get_SE_dashboard_data.data.onging
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.orange),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BottomNavigationPageSE(
+                                      BottomIndex: 1, SendTabIndex: 0),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              height: 8.h,
+                              width: double.infinity,
+                              child: Card(
+                                shape: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.grey.shade200),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Unaccepted Work Orders",
+                                          style: dashboardCardStyle),
+                                      Text(
+                                        get_SE_dashboard_data.data.assign
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => PayoutPage(),
+                              //   ),
+                              // );
+                            },
+                            child: SizedBox(
+                              height: 8.h,
+                              width: double.infinity,
+                              child: Card(
+                                shape: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.grey.shade200),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Total Payouts",
+                                          style: dashboardCardStyle),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.currency_rupee_sharp,
+                                            size: 16.sp,
+                                          ),
+                                          Text(
+                                            get_SE_dashboard_data.data.payout
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 16.sp,
+                                                color: appThemeColor,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
+              )
+            : Center(
+                child: Text(
+                  "Work order not assign yet !!!",
                 ),
               ),
-              SizedBox(
-                height: 1.h,
-              ),
-              InkWell(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BottomNavigationPage(
-                  //         BottomIndex: 1, SendTabIndex: 0),
-                  //   ),
-                  // );
-                },
-                child: SizedBox(
-                  height: 8.h,
-                  width: double.infinity,
-                  child: Card(
-                    shape: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade200),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Unaccepted Work Orders",
-                              style: dashboardCardStyle),
-                          Text(
-                            "lll",
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              InkWell(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => PayoutPage(),
-                  //   ),
-                  // );
-                },
-                child: SizedBox(
-                  height: 8.h,
-                  width: double.infinity,
-                  child: Card(
-                    shape: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade200),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Total Payouts", style: dashboardCardStyle),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.currency_rupee_sharp,
-                                size: 16.sp,
-                              ),
-                              Text(
-                                "lll",
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: appThemeColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
+  }
+
+  Widget pieChartsOne(context) {
+    return PieChart(
+      key: ValueKey(key1),
+      dataMap: dataMap,
+      initialAngleInDegree: 0,
+      animationDuration: const Duration(milliseconds: 2000),
+      chartType: ChartType.ring,
+      chartRadius: 8.h,
+      ringStrokeWidth: 10.h,
+      colorList: colorList1,
+      chartLegendSpacing: 10.h,
+      chartValuesOptions: ChartValuesOptions(
+          showChartValuesOutside: true,
+          // showChartValuesInPercentage: true,
+          //showChartValueBackground: true,
+          showChartValues: true,
+          chartValueStyle: chartValueStyle),
+      //centerText: 'Task Status',
+      legendOptions: LegendOptions(
+        showLegendsInRow: false,
+        showLegends: true,
+        legendShape: BoxShape.rectangle,
+        // legendPosition: LegendPosition.right,
+        legendTextStyle: legendTextStyle,
+      ),
+    );
+  }
+
+  void Get_SE_Dashboard_data_method() async {
+    get_SE_dashboard_data =
+        await Get_SE_Dashboard_percentage_details_Controller()
+            .Get_SE_Dashboard_percentage_details_Controller_method();
+    Map<String, double> percentage = {
+      'Completed': double.parse(get_SE_dashboard_data.data.compPerc.toString()),
+      'Pending':
+          double.parse(get_SE_dashboard_data.data.ongoingPerc.toString()),
+      'UnAccepted':
+          double.parse(get_SE_dashboard_data.data.assignPerc.toString()),
+    };
+    dataMap = percentage;
+    setState(() {
+      is_load_SE_Dashboard_data = true;
+    });
   }
 }

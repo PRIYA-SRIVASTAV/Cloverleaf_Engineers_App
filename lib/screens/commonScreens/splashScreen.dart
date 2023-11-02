@@ -10,8 +10,6 @@ import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
 import '../../constant/prefsConstant.dart';
 import '../../constant/testStyleConstant.dart';
-import '../../core/locator.dart';
-import '../../core/navigatorService.dart';
 import '../../utils/helperMethods.dart';
 import '../onBoardingScreen/onBoardingPage1.dart';
 import '../subjectExpertScreen/BottomNavigationPageSE.dart';

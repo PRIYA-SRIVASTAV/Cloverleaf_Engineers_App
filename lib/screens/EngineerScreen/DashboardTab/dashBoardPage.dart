@@ -1,8 +1,10 @@
 import 'package:cloverleaf_project/controller/Get_Dashboard_percentage%20Details_Controller.dart';
 import 'package:cloverleaf_project/controller/Get_User_status_controller.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
+import 'package:cloverleaf_project/utils/helperWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -18,7 +20,6 @@ import '../../subjectExpertScreen/BottomNavigationPageSE.dart';
 import '../Drawer/PayoutPage.dart';
 import '../Drawer/customDrawer.dart';
 
-
 class dashBoardPage extends StatefulWidget {
   dashBoardPage({super.key});
 
@@ -33,15 +34,14 @@ class _dashBoardPageState extends State<dashBoardPage> {
   late GetUserStatusModel get_user_status_data;
   late GetDashboardDataModel get_dashboard_data;
   Map<String, double> dataMap = {};
-
+  late bool serviceEnabled;
+  late LocationPermission permission;
   double? lat;
   double? long;
   String address = "";
+  Future<Position>? data;
 
   Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -78,19 +78,8 @@ class _dashBoardPageState extends State<dashBoardPage> {
         desiredAccuracy: LocationAccuracy.high);
   }
 
-  getLatLong() {
-    Future<Position> data = _determinePosition();
-    data.then((value) {
-      print("value $value");
-      setState(() {
-        lat = value.latitude;
-        long = value.longitude;
-      });
-
-      getAddress(value.latitude, value.longitude);
-    }).catchError((error) {
-      print("Error $error");
-    });
+  getLatLong() async {
+    data = _determinePosition();
   }
 
   getAddress(lat, long) async {
@@ -178,19 +167,8 @@ class _dashBoardPageState extends State<dashBoardPage> {
                     borderRadius: 30,
                     padding: 4,
                     showOnOff: true,
-                    onToggle: (val) async {
-                      setState(() {
-                        tapButton();
-                      });
-                      await is_update_active_controller()
-                          .is_update_active_controller_method(
-                              online_offline_status);
-                      if (await online_offline_status == true) {
-                        await getLatLong();
-                        Post_current_location_controller()
-                            .Post_current_location_controller_method(
-                                lat, long, address);
-                      }
+                    onToggle: (val) {
+                      tapButton();
                     },
                   )
                 : SizedBox(
@@ -333,10 +311,10 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Pending Work Orders",
+                                      Text("Ongoing Work Orders",
                                           style: dashboardCardStyle),
                                       Text(
-                                        "${get_dashboard_data.data.pending}",
+                                        "${get_dashboard_data.data.ongoing}",
                                         style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.bold,
@@ -379,7 +357,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                       Text("Accelerated Work Orders",
                                           style: dashboardCardStyle),
                                       Text(
-                                        "${get_dashboard_data.data.accelerated}",
+                                        "${get_dashboard_data.data.accelerate}",
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.bold,
@@ -421,7 +399,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                       Text("Unaccepted Work Orders",
                                           style: dashboardCardStyle),
                                       Text(
-                                        "${get_dashboard_data.data.unassign}",
+                                        "${get_dashboard_data.data.assign}",
                                         style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.bold,
@@ -482,40 +460,6 @@ class _dashBoardPageState extends State<dashBoardPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MainClassSE(),
-                                ),
-                              );
-                            },
-                            child: SizedBox(
-                              height: 8.h,
-                              width: double.infinity,
-                              child: Card(
-                                shape: OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: Colors.grey.shade200),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Subject Experts",
-                                          style: dashboardCardStyle),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
               )
@@ -527,7 +471,44 @@ class _dashBoardPageState extends State<dashBoardPage> {
   }
 
   void tapButton() async {
-    online_offline_status = !online_offline_status;
+    if (online_offline_status == false) {
+      await getLatLong();
+      await data?.then((value) {
+        print("value $value");
+        lat = value.latitude;
+        long = value.longitude;
+
+        getAddress(value.latitude, value.longitude);
+      }).catchError((error) {
+        print("Error $error");
+      });
+      if (lat == null) {
+        setState(() {
+          online_offline_status = false;
+          Fluttertoast.showToast(
+              msg: "Please turn on location !",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.sp
+          );
+        });
+      } else {
+        setState(() {
+          online_offline_status = true;
+        });
+        await is_update_active_controller()
+            .is_update_active_controller_method(online_offline_status);
+        await Post_current_location_controller()
+            .Post_current_location_controller_method(lat, long, address);
+      }
+    } else {
+      setState(() {
+        online_offline_status = false;
+      });
+    }
   }
 
   void Get_User_status_method() async {
@@ -552,8 +533,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
       'Pending': double.parse(get_dashboard_data.data.pendingPerc.toString()),
       'UnAccepted':
           double.parse(get_dashboard_data.data.unassignPerc.toString()),
-      'Accelerated':
-      double.parse(get_dashboard_data.data.accPerc.toString()),
+      'Accelerated': double.parse(get_dashboard_data.data.accPerc.toString()),
     };
     dataMap = percentage;
     setState(() {

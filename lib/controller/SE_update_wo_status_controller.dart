@@ -7,7 +7,7 @@ import '../utils/helperWidget.dart';
 
 class SE_update_wo_status_Controller{
   SE_update_wo_status_accepted_Controller_method(work_id,context)async{
-    var r = await ApiCalling().SE_update_wo_status(work_id,SE_Work_order_status1);
+    var r = await ApiCalling().SE_update_wo_status(work_id,SE_Work_order_status2);
     log("SE_update_wo_status accepted $r");
     if (r['status'].toString()=="true") {
       customFlutterToast(r["message"].toString());
@@ -22,31 +22,15 @@ class SE_update_wo_status_Controller{
       customFlutterToast(r["message"].toString());
     }
   }
-  SE_update_wo_status_rejected_Controller_method(work_id,context)async{
-    var r = await ApiCalling().SE_update_wo_status(work_id,SE_Work_order_status3);
-    log("SE_update_wo_status rejected $r");
-    if (r['status'].toString()=="false") {
-      customFlutterToast(r["message"].toString());
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>BottomNavigationPageSE(BottomIndex:1,SendTabIndex:0),
-
-        ),
-      );
-    } else {
-      customFlutterToast(r["message"].toString());
-    }
-  }
-  SE_update_wo_status_completed_Controller_method(work_id,context)async{
+  SE_update_wo_status_Rejected_Controller_method(work_id,context)async{
     var r = await ApiCalling().SE_update_wo_status(work_id,SE_Work_order_status4);
-    log("SE_update_wo_status completed $r");
+    log("SE_update_wo_status Rejected $r");
     if (r['status'].toString()=="true") {
       customFlutterToast(r["message"].toString());
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>BottomNavigationPageSE(BottomIndex:1,SendTabIndex:3),
+          builder: (context) =>BottomNavigationPageSE(BottomIndex:1,SendTabIndex:0),
         ),
       );
     } else {

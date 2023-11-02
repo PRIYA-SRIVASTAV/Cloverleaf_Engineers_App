@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloverleaf_project/constant/stringsConstant.dart';
 import 'package:cloverleaf_project/screens/commonScreens/splashScreen.dart';
 import 'package:cloverleaf_project/utils/helperMethods.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,7 +8,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'constant/colorConstant.dart';
+import 'constant/prefsConstant.dart';
 import 'core/locator.dart';
 import 'core/navigatorService.dart';
 
@@ -16,7 +20,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
   String? title = message.data["title"];
   String? body = message.data["body"];
   AudioNotificationPlayStop(1);
-debugPrint("Notifivation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  debugPrint("Notifivation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: 12,
@@ -66,10 +70,17 @@ void main() async {
             channelGroupkey: 'basic_channel_group',
             channelGroupName: 'Basic group'),
       ],
-      debug: true);
+      debug: true
+  );
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  /// 1.1.1 define a navigator key
+  final navigatorKey = GlobalKey<NavigatorState>();
+
+  /// 1.1.2: set navigator key to ZegoUIKitPrebuiltCallInvitationService
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
 
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   setupLocator();
@@ -86,6 +97,7 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+
   MyApp({super.key});
 
   @override
@@ -93,11 +105,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var ENG_ID;
+  var ENG_Name;
   @override
   void initState() {
     //2. This method only call when App in foreground it mean app must be opened
     FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) {
+          (RemoteMessage message) {
         debugPrint("call when App in foreground");
         AudioNotificationPlayStop(1);
         String? title = message.data["title"];
@@ -133,7 +147,7 @@ class _MyAppState extends State<MyApp> {
 
     //3. This method only call when App in background and not terminated(not closed)
     FirebaseMessaging.onMessageOpenedApp.listen(
-      (message) {
+          (message) {
         debugPrint("call when App in background");
         if (message.notification != null) {
           print(message.notification!.title);
@@ -142,9 +156,18 @@ class _MyAppState extends State<MyApp> {
         }
       },
     );
-
-
     super.initState();
+    getPref().then((value) {
+      if (mounted) {
+        setState(() {
+          ENG_ID = value.getString(KEYUNIQUEID);
+          ENG_Name = value.getString(KEYUSERNAME);
+        });
+      }
+    });
+    if (ENG_ID!=null) {
+      onUserLogin();
+    }
   }
 
   @override
@@ -164,5 +187,26 @@ class _MyAppState extends State<MyApp> {
         );
       },
     );
+  }
+
+  /// on App's user login
+  void onUserLogin() {
+    /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
+    /// when app's user is logged in or re-logged in
+    /// We recommend calling this method as soon as the user logs in to your app.
+    ZegoUIKitPrebuiltCallInvitationService().init(
+      appID: MyZegoConst.appId /*input your AppID*/,
+      appSign: MyZegoConst.appSign /*input your AppSign*/,
+      userID: ENG_ID,
+      userName: ENG_Name,
+      plugins: [ZegoUIKitSignalingPlugin()],
+    );
+  }
+
+  /// on App's user logout
+  void onUserLogout() {
+    /// 1.2.2. de-initialization ZegoUIKitPrebuiltCallInvitationService
+    /// when app's user is logged out
+    ZegoUIKitPrebuiltCallInvitationService().uninit();
   }
 }

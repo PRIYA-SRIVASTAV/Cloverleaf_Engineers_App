@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final getSeWorkOrderListModel = getSeWorkOrderListModelFromJson(jsonString);
+
 import 'dart:convert';
 
 GetSeWorkOrderListModel getSeWorkOrderListModelFromJson(String str) => GetSeWorkOrderListModel.fromJson(json.decode(str));
@@ -36,7 +40,7 @@ class Datum {
   String desc;
   String loc;
   String asset;
-  String seWoStatus;
+  String woStatus;
   int assignedEngineerId;
   String assignedEngineerName;
 
@@ -48,7 +52,7 @@ class Datum {
     required this.desc,
     required this.loc,
     required this.asset,
-    required this.seWoStatus,
+    required this.woStatus,
     required this.assignedEngineerId,
     required this.assignedEngineerName,
   });
@@ -61,7 +65,7 @@ class Datum {
     desc: json["desc"],
     loc: json["loc"],
     asset: json["asset"],
-    seWoStatus: json["se_wo_status"],
+    woStatus: json["wo_status"],
     assignedEngineerId: json["assigned_engineer_id"],
     assignedEngineerName: json["assigned_engineer_name"],
   );
@@ -74,7 +78,7 @@ class Datum {
     "desc": desc,
     "loc": loc,
     "asset": asset,
-    "se_wo_status": seWoStatus,
+    "wo_status": woStatus,
     "assigned_engineer_id": assignedEngineerId,
     "assigned_engineer_name": assignedEngineerName,
   };

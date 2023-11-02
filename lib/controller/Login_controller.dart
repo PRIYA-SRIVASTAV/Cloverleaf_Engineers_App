@@ -19,11 +19,11 @@ class Login_Controller {
       var r = await ApiCalling().Login(email, password, type);
       log("rrrrrrrrrrrrrrrrrrr $r");
       if (r['status'].toString() == 'true') {
-        if(r['data']['user_type']=='engineer'){
+        if(r['data']['user_type']=='eng'){
           await getPref().then((value) {
             value.setString(KEYENGTOKEN, r['token'].toString());
-            value.setString(KEYENGID, r['data']['eng_id'].toString());
-            value.setString(KEYENGNAME, r['data']['name'].toString());
+            value.setString(KEYUNIQUEID, r['data']['unique_id'].toString());
+            value.setString(KEYUSERNAME, r['data']['name'].toString());
           });
           customFlutterToast(r["message"]);
           Navigator.push(
@@ -36,6 +36,8 @@ class Login_Controller {
         else{
           await getPref().then((value) {
             value.setString(KEYSETOKEN, r['token'].toString());
+            value.setString(KEYUNIQUEID, r['data']['unique_id'].toString());
+            value.setString(KEYUSERNAME, r['data']['name'].toString());
           });
           customFlutterToast(r["message"]);
           Navigator.push(
