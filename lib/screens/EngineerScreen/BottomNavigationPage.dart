@@ -17,27 +17,27 @@ class MainClassEng extends StatefulWidget {
 
 class _MainClassEngState extends State<MainClassEng> {
   @override
-  void initState() {
-    AwesomeNotifications().actionStream.listen(
-      (event) async {
-        if (event.buttonKeyPressed == "REJECT") {
-          debugPrint("Work Order rejected");
-          AudioNotificationPlayStop(0);
-        } else if (event.buttonKeyPressed == "ACCEPT") {
-          debugPrint("Work Order Accepted");
-          AudioNotificationPlayStop(0);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => BottomNavigationPage(BottomIndex: 1,SendTabIndex: 1,)));
-        } else {
-          debugPrint("Clicked on notification");
-          AudioNotificationPlayStop(0);
-        }
-      },
-    );
-    super.initState();
-  }
+  // void initState() {
+  //   AwesomeNotifications().actionStream.listen(
+  //     (event) async {
+  //       if (event.buttonKeyPressed == "REJECT") {
+  //         debugPrint("Work Order rejected");
+  //         AudioNotificationPlayStop(0);
+  //       } else if (event.buttonKeyPressed == "ACCEPT") {
+  //         debugPrint("Work Order Accepted");
+  //         AudioNotificationPlayStop(0);
+  //         Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //                 builder: (_) => BottomNavigationPage(BottomIndex: 1,SendTabIndex: 1,)));
+  //       } else {
+  //         debugPrint("Clicked on notification");
+  //         AudioNotificationPlayStop(0);
+  //       }
+  //     },
+  //   );
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +58,7 @@ class BottomNavigationPage extends StatefulWidget {
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int _selectedIndex = 0;
   bool selectedTabs = true;
+
 
   void _onItemTapped(int index) {
     setState(
@@ -89,7 +90,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       SupportPage(),
     ];
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:
+      BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           backgroundColor: appThemeColor,
           items: <BottomNavigationBarItem>[

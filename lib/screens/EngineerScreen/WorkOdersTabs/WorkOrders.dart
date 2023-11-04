@@ -1,5 +1,6 @@
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
 import 'package:cloverleaf_project/controller/work_order_list_controller.dart';
+import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/PayoutPage.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
@@ -22,6 +23,7 @@ class WorkOrders extends StatefulWidget {
 }
 
 class _WorkOrdersState extends State<WorkOrders> {
+  TextEditingController CommentController = TextEditingController();
   late GetWorkOrderListModel get_work_order_status1;
   late GetWorkOrderListModel get_work_order_status2;
   late GetWorkOrderListModel get_work_order_status3;
@@ -39,7 +41,6 @@ class _WorkOrdersState extends State<WorkOrders> {
     get_work_order_status3_method();
     get_work_order_status4_method();
   }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -79,14 +80,10 @@ class _WorkOrdersState extends State<WorkOrders> {
             child: Column(
               children: [
                 Container(
-                  height: 5.h,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(25.h),
-                  ),
                   child: TabBar(
+                    isScrollable:true,
                     labelStyle: TextStyle(
-                        fontSize: 8.sp, fontWeight: FontWeight.bold),
+                        fontSize:12.sp, fontWeight: FontWeight.bold),
                     indicator: BoxDecoration(
                       color: Theme
                           .of(context)
@@ -100,15 +97,20 @@ class _WorkOrdersState extends State<WorkOrders> {
                         text: 'Work Orders',
                       ),
                       Tab(
-                        text: 'Pending',
+                        text: 'ongoing',
                       ),
                       Tab(
-                        text: 'Accelerated',
+                        text: 'Accelerate',
                       ),
                       Tab(
                         text: 'Completed',
                       ),
                     ],
+                  ),
+                  height: 5.h,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(25.h),
                   ),
                 ),
                 SizedBox(
@@ -908,7 +910,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                             ),
                                           ),
                                           Container(
-                                            height: 20.h,
+                                            height: 27.h,
                                             width: 30.w,
                                             child: Column(
                                               mainAxisAlignment:
@@ -986,6 +988,39 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                           color: Colors.grey),
                                                     )
                                                   ],
+                                                ),
+                                                SizedBox(
+                                                  width: 35.w,
+                                                  child: ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      shape:
+                                                      MaterialStateProperty.all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Theme
+                                                              .of(context)
+                                                              .primaryColor),
+                                                    ),
+                                                    onPressed: () async {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext context) {
+                                                          return Complete_WO_dialog(context,index);
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "Complete",
+                                                      style: TextStyle(
+                                                          fontSize: 10.sp),
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -1312,4 +1347,167 @@ class _WorkOrdersState extends State<WorkOrders> {
       is_status4_work_list_load = true;
     });
   }
+  Widget Complete_WO_dialog(context,index) {
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        return   Dialog(
+          child: Container(
+            height: 30.h,
+            child: Stack(
+              // alignment: Alignment.topRight,
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(4.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Confirmation",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.sp,
+                              color: appThemeColor),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        TextFormField(
+                          controller: CommentController,
+                          maxLength: 100,
+                          decoration: InputDecoration(
+                            counterText: "",
+                              suffixIcon: Icon(Icons.note_alt),
+                              border: UnderlineInputBorder(),
+                              hintText: "Enter any comment"),
+                        ),
+                        SizedBox(height:2.h),
+                        Text('Are you sure you want to mark it as Complete?',style: TextStyle(fontWeight: FontWeight.w500),),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.h),
+                          child: Row(
+                            children: [
+                              TextButton(
+                                child: Text('Cancel',style: TextStyle(fontSize:10.sp,color: Colors.red),),
+                                onPressed: () {
+                                  Navigator.of(context).pop(); // Close the dialog
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Continue',style: TextStyle(fontSize:10.sp,color: appThemeColor),),
+                                onPressed: ()async {
+                                  var Work_id;
+                                  await getPref()
+                                      .then((value) {
+                                    value.setString(
+                                        KEYWORKID,
+                                        get_work_order_status3
+                                            .data[index]
+                                            .workId
+                                            .toString());
+                                  });
+                                  await getPref()
+                                      .then((value) {
+                                    Work_id =
+                                        value.getString(
+                                            KEYWORKID);
+                                  });
+                                  await update_wo_status_Controller()
+                                      .update_wo_status_completed_Controller_method(
+                                      Work_id,
+                                      context);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 2,
+                  top: 2,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Align(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                        key: Key('closeIconKey'),
+                        radius: 15,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+        //   AlertDialog(
+        //   title: Text('Confirmation'),
+        //   content: Container(
+        //     width: 200, // Set the width as per your preference
+        //     height: 100, // Set the height as per your preference
+        //     child: Center(
+        //       child: Row(
+        //         children: [
+        //           TextFormField(
+        //             controller: CommentController,
+        //             // maxLength: 100,
+        //             decoration: InputDecoration(
+        //                 suffixIcon: Icon(Icons.note_alt),
+        //                 border: UnderlineInputBorder(),
+        //                 hintText: "Enter reason"),
+        //           ),
+        //           Text('Are you sure you want to mark it as Complete?'),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        //   actions: <Widget>[
+        //     TextButton(
+        //       child: Text('Cancel',style: TextStyle(color: Colors.red),),
+        //       onPressed: () {
+        //         Navigator.of(context).pop(); // Close the dialog
+        //       },
+        //     ),
+        //     TextButton(
+        //       child: Text('Continue',style: TextStyle(color: appThemeColor),),
+        //       onPressed: ()async {
+        //         var Work_id;
+        //         await getPref()
+        //             .then((value) {
+        //           value.setString(
+        //               KEYWORKID,
+        //               get_work_order_status3
+        //                   .data[index]
+        //                   .workId
+        //                   .toString());
+        //         });
+        //         await getPref()
+        //             .then((value) {
+        //           Work_id =
+        //               value.getString(
+        //                   KEYWORKID);
+        //         });
+        //         await update_wo_status_Controller()
+        //             .update_wo_status_completed_Controller_method(
+        //             Work_id,
+        //             context);
+        //       },
+        //     ),
+        //   ],
+        // );
+      },
+    );
+  }
+
 }

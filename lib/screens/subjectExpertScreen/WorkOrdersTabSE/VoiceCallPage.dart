@@ -1,19 +1,18 @@
-import 'package:cloverleaf_project/constant/stringsConstant.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+
 import '../../../constant/prefsConstant.dart';
+import '../../../constant/stringsConstant.dart';
 import '../../../utils/helperMethods.dart';
 
-class VideoCallPage extends StatefulWidget {
-  const VideoCallPage({super.key, required this.callID});
-
+class VoiceCallPage extends StatefulWidget {
+  const VoiceCallPage({super.key, required this.callID});
   final String callID;
-
   @override
-  State<VideoCallPage> createState() => _VideoCallPageState();
+  State<VoiceCallPage> createState() => _VoiceCallPageState();
 }
 
-class _VideoCallPageState extends State<VideoCallPage> {
+class _VoiceCallPageState extends State<VoiceCallPage> {
   String SEID = "";
   String SEName = "";
 
@@ -29,7 +28,6 @@ class _VideoCallPageState extends State<VideoCallPage> {
     });
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,7 +40,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
         userName: SEName,
         callID: widget.callID,
         // You can also use groupVideo/groupVoice/oneOnOneVoice to make more types of calls.
-        config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+        config: ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
           ..onOnlySelfInRoom = (context) => Navigator.of(context).pop(),
       ),
     );

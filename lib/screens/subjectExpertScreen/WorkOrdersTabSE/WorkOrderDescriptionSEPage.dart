@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloverleaf_project/screens/subjectExpertScreen/WorkOrdersTabSE/VoiceCallPage.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
@@ -503,9 +504,9 @@ class _WorkOrderDescriptionSEpageState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () {
+                     onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
+                           MaterialPageRoute(
                               builder: (context) => VideoCallPage(callID: "1")),
                         );
                       },
@@ -521,7 +522,12 @@ class _WorkOrderDescriptionSEpageState
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => VoiceCallPage(callID: "1")),
+                        );
+                      },
                       child: Column(
                         children: [
                           Icon(
