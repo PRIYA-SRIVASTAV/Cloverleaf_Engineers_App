@@ -53,4 +53,5 @@ class MyZegoConst{
   static const String appSign = "c0c0758fa12bcc6354425a65706a5651cf27b8cfc9ec35b4731f50e9fe85cb08";
   static String callDuration = "";
   static DateTime callStarted = new DateTime.now();
+
 }
