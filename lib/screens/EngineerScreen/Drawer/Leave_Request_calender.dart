@@ -66,6 +66,11 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
         backgroundColor: appThemeColor,
         centerTitle: true,
         title: const Text('Leave Calendar'),
+        leading: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios)),
       ),
       body: is_load_Leave_calendar_data
           ? SingleChildScrollView(

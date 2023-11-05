@@ -2,7 +2,6 @@ import 'package:cloverleaf_project/controller/Get_Dashboard_percentage%20Details
 import 'package:cloverleaf_project/controller/Get_User_status_controller.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/test_payroll_ui.dart';
-import 'package:cloverleaf_project/utils/helperWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,6 +9,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:sizer/sizer.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
@@ -17,8 +17,7 @@ import '../../../controller/Post_current_location_controller.dart';
 import '../../../controller/is_update_active_controller.dart';
 import '../../../model/GetDashboardDataModel.dart';
 import '../../../model/GetUserStatusModel.dart';
-import '../../subjectExpertScreen/BottomNavigationPageSE.dart';
-import '../Drawer/PayoutPage.dart';
+import '../../subjectExpertScreen/DashboardTab/DashboardSETab.dart';
 import '../Drawer/customDrawer.dart';
 
 class dashBoardPage extends StatefulWidget {
@@ -420,7 +419,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => test_payroll(),
+                                  builder: (context) => Payout_list(),
                                 ),
                               );
                             },
@@ -461,6 +460,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                               ),
                             ),
                           ),
+
                         ],
                       ),
               )

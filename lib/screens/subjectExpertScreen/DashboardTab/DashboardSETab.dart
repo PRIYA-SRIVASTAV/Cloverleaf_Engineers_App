@@ -2,10 +2,14 @@ import 'package:cloverleaf_project/controller/Get_SE_Dashboard_percentage_detail
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:sizer/sizer.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import '../../../Services/ZegoLoginServices.dart';
 import '../../../constant/colorConstant.dart';
+import '../../../constant/prefsConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
 import '../../../model/GetSEDashbordDataModel.dart';
+import '../../../utils/helperWidget.dart';
 import '../BottomNavigationPageSE.dart';
 import '../DrawerSE/DrawerSE.dart';
 
@@ -17,6 +21,11 @@ class DashboardSE extends StatefulWidget {
 }
 
 class _DashboardSEState extends State<DashboardSE> {
+  final TextEditingController singleInviteeUserIDTextCtrl =
+      TextEditingController();
+  final TextEditingController groupInviteeUserIDsTextCtrl =
+      TextEditingController();
+
   Map<String, double> dataMap = {};
   int key1 = 0;
   List<Color> colorList1 = [
@@ -29,8 +38,8 @@ class _DashboardSEState extends State<DashboardSE> {
 
   @override
   void initState() {
-    super.initState();
     Get_SE_Dashboard_data_method();
+    super.initState();
   }
 
   @override
@@ -321,6 +330,49 @@ class _DashboardSEState extends State<DashboardSE> {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text('Your Phone Number: ${currentUser.id}'),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Container(
+                                    child: TextFormField(
+                                      controller: singleInviteeUserIDTextCtrl,
+                                      decoration: InputDecoration(
+                                        labelText: "invitee ID",
+                                        hintText: "plz enter invitee ID",
+                                      ),
+                                    ),
+                                  )),
+                                  sendCallButton(
+                                    isVideoCall: false,
+                                    inviteeUsersIDTextCtrl: singleInviteeUserIDTextCtrl,
+                                    onCallFinished: onSendCallInvitationFinished,
+                                  ),
+                                  sendCallButton(
+                                    isVideoCall: true,
+                                    inviteeUsersIDTextCtrl:
+                                        singleInviteeUserIDTextCtrl,
+                                    onCallFinished:
+                                        onSendCallInvitationFinished,
+                                  ),
+                                  const SizedBox(width: 20),
+                                ],
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 20),
+                                child: Divider(height: 1.0, color: Colors.grey),
+                              ),
+                            ],
+                          )
                         ],
                       ),
               )
@@ -365,16 +417,20 @@ class _DashboardSEState extends State<DashboardSE> {
     get_SE_dashboard_data =
         await Get_SE_Dashboard_percentage_details_Controller()
             .Get_SE_Dashboard_percentage_details_Controller_method();
-    Map<String, double> percentage = {
+    dataMap = {
       'Completed': double.parse(get_SE_dashboard_data.data.compPerc.toString()),
       'Pending':
           double.parse(get_SE_dashboard_data.data.ongoingPerc.toString()),
       'UnAccepted':
           double.parse(get_SE_dashboard_data.data.assignPerc.toString()),
     };
-    dataMap = percentage;
-    setState(() {
-      is_load_SE_Dashboard_data = true;
-    });
+
+    if (mounted) {
+      setState(() {
+        is_load_SE_Dashboard_data = true;
+      });
+    }
   }
+
+
 }

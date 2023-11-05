@@ -38,17 +38,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    nameController.dispose();
-    phoneController.dispose();
-    address1Controller.dispose();
-    address2Controller.dispose();
-    cityController.dispose();
-    stateController.dispose();
-    zipController.dispose();
-  }
+
 
   File? profileImage;
 
@@ -299,6 +289,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                 ),
                 InkWell(
                   onTap: () async {
+
                     SharedPreferences preferences =
                         await SharedPreferences.getInstance();
                     await preferences.clear();

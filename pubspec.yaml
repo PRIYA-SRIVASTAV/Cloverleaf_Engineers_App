@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: '>=2.19.4 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -49,15 +49,20 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  zego_uikit_prebuilt_call: ^3.3.21
-  zego_uikit_signaling_plugin:
+  zego_uikit: ^2.14.3
+  zego_uikit_prebuilt_call: ^3.17.2
+  zego_uikit_signaling_plugin: ^2.6.2
+  device_info_plus: any
+  faker: ^2.1.0
+  cached_network_image:
   firebase_core: ^2.10.1
   firebase_messaging: ^14.6.2
-  permission_handler: ^10.2.0
+  permission_handler:
   awesome_notifications: ^0.6.21
   geolocator: ^10.0.1
   carousel_slider: ^4.0.0
   geocoding: ^2.1.0
+  google_fonts:
 
 dev_dependencies:
   flutter_test:

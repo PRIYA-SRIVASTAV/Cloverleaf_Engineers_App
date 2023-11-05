@@ -42,6 +42,7 @@ class Datum {
   String asset;
   String woStatus;
   int assignedEngineerId;
+  String zegoUserId;
   String assignedEngineerName;
 
   Datum({
@@ -54,6 +55,7 @@ class Datum {
     required this.asset,
     required this.woStatus,
     required this.assignedEngineerId,
+    required this.zegoUserId,
     required this.assignedEngineerName,
   });
 
@@ -67,6 +69,7 @@ class Datum {
     asset: json["asset"],
     woStatus: json["wo_status"],
     assignedEngineerId: json["assigned_engineer_id"],
+    zegoUserId: json["zego_user_id"],
     assignedEngineerName: json["assigned_engineer_name"],
   );
 
@@ -80,6 +83,7 @@ class Datum {
     "asset": asset,
     "wo_status": woStatus,
     "assigned_engineer_id": assignedEngineerId,
+    "zego_user_id": zegoUserId,
     "assigned_engineer_name": assignedEngineerName,
   };
 }

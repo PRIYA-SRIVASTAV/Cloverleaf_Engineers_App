@@ -6,9 +6,14 @@ import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.d
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+import '../../Services/ZegoLoginServices.dart';
 import '../../constant/colorConstant.dart';
 import '../../constant/prefsConstant.dart';
+import '../../constant/stringsConstant.dart';
 import '../../constant/testStyleConstant.dart';
 import '../../utils/helperMethods.dart';
 import '../onBoardingScreen/onBoardingPage1.dart';
@@ -22,6 +27,7 @@ class splashScreen extends StatefulWidget {
 }
 
 class _splashScreenState extends State<splashScreen> {
+  var zegoUserID = "";
   // @override
   // void initState() {
   //   super.initState();
@@ -135,54 +141,69 @@ class _splashScreenState extends State<splashScreen> {
   }
 
   void routingFunction() async {
+    await generatingUserIDforZegorCloud();
     var auth_eng_token;
     var auth_se_token;
     await getPref().then((value) {
       auth_eng_token = value.getString(KEYENGTOKEN);
-    });
-    await getPref().then((value) {
       auth_se_token = value.getString(KEYSETOKEN);
     });
+
     var fcm_token;
     await FirebaseMessaging.instance.getToken().then((value) {
       fcm_token = value;
       log("FCM-TOKEN====$fcm_token");
     });
+    Post_FCM_Token_Controller().Post_FCM_Token_Controller_method(fcm_token,zegoUserID);
     if (auth_eng_token.toString() != "KEY_ENG_TOKEN" &&
         auth_eng_token.toString() != "null") {
       debugPrint(auth_eng_token.toString());
-      Post_FCM_Token_Controller().Post_FCM_Token_Controller_method(fcm_token);
-      Timer(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainClassEng(),
-          ),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainClassEng(),
         ),
       );
     } else if (auth_se_token.toString() != "KEY_SE_TOKEN" &&
         auth_se_token.toString() != "null") {
-      Timer(
-        const Duration(seconds: 3),
-            () => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainClassSE(),
-          ),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainClassSE(),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OnBoardingPage1(),
         ),
       );
     }
-    else {
-      Timer(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OnBoardingPage1(),
-          ),
-        ),
-      );
+  }
+
+  generatingUserIDforZegorCloud() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cacheUserID = prefs.get(cacheUserIDKey) as String? ?? '';
+
+    if (cacheUserID.isNotEmpty) {
+      currentUser.id = cacheUserID;
+      currentUser.name = 'user_$cacheUserID';
     }
+    if (currentUser.id.isNotEmpty) {
+      onUserLogin();
+    } else {
+      getUniqueUserId().then((userID) async {
+        var a = userID;
+        login(
+          userID: a,
+          userName: 'user_${a}',
+        ).then((value) {
+          onUserLogin();
+        });
+      });
+    }
+    zegoUserID = cacheUserID;
+    debugPrint("ZegorUserID------------------------>>>$cacheUserID");
   }
 }

@@ -51,4 +51,6 @@ String title8 = "Take help of our Digital tool \nand expert panel for timely \n 
 class MyZegoConst{
   static const int appId = 1382134047;
   static const String appSign = "c0c0758fa12bcc6354425a65706a5651cf27b8cfc9ec35b4731f50e9fe85cb08";
+  static String callDuration = "";
+  static DateTime callStarted = new DateTime.now();
 }

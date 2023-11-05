@@ -1,35 +1,51 @@
 import 'package:cloverleaf_project/constant/colorConstant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class test_payroll extends StatefulWidget {
-  const test_payroll({super.key});
+import 'ViewDetailsPayout.dart';
+
+class Payout_list extends StatefulWidget {
+  const Payout_list({super.key});
 
   @override
-  State<test_payroll> createState() => _test_payrollState();
+  State<Payout_list> createState() => _Payout_listState();
 }
 
-class _test_payrollState extends State<test_payroll> {
+class _Payout_listState extends State<Payout_list> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(30.h), // Set the desired height
         child: AppBar(
+          leading: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+              child: Icon(Icons.arrow_back_ios)),
+          // toolbarHeight: 120, // Set this height
           flexibleSpace: Container(
-            height: 50.h,
-            width: 30.w,
             color: appThemeColor,
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                children: [Text("Total amount received")],
+            child: Padding(
+              padding: EdgeInsets.only(left:5.w,top:20.h),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                 Text("Total Amount Received",style: GoogleFonts.lato(fontSize: 16.sp,color: Colors.white)),
+                  SizedBox(height: 1.h,),
+                  Row(
+                    children: [
+                      Icon(Icons.currency_rupee,size: 22.sp,color: Colors.white,),
+                      Text("97000",style: GoogleFonts.rubik(color: Colors.white,fontSize: 22.sp),),
+                    ],
+                  )
+                ],
               ),
             ),
           ),
           // backgroundColor: appThemeColor,
-          title: Text('Payout List'),
+          title: Text('Payout List',style: GoogleFonts.lato(fontSize: 18.sp)),
         ),
       ),
       body: SingleChildScrollView(
@@ -89,22 +105,18 @@ class _test_payrollState extends State<test_payroll> {
                                               flex: 2,
                                               child: Text(
                                                 "Work order id",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
+                                                style: GoogleFonts.lato(color: Colors.grey)
                                               ),
                                             ),
                                             Expanded(
                                                 flex: 1,
                                                 child: Text(":",
-                                                    style: TextStyle(
-                                                        color: appThemeColor))),
+                                                    style: GoogleFonts.lato(color: appThemeColor))),
                                             Expanded(
                                               flex: 3,
                                               child: Text(
                                                 "10",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                                style: GoogleFonts.rubik(fontWeight: FontWeight.w400),
                                               ),
                                             ),
                                           ],
@@ -123,15 +135,13 @@ class _test_payrollState extends State<test_payroll> {
                                               flex: 2,
                                               child: Text(
                                                 "Total amount",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
+                                                  style: GoogleFonts.lato(color: Colors.grey)
                                               ),
                                             ),
                                             Expanded(
                                                 flex: 1,
                                                 child: Text(":",
-                                                    style: TextStyle(
-                                                        color: appThemeColor))),
+                                                    style: GoogleFonts.lato(color: appThemeColor))),
                                             Expanded(
                                               flex: 3,
                                               child: Row(
@@ -142,10 +152,9 @@ class _test_payrollState extends State<test_payroll> {
                                                   ),
                                                   Text(
                                                     "2000",
-                                                    style: TextStyle(
-                                                        color: appThemeColor,
-                                                        fontWeight:
-                                                            FontWeight.w600),
+                                                      style: GoogleFonts.rubik( color: appThemeColor,
+                                                          fontWeight:
+                                                          FontWeight.w600),
                                                   ),
                                                 ],
                                               ),
@@ -166,8 +175,7 @@ class _test_payrollState extends State<test_payroll> {
                                               flex: 2,
                                               child: Text(
                                                 "Paid amount",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
+                                                  style: GoogleFonts.lato(color: Colors.grey),
                                               ),
                                             ),
                                             Expanded(
@@ -195,29 +203,27 @@ class _test_payrollState extends State<test_payroll> {
                                           ],
                                         ),
                                       ),
-                                      Padding(
+                                      if(1==0)...[Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 4),
                                         child: Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
                                               flex: 2,
                                               child: Text(
                                                 "Pending amount",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
+                                                style:GoogleFonts.lato(color: Colors.grey),
                                               ),
                                             ),
                                             Expanded(
                                                 flex: 1,
                                                 child: Text(
                                                   ":",
-                                                  style: TextStyle(
-                                                      color: appThemeColor),
+                                                  style: GoogleFonts.lato( color: appThemeColor),
                                                 )),
                                             Expanded(
                                               flex: 3,
@@ -228,18 +234,17 @@ class _test_payrollState extends State<test_payroll> {
                                                     size: 10.sp,
                                                   ),
                                                   Text(
-                                                    "1000",
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.w400),
+                                                      "1000",
+                                                      style: GoogleFonts.rubik( color: Colors.red,
+                                                          fontWeight:
+                                                          FontWeight.w400)
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
+                                      ),],
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 5),
@@ -253,12 +258,12 @@ class _test_payrollState extends State<test_payroll> {
                                                       vertical: -3),
                                               label: Text(
                                                 "12-03-2023",
-                                                // style: GoogleFonts.getFont(
-                                                //     'Rubik',
-                                                //     color: appThemeColor,
-                                                //     fontSize: 12,
-                                                //     fontWeight:
-                                                //     FontWeight.w400),
+                                                style: GoogleFonts.getFont(
+                                                    'Rubik',
+                                                    color: appThemeColor,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                    FontWeight.w400),
                                               ),
                                               backgroundColor: Colors.pinkAccent
                                                   .withOpacity(0.2),
@@ -266,26 +271,20 @@ class _test_payrollState extends State<test_payroll> {
                                             ),
                                             InkWell(
                                               onTap: () {
-                                                // var route = MaterialPageRoute(
-                                                //     builder: (BuildContext
-                                                //     context) {
-                                                //       return InvoicePage_View(
-                                                //         invoiceId: modeldata[i]
-                                                //             .id
-                                                //             .toString(),
-                                                //       );
-                                                //     });
-                                                // Navigator.of(context)
-                                                //     .push(route);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => ViewDetailsPayout()
+                                                  ),
+                                                );
                                               },
-                                              child: const Text(
+                                              child:  Text(
                                                 "View Details",
-                                                style: TextStyle(
-                                                    fontSize: 13.0,
+                                                style: GoogleFonts.lato(fontSize: 13.0,
                                                     decoration: TextDecoration
                                                         .underline,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.blue),
+                                                    color: Colors.blue)
                                               ),
                                             )
                                           ],

@@ -399,13 +399,14 @@ class ApiCalling {
     }
   }
 
-  Future Post_FCM_Token(FCM_token) async {
+  Future Post_FCM_Token(FCM_token,ZegoUserId) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Post_FCM_Token_Uri =
         Uri.parse(ApiEndpoints.post_FCM_Token);
         var map = Map<String, dynamic>();
         map['fcm_token'] = FCM_token;
+        map['zego_user_id'] = ZegoUserId;
         var Post_FCM_Token_Response = await client.post(Post_FCM_Token_Uri,
             body: map, headers: await headerWithoutContentTypeENG());
         MYAPILOGS("Post_FCM_Token Api", Post_FCM_Token_Response);

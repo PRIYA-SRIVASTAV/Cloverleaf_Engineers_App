@@ -19,7 +19,7 @@ class Login_Controller {
       var r = await ApiCalling().Login(email, password, type);
       log("rrrrrrrrrrrrrrrrrrr $r");
       if (r['status'].toString() == 'true') {
-        if(r['data']['user_type']=='eng'){
+        if(r['data']['user_type']=='2'){
           await getPref().then((value) {
             value.setString(KEYENGTOKEN, r['token'].toString());
             value.setString(KEYUNIQUEID, r['data']['unique_id'].toString());

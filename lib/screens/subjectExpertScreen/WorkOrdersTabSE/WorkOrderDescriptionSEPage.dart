@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloverleaf_project/screens/subjectExpertScreen/WorkOrdersTabSE/VoiceCallPage.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import '../../../Services/ZegoLoginServices.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
@@ -26,6 +27,7 @@ class WorkOrderDescriptionSEpage extends StatefulWidget {
 
 class _WorkOrderDescriptionSEpageState
     extends State<WorkOrderDescriptionSEpage> {
+  TextEditingController inviteeController = TextEditingController();
   List<Dat> CustumAddedPartsList = [];
   String? selectedValue;
   String? dropdownvalue;
@@ -339,38 +341,21 @@ class _WorkOrderDescriptionSEpageState
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Video/Voice Call to Engineer"),
-                                            SizedBox(
-                                              width: 25.w,
-                                              child: ElevatedButton(
-                                                style: ButtonStyle(
-                                                  shape:
-                                                  MaterialStateProperty.all(
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          20),
-                                                    ),
-                                                  ),
-                                                  backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Theme.of(context)
-                                                          .primaryColor),
+                                            Row(
+                                              children: [
+                                                sendCallButton(
+                                                  isVideoCall: false,
+                                                  inviteeUsersIDTextCtrl:inviteeController,
+                                                  onCallFinished: onSendCallInvitationFinished,
                                                 ),
-                                                onPressed: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return CallNowViaVideoAudio(
-                                                          context);
-                                                    },
-                                                  );
-                                                },
-                                                child: Text(
-                                                  "Call now",
-                                                  style:
-                                                  TextStyle(fontSize: 10.sp),
+                                                sendCallButton(
+                                                  isVideoCall: true,
+                                                  inviteeUsersIDTextCtrl:inviteeController,
+                                                  onCallFinished:
+                                                  onSendCallInvitationFinished,
                                                 ),
-                                              ),
+                                                const SizedBox(width: 20),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -490,90 +475,12 @@ class _WorkOrderDescriptionSEpageState
     );
   }
 
-  Widget CallNowViaVideoAudio(context) {
-    return Dialog(
-      child: Container(
-        height: 20.h,
-        child: Stack(
-          // alignment: Alignment.topRight,
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(6.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                     onTap: () {
-                        Navigator.of(context).push(
-                           MaterialPageRoute(
-                              builder: (context) => VideoCallPage(callID: "1")),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.video_call,
-                            size: 34.sp,
-                            color: appThemeColor,
-                          ),
-                          Text("Video call")
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => VoiceCallPage(callID: "1")),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.call,
-                            size: 34.sp,
-                            color: appThemeColor,
-                          ),
-                          Text("Voice call")
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              right: 2,
-              top: 2,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Align(
-                  alignment: Alignment.topRight,
-                  child: CircleAvatar(
-                    key: Key('closeIconKey'),
-                    radius: 15,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   void get_SE_work_order_status2_method() async {
     get_SE_work_order_status2 = await Get_SE_Work_Order_List_Controller()
         .SE_work_order_list_pending_controller_method(SE_Work_order_status2);
     get_SE_add_parts_list_method();
+    inviteeController.text = get_SE_work_order_status2.data[widget.index].zegoUserId;
     setState(() {
       is_status2_SE_work_list_load = true;
     });

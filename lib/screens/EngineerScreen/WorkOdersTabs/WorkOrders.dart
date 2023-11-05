@@ -1,6 +1,5 @@
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
 import 'package:cloverleaf_project/controller/work_order_list_controller.dart';
-import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/PayoutPage.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
@@ -129,162 +128,48 @@ class _WorkOrdersState extends State<WorkOrders> {
                                 parent: AlwaysScrollableScrollPhysics()),
                             itemCount: get_work_order_status1.data.length,
                             itemBuilder: (context, index) {
-                              return SizedBox(
-                                height: 40.h,
-                                child: Card(
-                                  shape: OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: Colors.grey.shade200),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 3.h,
-                                          width: 10.h,
-                                          color: Colors.blue.withOpacity(0.3),
-                                          child: Center(
-                                            child: Text(
-                                              "Work-id #${get_work_order_status1
-                                                  .data[index].workId
-                                                  .toString()}",
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontSize: 10.sp,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
+                              return Card(
+                                shape: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Colors.grey.shade200),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 3.h,
+                                        width: 10.h,
+                                        color: Colors.blue.withOpacity(0.3),
+                                        child: Center(
+                                          child: Text(
+                                            "Work-id #${get_work_order_status1
+                                                .data[index].workId
+                                                .toString()}",
+                                            style: TextStyle(
+                                                color: Colors.blue,
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                        Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                //color: Colors.red,
-                                                height: 27.h,
-                                                width: 40.w,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceAround,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Asset Name",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status1
-                                                              .data[index].asset
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Subject",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status1
-                                                              .data[index]
-                                                              .subject
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Location",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status1
-                                                              .data[index].loc
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Description",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status1
-                                                              .data[index].desc
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              // color: Colors.grey,
-                                              height: 20.h,
-                                              width: 30.w,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              //color: Colors.red,
+                                              height: 27.h,
+                                              width: 40.w,
                                               child: Column(
                                                 mainAxisAlignment:
                                                 MainAxisAlignment
-                                                    .spaceEvenly,
+                                                    .spaceAround,
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                                 children: [
@@ -294,7 +179,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                         .start,
                                                     children: [
                                                       Text(
-                                                        "Status",
+                                                        "Asset Name",
                                                         style: TextStyle(
                                                             fontSize: 14.sp,
                                                             fontWeight:
@@ -303,37 +188,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                       ),
                                                       Text(
                                                         "${get_work_order_status1
-                                                            .data[index]
-                                                            .woStatus
-                                                            .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color: Colors.red),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Text(
-                                                        "Priority",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                      ),
-                                                      Text(
-                                                        "${get_work_order_status1
-                                                            .data[index]
-                                                            .priority
+                                                            .data[index].asset
                                                             .toString()}",
                                                         style: TextStyle(
                                                             fontSize: 12.sp,
                                                             color:
-                                                            Colors.orange),
+                                                            Colors.grey),
                                                       )
                                                     ],
                                                   ),
@@ -343,7 +203,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                         .start,
                                                     children: [
                                                       Text(
-                                                        "Category",
+                                                        "Subject",
                                                         style: TextStyle(
                                                             fontSize: 14.sp,
                                                             fontWeight:
@@ -353,115 +213,251 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                       Text(
                                                         "${get_work_order_status1
                                                             .data[index]
-                                                            .category
+                                                            .subject
                                                             .toString()}",
                                                         style: TextStyle(
                                                             fontSize: 12.sp,
-                                                            color: Colors.grey),
+                                                            color:
+                                                            Colors.grey),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      Text(
+                                                        "Location",
+                                                        style: TextStyle(
+                                                            fontSize: 14.sp,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                      ),
+                                                      Text(
+                                                        "${get_work_order_status1
+                                                            .data[index].loc
+                                                            .toString()}",
+                                                        style: TextStyle(
+                                                            fontSize: 12.sp,
+                                                            color:
+                                                            Colors.grey),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      Text(
+                                                        "Description",
+                                                        style: TextStyle(
+                                                            fontSize: 14.sp,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                      ),
+                                                      Text(
+                                                        "${get_work_order_status1
+                                                            .data[index].desc
+                                                            .toString()}",
+                                                        style: TextStyle(
+                                                            fontSize: 12.sp,
+                                                            color:
+                                                            Colors.grey),
                                                       )
                                                     ],
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                          children: [
-                                            SizedBox(
-                                              width: 35.w,
-                                              child: ElevatedButton(
-                                                style: ButtonStyle(
-                                                  shape:
-                                                  MaterialStateProperty.all(
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          20),
+                                          ),
+                                          Container(
+                                            // color: Colors.grey,
+                                            height: 20.h,
+                                            width: 30.w,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceEvenly,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Status",
+                                                      style: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
                                                     ),
+                                                    Text(
+                                                      "${get_work_order_status1
+                                                          .data[index]
+                                                          .woStatus
+                                                          .toString()}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          color: Colors.red),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Priority",
+                                                      style: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
+                                                    ),
+                                                    Text(
+                                                      "${get_work_order_status1
+                                                          .data[index]
+                                                          .priority
+                                                          .toString()}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          color:
+                                                          Colors.orange),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Category",
+                                                      style: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
+                                                    ),
+                                                    Text(
+                                                      "${get_work_order_status1
+                                                          .data[index]
+                                                          .category
+                                                          .toString()}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          color: Colors.grey),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                        children: [
+                                          SizedBox(
+                                            width: 35.w,
+                                            child: ElevatedButton(
+                                              style: ButtonStyle(
+                                                shape:
+                                                MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        20),
                                                   ),
-                                                  backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Theme
-                                                          .of(context)
-                                                          .primaryColor),
                                                 ),
-                                                onPressed: () async {
-                                                  var Work_id;
-                                                  await getPref().then((value) {
-                                                    value.setString(
-                                                        KEYWORKID,
-                                                        get_work_order_status1
-                                                            .data[index].workId
-                                                            .toString());
-                                                  });
-                                                  await getPref().then((value) {
-                                                    Work_id = value
-                                                        .getString(KEYWORKID);
-                                                  });
-                                                  print(
-                                                      "@@@@@@@@@@@@@@@@@@@ $Work_id");
-                                                  update_wo_status_Controller()
-                                                      .update_wo_status_accepted_Controller_method(
-                                                      Work_id, context);
-                                                  get_work_order_status1_method();
-                                                },
-                                                child: Text(
-                                                  "Accept",
-                                                  style: TextStyle(
-                                                      fontSize: 10.sp),
-                                                ),
+                                                backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Theme
+                                                        .of(context)
+                                                        .primaryColor),
+                                              ),
+                                              onPressed: () async {
+                                                var Work_id;
+                                                await getPref().then((value) {
+                                                  value.setString(
+                                                      KEYWORKID,
+                                                      get_work_order_status1
+                                                          .data[index].workId
+                                                          .toString());
+                                                });
+                                                await getPref().then((value) {
+                                                  Work_id = value
+                                                      .getString(KEYWORKID);
+                                                });
+                                                print(
+                                                    "@@@@@@@@@@@@@@@@@@@ $Work_id");
+                                                update_wo_status_Controller()
+                                                    .update_wo_status_accepted_Controller_method(
+                                                    Work_id, context);
+                                                get_work_order_status1_method();
+                                              },
+                                              child: Text(
+                                                "Accept",
+                                                style: TextStyle(
+                                                    fontSize: 10.sp),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 35.w,
-                                              child: ElevatedButton(
-                                                style: ButtonStyle(
-                                                  shape:
-                                                  MaterialStateProperty.all(
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          20),
-                                                    ),
+                                          ),
+                                          SizedBox(
+                                            width: 35.w,
+                                            child: ElevatedButton(
+                                              style: ButtonStyle(
+                                                shape:
+                                                MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        20),
                                                   ),
-                                                  backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.grey),
                                                 ),
-                                                onPressed: () async {
-                                                  var Work_id;
-                                                  await getPref().then((value) {
-                                                    value.setString(
-                                                        KEYWORKID,
-                                                        get_work_order_status1
-                                                            .data[index].workId
-                                                            .toString());
-                                                  });
-                                                  await getPref().then((value) {
-                                                    Work_id = value
-                                                        .getString(KEYWORKID);
-                                                  });
-                                                  debugPrint(
-                                                      "@@@@@@@@@@@@@@@@@@@ $Work_id");
-                                                  await update_wo_status_Controller()
-                                                      .update_wo_status_rejected_Controller_method(
-                                                      Work_id, context);
-                                                  get_work_order_status1_method();
-                                                },
-                                                child: Text(
-                                                  "Reject",
-                                                  style: TextStyle(
-                                                      fontSize: 10.sp),
-                                                ),
+                                                backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.grey),
                                               ),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
+                                              onPressed: () async {
+                                                var Work_id;
+                                                await getPref().then((value) {
+                                                  value.setString(
+                                                      KEYWORKID,
+                                                      get_work_order_status1
+                                                          .data[index].workId
+                                                          .toString());
+                                                });
+                                                await getPref().then((value) {
+                                                  Work_id = value
+                                                      .getString(KEYWORKID);
+                                                });
+                                                debugPrint(
+                                                    "@@@@@@@@@@@@@@@@@@@ $Work_id");
+                                                await update_wo_status_Controller()
+                                                    .update_wo_status_rejected_Controller_method(
+                                                    Work_id, context);
+                                                get_work_order_status1_method();
+                                              },
+                                              child: Text(
+                                                "Reject",
+                                                style: TextStyle(
+                                                    fontSize: 10.sp),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
                                   ),
                                 ),
                               );
@@ -760,9 +756,295 @@ class _WorkOrdersState extends State<WorkOrders> {
                               parent: AlwaysScrollableScrollPhysics()),
                           itemCount: get_work_order_status3.data.length,
                           itemBuilder: (context, index) {
-                            return SizedBox(
-                              height: 35.h,
-                              child: Card(
+                            return Card(
+                              shape: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.grey.shade200),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 3.h,
+                                      width: 10.h,
+                                      color: Colors.blue.withOpacity(0.3),
+                                      child: Center(
+                                        child: Text(
+                                          "Work-id #${get_work_order_status3
+                                              .data[index].workId
+                                              .toString()}",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            height: 27.h,
+                                            width: 40.w,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceBetween,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Asset Name",
+                                                      style: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
+                                                    ),
+                                                    Text(
+                                                      "${get_work_order_status3
+                                                          .data[index].asset
+                                                          .toString()}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          color:
+                                                          Colors.grey),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Subject",
+                                                      style: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
+                                                    ),
+                                                    Text(
+                                                      "${get_work_order_status3
+                                                          .data[index].subject
+                                                          .toString()}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          color:
+                                                          Colors.grey),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Location",
+                                                      style: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
+                                                    ),
+                                                    Text(
+                                                      "${get_work_order_status3
+                                                          .data[index].loc
+                                                          .toString()}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          color:
+                                                          Colors.grey),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Description",
+                                                      style: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
+                                                    ),
+                                                    Text(
+                                                      "${get_work_order_status3
+                                                          .data[index].desc
+                                                          .toString()}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          color:
+                                                          Colors.grey),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 27.h,
+                                          width: 30.w,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(
+                                                    "Status",
+                                                    style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .bold),
+                                                  ),
+                                                  Text(
+                                                    "${get_work_order_status3
+                                                        .data[index].woStatus
+                                                        .toString()}",
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        color: Colors.red),
+                                                  )
+                                                ],
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(
+                                                    "Priority",
+                                                    style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .bold),
+                                                  ),
+                                                  Text(
+                                                    "${get_work_order_status3
+                                                        .data[index].priority
+                                                        .toString()}",
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                        Colors.orange),
+                                                  )
+                                                ],
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(
+                                                    "Category",
+                                                    style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .bold),
+                                                  ),
+                                                  Text(
+                                                    "${get_work_order_status3
+                                                        .data[index].category
+                                                        .toString()}",
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        color: Colors.grey),
+                                                  )
+                                                ],
+                                              ),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  shape:
+                                                  MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          20),
+                                                    ),
+                                                  ),
+                                                  backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Theme
+                                                          .of(context)
+                                                          .primaryColor),
+                                                ),
+                                                onPressed: () async {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return Complete_WO_dialog(context,index);
+                                                    },
+                                                  );
+                                                },
+                                                child: Text(
+                                                  "Complete",
+                                                  style: TextStyle(
+                                                      fontSize: 10.sp),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      ] else
+                        ...[
+                          Center(
+                            child: Text(
+                              "${get_work_order_status3.message.toString()}",
+                            ),
+                          ),
+                        ],
+                      ]else...[
+                        Center(child: CircularProgressIndicator(
+                          color: appThemeColor,),)
+                      ],
+                      if(is_status4_work_list_load == true)...[
+                        if (get_work_order_status4.data.isNotEmpty) ...[
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            itemCount: get_work_order_status4.data.length,
+                            itemBuilder: (context, index) {
+                              return Card(
                                 shape: OutlineInputBorder(
                                   borderSide:
                                   BorderSide(color: Colors.grey.shade200),
@@ -779,7 +1061,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                         color: Colors.blue.withOpacity(0.3),
                                         child: Center(
                                           child: Text(
-                                            "Work-id #${get_work_order_status3
+                                            "Work-id #${get_work_order_status4
                                                 .data[index].workId
                                                 .toString()}",
                                             style: TextStyle(
@@ -823,7 +1105,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                                 .bold),
                                                       ),
                                                       Text(
-                                                        "${get_work_order_status3
+                                                        "${get_work_order_status4
                                                             .data[index].asset
                                                             .toString()}",
                                                         style: TextStyle(
@@ -847,7 +1129,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                                 .bold),
                                                       ),
                                                       Text(
-                                                        "${get_work_order_status3
+                                                        "${get_work_order_status4
                                                             .data[index].subject
                                                             .toString()}",
                                                         style: TextStyle(
@@ -871,7 +1153,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                                 .bold),
                                                       ),
                                                       Text(
-                                                        "${get_work_order_status3
+                                                        "${get_work_order_status4
                                                             .data[index].loc
                                                             .toString()}",
                                                         style: TextStyle(
@@ -895,7 +1177,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                                 .bold),
                                                       ),
                                                       Text(
-                                                        "${get_work_order_status3
+                                                        "${get_work_order_status4
                                                             .data[index].desc
                                                             .toString()}",
                                                         style: TextStyle(
@@ -910,7 +1192,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                             ),
                                           ),
                                           Container(
-                                            height: 27.h,
+                                            height: 20.h,
                                             width: 30.w,
                                             child: Column(
                                               mainAxisAlignment:
@@ -933,7 +1215,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                               .bold),
                                                     ),
                                                     Text(
-                                                      "${get_work_order_status3
+                                                      "${get_work_order_status4
                                                           .data[index].woStatus
                                                           .toString()}",
                                                       style: TextStyle(
@@ -956,7 +1238,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                               .bold),
                                                     ),
                                                     Text(
-                                                      "${get_work_order_status3
+                                                      "${get_work_order_status4
                                                           .data[index].priority
                                                           .toString()}",
                                                       style: TextStyle(
@@ -980,7 +1262,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                               .bold),
                                                     ),
                                                     Text(
-                                                      "${get_work_order_status3
+                                                      "${get_work_order_status4
                                                           .data[index].category
                                                           .toString()}",
                                                       style: TextStyle(
@@ -989,307 +1271,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     )
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                  width: 35.w,
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      shape:
-                                                      MaterialStateProperty.all(
-                                                        RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                        ),
-                                                      ),
-                                                      backgroundColor:
-                                                      MaterialStateProperty.all(
-                                                          Theme
-                                                              .of(context)
-                                                              .primaryColor),
-                                                    ),
-                                                    onPressed: () async {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext context) {
-                                                          return Complete_WO_dialog(context,index);
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      "Complete",
-                                                      style: TextStyle(
-                                                          fontSize: 10.sp),
-                                                    ),
-                                                  ),
-                                                ),
                                               ],
                                             ),
                                           ),
                                         ],
                                       ),
                                     ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      ] else
-                        ...[
-                          Center(
-                            child: Text(
-                              "${get_work_order_status3.message.toString()}",
-                            ),
-                          ),
-                        ],
-                      ]else...[
-                        Center(child: CircularProgressIndicator(
-                          color: appThemeColor,),)
-                      ],
-                      if(is_status4_work_list_load == true)...[
-                        if (get_work_order_status4.data.isNotEmpty) ...[
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics()),
-                            itemCount: get_work_order_status4.data.length,
-                            itemBuilder: (context, index) {
-                              return SizedBox(
-                                height: 35.h,
-                                child: Card(
-                                  shape: OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: Colors.grey.shade200),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 3.h,
-                                          width: 10.h,
-                                          color: Colors.blue.withOpacity(0.3),
-                                          child: Center(
-                                            child: Text(
-                                              "Work-id #${get_work_order_status4
-                                                  .data[index].workId
-                                                  .toString()}",
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontSize: 10.sp,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 2.h,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                height: 27.h,
-                                                width: 40.w,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Asset Name",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status4
-                                                              .data[index].asset
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Subject",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status4
-                                                              .data[index].subject
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Location",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status4
-                                                              .data[index].loc
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                          "Description",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        Text(
-                                                          "${get_work_order_status4
-                                                              .data[index].desc
-                                                              .toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              height: 20.h,
-                                              width: 30.w,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Text(
-                                                        "Status",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                      ),
-                                                      Text(
-                                                        "${get_work_order_status4
-                                                            .data[index].woStatus
-                                                            .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color: Colors.red),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Text(
-                                                        "Priority",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                      ),
-                                                      Text(
-                                                        "${get_work_order_status4
-                                                            .data[index].priority
-                                                            .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.orange),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Text(
-                                                        "Category",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                      ),
-                                                      Text(
-                                                        "${get_work_order_status4
-                                                            .data[index].category
-                                                            .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color: Colors.grey),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ),
                               );

@@ -57,8 +57,7 @@ class _BottomNavigationPageSEState extends State<BottomNavigationPageSE> {
   bool selectedTabs = true;
 
   void _onItemTapped(int index) {
-    setState(
-          () {
+    setState( () {
         _selectedIndex = index;
       },
     );
@@ -80,9 +79,7 @@ class _BottomNavigationPageSEState extends State<BottomNavigationPageSE> {
   Widget build(BuildContext context) {
     List _pages = [
       DashboardSE(),
-      WorkOrderSE(
-        TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex,
-      ),
+      WorkOrderSE(TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex,),
       CallLogsTab(),
     ];
     return Scaffold(
