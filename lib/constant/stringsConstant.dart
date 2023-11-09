@@ -12,7 +12,6 @@
 /// 8 => 'Rejected', // rejected by se
 
 
-String getStarted = "Get Started";
 String skip = "Skip";
 String dashboard = "Dashboard";
 String workOrders = "Work Orders";
@@ -52,7 +51,10 @@ class MyZegoConst{
   static const int appId = 1382134047;
   static const String appSign = "c0c0758fa12bcc6354425a65706a5651cf27b8cfc9ec35b4731f50e9fe85cb08";
   static String callDuration = "";
-  static DateTime callStarted = new DateTime.now();
+  static String callType = "";
+  static String callWorkId = "";
+  static String SE_Zego_id ="";
+  static String ENg_Zego_id ="";
 
 
 }

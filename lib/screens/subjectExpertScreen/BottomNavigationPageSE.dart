@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
 import 'CallLogsTab/CallLogsTab.dart';
@@ -82,33 +83,35 @@ class _BottomNavigationPageSEState extends State<BottomNavigationPageSE> {
       WorkOrderSE(TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex,),
       CallLogsTab(),
     ];
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: appThemeColor,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard_outlined),
-              label: 'Dashboard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.note_alt_outlined),
-              label: 'Work Orders',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.support_agent),
-              label: 'Call Logs',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white,
-          selectedLabelStyle:
-          TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-          iconSize: 15.sp,
-          onTap: _onItemTapped,
-          elevation: 5),
-      body: _pages.elementAt(_selectedIndex),
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: appThemeColor,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.dashboard_outlined,size: 16.sp,),
+                label: 'Dashboard',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.note_alt_outlined,size: 16.sp,),
+                label: 'Work Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.support_agent,size: 16.sp,),
+                label: 'Call Logs',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white60,
+            selectedLabelStyle: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
+            unselectedLabelStyle: GoogleFonts.lato(fontSize: 10.sp),
+            iconSize: 15.sp,
+            onTap: _onItemTapped,
+            elevation: 5),
+        body: _pages.elementAt(_selectedIndex),
+      ),
     );
   }
 }

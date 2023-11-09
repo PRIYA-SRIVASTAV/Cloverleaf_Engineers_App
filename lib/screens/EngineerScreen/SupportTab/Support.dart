@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/prefsConstant.dart';
 import '../../../constant/stringsConstant.dart';
@@ -19,6 +22,13 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
+  Uri dialnumber=Uri(scheme: 'tel',path: '1234567890');
+  callnumber()async{
+    await launchUrl(dialnumber);
+  }
+  directCall()async{
+    await FlutterPhoneDirectCaller.callNumber('1234567890');
+  }
   bool isExpanded1 = true;
   bool isExpanded2 = true;
   bool isExpanded3 = true;
@@ -119,7 +129,7 @@ class _SupportPageState extends State<SupportPage> {
                                   context: context,
                                   builder: (context) {
                                     return  get_work_order_status2
-                                        .data.isNotEmpty
+                                        .data!.isNotEmpty
                                         ? Unable_to_solve_dialog(context, index)
                                     : Dialog(
                                         child: Container(
@@ -137,9 +147,11 @@ class _SupportPageState extends State<SupportPage> {
                                                   Center(
                                                     child: Text(
                                                       "${get_work_order_status2.message.toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 16.sp,
-                                                          color: Colors.red),
+                                                      style: GoogleFonts.lato(
+                                                          fontSize: 12.sp,
+                                                          fontWeight: FontWeight.w600,
+                                                        color: Colors.red
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -185,7 +197,10 @@ class _SupportPageState extends State<SupportPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Icon(Icons.support_agent_sharp),
-                                  Text("Support required")
+                                  Text("Support required",style: GoogleFonts.lato(
+                                      fontSize: 12.sp,
+                                      fontWeight:
+                                      FontWeight.w600),)
                                 ],
                               ),
                             ),
@@ -194,6 +209,9 @@ class _SupportPageState extends State<SupportPage> {
                             height: 3.h,
                           ),
                           InkWell(
+                            onTap: (){
+                              callnumber();
+                            },
                             child: Container(
                               height: 5.h,
                               width: double.infinity,
@@ -209,12 +227,15 @@ class _SupportPageState extends State<SupportPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Icon(
-                                        Icons.video_call,
+                                        Icons.call,
                                         color: appThemeColor,
                                       ),
                                       Text(
-                                        "Contact to subject expert",
-                                        style: TextStyle(color: appThemeColor),
+                                        "Contact to support",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp,
+                                              fontWeight:
+                                              FontWeight.w400,color: appThemeColor),
                                       ),
                                     ],
                                   ),
@@ -228,10 +249,12 @@ class _SupportPageState extends State<SupportPage> {
                           Center(
                               child: Text(
                             "FAQ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.sp,
-                                color: appThemeColor),
+                                style: GoogleFonts.lato(
+                                    fontSize: 14.sp,
+                                    fontWeight:
+                                    FontWeight.w600,
+                                color: appThemeColor
+                                ),
                           ),),
                           Divider(
                             color: appThemeColor,
@@ -258,9 +281,10 @@ class _SupportPageState extends State<SupportPage> {
                                         children: [
                                           Text(
                                             'Lorem Ipsum',
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                            ),
+                                            style: GoogleFonts.lato(
+                                                fontSize: 12.sp,
+                                                fontWeight:
+                                                FontWeight.w600),
                                           ),
                                           Icon(
                                             Icons.arrow_right,
@@ -283,9 +307,10 @@ class _SupportPageState extends State<SupportPage> {
                                               children: [
                                                 Text(
                                                   'Lorem Ipsum',
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                  ),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                      FontWeight.w600),
                                                 ),
                                                 Icon(
                                                   Icons.arrow_drop_down_sharp,
@@ -302,7 +327,11 @@ class _SupportPageState extends State<SupportPage> {
                                             width: double.infinity,
                                             child: Text(
                                                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                                                textAlign: TextAlign.justify),
+                                                textAlign: TextAlign.justify,
+                                              style: GoogleFonts.lato(
+                                                  fontSize: 12.sp,
+                                                  fontWeight:
+                                                  FontWeight.w400),),
                                           ),
                                         ],
                                       ),
@@ -331,9 +360,10 @@ class _SupportPageState extends State<SupportPage> {
                                         children: [
                                           Text(
                                             'Lorem Ipsum',
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                            ),
+                                            style: GoogleFonts.lato(
+                                                fontSize: 12.sp,
+                                                fontWeight:
+                                                FontWeight.w600),
                                           ),
                                           Icon(
                                             Icons.arrow_right,
@@ -356,9 +386,10 @@ class _SupportPageState extends State<SupportPage> {
                                               children: [
                                                 Text(
                                                   'Lorem Ipsum',
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                  ),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                      FontWeight.w600),
                                                 ),
                                                 Icon(
                                                   Icons.arrow_drop_down_sharp,
@@ -375,7 +406,11 @@ class _SupportPageState extends State<SupportPage> {
                                             width: double.infinity,
                                             child: Text(
                                                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                                                textAlign: TextAlign.justify),
+                                                textAlign: TextAlign.justify,
+                                              style: GoogleFonts.lato(
+                                                  fontSize: 12.sp,
+                                                  fontWeight:
+                                                  FontWeight.w400),),
                                           ),
                                         ],
                                       ),
@@ -404,9 +439,10 @@ class _SupportPageState extends State<SupportPage> {
                                         children: [
                                           Text(
                                             'Lorem Ipsum',
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                            ),
+                                            style: GoogleFonts.lato(
+                                                fontSize: 12.sp,
+                                                fontWeight:
+                                                FontWeight.w600),
                                           ),
                                           Icon(
                                             Icons.arrow_right,
@@ -429,9 +465,10 @@ class _SupportPageState extends State<SupportPage> {
                                               children: [
                                                 Text(
                                                   'Lorem Ipsum',
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                  ),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                      FontWeight.w600),
                                                 ),
                                                 Icon(
                                                   Icons.arrow_drop_down_sharp,
@@ -448,7 +485,11 @@ class _SupportPageState extends State<SupportPage> {
                                             width: double.infinity,
                                             child: Text(
                                                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                                                textAlign: TextAlign.justify),
+                                                textAlign: TextAlign.justify,
+                                              style: GoogleFonts.lato(
+                                                  fontSize: 12.sp,
+                                                  fontWeight:
+                                                  FontWeight.w400),),
                                           ),
                                         ],
                                       ),
@@ -477,9 +518,10 @@ class _SupportPageState extends State<SupportPage> {
                                         children: [
                                           Text(
                                             'Lorem Ipsum',
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                            ),
+                                            style: GoogleFonts.lato(
+                                                fontSize: 12.sp,
+                                                fontWeight:
+                                                FontWeight.w600),
                                           ),
                                           Icon(
                                             Icons.arrow_right,
@@ -502,9 +544,10 @@ class _SupportPageState extends State<SupportPage> {
                                               children: [
                                                 Text(
                                                   'Lorem Ipsum',
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                  ),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                      FontWeight.w600),
                                                 ),
                                                 Icon(
                                                   Icons.arrow_drop_down_sharp,
@@ -521,7 +564,11 @@ class _SupportPageState extends State<SupportPage> {
                                             width: double.infinity,
                                             child: Text(
                                                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                                                textAlign: TextAlign.justify),
+                                                textAlign: TextAlign.justify,
+                                              style: GoogleFonts.lato(
+                                                  fontSize: 12.sp,
+                                                  fontWeight:
+                                                  FontWeight.w400),),
                                           ),
                                         ],
                                       ),
@@ -550,9 +597,10 @@ class _SupportPageState extends State<SupportPage> {
                                         children: [
                                           Text(
                                             'Lorem Ipsum',
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                            ),
+                                            style: GoogleFonts.lato(
+                                                fontSize: 12.sp,
+                                                fontWeight:
+                                                FontWeight.w600),
                                           ),
                                           Icon(
                                             Icons.arrow_right,
@@ -575,9 +623,10 @@ class _SupportPageState extends State<SupportPage> {
                                               children: [
                                                 Text(
                                                   'Lorem Ipsum',
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                  ),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                      FontWeight.w600),
                                                 ),
                                                 Icon(
                                                   Icons.arrow_drop_down_sharp,
@@ -594,7 +643,11 @@ class _SupportPageState extends State<SupportPage> {
                                             width: double.infinity,
                                             child: Text(
                                                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                                                textAlign: TextAlign.justify),
+                                                textAlign: TextAlign.justify,
+                                              style: GoogleFonts.lato(
+                                                  fontSize: 12.sp,
+                                                  fontWeight:
+                                                  FontWeight.w400),),
                                           ),
                                         ],
                                       ),
@@ -615,35 +668,32 @@ class _SupportPageState extends State<SupportPage> {
               ),
             ),
           );
-
   }
 
-  Widget Unable_to_solve_dialog(context, index) {
+  Widget Unable_to_solve_dialog(context,index) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
           child: Container(
-            height: 40.h,
+            height: 35.h,
             child: Stack(
               // alignment: Alignment.topRight,
               children: [
                 SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.all(4.h),
+                    padding: EdgeInsets.all(3.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(
                           child: Text(
                             "Support Required",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.sp,
-                                color: appThemeColor),
+                            style: GoogleFonts.lato(
+                                fontSize: 14.sp, color: appThemeColor, fontWeight: FontWeight.w600),
                           ),
                         ),
                         SizedBox(
-                          height: 4.h,
+                          height: 3.h,
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -660,7 +710,7 @@ class _SupportPageState extends State<SupportPage> {
                               underline: const SizedBox(),
                               isExpanded: true,
                               hint: const Text('Select Work order'),
-                              items: get_work_order_status2.data.map((item) {
+                              items: get_work_order_status2.data!.map((item) {
                                 return DropdownMenuItem(
                                   value: item.workId.toString(),
                                   child: Row(
@@ -680,13 +730,13 @@ class _SupportPageState extends State<SupportPage> {
                               }).toList(),
                               onChanged: (String? val) {
                                 setState(
-                                  () {
+                                      () {
                                     dropdownvalue = val!;
                                     var a = get_work_order_status2.data
-                                        .indexWhere(
+                                        !.indexWhere(
                                             (e) => e.workId.toString() == val);
                                     dropdownvalueName =
-                                        get_work_order_status2.data[a].subject;
+                                        get_work_order_status2.data![a].subject;
                                   },
                                 );
                               },
@@ -694,37 +744,33 @@ class _SupportPageState extends State<SupportPage> {
                           ),
                         ),
                         SizedBox(
-                          height: 4.h,
+                          height: 2.h,
                         ),
                         TextFormField(
                           controller: ReasonController,
                           maxLength: 100,
-                          decoration: InputDecoration(
+                          decoration: InputDecoration(counterStyle: GoogleFonts.rubik(fontSize: 10.sp,color: Colors.grey),
                               suffixIcon: Icon(Icons.note_alt),
                               border: UnderlineInputBorder(),
-                              hintText: "Enter reason"),
+                              hintText: "Enter reason",
+                              hintStyle: GoogleFonts.lato(fontWeight:FontWeight.w600,color: Colors.grey,fontSize: 12.sp)
+                          ),
                         ),
                         SizedBox(height: 3.h),
                         Center(
                           child: SizedBox(
                             height: 5.h,
-                            width: 50.w,
+                            width: 40.w,
                             child: ElevatedButton(
                               onPressed: () async {
-                                var Work_id;
-                                await getPref().then((value) {
-                                  value.setString(
-                                      KEYWORKID,
-                                      get_work_order_status2.data[index].workId
-                                          .toString());
-                                });
-                                await getPref().then((value) {
-                                  Work_id = value.getString(KEYWORKID);
-                                });
-                                print("@@@@@@@@@@@@@@@@@@@ $Work_id");
-                                post_work_reason_controller()
-                                    .post_work_reason_controller_method(Work_id,
-                                        ReasonController.text, context);
+                                await post_work_reason_controller()
+                                    .post_work_reason_controller_method(
+                                    get_work_order_status2
+                                        .data![index].workId
+                                        .toString(),
+                                    ReasonController.text,
+                                    context);
+                                ReasonController.clear();
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: appThemeColor,
@@ -733,8 +779,8 @@ class _SupportPageState extends State<SupportPage> {
                               ),
                               child: Text(
                                 "Ask to callback",
-                                style: TextStyle(
-                                    fontSize: 16.sp, color: Colors.white),
+                                style:  GoogleFonts.lato(
+                                    fontSize: 12.sp, color: Colors.white, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
@@ -771,6 +817,7 @@ class _SupportPageState extends State<SupportPage> {
       },
     );
   }
+
 
   void get_work_order_status2_method() async {
     get_work_order_status2 = await work_order_list_controller()

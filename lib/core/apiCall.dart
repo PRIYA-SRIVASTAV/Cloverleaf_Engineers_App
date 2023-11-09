@@ -10,6 +10,7 @@ import '../model/GetLeaveCalenderModel.dart';
 import '../model/GetPartsModel.dart';
 import '../model/GetPayoutDataModel.dart';
 import '../model/GetProfileSEModel.dart';
+import '../model/GetSECallLogsModel.dart';
 import '../model/GetSEDashbordDataModel.dart';
 import '../model/GetUserStatusModel.dart';
 import '../model/GetprofilePageModel.dart';
@@ -68,7 +69,7 @@ class ApiCalling {
 
   /// Api for login
 
-  Future Login(email, password,type) async {
+  Future Login(email, password,type/*,Fcm_token,zegoUserId*/) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Login_Uri = Uri.parse(ApiEndpoints.Login_url);
@@ -76,6 +77,8 @@ class ApiCalling {
         map['email'] = email;
         map['password'] = password;
         map['type'] = type;
+      /*  map['Fcm_token'] = Fcm_token;
+        map['zegoUserId'] = zegoUserId;*/
         print("-----------$map----------");
         var Login_Response = await client.post(Login_Uri, body: map);
         MYAPILOGS("Login Api", Login_Response);
@@ -96,7 +99,7 @@ class ApiCalling {
   /// Api for Update profile
 
   Future Update_Profile_details(
-      name, phone, address1, address2, city, state, zip) async {
+      name, phone, address1, address2, city, state, zip, oldPass,newPass,confPass) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Update_Profile_details_Url =
@@ -109,6 +112,9 @@ class ApiCalling {
           "city": city,
           "state": state,
           "zip_code": zip,
+          "old_password": oldPass,
+          "password": newPass,
+          "cpassword": confPass,
         };
         var Update_Profile_details_Url_Response = await client.post(
             Update_Profile_details_Url,
@@ -131,11 +137,11 @@ class ApiCalling {
   }
 
   Future Update_SE_Profile_details(
-      name, phone, address1, address2, city, state, zip) async {
+      name, phone, address1, address2, city, state, zip,oldPass,newPass,confPass) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Update_SE_Profile_details_Url =
-        Uri.parse(ApiEndpoints.Update_profile_url);
+        Uri.parse(ApiEndpoints.SE_Update_profile_url);
         var map = {
           "name": name,
           "phone": phone,
@@ -144,12 +150,15 @@ class ApiCalling {
           "city": city,
           "state": state,
           "zip_code": zip,
+          "old_password": oldPass,
+          "password": newPass,
+          "cpassword": confPass,
         };
         var Update_SE_Profile_details_Url_Response = await client.post(
             Update_SE_Profile_details_Url,
             body: map,
             headers: await headerWithoutContentTypeSE());
-        MYAPILOGS("Update profile Api", Update_SE_Profile_details_Url_Response);
+        MYAPILOGS("SE Update profile Api", Update_SE_Profile_details_Url_Response);
         if (Update_SE_Profile_details_Url_Response.statusCode == 200) {
           return jsonDecode(Update_SE_Profile_details_Url_Response.body);
         } else {
@@ -165,8 +174,69 @@ class ApiCalling {
     }
   }
 
+  Future Post_SE_Call_start(subj_expert_id, eng_id,workorder_id, call_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri Post_SE_Call_details_Url =
+        Uri.parse(ApiEndpoints.SE_post_call_start);
+        var map = {
+          "subj_expert_id": subj_expert_id,
+          "eng_id": eng_id,
+          "workorder_id": workorder_id,
+          "call_type": call_type,
+        };
+        var Post_SE_Call_details_Url_Response = await client.post(
+            Post_SE_Call_details_Url,
+            body: map,
+            headers: await headerWithoutContentTypeSE());
+        MYAPILOGS("Post SE call start Api", Post_SE_Call_details_Url_Response);
+        if (Post_SE_Call_details_Url_Response.statusCode == 200) {
+          return jsonDecode(Post_SE_Call_details_Url_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(Post_SE_Call_details_Url_Response.body)["message"]
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+  Future Post_SE_Call_End(subj_expert_id, eng_id,call_duration) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri Post_SE_Call_End_Url =
+        Uri.parse(ApiEndpoints.SE_post_call_end);
+        var map = {
+          "subj_expert_id": subj_expert_id,
+          "eng_id": eng_id,
+          "duration":call_duration
+        };
+        var Post_SE_Call_End_Url_Response = await client.post(
+            Post_SE_Call_End_Url,
+            body: map,
+            headers: await headerWithoutContentTypeSE());
+        MYAPILOGS("Post SE call end Api", Post_SE_Call_End_Url_Response);
+        if (Post_SE_Call_End_Url_Response.statusCode == 200) {
+          return jsonDecode(Post_SE_Call_End_Url_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(Post_SE_Call_End_Url_Response.body)["message"]
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
   /// Api for is update active
-  Future is_Update_active(is_active) async {
+  Future is_Update_ENG_active(is_active) async {
     if (await isConnectedToInternet()) {
       try {
         Uri is_Update_active_Uri =
@@ -176,7 +246,7 @@ class ApiCalling {
 
         var Login_Response = await client.post(is_Update_active_Uri,
             body: map, headers: await headerWithoutContentTypeENG());
-        MYAPILOGS("is_Update_active Api", Login_Response);
+        MYAPILOGS("is_Update_ENG_active Api", Login_Response);
         if (Login_Response.statusCode == 200) {
           return jsonDecode(Login_Response.body);
         } else {
@@ -190,6 +260,31 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
+  Future is_Update_SE_active(is_active) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri is_Update_SE_active_Uri =
+        Uri.parse(ApiEndpoints.Upadate_is_active_url);
+        var map = Map<String, dynamic>();
+        map['is_active'] = is_active;
+        var is_Update_SE_active_Response = await client.post(is_Update_SE_active_Uri,
+            body: map, headers: await headerWithoutContentTypeSE());
+        MYAPILOGS("is_Update_SE_active Api", is_Update_SE_active_Response);
+        if (is_Update_SE_active_Response.statusCode == 200) {
+          return jsonDecode(is_Update_SE_active_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(is_Update_SE_active_Response.body)['message'].toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
 
   /// Api for update-wo-status
   Future update_wo_status(work_id, work_order_status) async {
@@ -353,10 +448,11 @@ class ApiCalling {
         map['work_id'] = work_id;
         map['parts_id'] = parts_id;
         map['parts_name'] = parts_name;
-
+        print(map);
         var post_work_parts_Response = await client.post(post_work_parts_Uri,
-            body: map, headers: await headerWithoutContentTypeENG());
-        MYAPILOGS(" post work parts Api", post_work_parts_Response);
+            body: (map), headers: await headerWithoutContentTypeENG());
+        print("post_work_parts_Response ===========> ${post_work_parts_Response.body}");
+      MYAPILOGS(" post work parts Api", post_work_parts_Response);
         if (post_work_parts_Response.statusCode == 200) {
           return jsonDecode(post_work_parts_Response.body);
         } else {
@@ -399,7 +495,32 @@ class ApiCalling {
     }
   }
 
-  Future Post_FCM_Token(FCM_token,ZegoUserId) async {
+  Future ENG_Post_FCM_Token(FCM_token,ZegoUserId) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri ENG_Post_FCM_Token_Uri =
+        Uri.parse(ApiEndpoints.post_FCM_Token);
+        var map = Map<String, dynamic>();
+        map['fcm_token'] = FCM_token;
+        map['zego_user_id'] = ZegoUserId;
+        var ENG_Post_FCM_Token_Response = await client.post(ENG_Post_FCM_Token_Uri,
+            body: map, headers: await headerWithoutContentTypeENG());
+        MYAPILOGS("Eng_Post_FCM_Token Api", ENG_Post_FCM_Token_Response);
+        if (ENG_Post_FCM_Token_Response.statusCode == 200) {
+          return jsonDecode(ENG_Post_FCM_Token_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(ENG_Post_FCM_Token_Response.body)['message'].toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+  Future SE_Post_FCM_Token(FCM_token,ZegoUserId) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Post_FCM_Token_Uri =
@@ -408,8 +529,8 @@ class ApiCalling {
         map['fcm_token'] = FCM_token;
         map['zego_user_id'] = ZegoUserId;
         var Post_FCM_Token_Response = await client.post(Post_FCM_Token_Uri,
-            body: map, headers: await headerWithoutContentTypeENG());
-        MYAPILOGS("Post_FCM_Token Api", Post_FCM_Token_Response);
+            body: map, headers: await headerWithoutContentTypeSE());
+        MYAPILOGS("SE_Post_FCM_Token Api", Post_FCM_Token_Response);
         if (Post_FCM_Token_Response.statusCode == 200) {
           return jsonDecode(Post_FCM_Token_Response.body);
         } else {
@@ -707,6 +828,24 @@ class ApiCalling {
     } catch (_) {}
   }
 
+  Future get_SE_status() async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_status_Uri = Uri.parse(ApiEndpoints.get_SE_status_Url);
+        var get_SE_status_Uri_Res = await client.get(get_SE_status_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("get SE status api", get_SE_status_Uri_Res);
+        if (get_SE_status_Uri_Res.statusCode == 200) {
+          return getUserStatusModelFromJson(get_SE_status_Uri_Res.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
   Future get_leave_calender() async {
     try {
       if (await isConnectedToInternet()) {
@@ -769,16 +908,16 @@ class ApiCalling {
   }
 
 
-  Future get_Payout_data() async {
+  Future get_Payout_list() async {
     try {
       if (await isConnectedToInternet()) {
-        Uri get_Payout_data_Uri = Uri.parse(ApiEndpoints.get_payout_data_Url);
-        var get_Payout_data_Response = await client.get(get_Payout_data_Uri,
+        Uri get_Payout_list_Uri = Uri.parse(ApiEndpoints.SE_payout_list_Url);
+        var get_Payout_list_Response = await client.get(get_Payout_list_Uri,
             headers: await headerWithContentTypeENG());
-        MYAPILOGS("get Payout data api", get_Payout_data_Response);
-        if (get_Payout_data_Response.statusCode == 200) {
+        MYAPILOGS("get Payout data api", get_Payout_list_Response);
+        if (get_Payout_list_Response.statusCode == 200) {
           return getPayoutDataModelFromJson(
-              get_Payout_data_Response.body
+              get_Payout_list_Response.body
           );
         } else {
           Result.error("no internet connection");
@@ -819,6 +958,26 @@ class ApiCalling {
         if (get_Add_SE_Parts_list_Response.statusCode == 200) {
           return getAddPartsListModelFromJson(
               get_Add_SE_Parts_list_Response.body
+          );
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+  Future get_SE_Call_logs_list(SE_ZegoUserId) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_SE_Call_logs_list_Uri = Uri.parse("${ApiEndpoints.get_SE_Call_logs_Url}${SE_ZegoUserId}");
+        var get_SE_Call_logs_list_Response = await client.get(get_SE_Call_logs_list_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("get SE Call logs List api", get_SE_Call_logs_list_Response);
+        if (get_SE_Call_logs_list_Response.statusCode == 200) {
+          return getSeCallLogsListFromJson(
+              get_SE_Call_logs_list_Response.body
           );
         } else {
           Result.error("no internet connection");

@@ -4,6 +4,7 @@ import 'package:cloverleaf_project/controller/Update_profile_detail_controller.d
 import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/test_payroll_ui.dart';
 import 'package:cloverleaf_project/screens/commonScreens/Login_Page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -31,6 +32,9 @@ class _AppDrawerState extends State<AppDrawer> {
   TextEditingController stateController = TextEditingController();
   TextEditingController zipController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  TextEditingController oldPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   late GetProfileDetailsModel get_profile_details_data;
   late GetLeaveCalendarModel get_Leave_calendar_data;
@@ -57,6 +61,9 @@ class _AppDrawerState extends State<AppDrawer> {
     zipController.dispose();
     dateController.dispose();
     noteController.dispose();
+    oldPasswordController.dispose();
+    newPasswordController.dispose();
+    confirmPasswordController.dispose();
   }
 
   File? profileImage;
@@ -121,9 +128,9 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     Text(
                       "Contact Details",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.sp,
+                      style: GoogleFonts.lato(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
                           color: appThemeColor),
                     ),
                     SizedBox(
@@ -131,14 +138,19 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "Name",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 0.5.h,
                     ),
                     TextFormField(
+                      cursorColor: appThemeColor,
                       controller: nameController,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                       ),
@@ -148,7 +160,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "Email",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
@@ -156,7 +168,10 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "${get_profile_details_data.data.email.toString()}",
-                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                     ),
                     SizedBox(
                       height: 0.5.h,
@@ -170,13 +185,18 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "Mobile No.",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 0.5.h,
                     ),
                     TextFormField(
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.rubik(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                       onTap: () {},
                       maxLength: 10,
                       keyboardType: TextInputType.phone,
@@ -184,7 +204,13 @@ class _AppDrawerState extends State<AppDrawer> {
                         counterText: "",
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(vertical: 1.5.h),
-                          child: Text("+91"),
+                          child: Text(
+                            "+91",
+                            style: GoogleFonts.rubik(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black54),
+                          ),
                         ),
                       ),
                       controller: phoneController,
@@ -194,13 +220,18 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "Address 1:",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 0.5.h,
                     ),
                     TextFormField(
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                       controller: address1Controller,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
@@ -211,13 +242,18 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "Address 2:",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 0.5.h,
                     ),
                     TextFormField(
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                       controller: address2Controller,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
@@ -228,13 +264,18 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "City/Town:",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 0.5.h,
                     ),
                     TextFormField(
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                       controller: cityController,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
@@ -245,13 +286,18 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "State/Province:",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 0.5.h,
                     ),
                     TextFormField(
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                       controller: stateController,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
@@ -262,15 +308,114 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     Text(
                       "Zip/Postal Code:",
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 0.5.h,
                     ),
                     TextFormField(
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
                       controller: zipController,
                       decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text(
+                      "Update Password",
+                      style: GoogleFonts.lato(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: appThemeColor),
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text(
+                      "Old Password",
+                      style: GoogleFonts.lato(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    TextFormField(
+                      controller: oldPasswordController,
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(Icons.visibility),
+                        hintText: "Enter Old Password",
+                        hintStyle: GoogleFonts.lato(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black54),
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Text(
+                      "New Password",
+                      style: GoogleFonts.lato(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    TextFormField(
+                      controller: newPasswordController,
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(Icons.visibility),
+                        hintText: "Enter New Password",
+                        hintStyle: GoogleFonts.lato(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black54),
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Text(
+                      "Confirm Password",
+                      style: GoogleFonts.lato(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    TextFormField(
+                      controller: confirmPasswordController,
+                      cursorColor: appThemeColor,
+                      style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(Icons.visibility),
+                        hintText: "Enter Confirm Password",
+                        hintStyle: GoogleFonts.lato(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black54),
                         border: UnderlineInputBorder(),
                       ),
                     ),
@@ -281,7 +426,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       children: [
                         SizedBox(
                           height: 5.h,
-                          width: 30.w,
+                          width: 25.w,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.pop(context);
@@ -293,15 +438,15 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                             child: Text(
                               "Cancel",
-                              style: TextStyle(
-                                  fontSize: 16.sp, color: Colors.white),
+                              style: GoogleFonts.lato(
+                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
                         const Spacer(),
                         SizedBox(
                           height: 5.h,
-                          width: 30.w,
+                          width: 25.w,
                           child: ElevatedButton(
                             onPressed: () async {
                               await update_profile_detail_controller()
@@ -313,6 +458,9 @@ class _AppDrawerState extends State<AppDrawer> {
                                       cityController.text,
                                       stateController.text,
                                       zipController.text,
+                                      oldPasswordController.text,
+                                      newPasswordController.text,
+                                      confirmPasswordController.text,
                                       context);
                             },
                             style: ElevatedButton.styleFrom(
@@ -321,9 +469,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               shape: const StadiumBorder(),
                             ),
                             child: Text(
-                              "Edit",
-                              style: TextStyle(
-                                  fontSize: 16.sp, color: Colors.white),
+                              "Update",
+                              style: GoogleFonts.lato(
+                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
@@ -427,8 +575,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                               Text(
                                 "${get_profile_details_data.data.name}",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 16.sp),
+                                style: GoogleFonts.lato(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -446,8 +595,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                               Text(
                                 get_profile_details_data.data.email.toString(),
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 16.sp),
+                                style: GoogleFonts.lato(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -465,8 +615,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                               Text(
                                 get_profile_details_data.data.phone.toString(),
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 16.sp),
+                                style: GoogleFonts.lato(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -480,7 +631,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       color: Colors.grey,
                     ),
                     SizedBox(
-                      height: 1.h,
+                      height: 0.5.h,
                     ),
                     InkWell(
                       onTap: () {
@@ -496,7 +647,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             Icon(
                               Icons.settings_suggest_outlined,
                               color: Colors.white,
-                              size: 18.sp,
+                              size: 14.sp,
                             ),
                             context),
                         title: Text(
@@ -504,11 +655,15 @@ class _AppDrawerState extends State<AppDrawer> {
                           style: profileOptionsStyle,
                         ),
                         trailing: profileListTrailingContainer(
-                            const Icon(Icons.arrow_forward_ios), context),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14.sp,
+                            ),
+                            context),
                       ),
                     ),
                     SizedBox(
-                      height: 1.h,
+                      height: 0.5.h,
                     ),
                     InkWell(
                       onTap: () {
@@ -524,26 +679,30 @@ class _AppDrawerState extends State<AppDrawer> {
                             Icon(
                               Icons.holiday_village_outlined,
                               color: Colors.white,
-                              size: 18.sp,
+                              size: 14.sp,
                             ),
                             context),
                         title: Text(
-                          "Leave Calendar",
+                          "Apply Leave",
                           style: profileOptionsStyle,
                         ),
                         trailing: profileListTrailingContainer(
-                            const Icon(Icons.arrow_forward_ios), context),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14.sp,
+                            ),
+                            context),
                       ),
                     ),
                     SizedBox(
-                      height: 1.h,
+                      height: 0.5.h,
                     ),
                     InkWell(
                       onTap: () async {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Payout_list()),
+                              builder: (context) => Eng_Payout_list()),
                         );
                       },
                       child: ListTile(
@@ -551,7 +710,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             Icon(
                               Icons.payment_outlined,
                               color: Colors.white,
-                              size: 18.sp,
+                              size: 14.sp,
                             ),
                             context),
                         title: Text(
@@ -559,29 +718,33 @@ class _AppDrawerState extends State<AppDrawer> {
                           style: profileOptionsStyle,
                         ),
                         trailing: profileListTrailingContainer(
-                            const Icon(Icons.arrow_forward_ios), context),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14.sp,
+                            ),
+                            context),
                       ),
                     ),
                     SizedBox(
-                      height: 1.h,
+                      height: 0.5.h,
                     ),
                     InkWell(
                       onTap: () async {
                         await is_update_active_controller()
-                            .is_update_active_controller_method(false);
+                            .is_update_ENG_active_controller_method(false);
                         SharedPreferences preferences =
-                        await SharedPreferences.getInstance();
+                            await SharedPreferences.getInstance();
                         await preferences.clear();
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (c) => Login_Page()),
-                                (route) => false);
+                            (route) => false);
                       },
                       child: ListTile(
                         leading: profileListLeadingContainer(
                             Icon(
                               Icons.logout,
                               color: Colors.white,
-                              size: 18.sp,
+                              size: 14.sp,
                             ),
                             context),
                         title: Text(
@@ -589,7 +752,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           style: profileOptionsStyle,
                         ),
                         trailing: profileListTrailingContainer(
-                            const Icon(Icons.arrow_forward_ios), context),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14.sp,
+                            ),
+                            context),
                       ),
                     ),
                   ],
@@ -605,8 +772,7 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   void get_profile_details_data_method() async {
-    get_profile_details_data = await get_profile_details_controller()
-        .get_profile_details_controller_method();
+    get_profile_details_data = await get_profile_details_controller().get_profile_details_controller_method();
     nameController.text = get_profile_details_data.data.name.toString();
     phoneController.text = get_profile_details_data.data.phone.toString();
     address1Controller.text = get_profile_details_data.data.address1.toString();

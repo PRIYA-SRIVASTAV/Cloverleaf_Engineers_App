@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../constant/prefsConstant.dart';
@@ -16,7 +17,12 @@ class Login_Controller {
     } else if (password.toString().isEmpty) {
       customFlutterToast("password can't be empty");
     } else {
-      var r = await ApiCalling().Login(email, password, type);
+     /* var fcm_token;
+      await FirebaseMessaging.instance.getToken().then((value) {
+        fcm_token = value;
+        log("FCM-TOKEN====$fcm_token");
+      });*/
+      var r = await ApiCalling().Login(email, password, type/*,fcm_token,cacheUserIDKey*/);
       log("rrrrrrrrrrrrrrrrrrr $r");
       if (r['status'].toString() == 'true') {
         if(r['data']['user_type']=='2'){

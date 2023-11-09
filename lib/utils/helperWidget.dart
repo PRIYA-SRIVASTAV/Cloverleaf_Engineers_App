@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import '../constant/colorConstant.dart';
@@ -158,8 +159,8 @@ Widget openProfilePhoto(context) {
 
 Widget profileListTrailingContainer(icon, context) {
   return Container(
-      height:5.h,
-      width: 5.h,
+      height:4.h,
+      width: 4.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         color: Colors.grey.withOpacity(0.1),
@@ -169,8 +170,8 @@ Widget profileListTrailingContainer(icon, context) {
 
 Widget profileListLeadingContainer(icon, context) {
   return Container(
-      height:5.h,
-      width: 5.h,
+      height:4.h,
+      width: 4.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         color: appThemeColor,
@@ -227,6 +228,7 @@ Widget Onboarding_BackGround() {
 
 Widget textFieldContainer(controller, context, text, icons) {
   return TextFormField(
+    cursorColor: appThemeColor,
     onChanged: (value) {
       // setState(() {
       //   textValue = value;
@@ -235,11 +237,9 @@ Widget textFieldContainer(controller, context, text, icons) {
     onTap: () {},
     controller: controller,
     decoration: InputDecoration(
-      prefixIcon: Icon(icons, color: appThemeColor),
-      label: Text(
-        text,
-        style: textFieldTitleStyle,
-      ),
+      hintText: text,
+      hintStyle: GoogleFonts.lato(color: Colors.grey),
+      suffixIcon: Icon(icons, color: appThemeColor),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: appThemeColor, width: 0.5.w),
           borderRadius: BorderRadius.circular(5)),
@@ -249,3 +249,4 @@ Widget textFieldContainer(controller, context, text, icons) {
     ),
   );
 }
+

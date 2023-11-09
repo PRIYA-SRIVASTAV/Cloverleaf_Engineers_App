@@ -7,9 +7,9 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:sizer/sizer.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
@@ -17,7 +17,6 @@ import '../../../controller/Post_current_location_controller.dart';
 import '../../../controller/is_update_active_controller.dart';
 import '../../../model/GetDashboardDataModel.dart';
 import '../../../model/GetUserStatusModel.dart';
-import '../../subjectExpertScreen/DashboardTab/DashboardSETab.dart';
 import '../Drawer/customDrawer.dart';
 
 class dashBoardPage extends StatefulWidget {
@@ -175,7 +174,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                     height: 1.h,
                     width: 8.h,
                     child: Center(
-                      child: Text("Loading..."),
+                      child: Text("Loading...",style: GoogleFonts.lato(),),
                     ),
                   ),
           ),
@@ -227,7 +226,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       "Summary",
-                                      style: dashboardCardStyle,
+                                      style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                   SizedBox(
@@ -270,13 +269,10 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("Completed Work Orders",
-                                          style: dashboardCardStyle),
+                                          style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
                                       Text(
                                         "${get_dashboard_data.data.completed}",
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: appThemeColor),
+                                        style:GoogleFonts.rubik(fontSize: 16.sp,color: appThemeColor,fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -312,13 +308,10 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("Ongoing Work Orders",
-                                          style: dashboardCardStyle),
+                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
                                       Text(
                                         "${get_dashboard_data.data.ongoing}",
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.orange),
+                                        style:GoogleFonts.rubik(fontSize: 16.sp,color: Colors.orange,fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -355,13 +348,10 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("Accelerated Work Orders",
-                                          style: dashboardCardStyle),
+                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
                                       Text(
                                         "${get_dashboard_data.data.accelerate}",
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        style:GoogleFonts.rubik(fontSize: 16.sp,fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -397,13 +387,11 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("Unaccepted Work Orders",
-                                          style: dashboardCardStyle),
+                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
                                       Text(
                                         "${get_dashboard_data.data.assign}",
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue),
+                                        style:GoogleFonts.rubik(fontSize: 16.sp,color: Colors.blue,fontWeight: FontWeight.w600),
+
                                       ),
                                     ],
                                   ),
@@ -419,7 +407,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Payout_list(),
+                                  builder: (context) => Eng_Payout_list(),
                                 ),
                               );
                             },
@@ -438,7 +426,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("Total Payouts",
-                                          style: dashboardCardStyle),
+                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
                                       Row(
                                         children: [
                                           Icon(
@@ -447,10 +435,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                           ),
                                           Text(
                                             "${get_dashboard_data.data.payout.toString()}",
-                                            style: TextStyle(
-                                                fontSize: 16.sp,
-                                                color: appThemeColor,
-                                                fontWeight: FontWeight.bold),
+                                            style:GoogleFonts.rubik(fontSize: 16.sp,color: appThemeColor,fontWeight: FontWeight.w600),
                                           ),
                                         ],
                                       )
@@ -465,7 +450,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                       ),
               )
             : Center(
-                child: Text("Work order not assign yet !!!"),
+                child: Text("Work order not assign yet !!!",style: GoogleFonts.lato(color: Colors.red),),
               ),
       ),
     );
@@ -501,7 +486,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
           online_offline_status = true;
         });
         await is_update_active_controller()
-            .is_update_active_controller_method(online_offline_status);
+            .is_update_ENG_active_controller_method(online_offline_status);
         await Post_current_location_controller()
             .Post_current_location_controller_method(lat, long, address);
       }

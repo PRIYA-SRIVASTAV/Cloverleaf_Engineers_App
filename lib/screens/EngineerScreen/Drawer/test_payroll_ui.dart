@@ -1,79 +1,57 @@
 import 'package:cloverleaf_project/constant/colorConstant.dart';
+import 'package:cloverleaf_project/controller/Get_Payout_Data_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../model/GetPayoutDataModel.dart';
 import 'ViewDetailsPayout.dart';
 
-class Payout_list extends StatefulWidget {
-  const Payout_list({super.key});
+class Eng_Payout_list extends StatefulWidget {
+  const Eng_Payout_list({super.key});
 
   @override
-  State<Payout_list> createState() => _Payout_listState();
+  State<Eng_Payout_list> createState() => _Eng_Payout_listState();
 }
 
-class _Payout_listState extends State<Payout_list> {
+class _Eng_Payout_listState extends State<Eng_Payout_list> {
+  bool is_load_Payout_list = false;
+  late GetPayoutDataModel get_Payout_list;
+  @override
+  void initState() {
+    super.initState();
+    get_Payout_list_method();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30.h), // Set the desired height
-        child: AppBar(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
           leading: InkWell(
             onTap: (){
               Navigator.pop(context);
             },
               child: Icon(Icons.arrow_back_ios)),
-          // toolbarHeight: 120, // Set this height
-          flexibleSpace: Container(
-            color: appThemeColor,
-            child: Padding(
-              padding: EdgeInsets.only(left:5.w,top:20.h),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                 Text("Total Amount Received",style: GoogleFonts.lato(fontSize: 16.sp,color: Colors.white)),
-                  SizedBox(height: 1.h,),
-                  Row(
-                    children: [
-                      Icon(Icons.currency_rupee,size: 22.sp,color: Colors.white,),
-                      Text("97000",style: GoogleFonts.rubik(color: Colors.white,fontSize: 22.sp),),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          // backgroundColor: appThemeColor,
-          title: Text('Payout List',style: GoogleFonts.lato(fontSize: 18.sp)),
+          backgroundColor: appThemeColor,
+          title: Text('Payout List',style: GoogleFonts.lato(fontSize: 18.sp,fontWeight: FontWeight.w600,)),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 2.h,
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemCount: 5,
-                itemBuilder: (BuildContext context, i) {
-                  return InkWell(
-                    onTap: () {
-                      // var route =
-                      // MaterialPageRoute(builder: (BuildContext context) {
-                      //   return InvoicePage_View(
-                      //     invoiceId: modeldata[i].id.toString(),
-                      //   );
-                      // });
-                      // Navigator.of(context).push(route);
-                    },
-                    child: Card(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 2.h,
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, i) {
+                    return Card(
                       elevation: 3,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -90,36 +68,26 @@ class _Payout_listState extends State<Payout_list> {
                                 child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 5.w),
-                                  child: Column(
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 5, horizontal: 4),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                "Work order id",
-                                                style: GoogleFonts.lato(color: Colors.grey)
-                                              ),
-                                            ),
-                                            Expanded(
-                                                flex: 1,
-                                                child: Text(":",
-                                                    style: GoogleFonts.lato(color: appThemeColor))),
-                                            Expanded(
-                                              flex: 3,
-                                              child: Text(
-                                                "10",
-                                                style: GoogleFonts.rubik(fontWeight: FontWeight.w400),
-                                              ),
-                                            ),
-                                          ],
+                                            vertical: 5),
+                                        child: Chip(
+                                          visualDensity:
+                                          const VisualDensity(
+                                              vertical: -3),
+                                          label: Text(
+                                            "October",
+                                            style: GoogleFonts.lato(
+                                                color: appThemeColor,
+                                                fontSize: 12,
+                                                fontWeight:
+                                                FontWeight.w400),
+                                          ),
+                                          backgroundColor: Colors.blue
+                                              .withOpacity(0.2),
+                                          padding: EdgeInsets.zero,
                                         ),
                                       ),
                                       Padding(
@@ -203,7 +171,7 @@ class _Payout_listState extends State<Payout_list> {
                                           ],
                                         ),
                                       ),
-                                      if(1==0)...[Padding(
+                                      if(1==1)...[Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 4),
                                         child: Row(
@@ -260,13 +228,12 @@ class _Payout_listState extends State<Payout_list> {
                                                 "12-03-2023",
                                                 style: GoogleFonts.getFont(
                                                     'Rubik',
-                                                    color: appThemeColor,
+                                                    color: Colors.white,
                                                     fontSize: 12,
                                                     fontWeight:
                                                     FontWeight.w400),
                                               ),
-                                              backgroundColor: Colors.pinkAccent
-                                                  .withOpacity(0.2),
+                                              backgroundColor: Colors.blue.shade900,
                                               padding: EdgeInsets.zero,
                                             ),
                                             InkWell(
@@ -274,18 +241,19 @@ class _Payout_listState extends State<Payout_list> {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => ViewDetailsPayout()
+                                                    builder: (context) => EngViewDetailsPayout()
                                                   ),
                                                 );
                                               },
-                                              child:  Text(
-                                                "View Details",
-                                                style: GoogleFonts.lato(fontSize: 13.0,
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.blue)
-                                              ),
+                                              child: Icon(Icons.info_outline,color: Colors.blue.shade900,)
+                                              // Text(
+                                              //   "View Details",
+                                              //   style: GoogleFonts.lato(fontSize: 13.0,
+                                              //       decoration: TextDecoration
+                                              //           .underline,
+                                              //       fontWeight: FontWeight.w600,
+                                              //       color: Colors.blue)
+                                              // ),
                                             )
                                           ],
                                         ),
@@ -298,19 +266,28 @@ class _Payout_listState extends State<Payout_list> {
                           ],
                         ),
                       ),
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    height: 1.8.h,
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 1.8.h,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void get_Payout_list_method()async {
+    get_Payout_list = await Get_Payout_Data_controller().Get_Payout_Data_controller_method();
+    if(get_Payout_list.status.toString()=="true"){
+      setState(() {
+        is_load_Payout_list = true;
+      });
+    }
   }
 }

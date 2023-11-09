@@ -1,6 +1,7 @@
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
 import 'package:cloverleaf_project/controller/work_order_list_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/prefsConstant.dart';
@@ -81,8 +82,9 @@ class _WorkOrdersState extends State<WorkOrders> {
                 Container(
                   child: TabBar(
                     isScrollable:true,
-                    labelStyle: TextStyle(
-                        fontSize:12.sp, fontWeight: FontWeight.bold),
+                    labelStyle: GoogleFonts.lato(
+                      fontSize: 9.5.sp,fontWeight: FontWeight.w600
+                    ),
                     indicator: BoxDecoration(
                       color: Theme
                           .of(context)
@@ -96,7 +98,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                         text: 'Work Orders',
                       ),
                       Tab(
-                        text: 'ongoing',
+                        text: 'Ongoing',
                       ),
                       Tab(
                         text: 'Accelerate',
@@ -121,12 +123,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                   child: TabBarView(
                     children: [
                       if (is_status1_work_list_load == true)...[
-                        if (get_work_order_status1.data.isNotEmpty) ...[
+                        if (get_work_order_status1.data!.isNotEmpty) ...[
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const BouncingScrollPhysics(
                                 parent: AlwaysScrollableScrollPhysics()),
-                            itemCount: get_work_order_status1.data.length,
+                            itemCount: get_work_order_status1.data!.length,
                             itemBuilder: (context, index) {
                               return Card(
                                 shape: OutlineInputBorder(
@@ -146,12 +148,9 @@ class _WorkOrdersState extends State<WorkOrders> {
                                         child: Center(
                                           child: Text(
                                             "Work-id #${get_work_order_status1
-                                                .data[index].workId
+                                                .data![index].workId
                                                 .toString()}",
-                                            style: TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.bold),
+                                            style:GoogleFonts.lato(color: Colors.blue,fontSize: 10.sp,fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                       ),
@@ -180,20 +179,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Asset Name",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h),
                                                       Text(
                                                         "${get_work_order_status1
-                                                            .data[index].asset
+                                                            .data?[index].asset
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -204,21 +197,15 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Subject",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h,),
                                                       Text(
                                                         "${get_work_order_status1
-                                                            .data[index]
+                                                            .data?[index]
                                                             .subject
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -229,20 +216,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Location",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h,),
                                                       Text(
                                                         "${get_work_order_status1
-                                                            .data[index].loc
+                                                            .data?[index].loc
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -253,20 +234,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Description",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h,),
                                                       Text(
                                                         "${get_work_order_status1
-                                                            .data[index].desc
+                                                            .data?[index].desc
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -276,7 +251,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                           ),
                                           Container(
                                             // color: Colors.grey,
-                                            height: 20.h,
+                                            height: 27.h,
                                             width: 30.w,
                                             child: Column(
                                               mainAxisAlignment:
@@ -292,20 +267,15 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Status",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status1
-                                                          .data[index]
+                                                          .data![index]
                                                           .woStatus
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color: Colors.red),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.orange,fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -316,21 +286,15 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Priority",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status1
-                                                          .data[index]
+                                                          .data![index]
                                                           .priority
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color:
-                                                          Colors.orange),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.red,fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -341,20 +305,34 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Category",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status1
-                                                          .data[index]
+                                                          .data![index]
                                                           .category
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color: Colors.grey),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Assign Date",
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
+                                                    ),
+                                                    SizedBox(height: 0.5.h,),
+                                                    Text(
+                                                      "${get_work_order_status1
+                                                          .data![index]
+                                                          .woStatusDate
+                                                          .toString()}",
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -368,7 +346,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                         MainAxisAlignment.spaceAround,
                                         children: [
                                           SizedBox(
-                                            width: 35.w,
+                                            width: 25.w,
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 shape:
@@ -391,7 +369,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   value.setString(
                                                       KEYWORKID,
                                                       get_work_order_status1
-                                                          .data[index].workId
+                                                          .data![index].workId
                                                           .toString());
                                                 });
                                                 await getPref().then((value) {
@@ -407,13 +385,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                               },
                                               child: Text(
                                                 "Accept",
-                                                style: TextStyle(
-                                                    fontSize: 10.sp),
+                                                style:GoogleFonts.lato(fontSize: 10.sp,fontWeight: FontWeight.w600),
                                               ),
                                             ),
                                           ),
                                           SizedBox(
-                                            width: 35.w,
+                                            width: 25.w,
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 shape:
@@ -434,7 +411,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   value.setString(
                                                       KEYWORKID,
                                                       get_work_order_status1
-                                                          .data[index].workId
+                                                          .data![index].workId
                                                           .toString());
                                                 });
                                                 await getPref().then((value) {
@@ -450,8 +427,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                               },
                                               child: Text(
                                                 "Reject",
-                                                style: TextStyle(
-                                                    fontSize: 10.sp),
+                                                style:GoogleFonts.lato(fontSize: 10.sp,fontWeight: FontWeight.w600),
                                               ),
                                             ),
                                           )
@@ -468,7 +444,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                             Center(
                               child: Text(
                                   "${get_work_order_status1.message
-                                      .toString()}"),
+                                      .toString()}",style: GoogleFonts.lato(color: Colors.red),),
                             ),
                           ],
                       ] else...[
@@ -476,12 +452,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                             color: appThemeColor,),)
                         ],
                       if (is_status2_work_list_load == true)...[
-                        if (get_work_order_status2.data.isNotEmpty) ...[
+                        if (get_work_order_status2.data!.isNotEmpty) ...[
                           ListView.builder(
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(
                                 parent: AlwaysScrollableScrollPhysics()),
-                            itemCount: get_work_order_status2.data.length,
+                            itemCount: get_work_order_status2.data!.length,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
@@ -489,8 +465,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          WorkOrderDescriptionPage(
-                                              index: index),
+                                          WorkOrderDescriptionPage(index: index),
                                     ),
                                   );
                                 },
@@ -513,12 +488,8 @@ class _WorkOrdersState extends State<WorkOrders> {
                                             color: Colors.blue.withOpacity(0.3),
                                             child: Center(
                                               child: Text(
-                                                "Work-id #${get_work_order_status2.data[index].workId.toString()}",
-                                                style: TextStyle(
-                                                    color: Colors.blue,
-                                                    fontSize: 10.sp,
-                                                    fontWeight:
-                                                    FontWeight.bold),
+                                                "Work-id #${get_work_order_status2.data![index].workId.toString()}",
+                                                style:GoogleFonts.lato(color: Colors.blue,fontSize: 10.sp,fontWeight: FontWeight.w600),
                                               ),
                                             ),
                                           ),
@@ -551,20 +522,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                           children: [
                                                             Text(
                                                               "Asset Name",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                  14.sp,
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                              style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                             ),
+                                                            SizedBox(height: 0.5.h,),
                                                             Text(
-                                                              "${get_work_order_status2.data[index].asset.toString()}",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                  12.sp,
-                                                                  color: Colors
-                                                                      .grey),
+                                                              "${get_work_order_status2.data![index].asset.toString()}",
+                                                              style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                             )
                                                           ],
                                                         ),
@@ -585,18 +548,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                         children: [
                                                           Text(
                                                             "Subject",
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                            style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                           ),
+                                                          SizedBox(height: 0.5.h,),
                                                           Text(
-                                                            "${get_work_order_status2.data[index].subject.toString()}",
-                                                            style: TextStyle(
-                                                                fontSize: 12.sp,
-                                                                color: Colors
-                                                                    .grey),
+                                                            "${get_work_order_status2.data![index].subject.toString()}",
+                                                            style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                           )
                                                         ],
                                                       ),
@@ -607,18 +564,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                         children: [
                                                           Text(
                                                             "Location",
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                            style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                           ),
+                                                          SizedBox(height: 0.5.h,),
                                                           Text(
-                                                            "${get_work_order_status2.data[index].loc.toString()}",
-                                                            style: TextStyle(
-                                                                fontSize: 12.sp,
-                                                                color: Colors
-                                                                    .grey),
+                                                            "${get_work_order_status2.data![index].loc.toString()}",
+                                                            style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                           )
                                                         ],
                                                       ),
@@ -629,18 +580,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                         children: [
                                                           Text(
                                                             "Description",
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                            style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                           ),
+                                                          SizedBox(height: 0.5.h,),
                                                           Text(
-                                                            "${get_work_order_status2.data[index].desc.toString()}",
-                                                            style: TextStyle(
-                                                                fontSize: 12.sp,
-                                                                color: Colors
-                                                                    .grey),
+                                                            "${get_work_order_status2.data![index].desc.toString()}",
+                                                            style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                           )
                                                         ],
                                                       ),
@@ -665,18 +610,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                       children: [
                                                         Text(
                                                           "Status",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                          style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                         ),
+                                                        SizedBox(height: 0.5.h,),
                                                         Text(
-                                                          "${get_work_order_status2.data[index].woStatus.toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.red),
+                                                          "${get_work_order_status2.data![index].woStatus.toString()}",
+                                                          style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.orange,fontWeight: FontWeight.w600),
                                                         )
                                                       ],
                                                     ),
@@ -687,18 +626,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                       children: [
                                                         Text(
                                                           "Priority",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                          style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                         ),
+                                                        SizedBox(height: 0.5.h,),
                                                         Text(
-                                                          "${get_work_order_status2.data[index].priority.toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color: Colors
-                                                                  .orange),
+                                                          "${get_work_order_status2.data![index].priority.toString()}",
+                                                          style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.red,fontWeight: FontWeight.w600),
                                                         )
                                                       ],
                                                     ),
@@ -709,18 +642,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                       children: [
                                                         Text(
                                                           "Category",
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                          style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                         ),
+                                                        SizedBox(height: 0.5.h,),
                                                         Text(
-                                                          "${get_work_order_status2.data[index].category.toString()}",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              color:
-                                                              Colors.grey),
+                                                          "${get_work_order_status2.data![index].category.toString()}",
+                                                          style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey,fontWeight: FontWeight.w600),
                                                         )
                                                       ],
                                                     ),
@@ -740,7 +667,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                         ] else ...[
                           Center(
                             child: Text(
-                              "${get_work_order_status2.message.toString()}",
+                              "${get_work_order_status2.message.toString()}",style: GoogleFonts.lato(color: Colors.red),
                             ),
                           ),
                         ],
@@ -749,12 +676,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                           color: appThemeColor,),)
                       ],
                       if(is_status3_work_list_load == true)...[
-                        if (get_work_order_status3.data.isNotEmpty) ...[
+                        if (get_work_order_status3.data!.isNotEmpty) ...[
                         ListView.builder(
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics()),
-                          itemCount: get_work_order_status3.data.length,
+                          itemCount: get_work_order_status3.data!.length,
                           itemBuilder: (context, index) {
                             return Card(
                               shape: OutlineInputBorder(
@@ -774,12 +701,9 @@ class _WorkOrdersState extends State<WorkOrders> {
                                       child: Center(
                                         child: Text(
                                           "Work-id #${get_work_order_status3
-                                              .data[index].workId
+                                              .data![index].workId
                                               .toString()}",
-                                          style: TextStyle(
-                                              color: Colors.blue,
-                                              fontSize: 10.sp,
-                                              fontWeight: FontWeight.bold),
+                                          style:GoogleFonts.lato(color: Colors.blue,fontSize: 10.sp,fontWeight: FontWeight.w600),
                                         ),
                                       ),
                                     ),
@@ -810,20 +734,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Asset Name",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status3
-                                                          .data[index].asset
+                                                          .data![index].asset
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color:
-                                                          Colors.grey),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -834,20 +752,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Subject",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status3
-                                                          .data[index].subject
+                                                          .data![index].subject
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color:
-                                                          Colors.grey),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -858,20 +770,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Location",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status3
-                                                          .data[index].loc
+                                                          .data![index].loc
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color:
-                                                          Colors.grey),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -882,20 +788,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Description",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status3
-                                                          .data[index].desc
+                                                          .data![index].desc
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color:
-                                                          Colors.grey),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -920,19 +820,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                 children: [
                                                   Text(
                                                     "Status",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .bold),
+                                                    style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                   ),
+                                                  SizedBox(height: 0.5.h,),
                                                   Text(
                                                     "${get_work_order_status3
-                                                        .data[index].woStatus
+                                                        .data![index].woStatus
                                                         .toString()}",
-                                                    style: TextStyle(
-                                                        fontSize: 12.sp,
-                                                        color: Colors.red),
+                                                    style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                   )
                                                 ],
                                               ),
@@ -943,20 +838,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                 children: [
                                                   Text(
                                                     "Priority",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .bold),
+                                                    style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                   ),
+                                                  SizedBox(height: 0.5.h,),
                                                   Text(
                                                     "${get_work_order_status3
-                                                        .data[index].priority
+                                                        .data![index].priority
                                                         .toString()}",
-                                                    style: TextStyle(
-                                                        fontSize: 12.sp,
-                                                        color:
-                                                        Colors.orange),
+                                                    style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                   )
                                                 ],
                                               ),
@@ -967,19 +856,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                 children: [
                                                   Text(
                                                     "Category",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .bold),
+                                                    style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                   ),
+                                                  SizedBox(height: 0.5.h,),
                                                   Text(
                                                     "${get_work_order_status3
-                                                        .data[index].category
+                                                        .data![index].category
                                                         .toString()}",
-                                                    style: TextStyle(
-                                                        fontSize: 12.sp,
-                                                        color: Colors.grey),
+                                                    style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                   )
                                                 ],
                                               ),
@@ -1028,7 +912,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                         ...[
                           Center(
                             child: Text(
-                              "${get_work_order_status3.message.toString()}",
+                              "${get_work_order_status3.message.toString()}",style: GoogleFonts.lato(color: Colors.red),
                             ),
                           ),
                         ],
@@ -1037,12 +921,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                           color: appThemeColor,),)
                       ],
                       if(is_status4_work_list_load == true)...[
-                        if (get_work_order_status4.data.isNotEmpty) ...[
+                        if (get_work_order_status4.data!.isNotEmpty) ...[
                           ListView.builder(
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(
                                 parent: AlwaysScrollableScrollPhysics()),
-                            itemCount: get_work_order_status4.data.length,
+                            itemCount: get_work_order_status4.data!.length,
                             itemBuilder: (context, index) {
                               return Card(
                                 shape: OutlineInputBorder(
@@ -1062,12 +946,9 @@ class _WorkOrdersState extends State<WorkOrders> {
                                         child: Center(
                                           child: Text(
                                             "Work-id #${get_work_order_status4
-                                                .data[index].workId
+                                                .data![index].workId
                                                 .toString()}",
-                                            style: TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.bold),
+                                            style:GoogleFonts.lato(color: Colors.blue,fontSize: 10.sp,fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                       ),
@@ -1098,20 +979,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Asset Name",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h,),
                                                       Text(
                                                         "${get_work_order_status4
-                                                            .data[index].asset
+                                                            .data![index].asset
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -1122,20 +997,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Subject",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h,),
                                                       Text(
                                                         "${get_work_order_status4
-                                                            .data[index].subject
+                                                            .data![index].subject
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -1146,20 +1015,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Location",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h,),
                                                       Text(
                                                         "${get_work_order_status4
-                                                            .data[index].loc
+                                                            .data![index].loc
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -1170,20 +1033,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     children: [
                                                       Text(
                                                         "Description",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                        style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h,),
                                                       Text(
                                                         "${get_work_order_status4
-                                                            .data[index].desc
+                                                            .data![index].desc
                                                             .toString()}",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color:
-                                                            Colors.grey),
+                                                        style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                       )
                                                     ],
                                                   ),
@@ -1192,7 +1049,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                             ),
                                           ),
                                           Container(
-                                            height: 20.h,
+                                            height: 27.h,
                                             width: 30.w,
                                             child: Column(
                                               mainAxisAlignment:
@@ -1208,19 +1065,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Status",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status4
-                                                          .data[index].woStatus
+                                                          .data![index].woStatus
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color: Colors.red),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.orange, fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -1231,20 +1083,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Priority",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status4
-                                                          .data[index].priority
+                                                          .data![index].priority
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color:
-                                                          Colors.orange),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.red, fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -1255,19 +1101,32 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                   children: [
                                                     Text(
                                                       "Category",
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
                                                     ),
+                                                    SizedBox(height: 0.5.h,),
                                                     Text(
                                                       "${get_work_order_status4
-                                                          .data[index].category
+                                                          .data![index].category
                                                           .toString()}",
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color: Colors.grey),
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Complete Date",
+                                                      style:GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
+                                                    ),
+                                                    SizedBox(height: 0.5.h,),
+                                                    Text(
+                                                      "${get_work_order_status4
+                                                          .data![index].woStatusDate
+                                                          .toString()}",
+                                                      style:GoogleFonts.lato(fontSize: 10.sp,color: Colors.grey, fontWeight: FontWeight.w600),
                                                     )
                                                   ],
                                                 ),
@@ -1285,7 +1144,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                         ] else...[
                           Center(
                             child: Text(
-                                "${get_work_order_status4.message.toString()}"),
+                                "${get_work_order_status4.message.toString()}",style: GoogleFonts.lato(color: Colors.red),),
                           ),
                         ],
                       ]else...[
@@ -1389,7 +1248,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                     value.setString(
                                         KEYWORKID,
                                         get_work_order_status3
-                                            .data[index]
+                                            .data![index]
                                             .workId
                                             .toString());
                                   });
@@ -1438,61 +1297,6 @@ class _WorkOrdersState extends State<WorkOrders> {
             ),
           ),
         );
-        //   AlertDialog(
-        //   title: Text('Confirmation'),
-        //   content: Container(
-        //     width: 200, // Set the width as per your preference
-        //     height: 100, // Set the height as per your preference
-        //     child: Center(
-        //       child: Row(
-        //         children: [
-        //           TextFormField(
-        //             controller: CommentController,
-        //             // maxLength: 100,
-        //             decoration: InputDecoration(
-        //                 suffixIcon: Icon(Icons.note_alt),
-        //                 border: UnderlineInputBorder(),
-        //                 hintText: "Enter reason"),
-        //           ),
-        //           Text('Are you sure you want to mark it as Complete?'),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        //   actions: <Widget>[
-        //     TextButton(
-        //       child: Text('Cancel',style: TextStyle(color: Colors.red),),
-        //       onPressed: () {
-        //         Navigator.of(context).pop(); // Close the dialog
-        //       },
-        //     ),
-        //     TextButton(
-        //       child: Text('Continue',style: TextStyle(color: appThemeColor),),
-        //       onPressed: ()async {
-        //         var Work_id;
-        //         await getPref()
-        //             .then((value) {
-        //           value.setString(
-        //               KEYWORKID,
-        //               get_work_order_status3
-        //                   .data[index]
-        //                   .workId
-        //                   .toString());
-        //         });
-        //         await getPref()
-        //             .then((value) {
-        //           Work_id =
-        //               value.getString(
-        //                   KEYWORKID);
-        //         });
-        //         await update_wo_status_Controller()
-        //             .update_wo_status_completed_Controller_method(
-        //             Work_id,
-        //             context);
-        //       },
-        //     ),
-        //   ],
-        // );
       },
     );
   }

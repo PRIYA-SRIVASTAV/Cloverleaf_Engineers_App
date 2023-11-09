@@ -1,15 +1,17 @@
 import 'package:cloverleaf_project/controller/Get_SE_Dashboard_percentage_details_Controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:sizer/sizer.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
-import '../../../Services/ZegoLoginServices.dart';
 import '../../../constant/colorConstant.dart';
-import '../../../constant/prefsConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
+import '../../../controller/Get_User_status_controller.dart';
+import '../../../controller/is_update_active_controller.dart';
 import '../../../model/GetSEDashbordDataModel.dart';
-import '../../../utils/helperWidget.dart';
+import '../../../model/GetUserStatusModel.dart';
 import '../BottomNavigationPageSE.dart';
 import '../DrawerSE/DrawerSE.dart';
 
@@ -35,10 +37,14 @@ class _DashboardSEState extends State<DashboardSE> {
   ];
   bool is_load_SE_Dashboard_data = false;
   late GetSeDashbordDataModel get_SE_dashboard_data;
+  late GetUserStatusModel Get_SE_status;
+  bool online_offline_SE_status = false;
+  bool is_load_SE_status = false;
 
   @override
   void initState() {
     Get_SE_Dashboard_data_method();
+    Get_SE_status_method();
     super.initState();
   }
 
@@ -51,43 +57,43 @@ class _DashboardSEState extends State<DashboardSE> {
           dashboard,
           style: dashboardStyle,
         ),
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.only(right: 15),
-        //     child: FlutterSwitch(
-        //       width: 20.w,
-        //       height: 3.2.h,
-        //       valueFontSize: 14,
-        //       toggleSize: 20,
-        //       value: online_offline_status,
-        //       activeColor: Colors.lightGreen,
-        //       activeTextColor: Colors.white,
-        //       activeTextFontWeight: FontWeight.w400,
-        //       activeText: "online",
-        //       inactiveText: "offline",
-        //       inactiveColor: Colors.grey,
-        //       inactiveTextColor: Colors.white,
-        //       inactiveTextFontWeight: FontWeight.w400,
-        //       borderRadius: 30,
-        //       padding: 4,
-        //       showOnOff: true,
-        //       onToggle: (val) async {
-        //         setState(() {
-        //           tapButton();
-        //         });
-        //         await is_update_active_controller()
-        //             .is_update_active_controller_method(
-        //             online_offline_status);
-        //         if (await online_offline_status == true) {
-        //           await getLatLong();
-        //           Post_current_location_controller()
-        //               .Post_current_location_controller_method(
-        //               lat, long, address);
-        //         }
-        //       },
-        //     )
-        //   ),
-        // ],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: is_load_SE_status
+                ? FlutterSwitch(
+                    width: 20.w,
+                    height: 3.2.h,
+                    valueFontSize: 14,
+                    toggleSize: 20,
+                    value: online_offline_SE_status,
+                    activeColor: Colors.lightGreen,
+                    activeTextColor: Colors.white,
+                    activeTextFontWeight: FontWeight.w400,
+                    activeText: "online",
+                    inactiveText: "offline",
+                    inactiveColor: Colors.grey,
+                    inactiveTextColor: Colors.white,
+                    inactiveTextFontWeight: FontWeight.w400,
+                    borderRadius: 30,
+                    padding: 4,
+                    showOnOff: true,
+                    onToggle: (val) {
+                      tapButton();
+                    },
+                  )
+                : SizedBox(
+                    height: 1.h,
+                    width: 8.h,
+                    child: Center(
+                      child: Text(
+                        "Loading...",
+                        style: GoogleFonts.lato(),
+                      ),
+                    ),
+                  ),
+          ),
+        ],
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -136,7 +142,9 @@ class _DashboardSEState extends State<DashboardSE> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       "Summary",
-                                      style: dashboardCardStyle,
+                                      style: GoogleFonts.lato(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                   SizedBox(
@@ -178,15 +186,19 @@ class _DashboardSEState extends State<DashboardSE> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Completed Work Orders",
-                                          style: dashboardCardStyle),
+                                      Text(
+                                        "Completed Work Orders",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Text(
                                         get_SE_dashboard_data.data.completed
                                             .toString(),
-                                        style: TextStyle(
+                                        style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: appThemeColor),
+                                            color: appThemeColor,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -221,15 +233,19 @@ class _DashboardSEState extends State<DashboardSE> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("OnGoing Work Orders",
-                                          style: dashboardCardStyle),
+                                      Text(
+                                        "OnGoing Work Orders",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Text(
                                         get_SE_dashboard_data.data.onging
                                             .toString(),
-                                        style: TextStyle(
+                                        style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.orange),
+                                            color: appThemeColor,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -264,15 +280,19 @@ class _DashboardSEState extends State<DashboardSE> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Unaccepted Work Orders",
-                                          style: dashboardCardStyle),
+                                      Text(
+                                        "Unaccepted Work Orders",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Text(
                                         get_SE_dashboard_data.data.assign
                                             .toString(),
-                                        style: TextStyle(
+                                        style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue),
+                                            color: appThemeColor,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -306,8 +326,12 @@ class _DashboardSEState extends State<DashboardSE> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Total Payouts",
-                                          style: dashboardCardStyle),
+                                      Text(
+                                        "Total Payouts",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Row(
                                         children: [
                                           Icon(
@@ -317,10 +341,10 @@ class _DashboardSEState extends State<DashboardSE> {
                                           Text(
                                             get_SE_dashboard_data.data.payout
                                                 .toString(),
-                                            style: TextStyle(
+                                            style: GoogleFonts.rubik(
                                                 fontSize: 16.sp,
                                                 color: appThemeColor,
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ],
                                       )
@@ -330,59 +354,39 @@ class _DashboardSEState extends State<DashboardSE> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Text('Your Phone Number: ${currentUser.id}'),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Container(
-                                    child: TextFormField(
-                                      controller: singleInviteeUserIDTextCtrl,
-                                      decoration: InputDecoration(
-                                        labelText: "invitee ID",
-                                        hintText: "plz enter invitee ID",
-                                      ),
-                                    ),
-                                  )),
-                                  sendCallButton(
-                                    isVideoCall: false,
-                                    inviteeUsersIDTextCtrl: singleInviteeUserIDTextCtrl,
-                                    onCallFinished: onSendCallInvitationFinished,
-                                  ),
-                                  sendCallButton(
-                                    isVideoCall: true,
-                                    inviteeUsersIDTextCtrl:
-                                        singleInviteeUserIDTextCtrl,
-                                    onCallFinished:
-                                        onSendCallInvitationFinished,
-                                  ),
-                                  const SizedBox(width: 20),
-                                ],
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 20),
-                                child: Divider(height: 1.0, color: Colors.grey),
-                              ),
-                            ],
-                          )
                         ],
                       ),
               )
             : Center(
                 child: Text(
                   "Work order not assign yet !!!",
+                  style: GoogleFonts.lato(color: Colors.red),
                 ),
               ),
       ),
     );
+  }
+
+  void tapButton() async {
+    setState(() {
+      online_offline_SE_status = !online_offline_SE_status;
+    });
+    await is_update_active_controller()
+        .is_update_SE_active_controller_method(online_offline_SE_status);
+  }
+
+  void Get_SE_status_method() async {
+    Get_SE_status =
+        await Get_User_status_controller().Get_SE_status_controller_method();
+    setState(() {
+      if (Get_SE_status.data.toString() == "1") {
+        online_offline_SE_status = true;
+        is_load_SE_status = true;
+      } else {
+        online_offline_SE_status = false;
+        is_load_SE_status = true;
+      }
+    });
   }
 
   Widget pieChartsOne(context) {
@@ -431,6 +435,4 @@ class _DashboardSEState extends State<DashboardSE> {
       });
     }
   }
-
-
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/testStyleConstant.dart';
 
@@ -22,7 +23,7 @@ class OnBoardContent extends StatelessWidget {
           Center(
             child: Text(
               title1,
-              style: titleStyle,
+              style: GoogleFonts.lato(fontSize:16.sp,fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 2.h,),
@@ -35,62 +36,8 @@ class OnBoardContent extends StatelessWidget {
             ),
           ),
           SizedBox(height: 2.h,),
-          Text(title2, style: titleStyle),
+          Center(child: Text(title2, style: GoogleFonts.lato(fontSize:16.sp,fontWeight: FontWeight.bold),)),
         ]
-        //   Column(
-        //     children: [
-        //       Stack(
-        //         children: [
-        //           SizedBox(
-        //             height: 100.h,
-        //             child: Column(
-        //               children: [
-        //                 Stack(
-        //                   children: [
-        //                     Positioned(
-        //                        top: 15.h,
-        //                        left: 3.w,
-        //                        right: 3.w,
-        //                       child: Center(
-        //                         child: Text(
-        //                           title1,
-        //                           style: titleStyle,
-        //                         ),
-        //                       ),
-        //                     ),
-        //                   ],
-        //                 ),
-        //                 Stack(
-        //                   children: [
-        //                     Positioned(
-        //                       top: 20.h,
-        //                       left: 3.w,
-        //                       right: 3.w,
-        //                       child: Center(
-        //                         child: Text(title2, style: titleStyle),
-        //                       ),
-        //                     ),
-        //                   ],
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //           Positioned(
-        //             top: 25.h,
-        //             left: 10.w,
-        //             child: Container(
-        //               height: 40.h,
-        //               width: 80.w,
-        //               decoration: BoxDecoration(
-        //                 image: DecorationImage(
-        //                     image: AssetImage(image), fit: BoxFit.contain),
-        //               ),
-        //             ),
-        //           ),
-        //         ],
-        //       )
-        //     ],
-        //   ),
         );
   }
 }

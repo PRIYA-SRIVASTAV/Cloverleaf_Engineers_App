@@ -1,4 +1,3 @@
-
 import '../../constant/stringsConstant.dart';
 
 class onBoard {

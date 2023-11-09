@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final getWorkOrderListModel = getWorkOrderListModelFromJson(jsonString);
+
 import 'dart:convert';
 
 GetWorkOrderListModel getWorkOrderListModelFromJson(String str) => GetWorkOrderListModel.fromJson(json.decode(str));
@@ -37,6 +41,7 @@ class Datum {
   String loc;
   String asset;
   String woStatus;
+  String woStatusDate;
 
   Datum({
     required this.workId,
@@ -47,6 +52,7 @@ class Datum {
     required this.loc,
     required this.asset,
     required this.woStatus,
+    required this.woStatusDate,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -58,6 +64,7 @@ class Datum {
     loc: json["loc"],
     asset: json["asset"],
     woStatus: json["wo_status"],
+    woStatusDate: json["wo_status_date"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +76,6 @@ class Datum {
     "loc": loc,
     "asset": asset,
     "wo_status": woStatus,
+    "wo_status_date": woStatusDate,
   };
 }

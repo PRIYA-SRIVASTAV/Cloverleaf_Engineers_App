@@ -123,7 +123,7 @@ class _splashScreenState extends State<splashScreen> {
                 child: Image.asset('assets/images/Cloverleaf-gif-video.gif'),
               ),
               SizedBox(
-                height: 3.h,
+                height:2.h,
               ),
               Text(
                 "CLOVERLEAF",
@@ -139,7 +139,6 @@ class _splashScreenState extends State<splashScreen> {
       ),
     );
   }
-
   void routingFunction() async {
     await generatingUserIDforZegorCloud();
     var auth_eng_token;
@@ -148,15 +147,14 @@ class _splashScreenState extends State<splashScreen> {
       auth_eng_token = value.getString(KEYENGTOKEN);
       auth_se_token = value.getString(KEYSETOKEN);
     });
-
     var fcm_token;
     await FirebaseMessaging.instance.getToken().then((value) {
       fcm_token = value;
       log("FCM-TOKEN====$fcm_token");
     });
-    Post_FCM_Token_Controller().Post_FCM_Token_Controller_method(fcm_token,zegoUserID);
     if (auth_eng_token.toString() != "KEY_ENG_TOKEN" &&
         auth_eng_token.toString() != "null") {
+      Post_FCM_Token_Controller().Eng_Post_FCM_Token_Controller_method(fcm_token,zegoUserID);
       debugPrint(auth_eng_token.toString());
       Navigator.pushReplacement(
         context,
@@ -166,6 +164,7 @@ class _splashScreenState extends State<splashScreen> {
       );
     } else if (auth_se_token.toString() != "KEY_SE_TOKEN" &&
         auth_se_token.toString() != "null") {
+      Post_FCM_Token_Controller().SE_Post_FCM_Token_Controller_method(fcm_token, zegoUserID);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -181,7 +180,6 @@ class _splashScreenState extends State<splashScreen> {
       );
     }
   }
-
   generatingUserIDforZegorCloud() async {
     final prefs = await SharedPreferences.getInstance();
     final cacheUserID = prefs.get(cacheUserIDKey) as String? ?? '';
@@ -204,6 +202,6 @@ class _splashScreenState extends State<splashScreen> {
       });
     }
     zegoUserID = cacheUserID;
-    debugPrint("ZegorUserID------------------------>>>$cacheUserID");
+    debugPrint("ZegoUserID------------------------>>>$cacheUserID");
   }
 }

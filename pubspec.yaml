@@ -44,6 +44,9 @@ dependencies:
   flutter_switch: ^0.3.2
   table_calendar:
   just_audio: ^0.9.25
+  url_launcher: ^6.2.1
+  flutter_phone_direct_caller: ^2.1.1
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -63,6 +66,7 @@ dependencies:
   carousel_slider: ^4.0.0
   geocoding: ^2.1.0
   google_fonts:
+  flutter_spinkit: ^5.2.0
 
 dev_dependencies:
   flutter_test:
