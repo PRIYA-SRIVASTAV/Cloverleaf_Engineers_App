@@ -12,6 +12,7 @@ import '../../../../utils/helperWidget.dart';
 import '../../../controller/Get_SE_profile_details_controller.dart';
 import '../../../controller/Update_profile_detail_controller.dart';
 import '../../../model/GetProfileSEModel.dart';
+import 'FAQ_Page.dart';
 import 'SEpayoutPage.dart';
 
 class AppDrawerSE extends StatefulWidget {
@@ -151,7 +152,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                             width: 2.h,
                           ),
                           Text(
-                            "${get_SE_profile_details_data.data.name}",
+                            "${get_SE_profile_details_data.data!.name}",
                             style: GoogleFonts.lato(
                                 fontSize: 12.sp, fontWeight: FontWeight.w600),
                           ),
@@ -170,7 +171,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                             width: 2.h,
                           ),
                           Text(
-                            "${get_SE_profile_details_data.data.email}",
+                            "${get_SE_profile_details_data.data!.email}",
                             style: GoogleFonts.lato(
                                 fontSize: 12.sp, fontWeight: FontWeight.w600),
                           ),
@@ -189,7 +190,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                             width: 2.h,
                           ),
                           Text(
-                            "${get_SE_profile_details_data.data.phone}",
+                            "${get_SE_profile_details_data.data!.phone}",
                             style: GoogleFonts.lato(
                                 fontSize: 12.sp, fontWeight: FontWeight.w600),
                           ),
@@ -236,34 +237,6 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                         context),
                   ),
                 ),
-                // SizedBox(
-                //   height: 1.h,
-                // ),
-                // ListTile(
-                //   leading: profileListLeadingContainer(
-                //       Icon(
-                //         Icons.holiday_village_outlined,
-                //         color: Colors.white,
-                //         size: 18.sp,
-                //       ),
-                //       context),
-                //   title: Text(
-                //     "Leave Calendar",
-                //     style: profileOptionsStyle,
-                //   ),
-                //   trailing: InkWell(
-                //     onTap: () {
-                //       showDialog(
-                //         context: context,
-                //         builder: (context) {
-                //           return EventCalendarScreen();
-                //         },
-                //       );
-                //     },
-                //     child: profileListTrailingContainer(
-                //         const Icon(Icons.arrow_forward_ios), context),
-                //   ),
-                // ),
                 SizedBox(
                   height: 1.h,
                 ),
@@ -288,6 +261,39 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                     ),
                     trailing: profileListTrailingContainer(
                          Icon(Icons.arrow_forward_ios,size: 14.sp,), context),
+                  ),
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>FAQ_Page(),
+
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    leading: profileListLeadingContainer(
+                        Icon(
+                          Icons.question_answer_outlined,
+                          color: Colors.white,
+                          size: 14.sp,
+                        ),
+                        context),
+                    title: Text(
+                      "FAQ",
+                      style: profileOptionsStyle,
+                    ),
+                    trailing: profileListTrailingContainer(
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 14.sp,
+                        ),
+                        context),
                   ),
                 ),
                 SizedBox(
@@ -382,7 +388,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                       height: 2.h,
                     ),
                     Text(
-                      "${get_SE_profile_details_data.data.email.toString()}",
+                      "${get_SE_profile_details_data.data!.email.toString()}",
                       style: GoogleFonts.lato(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
@@ -726,15 +732,15 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
   void get_SE_profile_details_data_method() async {
     get_SE_profile_details_data = await Get_SE_profile_details_controller()
         .get_profile_details_controller_method();
-    nameController.text = get_SE_profile_details_data.data.name.toString();
-    phoneController.text = get_SE_profile_details_data.data.phone.toString();
+    nameController.text = get_SE_profile_details_data.data!.name.toString();
+    phoneController.text = get_SE_profile_details_data.data!.phone.toString();
     address1Controller.text =
-        get_SE_profile_details_data.data.address1.toString();
+        get_SE_profile_details_data.data!.address1.toString();
     address2Controller.text =
-        get_SE_profile_details_data.data.address2.toString();
-    cityController.text = get_SE_profile_details_data.data.city.toString();
-    stateController.text = get_SE_profile_details_data.data.state.toString();
-    zipController.text = get_SE_profile_details_data.data.zipCode.toString();
+        get_SE_profile_details_data.data!.address2.toString();
+    cityController.text = get_SE_profile_details_data.data!.city.toString();
+    stateController.text = get_SE_profile_details_data.data!.state.toString();
+    zipController.text = get_SE_profile_details_data.data!.zipCode.toString();
     print(get_SE_profile_details_data);
     if (get_SE_profile_details_data.status.toString() == "true") {
       setState(() {

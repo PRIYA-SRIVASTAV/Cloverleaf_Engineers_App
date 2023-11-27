@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final getUserStatusModel = getUserStatusModelFromJson(jsonString);
+
 import 'dart:convert';
 
 GetUserStatusModel getUserStatusModelFromJson(String str) => GetUserStatusModel.fromJson(json.decode(str));
@@ -5,14 +9,14 @@ GetUserStatusModel getUserStatusModelFromJson(String str) => GetUserStatusModel.
 String getUserStatusModelToJson(GetUserStatusModel data) => json.encode(data.toJson());
 
 class GetUserStatusModel {
-  String status;
-  int data;
-  String message;
+  bool? status;
+  int? data;
+  String? message;
 
   GetUserStatusModel({
-    required this.status,
-    required this.data,
-    required this.message,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory GetUserStatusModel.fromJson(Map<String, dynamic> json) => GetUserStatusModel(

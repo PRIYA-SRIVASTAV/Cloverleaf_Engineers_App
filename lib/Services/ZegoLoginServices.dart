@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloverleaf_project/constant/colorConstant.dart';
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -13,7 +14,6 @@ import '../controller/Post_SE_Call_details_controller.dart';
 import '../utils/helperWidget.dart';
 
 ZegoUIKitPrebuiltCallController? callController;
-
 /// local virtual login
 Future<void> login({
   required String userID,
@@ -33,14 +33,12 @@ Future<void> logout() async {
 }
 
 /// on user login
-void onUserLogin() {
+ onUserLogin()async{
   callController ??= ZegoUIKitPrebuiltCallController();
-
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
     appID: 1382134047 /*input your AppID*/,
-    appSign:
-        "c0c0758fa12bcc6354425a65706a5651cf27b8cfc9ec35b4731f50e9fe85cb08" /*input your AppSign*/,
+    appSign: "c0c0758fa12bcc6354425a65706a5651cf27b8cfc9ec35b4731f50e9fe85cb08" /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
     androidNotificationConfig: ZegoAndroidNotificationConfig(
@@ -54,7 +52,7 @@ void onUserLogin() {
     ),
     plugins: [ZegoUIKitSignalingPlugin()],
     controller: callController,
-    requireConfig: (ZegoCallInvitationData data) {
+    requireConfig: (ZegoCallInvitationData data){
       final config = (data.invitees.length > 1)
           ? ZegoCallType.videoCall == data.type
               ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
@@ -62,62 +60,66 @@ void onUserLogin() {
           : ZegoCallType.videoCall == data.type
               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-
+      MyZegoConst.callType = ZegoCallType.voiceCall==data.type?"1":"2";
+      print("---------->call_type :${MyZegoConst.callType}");
+      callApi(MyZegoConst.callType);
       // config.avatarBuilder = customAvatarBuilder;
-
       /// support minimizing, show minimizing button
       config.topMenuBarConfig.isVisible = true;
       config.topMenuBarConfig.buttons
           .insert(0, ZegoMenuBarButtonName.minimizingButton);
-      // config.onHangUpConfirmation = (BuildContext context) async {
-      //   return await showDialog(
-      //     context: context,
-      //     barrierDismissible: false,
-      //     builder: (BuildContext context) {
-      //       return AlertDialog(
-      //         backgroundColor: Colors.blue[900]!.withOpacity(0.9),
-      //         title: const Text("This is your custom dialog",
-      //             style: TextStyle(color: Colors.white70)),
-      //         content: const Text(
-      //             "You can customize this dialog however you like",
-      //             style: TextStyle(color: Colors.white70)),
-      //         actions: [
-      //           ElevatedButton(
-      //             child: const Text("Cancel",
-      //                 style: TextStyle(color: Colors.white70)),
-      //             onPressed: () => Navigator.of(context).pop(false),
-      //           ),
-      //           ElevatedButton(
-      //               child: const Text("Exit"),
-      //               onPressed: () async {
-      //                 Navigator.pop(context);
-      //
-      //               }),
-      //         ],
-      //       );
-      //     },
-      //   );
-      // };
-
+      config.onHangUpConfirmation = (BuildContext context) async {
+        return await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: appThemeColor,
+              title: const Text("Confirmation",
+                  style: TextStyle(color: Colors.white70)),
+              content: const Text(
+                  "Are you sure you want to cancel this call?",
+                  style: TextStyle(color: Colors.white70)),
+              actions: [
+                ElevatedButton(style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  child: Text("Cancel",
+                      style: TextStyle(color: appThemeColor)),
+                  onPressed: () => Navigator.of(context).pop(false),
+                ),
+                ElevatedButton(style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                    child: Text("Exit",style: TextStyle(color: appThemeColor)),
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      print("Call Durationsssss =====>>>${MyZegoConst.callDuration}");
+                      //   debugPrint(data.invitees.toString());
+                      debugPrint(data.invitees[0].id.toString());
+                      debugPrint(data.inviter?.id.toString());
+                      // debugPrint(data.inviter.toString());
+                      print("==callDuration========>${MyZegoConst.callDuration}");
+                      await Post_SE_Call_details_controller().Post_SE_Call_End_details_controller_method(data.inviter!.id.toString(),data.invitees[0].id.toString(),MyZegoConst.callDuration);
+                    }),
+              ],
+            );
+          },
+        );
+      };
       config.durationConfig.onDurationUpdate = (Duration duration) {
         MyZegoConst.callDuration = duration.inSeconds.toString();
       };
-      config.onHangUp = () async{
-
-        print("Call Durationsssss =====>>>${MyZegoConst.callDuration}");
-     //   debugPrint(data.invitees.toString());
-        debugPrint(data.invitees[0].id.toString());
-        debugPrint(data.inviter?.id.toString());
-       // debugPrint(data.inviter.toString());
-        print("==callDuration========>${MyZegoConst.callDuration}");
-      //  await Post_SE_Call_details_controller().Post_SE_Call_End_details_controller_method(data.invitees.toString(),data.inviter.toString(),MyZegoConst.callDuration);
-      };
+     //  config.onHangUp = () async{
+     // //    print("Call Durationsssss =====>>>${MyZegoConst.callDuration}");
+     // // //   debugPrint(data.invitees.toString());
+     // //    debugPrint(data.invitees[0].id.toString());
+     // //    debugPrint(data.inviter?.id.toString());
+     // //   // debugPrint(data.inviter.toString());
+     // //    print("==callDuration========>${MyZegoConst.callDuration}");
+     // //  //  await Post_SE_Call_details_controller().Post_SE_Call_End_details_controller_method(data.invitees.toString(),data.inviter.toString(),MyZegoConst.callDuration);
+     //  };
       config.onError = (ZegoUIKitError error) {
         debugPrint('onError:$error');
       };
-
       return config;
-    },
+    }
   );
 }
 
@@ -200,8 +202,6 @@ Widget sendCallButton({
     valueListenable: inviteeUsersIDTextCtrl,
     builder: (context, inviteeUserID, _) {
       var invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text.trim());
-      MyZegoConst.callType = isVideoCall ? "2" : "1";
-
       return ZegoSendCallInvitationButton(
         isVideoCall: isVideoCall,
         invitees: invitees,
@@ -233,8 +233,8 @@ List<ZegoUIKitUser> getInvitesFromTextCtrl(String textCtrlText) {
 }
 
 void onSendCallInvitationFinished(
-    String code, String message, List<String> errorInvitees) async {
-  await callApi();
+    String code, String message, List<String> errorInvitees) {
+ // await callApi();
 
   if (errorInvitees.isNotEmpty) {
     String userIDs = "";
@@ -263,11 +263,10 @@ void onSendCallInvitationFinished(
   }
 }
 
-callApi() async {
-  print(await MyZegoConst.SE_Zego_id);
-  print(await MyZegoConst.ENg_Zego_id);
-  print(await MyZegoConst.callWorkId);
-  print(await MyZegoConst.callType);
+callApi(call_type) async {
+  print("---------->Se_Zego :${await MyZegoConst.SE_Zego_id}");
+  print("---------->Eng_zego :${await MyZegoConst.ENg_Zego_id}");
+  print("---------->WorkId : ${await MyZegoConst.callWorkId}");
   print("Data=================================");
-  await Post_SE_Call_details_controller().Post_SE_Call_Start_details_controller_method(MyZegoConst.SE_Zego_id, MyZegoConst.ENg_Zego_id, MyZegoConst.callWorkId, MyZegoConst.callType);
+  await Post_SE_Call_details_controller().Post_SE_Call_Start_details_controller_method(MyZegoConst.SE_Zego_id,MyZegoConst.ENg_Zego_id,MyZegoConst.callWorkId,call_type);
 }

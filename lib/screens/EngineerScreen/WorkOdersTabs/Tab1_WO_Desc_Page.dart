@@ -418,7 +418,7 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                 ),
               )
             : Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(color: appThemeColor,),
               ),
       ),
     );

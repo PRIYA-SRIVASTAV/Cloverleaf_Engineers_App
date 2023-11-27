@@ -167,7 +167,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       height: 2.h,
                     ),
                     Text(
-                      "${get_profile_details_data.data.email.toString()}",
+                      "${get_profile_details_data.data!.email.toString()}",
                       style: GoogleFonts.lato(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
@@ -574,7 +574,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 width: 2.h,
                               ),
                               Text(
-                                "${get_profile_details_data.data.name}",
+                                "${get_profile_details_data.data!.name}",
                                 style: GoogleFonts.lato(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600),
@@ -594,7 +594,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 width: 2.h,
                               ),
                               Text(
-                                get_profile_details_data.data.email.toString(),
+                                get_profile_details_data.data!.email.toString(),
                                 style: GoogleFonts.lato(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600),
@@ -614,7 +614,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 width: 2.h,
                               ),
                               Text(
-                                get_profile_details_data.data.phone.toString(),
+                                get_profile_details_data.data!.phone.toString(),
                                 style: GoogleFonts.lato(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600),
@@ -773,13 +773,13 @@ class _AppDrawerState extends State<AppDrawer> {
 
   void get_profile_details_data_method() async {
     get_profile_details_data = await get_profile_details_controller().get_profile_details_controller_method();
-    nameController.text = get_profile_details_data.data.name.toString();
-    phoneController.text = get_profile_details_data.data.phone.toString();
-    address1Controller.text = get_profile_details_data.data.address1.toString();
-    address2Controller.text = get_profile_details_data.data.address2.toString();
-    cityController.text = get_profile_details_data.data.city.toString();
-    stateController.text = get_profile_details_data.data.state.toString();
-    zipController.text = get_profile_details_data.data.zipCode.toString();
+    nameController.text = get_profile_details_data.data!.name.toString();
+    phoneController.text = get_profile_details_data.data!.phone.toString();
+    address1Controller.text = get_profile_details_data.data!.address1.toString();
+    address2Controller.text = get_profile_details_data.data!.address2.toString();
+    cityController.text = get_profile_details_data.data!.city.toString();
+    stateController.text = get_profile_details_data.data!.state.toString();
+    zipController.text = get_profile_details_data.data!.zipCode.toString();
     print(get_profile_details_data);
     if (get_profile_details_data.status.toString() == "true") {
       setState(() {

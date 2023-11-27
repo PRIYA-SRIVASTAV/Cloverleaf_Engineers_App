@@ -115,12 +115,12 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                     child: TabBarView(
                       children: [
                         if (is_status1_SE_work_list_load == true) ...[
-                          if (get_SE_work_order_status1.data.isNotEmpty) ...[
+                          if (get_SE_work_order_status1.data!.isNotEmpty) ...[
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(
                                   parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: get_SE_work_order_status1.data.length,
+                              itemCount: get_SE_work_order_status1.data?.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   height: 40.h,
@@ -141,7 +141,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                             color: Colors.blue.withOpacity(0.3),
                                             child: Center(
                                               child: Text(
-                                                "Work-id #${get_SE_work_order_status1.data[index].workId.toString()}",
+                                                "Work-id #${get_SE_work_order_status1.data?[index].workId.toString()}",
                                                 style: GoogleFonts.lato(
                                                     color: Colors.blue,
                                                     fontSize: 10.sp,
@@ -185,7 +185,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           SizedBox(height: 0.5.h),
                                                           Text(
                                                             get_SE_work_order_status1
-                                                                .data[index].asset
+                                                                .data![index].asset
                                                                 .toString(),
                                                             style:
                                                                 GoogleFonts.lato(
@@ -217,7 +217,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           SizedBox(height: 0.5.h),
                                                           Text(
                                                             get_SE_work_order_status1
-                                                                .data[index]
+                                                                .data![index]
                                                                 .subject
                                                                 .toString(),
                                                             style:
@@ -250,7 +250,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           SizedBox(height: 0.5.h),
                                                           Text(
                                                             get_SE_work_order_status1
-                                                                .data[index].loc
+                                                                .data![index].loc
                                                                 .toString(),
                                                             style:
                                                                 GoogleFonts.lato(
@@ -282,7 +282,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           SizedBox(height: 0.5.h),
                                                           Text(
                                                             get_SE_work_order_status1
-                                                                .data[index]
+                                                                .data![index]
                                                                 .assignedEngineerName
                                                                 .toString(),
                                                             style:
@@ -328,7 +328,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         SizedBox(height: 0.5.h),
                                                         Text(
                                                           get_SE_work_order_status1
-                                                              .data[index]
+                                                              .data![index]
                                                               .woStatus
                                                               .toString(),
                                                           style: GoogleFonts.lato(
@@ -357,7 +357,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         SizedBox(height: 0.5.h),
                                                         Text(
                                                           get_SE_work_order_status1
-                                                              .data[index]
+                                                              .data![index]
                                                               .priority
                                                               .toString(),
                                                           style: GoogleFonts.lato(
@@ -385,7 +385,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         SizedBox(height: 0.5.h),
                                                         Text(
                                                           get_SE_work_order_status1
-                                                              .data[index]
+                                                              .data![index]
                                                               .assignedEngineerId
                                                               .toString(),
                                                           style: GoogleFonts.lato(
@@ -429,7 +429,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                       value.setString(
                                                           KEYWORKID,
                                                           get_SE_work_order_status1
-                                                              .data[index].workId
+                                                              .data?[index].workId
                                                               .toString());
                                                     });
                                                     await getPref().then((value) {
@@ -474,7 +474,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                       value.setString(
                                                           KEYWORKID,
                                                           get_SE_work_order_status1
-                                                              .data[index].workId
+                                                              .data?[index].workId
                                                               .toString());
                                                     });
                                                     await getPref().then((value) {
@@ -522,12 +522,12 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                           )
                         ],
                         if (is_status2_SE_work_list_load == true) ...[
-                          if (get_SE_work_order_status2.data.isNotEmpty) ...[
+                          if (get_SE_work_order_status2.data!.isNotEmpty) ...[
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(
                                   parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: get_SE_work_order_status2.data.length,
+                              itemCount: get_SE_work_order_status2.data?.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
@@ -559,7 +559,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                               color: Colors.blue.withOpacity(0.3),
                                               child: Center(
                                                 child: Text(
-                                                  "Work-id #${get_SE_work_order_status2.data[index].workId.toString()}",
+                                                  "Work-id #${get_SE_work_order_status2.data?[index].workId.toString()}",
                                                   style: GoogleFonts.lato(
                                                       color: Colors.blue,
                                                       fontSize: 10.sp,
@@ -605,7 +605,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                             ),
                                                             Text(
                                                               get_SE_work_order_status2
-                                                                  .data[index]
+                                                                  .data![index]
                                                                   .asset
                                                                   .toString(),
                                                               style: GoogleFonts.lato(
@@ -636,7 +636,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                             ),
                                                             Text(
                                                               get_SE_work_order_status2
-                                                                  .data[index]
+                                                                  .data![index]
                                                                   .subject
                                                                   .toString(),
                                                               style: GoogleFonts.lato(
@@ -667,7 +667,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                             ),
                                                             Text(
                                                               get_SE_work_order_status2
-                                                                  .data[index].loc
+                                                                  .data![index].loc
                                                                   .toString(),
                                                               style: GoogleFonts.lato(
                                                                   fontSize: 10.sp,
@@ -697,7 +697,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                             ),
                                                             Text(
                                                               get_SE_work_order_status2
-                                                                  .data[index]
+                                                                  .data![index]
                                                                   .assignedEngineerName
                                                                   .toString(),
                                                               style: GoogleFonts.lato(
@@ -745,7 +745,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status2
-                                                                .data[index]
+                                                                .data![index]
                                                                 .woStatus
                                                                 .toString(),
                                                             style:
@@ -780,7 +780,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status2
-                                                                .data[index]
+                                                                .data![index]
                                                                 .priority
                                                                 .toString(),
                                                             style:
@@ -815,7 +815,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status2
-                                                                .data[index]
+                                                                .data![index]
                                                                 .assignedEngineerId
                                                                 .toString(),
                                                             style:
@@ -853,18 +853,19 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                           ],
                         ] else ...[
                           Center(
-                            child: CircularProgressIndicator(
+                            child:
+                            CircularProgressIndicator(
                               color: appThemeColor,
                             ),
                           )
                         ],
                         if (is_status3_SE_work_list_load == true) ...[
-                          if (get_SE_work_order_status3.data.isNotEmpty) ...[
+                          if (get_SE_work_order_status3.data!.isNotEmpty) ...[
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(
                                   parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: get_SE_work_order_status3.data.length,
+                              itemCount: get_SE_work_order_status3.data?.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   height: 35.h,
@@ -885,7 +886,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                             color: Colors.blue.withOpacity(0.3),
                                             child: Center(
                                               child: Text(
-                                                "Work-id #${get_SE_work_order_status3.data[index].workId.toString()}",
+                                                "Work-id #${get_SE_work_order_status3.data?[index].workId.toString()}",
                                                 style: GoogleFonts.lato(
                                                     color: Colors.blue,
                                                     fontSize: 10.sp,
@@ -931,7 +932,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status3
-                                                                .data[index].asset
+                                                                .data![index].asset
                                                                 .toString(),
                                                             style:
                                                                 GoogleFonts.lato(
@@ -965,7 +966,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status3
-                                                                .data[index]
+                                                                .data![index]
                                                                 .subject
                                                                 .toString(),
                                                             style:
@@ -1000,7 +1001,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status3
-                                                                .data[index].loc
+                                                                .data![index].loc
                                                                 .toString(),
                                                             style:
                                                                 GoogleFonts.lato(
@@ -1034,7 +1035,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status3
-                                                                .data[index]
+                                                                .data![index]
                                                                 .assignedEngineerName
                                                                 .toString(),
                                                             style:
@@ -1082,7 +1083,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         ),
                                                         Text(
                                                           get_SE_work_order_status3
-                                                              .data[index]
+                                                              .data![index]
                                                               .woStatus
                                                               .toString(),
                                                           style: GoogleFonts.lato(
@@ -1113,7 +1114,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         ),
                                                         Text(
                                                           get_SE_work_order_status3
-                                                              .data[index]
+                                                              .data![index]
                                                               .priority
                                                               .toString(),
                                                           style: GoogleFonts.lato(
@@ -1143,7 +1144,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         ),
                                                         Text(
                                                           get_SE_work_order_status3
-                                                              .data[index]
+                                                              .data![index]
                                                               .assignedEngineerId
                                                               .toString(),
                                                           style: GoogleFonts.lato(

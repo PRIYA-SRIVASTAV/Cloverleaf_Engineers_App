@@ -9,50 +9,50 @@ GetProfileSeDetailsModel getProfileSeDetailsModelFromJson(String str) => GetProf
 String getProfileSeDetailsModelToJson(GetProfileSeDetailsModel data) => json.encode(data.toJson());
 
 class GetProfileSeDetailsModel {
-  String status;
-  Data data;
-  String message;
+  bool? status;
+  Data? data;
+  String? message;
 
   GetProfileSeDetailsModel({
-    required this.status,
-    required this.data,
-    required this.message,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory GetProfileSeDetailsModel.fromJson(Map<String, dynamic> json) => GetProfileSeDetailsModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data?.toJson(),
     "message": message,
   };
 }
 
 class Data {
-  String name;
-  String email;
-  int phone;
-  String address1;
-  String address2;
-  String city;
-  String state;
-  int zipCode;
-  String image;
+  String? name;
+  String? email;
+  int? phone;
+  String? address1;
+  String? address2;
+  int? zipCode;
+  String? state;
+  String? city;
+  String? image;
 
   Data({
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.address1,
-    required this.address2,
-    required this.city,
-    required this.state,
-    required this.zipCode,
-    required this.image,
+    this.name,
+    this.email,
+    this.phone,
+    this.address1,
+    this.address2,
+    this.zipCode,
+    this.state,
+    this.city,
+    this.image,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -61,9 +61,9 @@ class Data {
     phone: json["phone"],
     address1: json["address_1"],
     address2: json["address_2"],
-    city: json["city"],
-    state: json["state"],
     zipCode: json["zip_code"],
+    state: json["state"],
+    city: json["city"],
     image: json["image"],
   );
 
@@ -73,9 +73,9 @@ class Data {
     "phone": phone,
     "address_1": address1,
     "address_2": address2,
-    "city": city,
-    "state": state,
     "zip_code": zipCode,
+    "state": state,
+    "city": city,
     "image": image,
   };
 }

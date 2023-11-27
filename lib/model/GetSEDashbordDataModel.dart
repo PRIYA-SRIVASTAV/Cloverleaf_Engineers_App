@@ -9,46 +9,46 @@ GetSeDashbordDataModel getSeDashbordDataModelFromJson(String str) => GetSeDashbo
 String getSeDashbordDataModelToJson(GetSeDashbordDataModel data) => json.encode(data.toJson());
 
 class GetSeDashbordDataModel {
-  bool status;
-  Data data;
-  String message;
+  bool? status;
+  Data? data;
+  String? message;
 
   GetSeDashbordDataModel({
-    required this.status,
-    required this.data,
-    required this.message,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory GetSeDashbordDataModel.fromJson(Map<String, dynamic> json) => GetSeDashbordDataModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data?.toJson(),
     "message": message,
   };
 }
 
 class Data {
-  int onging;
-  int completed;
-  int assign;
-  String payout;
-  String assignPerc;
-  String compPerc;
-  String ongoingPerc;
+  int? onging;
+  int? completed;
+  int? assign;
+  String? payout;
+  String? assignPerc;
+  String? compPerc;
+  String? ongoingPerc;
 
   Data({
-    required this.onging,
-    required this.completed,
-    required this.assign,
-    required this.payout,
-    required this.assignPerc,
-    required this.compPerc,
-    required this.ongoingPerc,
+    this.onging,
+    this.completed,
+    this.assign,
+    this.payout,
+    this.assignPerc,
+    this.compPerc,
+    this.ongoingPerc,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(

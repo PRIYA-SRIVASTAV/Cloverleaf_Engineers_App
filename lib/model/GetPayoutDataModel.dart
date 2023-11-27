@@ -9,81 +9,61 @@ GetPayoutDataModel getPayoutDataModelFromJson(String str) => GetPayoutDataModel.
 String getPayoutDataModelToJson(GetPayoutDataModel data) => json.encode(data.toJson());
 
 class GetPayoutDataModel {
-  bool status;
-  Data data;
-  String message;
+  bool? status;
+  List<Datum>? data;
+  String? message;
 
   GetPayoutDataModel({
-    required this.status,
-    required this.data,
-    required this.message,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory GetPayoutDataModel.fromJson(Map<String, dynamic> json) => GetPayoutDataModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
     "message": message,
   };
 }
 
-class Data {
-  List<PaymentList> paymentList;
-  double totalPaymentReceived;
+class Datum {
+  String? year;
+  int? totalPaid;
+  int? pending;
+  int? month;
+  String? monthName;
+  int? totalAmountToPay;
 
-  Data({
-    required this.paymentList,
-    required this.totalPaymentReceived,
+  Datum({
+    this.year,
+    this.totalPaid,
+    this.pending,
+    this.month,
+    this.monthName,
+    this.totalAmountToPay,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    paymentList: List<PaymentList>.from(json["paymentList"].map((x) => PaymentList.fromJson(x))),
-    totalPaymentReceived: json["totalPaymentReceived"]?.toDouble(),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "paymentList": List<dynamic>.from(paymentList.map((x) => x.toJson())),
-    "totalPaymentReceived": totalPaymentReceived,
-  };
-}
-
-class PaymentList {
-  int id;
-  int workId;
-  String totalAmountToPay;
-  String totalPaid;
-  String pending;
-  DateTime updatedAt;
-
-  PaymentList({
-    required this.id,
-    required this.workId,
-    required this.totalAmountToPay,
-    required this.totalPaid,
-    required this.pending,
-    required this.updatedAt,
-  });
-
-  factory PaymentList.fromJson(Map<String, dynamic> json) => PaymentList(
-    id: json["id"],
-    workId: json["work_id"],
-    totalAmountToPay: json["total_amount_to_pay"],
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    year: json["year"],
     totalPaid: json["total_paid"],
     pending: json["pending"],
-    updatedAt: DateTime.parse(json["updated_at"]),
+    month: json["month"],
+    monthName: json["month_name"],
+    totalAmountToPay: json["total_amount_to_pay"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "work_id": workId,
-    "total_amount_to_pay": totalAmountToPay,
+    "year": year,
     "total_paid": totalPaid,
     "pending": pending,
-    "updated_at": updatedAt.toIso8601String(),
+    "month": month,
+    "month_name": monthName,
+    "total_amount_to_pay": totalAmountToPay,
   };
 }

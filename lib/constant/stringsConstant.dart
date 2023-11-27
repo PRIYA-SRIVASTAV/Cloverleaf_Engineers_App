@@ -27,7 +27,6 @@ String SE_Work_order_status4 ="8";
 String User_is_active = "1";
 String User_not_active  ="0";
 String User_is_on_leave = "1";
-String User_is_not_on_leave = "0";
 String type = "mobile";
 
 /// On boarding page content
@@ -55,6 +54,4 @@ class MyZegoConst{
   static String callWorkId = "";
   static String SE_Zego_id ="";
   static String ENg_Zego_id ="";
-
-
 }

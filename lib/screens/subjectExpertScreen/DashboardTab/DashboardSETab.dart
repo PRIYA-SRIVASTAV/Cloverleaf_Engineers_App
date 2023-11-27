@@ -119,7 +119,7 @@ class _DashboardSEState extends State<DashboardSE> {
         child: is_load_SE_Dashboard_data
             ? Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: get_SE_dashboard_data.data.compPerc.isEmpty
+                child: get_SE_dashboard_data.data!.compPerc!.isEmpty
                     ? Center(
                         child:
                             Text("${get_SE_dashboard_data.message.toString()}"),
@@ -193,7 +193,7 @@ class _DashboardSEState extends State<DashboardSE> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        get_SE_dashboard_data.data.completed
+                                        get_SE_dashboard_data.data!.completed
                                             .toString(),
                                         style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
@@ -240,7 +240,7 @@ class _DashboardSEState extends State<DashboardSE> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        get_SE_dashboard_data.data.onging
+                                        get_SE_dashboard_data.data!.onging
                                             .toString(),
                                         style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
@@ -287,7 +287,7 @@ class _DashboardSEState extends State<DashboardSE> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        get_SE_dashboard_data.data.assign
+                                        get_SE_dashboard_data.data!.assign
                                             .toString(),
                                         style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
@@ -339,7 +339,7 @@ class _DashboardSEState extends State<DashboardSE> {
                                             size: 16.sp,
                                           ),
                                           Text(
-                                            get_SE_dashboard_data.data.payout
+                                            get_SE_dashboard_data.data!.payout
                                                 .toString(),
                                             style: GoogleFonts.rubik(
                                                 fontSize: 16.sp,
@@ -422,11 +422,11 @@ class _DashboardSEState extends State<DashboardSE> {
         await Get_SE_Dashboard_percentage_details_Controller()
             .Get_SE_Dashboard_percentage_details_Controller_method();
     dataMap = {
-      'Completed': double.parse(get_SE_dashboard_data.data.compPerc.toString()),
+      'Completed': double.parse(get_SE_dashboard_data.data!.compPerc.toString()),
       'Pending':
-          double.parse(get_SE_dashboard_data.data.ongoingPerc.toString()),
+          double.parse(get_SE_dashboard_data.data!.ongoingPerc.toString()),
       'UnAccepted':
-          double.parse(get_SE_dashboard_data.data.assignPerc.toString()),
+          double.parse(get_SE_dashboard_data.data!.assignPerc.toString()),
     };
 
     if (mounted) {

@@ -17,19 +17,19 @@ class Login_Controller {
     } else if (password.toString().isEmpty) {
       customFlutterToast("password can't be empty");
     } else {
-     /* var fcm_token;
+      var fcm_token;
       await FirebaseMessaging.instance.getToken().then((value) {
         fcm_token = value;
         log("FCM-TOKEN====$fcm_token");
-      });*/
-      var r = await ApiCalling().Login(email, password, type/*,fcm_token,cacheUserIDKey*/);
-      log("rrrrrrrrrrrrrrrrrrr $r");
+      });
+      var r = await ApiCalling().Login(email, password, type,fcm_token,currentUser.id);
       if (r['status'].toString() == 'true') {
         if(r['data']['user_type']=='2'){
           await getPref().then((value) {
             value.setString(KEYENGTOKEN, r['token'].toString());
             value.setString(KEYUNIQUEID, r['data']['unique_id'].toString());
             value.setString(KEYUSERNAME, r['data']['name'].toString());
+            value.setString(KEYSUPPORTNUMBER,r['data']['support_number'].toString());
           });
           customFlutterToast(r["message"]);
           Navigator.push(
@@ -44,6 +44,7 @@ class Login_Controller {
             value.setString(KEYSETOKEN, r['token'].toString());
             value.setString(KEYUNIQUEID, r['data']['unique_id'].toString());
             value.setString(KEYUSERNAME, r['data']['name'].toString());
+            value.setString(KEYSUPPORTNUMBER,r['data']['support_number'].toString());
           });
           customFlutterToast(r["message"]);
           Navigator.push(

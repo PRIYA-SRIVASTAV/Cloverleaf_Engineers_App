@@ -61,13 +61,15 @@ class _CallLogsTabState extends State<CallLogsTab> {
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
                   children: [
-                    Text(
-                      "Today",
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w600),
-                    ),
+                    if (get_call_log_list.data!.today!.isNotEmpty) ...[
+                      Text(
+                        "Today",
+                        style: GoogleFonts.lato(
+                            fontSize: 12.sp,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
                     SizedBox(
                       height: 2.h,
                     ),
@@ -146,14 +148,16 @@ class _CallLogsTabState extends State<CallLogsTab> {
                     SizedBox(
                       height: 2.h,
                     ),
-                    Text(
-                      "Yesterday",
-                      style: GoogleFonts.lato(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey,
+                    if (get_call_log_list.data!.yesterday!.isNotEmpty) ...[
+                      Text(
+                        "Yesterday",
+                        style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
+                    ],
                     SizedBox(
                       height: 2.h,
                     ),
@@ -226,9 +230,10 @@ class _CallLogsTabState extends State<CallLogsTab> {
                             trailing: Yesterday_Call_Icon_Trailing_Widget(
                                 get_call_log_list
                                     .data!.yesterday![index].callStatus
-                                    .toString(), get_call_log_list
-                                .data!.yesterday![index].callType
-                                .toString()),
+                                    .toString(),
+                                get_call_log_list
+                                    .data!.yesterday![index].callType
+                                    .toString()),
                           ),
                         );
                       },
@@ -236,27 +241,29 @@ class _CallLogsTabState extends State<CallLogsTab> {
                     SizedBox(
                       height: 2.h,
                     ),
-                    Text(
-                      "Older",
-                      style: GoogleFonts.lato(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey,
+                    if (get_call_log_list.data!.older!.isNotEmpty) ...[
+                      Text(
+                        "Older",
+                        style: GoogleFonts.lato(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
+                    ],
                     SizedBox(
                       height: 2.h,
                     ),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: 1,
+                      itemCount: get_call_log_list.data!.older!.length,
                       itemBuilder: (context, index) {
                         //final callLog = callLogs[index];
                         return Card(
                           child: ListTile(
                             title: Text(
-                              "Riya"
+                              get_call_log_list.data!.older![index].engName
                                   .toString(),
                               style: GoogleFonts.lato(
                                   fontSize: 12.sp, fontWeight: FontWeight.w600),
@@ -266,7 +273,7 @@ class _CallLogsTabState extends State<CallLogsTab> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Work Order Id - #11",
+                                  "Work Order Id - #${get_call_log_list.data!.older![index].workorderId.toString()}",
                                   style: GoogleFonts.lato(
                                       fontSize: 10.sp,
                                       color: Colors.grey,
@@ -275,7 +282,8 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                 Row(
                                   children: [
                                     Text(
-                                      "2-10-2023",
+                                      get_call_log_list.data!.older![index].date
+                                          .toString(),
                                       style: GoogleFonts.lato(
                                           fontSize: 10.sp,
                                           color: Colors.grey,
@@ -285,7 +293,8 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                       width: 1.w,
                                     ),
                                     Text(
-                                      "1:20:34",
+                                      get_call_log_list.data!.older![index].time
+                                          .toString(),
                                       style: GoogleFonts.lato(
                                           fontSize: 10.sp,
                                           color: Colors.grey,
@@ -294,7 +303,13 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                   ],
                                 ),
                                 Text(
-                                  "8m",
+                                  get_call_log_list.data!.older![index].duration
+                                              .toString() ==
+                                          "null"
+                                      ? ""
+                                      : convertDuration(get_call_log_list
+                                          .data!.older![index].duration
+                                          .toString()),
                                   style: GoogleFonts.lato(
                                       fontSize: 10.sp,
                                       color: Colors.grey,
@@ -302,13 +317,11 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                 ),
                               ],
                             ),
-                            trailing: Icon(Icons.call_missed),
-                            /* Older_Call_Icon_Trailing_Widget(
-                              get_call_log_list.data!.older![index].callStatus
-                                  .toString(),
-                              get_call_log_list.data!.older![index].callType
-                                  .toString(),
-                            ),*/
+                            trailing: Older_Call_Icon_Trailing_Widget(
+                                get_call_log_list.data!.older![index].callStatus
+                                    .toString(),
+                                get_call_log_list.data!.older![index].callType
+                                    .toString()),
                           ),
                         );
                       },
@@ -316,7 +329,7 @@ class _CallLogsTabState extends State<CallLogsTab> {
                   ],
                 )
               : Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: appThemeColor,),
                 ),
         ),
       ),
@@ -373,7 +386,8 @@ class _CallLogsTabState extends State<CallLogsTab> {
     }
   }
 
-  Widget Yesterday_Call_Icon_Trailing_Widget(String callStatus, String callType) {
+  Widget Yesterday_Call_Icon_Trailing_Widget(
+      String callStatus, String callType) {
     if (callStatus == "1") {
       if (callType == "1") {
         return Icon(
@@ -480,6 +494,18 @@ class _CallLogsTabState extends State<CallLogsTab> {
       setState(() {
         is_load_call_logs_list = true;
       });
+    }
+  }
+
+  convertDuration(String duration) {
+    double r = double.parse(duration);
+    if (r == 60.0) {
+      return "1 min";
+    } else if (r < 60) {
+      return "${r.toString()} sec";
+    } else {
+      List split = (r / 60).toString().split(".");
+      return "${split[0].toString()} min ${split[1].toString().substring(0, 1)} sec";
     }
   }
 }

@@ -20,8 +20,8 @@ class WorkOrderDescriptionPage extends StatefulWidget {
 }
 
 class _WorkOrderDescriptionPageState extends State<WorkOrderDescriptionPage> {
-   late GetWorkOrderListModel get_work_order_status2;
-   bool is_status2_work_list_load = false;
+  late GetWorkOrderListModel get_work_order_status2;
+  bool is_status2_work_list_load = false;
 
   @override
   void initState() {
@@ -35,28 +35,28 @@ class _WorkOrderDescriptionPageState extends State<WorkOrderDescriptionPage> {
       child: DefaultTabController(
         length: 2,
         initialIndex: widget.index,
-        child:is_status2_work_list_load
+        child: is_status2_work_list_load
             ? Scaffold(
-          appBar: AppBar(
-            elevation: 0.0,
-            title: Text(
-              "Work Order # ${get_work_order_status2.data![widget.index].workId}",
-              style: dashboardStyle,
-            ),
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                // Icon to represent the drawer
-                onPressed: () {
-                  Navigator.pop(context); // Open the drawer
-                },
-              ),
-            ),
-            backgroundColor: appThemeColor,
-          ),
-          body: Padding(
-            padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 1.h),
-            child:  SingleChildScrollView(
+                appBar: AppBar(
+                  elevation: 0.0,
+                  title: Text(
+                    "Work Order # ${get_work_order_status2.data?[widget.index].workId}",
+                    style: dashboardStyle,
+                  ),
+                  leading: Builder(
+                    builder: (context) => IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      // Icon to represent the drawer
+                      onPressed: () {
+                        Navigator.pop(context); // Open the drawer
+                      },
+                    ),
+                  ),
+                  backgroundColor: appThemeColor,
+                ),
+                body: Padding(
+                  padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 1.h),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Container(
@@ -93,26 +93,31 @@ class _WorkOrderDescriptionPageState extends State<WorkOrderDescriptionPage> {
                           child: TabBarView(
                             children: [
                               Tab1_WO_Desc(Tab_index1: widget.index),
-                              Tab2FAB(WorkID: get_work_order_status2.data![widget.index].workId,),
+                              Tab2FAB(
+                                WorkID: get_work_order_status2.data![widget.index].workId,
+                              ),
                             ],
                           ),
                         ),
                       ],
                     ),
-                  )
-          ),
-        )
-              : Scaffold(
+                  ),
+                ),
+              )
+            : Scaffold(
                 body: Center(
-          child: CircularProgressIndicator(),
-      ),
+                  child: CircularProgressIndicator(
+                    color: appThemeColor,
+                  ),
+                ),
               ),
       ),
     );
   }
 
   void get_work_order_status2_method() async {
-    get_work_order_status2 = await work_order_list_controller().work_order_list_pending_controller_method(Work_order_status2);
+    get_work_order_status2 = await work_order_list_controller()
+        .work_order_list_pending_controller_method(Work_order_status2);
     setState(() {
       is_status2_work_list_load = true;
     });

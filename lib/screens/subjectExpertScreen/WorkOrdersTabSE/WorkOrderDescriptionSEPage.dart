@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloverleaf_project/constant/prefsConstant.dart';
-import 'package:cloverleaf_project/controller/Post_SE_Call_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -28,7 +27,6 @@ class WorkOrderDescriptionSEpage extends StatefulWidget {
 class _WorkOrderDescriptionSEpageState
     extends State<WorkOrderDescriptionSEpage> {
   TextEditingController inviteeController = TextEditingController();
-  List<Dat> CustumAddedPartsList = [];
   String? selectedValue;
   String? dropdownvalue;
   String? dropdownvalueName;
@@ -65,7 +63,7 @@ class _WorkOrderDescriptionSEpageState
                 appBar: AppBar(
                   elevation: 0.0,
                   title: Text(
-                    "Work Order # ${get_SE_work_order_status2.data[widget.index].workId}",
+                    "Work Order # ${get_SE_work_order_status2.data?[widget.index].workId}",
                     style: dashboardStyle,
                   ),
                   leading: Builder(
@@ -121,7 +119,7 @@ class _WorkOrderDescriptionSEpageState
                                   children: [
                                     if (is_status2_SE_work_list_load ==
                                         true) ...[
-                                      get_SE_work_order_status2.data.isNotEmpty
+                                      get_SE_work_order_status2.data!.isNotEmpty
                                           ? Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -215,7 +213,7 @@ class _WorkOrderDescriptionSEpageState
                                                                 ),
                                                                 Text(
                                                                   get_SE_work_order_status2
-                                                                      .data[widget
+                                                                      .data![widget
                                                                           .index]
                                                                       .asset
                                                                       .toString(),
@@ -249,7 +247,7 @@ class _WorkOrderDescriptionSEpageState
                                                                 ),
                                                                 Text(
                                                                   get_SE_work_order_status2
-                                                                      .data[widget
+                                                                      .data![widget
                                                                           .index]
                                                                       .subject
                                                                       .toString(),
@@ -283,7 +281,7 @@ class _WorkOrderDescriptionSEpageState
                                                                 ),
                                                                 Text(
                                                                   get_SE_work_order_status2
-                                                                      .data[widget
+                                                                      .data![widget
                                                                           .index]
                                                                       .loc
                                                                       .toString(),
@@ -317,7 +315,7 @@ class _WorkOrderDescriptionSEpageState
                                                                         0.5.h),
                                                                 Text(
                                                                   get_SE_work_order_status2
-                                                                      .data[widget
+                                                                      .data![widget
                                                                           .index]
                                                                       .desc
                                                                       .toString(),
@@ -366,7 +364,7 @@ class _WorkOrderDescriptionSEpageState
                                                               ),
                                                               Text(
                                                                 get_SE_work_order_status2
-                                                                    .data[widget
+                                                                    .data![widget
                                                                         .index]
                                                                     .woStatus
                                                                     .toString(),
@@ -400,7 +398,7 @@ class _WorkOrderDescriptionSEpageState
                                                               ),
                                                               Text(
                                                                 get_SE_work_order_status2
-                                                                    .data[widget
+                                                                    .data![widget
                                                                         .index]
                                                                     .priority
                                                                     .toString(),
@@ -434,7 +432,7 @@ class _WorkOrderDescriptionSEpageState
                                                               ),
                                                               Text(
                                                                 get_SE_work_order_status2
-                                                                    .data[widget
+                                                                    .data![widget
                                                                         .index]
                                                                     .category
                                                                     .toString(),
@@ -530,54 +528,54 @@ class _WorkOrderDescriptionSEpageState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
-                                                    height: 2.h,
-                                                  ),
-                                                  Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 5),
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            flex: 3,
-                                                            child: Text(
-                                                              "Parts Id",
-                                                              style: GoogleFonts.lato(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      12.sp),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            flex: 4,
-                                                            child: Text(
-                                                              "Parts Name",
-                                                              style: GoogleFonts.lato(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      12.sp),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )),
-                                                  SizedBox(
-                                                    height: 2.h,
-                                                  ),
                                                   if (get_SE_add_parts_list
-                                                      .data.isNotEmpty) ...[
+                                                      .data!.isNotEmpty) ...[
+                                                    SizedBox(
+                                                      height: 2.h,
+                                                    ),
+                                                    Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                            vertical: 8,
+                                                            horizontal: 5),
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              flex: 3,
+                                                              child: Text(
+                                                                "Parts Id",
+                                                                style: GoogleFonts.lato(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                    fontSize:
+                                                                    12.sp),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              flex: 4,
+                                                              child: Text(
+                                                                "Parts Name",
+                                                                style: GoogleFonts.lato(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                    fontSize:
+                                                                    12.sp),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                    SizedBox(
+                                                      height: 2.h,
+                                                    ),
                                                     ListView.builder(
                                                       shrinkWrap: true,
                                                       physics:
                                                           const ClampingScrollPhysics(),
                                                       itemCount:
                                                           get_SE_add_parts_list
-                                                              .data.length,
+                                                              .data?.length,
                                                       itemBuilder:
                                                           (BuildContext context,
                                                               i) {
@@ -596,7 +594,7 @@ class _WorkOrderDescriptionSEpageState
                                                                   flex: 3,
                                                                   child: Text(
                                                                     get_SE_add_parts_list
-                                                                        .data[i]
+                                                                        .data![i]
                                                                         .partsId
                                                                         .toString(),
                                                                     style: GoogleFonts.rubik(
@@ -608,7 +606,7 @@ class _WorkOrderDescriptionSEpageState
                                                                   flex: 4,
                                                                   child: Text(
                                                                     get_SE_add_parts_list
-                                                                        .data[i]
+                                                                        .data![i]
                                                                         .partsName
                                                                         .toString(),
                                                                     style: GoogleFonts.rubik(
@@ -651,7 +649,7 @@ class _WorkOrderDescriptionSEpageState
                           ),
                         )
                       : Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(color: appThemeColor,),
                         ),
                 ),
               ),
@@ -659,7 +657,7 @@ class _WorkOrderDescriptionSEpageState
           : SafeArea(
               child: Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: appThemeColor,),
                 ),
               ),
             ),
@@ -670,7 +668,7 @@ class _WorkOrderDescriptionSEpageState
     get_SE_work_order_status2 = await Get_SE_Work_Order_List_Controller()
         .SE_work_order_list_pending_controller_method(SE_Work_order_status2);
     get_SE_add_parts_list_method();
-    inviteeController.text = "102675";
+    inviteeController.text = get_SE_work_order_status2.data![widget.index].zegoUserId!;
     //  get_SE_work_order_status2.data[widget.index].zegoUserId;
     setState(() {
       is_status2_SE_work_list_load = true;
@@ -680,7 +678,7 @@ class _WorkOrderDescriptionSEpageState
   void get_SE_add_parts_list_method() async {
     get_SE_add_parts_list = await Get_Add_Parts_list_controller()
         .Get_Add_SE_Parts_list_controller_method(
-            get_SE_work_order_status2.data[widget.index].workId.toString());
+            get_SE_work_order_status2.data?[widget.index].workId.toString());
     setState(() {
       is_load_SE_add_parts_list = true;
     });
@@ -696,10 +694,9 @@ class _WorkOrderDescriptionSEpageState
   }
 
   void settingDataForPostApiCall() {
-    MyZegoConst.callWorkId =
-        get_SE_work_order_status2.data[widget.index].workId.toString();
+    MyZegoConst.callWorkId = get_SE_work_order_status2.data![widget.index].workId.toString();
     MyZegoConst.ENg_Zego_id =
-        get_SE_work_order_status2.data[widget.index].zegoUserId.toString();
+        get_SE_work_order_status2.data![widget.index].zegoUserId.toString();
     MyZegoConst.SE_Zego_id = currentUser.id.toString();
   }
 }

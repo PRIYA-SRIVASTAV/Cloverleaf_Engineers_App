@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final getPartsModel = getPartsModelFromJson(jsonString);
+
 import 'dart:convert';
 
 GetPartsModel getPartsModelFromJson(String str) => GetPartsModel.fromJson(json.decode(str));
@@ -5,39 +9,39 @@ GetPartsModel getPartsModelFromJson(String str) => GetPartsModel.fromJson(json.d
 String getPartsModelToJson(GetPartsModel data) => json.encode(data.toJson());
 
 class GetPartsModel {
-  String status;
-  List<Dat> data;
-  String message;
+  bool? status;
+  List<Datum>? data;
+  String? message;
 
   GetPartsModel({
-    required this.status,
-    required this.data,
-    required this.message,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory GetPartsModel.fromJson(Map<String, dynamic> json) => GetPartsModel(
     status: json["status"],
-    data: List<Dat>.from(json["data"].map((x) => Dat.fromJson(x))),
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
     "message": message,
   };
 }
 
-class Dat {
-  String name;
-  int id;
+class Datum {
+  String? name;
+  int? id;
 
-  Dat({
-    required this.name,
-    required this.id,
+  Datum({
+    this.name,
+    this.id,
   });
 
-  factory Dat.fromJson(Map<String, dynamic> json) => Dat(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     name: json["name"],
     id: json["id"],
   );

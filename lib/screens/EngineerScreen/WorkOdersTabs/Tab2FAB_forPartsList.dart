@@ -9,6 +9,7 @@ import '../../../controller/Get_Parts_List_Controller.dart';
 import '../../../controller/post_work_parts_controller.dart';
 import '../../../controller/work_order_list_controller.dart';
 import '../../../model/GetAddPartsListModel.dart';
+import '../../../model/GetDashboardDataModel.dart';
 import '../../../model/GetPartsModel.dart';
 import '../../../model/WorkOrderModel.dart';
 
@@ -28,7 +29,6 @@ class _Tab2FABState extends State<Tab2FAB> {
   late GetWorkOrderListModel get_work_order_status2;
   late GetPartsModel get_parts_list_data;
   late GetAddPartsListModel get_add_parts_list;
-  List<Dat> CustumAddedPartsList = [];
   String? dropdownvalue;
   String? dropdownvalueName;
 
@@ -53,42 +53,42 @@ class _Tab2FABState extends State<Tab2FAB> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 5),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    "Parts Id",
-                                    style: GoogleFonts.lato(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12.sp),
+                        if (get_add_parts_list.data!.isNotEmpty) ...[
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 5),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Text(
+                                      "Parts Id",
+                                      style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12.sp),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Text(
-                                    "Parts Name",
-                                    style: GoogleFonts.lato(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12.sp),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                      "Parts Name",
+                                      style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12.sp),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        if (get_add_parts_list.data.isNotEmpty) ...[
+                                ],
+                              )),
+                          SizedBox(
+                            height: 2.h,
+                          ),
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const ClampingScrollPhysics(),
-                            itemCount: get_add_parts_list.data.length,
+                            itemCount: get_add_parts_list.data?.length,
                             itemBuilder: (BuildContext context, i) {
                               return Card(
                                 elevation: 3,
@@ -100,7 +100,7 @@ class _Tab2FABState extends State<Tab2FAB> {
                                       Expanded(
                                         flex: 3,
                                         child: Text(
-                                          get_add_parts_list.data[i].partsId.toString(),
+                                          get_add_parts_list.data![i].partsId.toString(),
                                           style:
                                               GoogleFonts.rubik(fontSize: 10.sp),
                                         ),
@@ -109,7 +109,7 @@ class _Tab2FABState extends State<Tab2FAB> {
                                         flex: 4,
                                         child: Text(
                                           get_add_parts_list
-                                              .data[i].partsName
+                                              .data![i].partsName
                                               .toString(),
                                           style:
                                               GoogleFonts.rubik(fontSize: 10.sp),
@@ -126,7 +126,7 @@ class _Tab2FABState extends State<Tab2FAB> {
                             height: 55.h,
                             child: Center(
                               child: Text(
-                                  "${get_add_parts_list.message.toString()}"),
+                                  "${get_add_parts_list.message.toString()}",style: GoogleFonts.lato(color: Colors.red),),
                             ),
                           ),
                         ],
@@ -137,7 +137,7 @@ class _Tab2FABState extends State<Tab2FAB> {
               ),
           )
           : Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: appThemeColor,),
             ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: appThemeColor,
@@ -145,7 +145,7 @@ class _Tab2FABState extends State<Tab2FAB> {
           showDialog(
             context: context,
             builder: (context) {
-              return get_parts_list_data.data.isNotEmpty
+              return get_parts_list_data.data!.isNotEmpty
                   ? Add_Parts_popup(context)
                   : Dialog(
                       child: Text("${get_parts_list_data.message.toString()}"),
@@ -164,10 +164,6 @@ class _Tab2FABState extends State<Tab2FAB> {
   void get_Parts_List_method() async {
     get_parts_list_data =
         await Get_Parts_List_Controller().Get_Parts_List_Controller_method();
-    CustumAddedPartsList = get_parts_list_data.data;
-    var a = [Dat(name: "others", id: 0)];
-    CustumAddedPartsList.addAll(a);
-
     setState(() {
       is_load_parts_list = true;
     });
@@ -233,7 +229,7 @@ class _Tab2FABState extends State<Tab2FAB> {
                               underline: const SizedBox(),
                               isExpanded: true,
                               hint: const Text('Parts'),
-                              items: CustumAddedPartsList.map((item) {
+                              items: get_parts_list_data.data?.map((item) {
                                 return DropdownMenuItem(
                                   value: item.id.toString(),
                                   child: Text(item.name.toString()),
@@ -243,10 +239,9 @@ class _Tab2FABState extends State<Tab2FAB> {
                                 setState(
                                   () {
                                     dropdownvalue = val!;
-                                    var a = CustumAddedPartsList.indexWhere(
+                                    var a = get_parts_list_data.data?.indexWhere(
                                         (e) => e.id.toString() == val);
-                                    dropdownvalueName =
-                                        CustumAddedPartsList[a].name;
+                                    dropdownvalueName = get_parts_list_data.data?[a!].name;
                                   },
                                 );
                               },

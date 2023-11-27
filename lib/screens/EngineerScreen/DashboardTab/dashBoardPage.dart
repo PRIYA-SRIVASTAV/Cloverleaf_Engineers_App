@@ -2,6 +2,7 @@ import 'package:cloverleaf_project/controller/Get_Dashboard_percentage%20Details
 import 'package:cloverleaf_project/controller/Get_User_status_controller.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/test_payroll_ui.dart';
+import 'package:cloverleaf_project/utils/helperWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -494,12 +495,13 @@ class _dashBoardPageState extends State<dashBoardPage> {
       setState(() {
         online_offline_status = false;
       });
+      await is_update_active_controller()
+          .is_update_ENG_active_controller_method(online_offline_status);
     }
   }
 
   void Get_User_status_method() async {
-    get_user_status_data =
-        await Get_User_status_controller().Get_User_status_controller_method();
+    get_user_status_data = await Get_User_status_controller().Get_User_status_controller_method();
     setState(() {
       if (get_user_status_data.data.toString() == "1") {
         online_offline_status = true;

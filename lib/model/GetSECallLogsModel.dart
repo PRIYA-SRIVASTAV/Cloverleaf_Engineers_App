@@ -31,7 +31,7 @@ class GetSeCallLogsList {
 class Data {
   List<Day>? today;
   List<Day>? yesterday;
-  List<dynamic>? older;
+  List<Day>? older;
 
   Data({
     this.today,
@@ -42,13 +42,13 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     today: json["today"] == null ? [] : List<Day>.from(json["today"]!.map((x) => Day.fromJson(x))),
     yesterday: json["yesterday"] == null ? [] : List<Day>.from(json["yesterday"]!.map((x) => Day.fromJson(x))),
-    older: json["older"] == null ? [] : List<dynamic>.from(json["older"]!.map((x) => x)),
+    older: json["older"] == null ? [] : List<Day>.from(json["older"]!.map((x) => Day.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "today": today == null ? [] : List<dynamic>.from(today!.map((x) => x.toJson())),
     "yesterday": yesterday == null ? [] : List<dynamic>.from(yesterday!.map((x) => x.toJson())),
-    "older": older == null ? [] : List<dynamic>.from(older!.map((x) => x)),
+    "older": older == null ? [] : List<dynamic>.from(older!.map((x) => x.toJson())),
   };
 }
 

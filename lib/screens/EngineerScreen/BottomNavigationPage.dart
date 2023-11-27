@@ -85,9 +85,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   Widget build(BuildContext context) {
     List _pages = [
       dashBoardPage(),
-      WorkOrders(
-        TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex,
-      ),
+      WorkOrders(TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex),
       SupportPage(),
     ];
     return SafeArea(

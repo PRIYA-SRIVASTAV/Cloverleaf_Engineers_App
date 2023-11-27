@@ -9,50 +9,50 @@ GetWorkOrderListModel getWorkOrderListModelFromJson(String str) => GetWorkOrderL
 String getWorkOrderListModelToJson(GetWorkOrderListModel data) => json.encode(data.toJson());
 
 class GetWorkOrderListModel {
-  String status;
-  List<Datum> data;
-  String message;
+  bool? status;
+  List<Datum>? data;
+  String? message;
 
   GetWorkOrderListModel({
-    required this.status,
-    required this.data,
-    required this.message,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory GetWorkOrderListModel.fromJson(Map<String, dynamic> json) => GetWorkOrderListModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
     "message": message,
   };
 }
 
 class Datum {
-  int workId;
-  String subject;
-  String category;
-  String priority;
-  String desc;
-  String loc;
-  String asset;
-  String woStatus;
-  String woStatusDate;
+  int? workId;
+  String? subject;
+  String? category;
+  String? priority;
+  String? desc;
+  String? loc;
+  String? asset;
+  String? woStatus;
+  String? woStatusDate;
 
   Datum({
-    required this.workId,
-    required this.subject,
-    required this.category,
-    required this.priority,
-    required this.desc,
-    required this.loc,
-    required this.asset,
-    required this.woStatus,
-    required this.woStatusDate,
+    this.workId,
+    this.subject,
+    this.category,
+    this.priority,
+    this.desc,
+    this.loc,
+    this.asset,
+    this.woStatus,
+    this.woStatusDate,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
