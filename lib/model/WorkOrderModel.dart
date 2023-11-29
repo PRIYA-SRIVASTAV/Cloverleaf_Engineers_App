@@ -42,6 +42,7 @@ class Datum {
   String? asset;
   String? woStatus;
   String? woStatusDate;
+  String? woStatusKey;
 
   Datum({
     this.workId,
@@ -53,6 +54,7 @@ class Datum {
     this.asset,
     this.woStatus,
     this.woStatusDate,
+    this.woStatusKey,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -65,6 +67,7 @@ class Datum {
     asset: json["asset"],
     woStatus: json["wo_status"],
     woStatusDate: json["wo_status_date"],
+    woStatusKey: json["wo_status_key"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -77,5 +80,6 @@ class Datum {
     "asset": asset,
     "wo_status": woStatus,
     "wo_status_date": woStatusDate,
+    "wo_status_key": woStatusKey,
   };
 }

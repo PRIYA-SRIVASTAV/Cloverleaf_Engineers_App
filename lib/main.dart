@@ -1,7 +1,6 @@
 import 'dart:io';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/ApplyLeave.dart';
+import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:cloverleaf_project/screens/commonScreens/splashScreen.dart';
 import 'package:cloverleaf_project/utils/helperMethods.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,13 +12,13 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'constant/colorConstant.dart';
 
-
 @pragma('vm:entry-point')
 Future<void> backgroundHandler(RemoteMessage message) async {
   String? title = message.data["title"];
   String? body = message.data["body"];
   AudioNotificationPlayStop(1);
-  debugPrint("Notifivation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  debugPrint("Notification!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  print("call when App in background");
   AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: 12,
@@ -84,6 +83,7 @@ void main() async {
       }
     });
   }
+
   /// 1/5: define a navigator key
   final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -97,9 +97,6 @@ void main() async {
 
     runApp(MyApp(navigatorKey: navigatorKey));
   });
-
-
-
 }
 
 class MyApp extends StatefulWidget {
@@ -117,13 +114,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-
-
     //2. This method only call when App in foreground it mean app must be opened
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
         debugPrint("call when App in foreground");
-        // AudioNotificationPlayStop(1);
+        AudioNotificationPlayStop(1);
         String? title = message.data["title"];
         String? body = message.data["body"];
         AwesomeNotifications().createNotification(
@@ -154,18 +149,6 @@ class _MyAppState extends State<MyApp> {
         );
       },
     );
-
-    //3. This method only call when App in background and not terminated(not closed)
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (message) {
-        debugPrint("call when App in background");
-        if (message.notification != null) {
-          print(message.notification!.title);
-          print(message.notification!.body);
-          print("message.data22 ${message.data['id']}");
-        }
-      },
-    );
     super.initState();
   }
 
@@ -187,7 +170,6 @@ class _MyAppState extends State<MyApp> {
             return Stack(
               children: [
                 child!,
-
                 /// support minimizing
                 ZegoUIKitPrebuiltCallMiniOverlayPage(
                   contextQuery: () {
@@ -201,5 +183,4 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-
 }

@@ -54,4 +54,5 @@ class MyZegoConst{
   static String callWorkId = "";
   static String SE_Zego_id ="";
   static String ENg_Zego_id ="";
+  static bool call_start_times = false;
 }

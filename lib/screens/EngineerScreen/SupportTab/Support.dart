@@ -1,11 +1,9 @@
 import 'package:cloverleaf_project/constant/prefsConstant.dart';
-import 'package:cloverleaf_project/utils/helperWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
@@ -24,6 +22,7 @@ class SupportPage extends StatefulWidget {
 
 class _SupportPageState extends State<SupportPage> {
   String? support_number;
+
   // Uri dialnumber = Uri(scheme: 'tel', path: support_number);
   //
   // callnumber() async {
@@ -33,6 +32,7 @@ class _SupportPageState extends State<SupportPage> {
   directCall() async {
     await FlutterPhoneDirectCaller.callNumber(support_number!);
   }
+
   bool isExpanded1 = true;
   bool isExpanded2 = true;
   bool isExpanded3 = true;
@@ -771,8 +771,8 @@ class _SupportPageState extends State<SupportPage> {
                                     var a = get_work_order_status2.data
                                         ?.indexWhere(
                                             (e) => e.workId.toString() == val);
-                                    dropdownvalueName =
-                                        get_work_order_status2.data?[a!].subject;
+                                    dropdownvalueName = get_work_order_status2
+                                        .data?[a!].subject;
                                   },
                                 );
                               },
@@ -786,15 +786,16 @@ class _SupportPageState extends State<SupportPage> {
                           controller: ReasonController,
                           maxLength: 100,
                           decoration: InputDecoration(
-                              counterStyle: GoogleFonts.rubik(
-                                  fontSize: 10.sp, color: Colors.grey),
-                              suffixIcon: Icon(Icons.note_alt),
-                              border: UnderlineInputBorder(),
-                              hintText: "Enter reason",
-                              hintStyle: GoogleFonts.lato(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                  fontSize: 12.sp)),
+                            counterStyle: GoogleFonts.rubik(
+                                fontSize: 10.sp, color: Colors.grey),
+                            suffixIcon: Icon(Icons.note_alt),
+                            border: UnderlineInputBorder(),
+                            hintText: "Enter reason",
+                            hintStyle: GoogleFonts.lato(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey,
+                                fontSize: 12.sp),
+                          ),
                         ),
                         SizedBox(height: 3.h),
                         Center(

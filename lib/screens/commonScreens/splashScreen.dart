@@ -77,28 +77,28 @@ class _splashScreenState extends State<splashScreen> {
   @override
   void initState() {
     routingFunction();
-    super.initState();
-
     // 1. This method call when app in terminated state and you get a notification
     // when you click on notification app open from terminated state and you can get notification data in this method
-    // FirebaseMessaging.instance.getInitialMessage().then(
-    //   (message) async {
-    //     print("==================");
-    //     if (message != null) {
-    //       if (message.data['id'] != 0) {
-    //         print("call when app in terminated state");
-    //         AudioNotificationPlay();
-    //         // Navigator.of(context).push(
-    //         //   MaterialPageRoute(
-    //         //     builder: (context) => DemoScreen(
-    //         //       id: message.data['_id'],
-    //         //     ),
-    //         //   ),
-    //         // );
-    //       }
-    //     }
-    //   },
-    // );
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) async {
+        print("=========terminated_state=========");
+        if (message != null) {
+          if (message.data['id'] != 0) {
+            print("call when app in terminated state");
+            AudioNotificationPlayStop(1);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => BottomNavigationPage(BottomIndex: 2,SendTabIndex: 0,)
+                    /*DemoScreen(
+                  id: message.data['_id'],
+                ),*/
+              ),
+            );
+          }
+        }
+      },
+    );
+    super.initState();
   }
 
   @override
@@ -132,6 +132,7 @@ class _splashScreenState extends State<splashScreen> {
       ),
     );
   }
+
   void routingFunction() async {
     await generatingUserIDforZegorCloud();
     var auth_eng_token;
@@ -173,6 +174,7 @@ class _splashScreenState extends State<splashScreen> {
       );
     }
   }
+
   generatingUserIDforZegorCloud() async {
     final prefs = await SharedPreferences.getInstance();
     final cacheUserID = prefs.get(cacheUserIDKey) as String? ?? '';

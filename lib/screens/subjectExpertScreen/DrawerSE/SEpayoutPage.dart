@@ -409,45 +409,47 @@ class _SE_Payout_listState extends State<SE_Payout_list> {
                                                               .spaceBetween,
                                                       children: [
                                                         SizedBox(),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        SEViewDetailsPayout(
-                                                                  payout_id: get_SE_Payout_list
-                                                                      .data!
-                                                                      .paymentList![
-                                                                          i]
-                                                                      .id
-                                                                      .toString(),
-                                                                  work_id: get_SE_Payout_list
-                                                                      .data!
-                                                                      .paymentList![
-                                                                          i]
-                                                                      .workId
-                                                                      .toString(),
+                                                        if(get_SE_Payout_list.data!.paymentList![i].totalPaid.toString() != "0")...[
+                                                          InkWell(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                      SEViewDetailsPayout(
+                                                                        payout_id: get_SE_Payout_list
+                                                                            .data!
+                                                                            .paymentList![
+                                                                        i]
+                                                                            .id
+                                                                            .toString(),
+                                                                        work_id: get_SE_Payout_list
+                                                                            .data!
+                                                                            .paymentList![
+                                                                        i]
+                                                                            .workId
+                                                                            .toString(),
+                                                                      ),
                                                                 ),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: Text(
-                                                            "View Transaction",
-                                                            style: GoogleFonts.lato(
-                                                                fontSize:
-                                                                    13.0,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: Colors
-                                                                    .blue),
+                                                              );
+                                                            },
+                                                            child: Text(
+                                                              "View Transaction",
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                  13.0,
+                                                                  decoration:
+                                                                  TextDecoration
+                                                                      .underline,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                                  color: Colors
+                                                                      .blue),
+                                                            ),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ],
                                                     ),
                                                   ),

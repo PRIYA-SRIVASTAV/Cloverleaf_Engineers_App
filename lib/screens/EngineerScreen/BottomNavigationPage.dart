@@ -1,9 +1,7 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
-import '../../utils/helperMethods.dart';
 import 'DashboardTab/dashBoardPage.dart';
 import 'SupportTab/Support.dart';
 import 'WorkOdersTabs/WorkOrders.dart';

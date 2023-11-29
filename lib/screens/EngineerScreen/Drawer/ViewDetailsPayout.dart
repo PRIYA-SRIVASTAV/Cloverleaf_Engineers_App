@@ -350,45 +350,53 @@ class _EngViewDetailsPayoutState extends State<EngViewDetailsPayout> {
                                                               .spaceBetween,
                                                       children: [
                                                         SizedBox(),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        EngTxnHistory(
-                                                                  payout_id: get_View_Details_Payout_list
-                                                                      .data!
-                                                                      .paymentList![
-                                                                          i]
-                                                                      .id
-                                                                      .toString(),
-                                                                  work_id: get_View_Details_Payout_list
-                                                                      .data!
-                                                                      .paymentList![
-                                                                          i]
-                                                                      .workId
-                                                                      .toString(),
+                                                        if (get_View_Details_Payout_list
+                                                                .data!
+                                                                .paymentList![i]
+                                                                .totalPaid
+                                                                .toString() !=
+                                                            "0") ...[
+                                                          InkWell(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          EngTxnHistory(
+                                                                    payout_id: get_View_Details_Payout_list
+                                                                        .data!
+                                                                        .paymentList![
+                                                                            i]
+                                                                        .id
+                                                                        .toString(),
+                                                                    work_id: get_View_Details_Payout_list
+                                                                        .data!
+                                                                        .paymentList![
+                                                                            i]
+                                                                        .workId
+                                                                        .toString(),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: Text(
-                                                            "View Transaction",
-                                                            style: GoogleFonts.lato(
-                                                                fontSize: 13.0,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: Colors
-                                                                    .blue
-                                                                    .shade900),
+                                                              );
+                                                            },
+                                                            child: Text(
+                                                              "View Transaction",
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      13.0,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: Colors
+                                                                      .blue
+                                                                      .shade900),
+                                                            ),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ],
                                                     ),
                                                   ),

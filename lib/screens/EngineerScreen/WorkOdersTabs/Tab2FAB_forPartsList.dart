@@ -191,7 +191,7 @@ class _Tab2FABState extends State<Tab2FAB> {
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
           child: Container(
-            height: 30.h,
+            height: 25.h,
             child: Stack(
               // alignment: Alignment.topRight,
               children: [
@@ -202,14 +202,12 @@ class _Tab2FABState extends State<Tab2FAB> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(
-                          child: Text(
-                            "Add new parts",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.sp,
-                                color: appThemeColor),
-                          ),
+                        Text(
+                          "Add new parts",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.sp,
+                              color: appThemeColor),
                         ),
                         SizedBox(
                           height: 2.h,
@@ -258,33 +256,35 @@ class _Tab2FABState extends State<Tab2FAB> {
                           ),
                         ],
                         SizedBox(height: 4.h),
-                        Center(
-                          child: SizedBox(
-                            height: 5.h,
-                            width: 30.w,
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                post_work_parts_controller()
-                                    .post_work_parts_controller_method(
-                                        widget.WorkID.toString(),
-                                        dropdownvalue.toString(),
-                                        dropdownvalueName.toString(),
-                                        context)
-                                    .whenComplete(
-                                        () => get_work_order_status2_method());
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: appThemeColor,
-                                side: BorderSide.none,
-                                shape: const StadiumBorder(),
-                              ),
-                              child: Text(
-                                "Add",
-                                style: TextStyle(
-                                    fontSize: 16.sp, color: Colors.white),
+                        Row(mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              height: 5.h,
+                              width: 30.w,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  post_work_parts_controller()
+                                      .post_work_parts_controller_method(
+                                          widget.WorkID.toString(),
+                                          dropdownvalue.toString(),
+                                          dropdownvalueName.toString(),
+                                          context)
+                                      .whenComplete(
+                                          () => get_work_order_status2_method());
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: appThemeColor,
+                                  side: BorderSide.none,
+                                  shape: const StadiumBorder(),
+                                ),
+                                child: Text(
+                                  "Add",
+                                  style: TextStyle(
+                                      fontSize: 16.sp, color: Colors.white),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     ),

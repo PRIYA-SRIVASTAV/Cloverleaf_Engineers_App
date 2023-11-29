@@ -182,7 +182,7 @@ class ApiCalling {
   }
 
   Future Post_SE_Call_start(
-      subj_expert_id, eng_id, workorder_id, call_type,type) async {
+      subj_expert_id, eng_id, workorder_id, call_type) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Post_SE_Call_details_Url =
@@ -196,9 +196,8 @@ class ApiCalling {
         var Post_SE_Call_details_Url_Response = await client.post(
             Post_SE_Call_details_Url,
             body: map,
-            headers: type == "eng"
-                ? await headerWithoutContentTypeENG()
-                : await headerWithoutContentTypeSE());
+            headers: await headerWithoutContentTypeSE()
+        );
         MYAPILOGS("Post SE call start Api", Post_SE_Call_details_Url_Response);
         if (Post_SE_Call_details_Url_Response.statusCode == 200) {
           return jsonDecode(Post_SE_Call_details_Url_Response.body);
@@ -215,7 +214,7 @@ class ApiCalling {
     }
   }
 
-  Future Post_SE_Call_End(subj_expert_id, eng_id, call_duration, type) async {
+  Future Post_SE_Call_End(subj_expert_id, eng_id, call_duration, user_type) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Post_SE_Call_End_Url = Uri.parse(ApiEndpoints.SE_post_call_end);
@@ -227,7 +226,7 @@ class ApiCalling {
         var Post_SE_Call_End_Url_Response = await client.post(
             Post_SE_Call_End_Url,
             body: map,
-            headers: type == "eng"
+            headers: user_type == "eng"
                 ? await headerWithoutContentTypeENG()
                 : await headerWithoutContentTypeSE());
         MYAPILOGS("Post SE call end Api", Post_SE_Call_End_Url_Response);

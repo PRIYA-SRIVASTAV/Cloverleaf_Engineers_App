@@ -125,10 +125,10 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                   get_call_log_list.data!.today![index].duration
                                               .toString() ==
                                           "null"
-                                      ? ""
-                                      : get_call_log_list
+                                      ? "missed"
+                                      : convertDuration(get_call_log_list
                                           .data!.today![index].duration
-                                          .toString(),
+                                          .toString()),
                                   style: GoogleFonts.lato(
                                       fontSize: 10.sp,
                                       color: Colors.grey,
@@ -216,10 +216,10 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                               .data!.yesterday![index].duration
                                               .toString() ==
                                           "null"
-                                      ? ""
-                                      : get_call_log_list
+                                      ? "missed"
+                                      : convertDuration(get_call_log_list
                                           .data!.yesterday![index].duration
-                                          .toString(),
+                                          .toString()),
                                   style: GoogleFonts.lato(
                                       fontSize: 10.sp,
                                       color: Colors.grey,
@@ -306,7 +306,7 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                   get_call_log_list.data!.older![index].duration
                                               .toString() ==
                                           "null"
-                                      ? ""
+                                      ? "missed"
                                       : convertDuration(get_call_log_list
                                           .data!.older![index].duration
                                           .toString()),
@@ -329,7 +329,9 @@ class _CallLogsTabState extends State<CallLogsTab> {
                   ],
                 )
               : Center(
-                  child: CircularProgressIndicator(color: appThemeColor,),
+                  child: CircularProgressIndicator(
+                    color: appThemeColor,
+                  ),
                 ),
         ),
       ),
