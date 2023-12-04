@@ -10,9 +10,9 @@ import 'Tab2FAB_forPartsList.dart';
 import 'Tab1_WO_Desc_Page.dart';
 
 class WorkOrderDescriptionPage extends StatefulWidget {
-  var index;
+  var list_index;
 
-  WorkOrderDescriptionPage({required this.index, super.key});
+  WorkOrderDescriptionPage({required this.list_index, super.key});
 
   @override
   State<WorkOrderDescriptionPage> createState() =>
@@ -34,13 +34,13 @@ class _WorkOrderDescriptionPageState extends State<WorkOrderDescriptionPage> {
     return SafeArea(
       child: DefaultTabController(
         length: 2,
-        initialIndex: widget.index,
+        initialIndex: widget.list_index,
         child: is_status2_work_list_load
             ? Scaffold(
                 appBar: AppBar(
                   elevation: 0.0,
                   title: Text(
-                    "Work Order # ${get_work_order_status2.data?[widget.index].workId}",
+                    "Work Order # ${get_work_order_status2.data?[widget.list_index].workId.toString()}",
                     style: dashboardStyle,
                   ),
                   leading: Builder(
@@ -92,9 +92,9 @@ class _WorkOrderDescriptionPageState extends State<WorkOrderDescriptionPage> {
                           width: 100.w,
                           child: TabBarView(
                             children: [
-                              Tab1_WO_Desc(Tab_index1: widget.index),
+                              Tab1_WO_Desc(Tab_index1: widget.list_index),
                               Tab2FAB(
-                                WorkID: get_work_order_status2.data![widget.index].workId,
+                                WorkID: get_work_order_status2.data![widget.list_index].workId.toString(),
                               ),
                             ],
                           ),
@@ -117,7 +117,7 @@ class _WorkOrderDescriptionPageState extends State<WorkOrderDescriptionPage> {
 
   void get_work_order_status2_method() async {
     get_work_order_status2 = await work_order_list_controller()
-        .work_order_list_pending_controller_method(Work_order_status2);
+        .work_order_list_pending_controller_method(Work_order_status6);
     setState(() {
       is_status2_work_list_load = true;
     });

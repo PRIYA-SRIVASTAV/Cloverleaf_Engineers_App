@@ -34,20 +34,20 @@ class GetPartsModel {
 
 class Datum {
   String? name;
-  int? id;
+  int? partsId;
 
   Datum({
     this.name,
-    this.id,
+    this.partsId,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     name: json["name"],
-    id: json["id"],
+    partsId: json["parts_id"],
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
-    "id": id,
+    "parts_id": partsId,
   };
 }

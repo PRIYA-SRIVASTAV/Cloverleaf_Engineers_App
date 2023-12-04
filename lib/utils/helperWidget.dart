@@ -10,6 +10,8 @@ import 'package:pie_chart/pie_chart.dart';
 import '../constant/textFieldConstant.dart';
 
 
+/// allowed pick files from mobile
+List <String> allowedFiles =  ['jpg', 'pdf', 'doc'];
 
 TextEditingController subjectController = TextEditingController();
 TextEditingController descriptionController = TextEditingController();

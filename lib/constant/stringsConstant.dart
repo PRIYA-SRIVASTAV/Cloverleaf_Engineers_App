@@ -5,6 +5,7 @@
 /// 4 => 'accelerate',// by engineer
 /// 7 => 'Completed', // completed by eng
 /// 10 => 'Rejected' // rejected by engineer
+/// 3 => 'ongoing(start)'// after start wo
 
 // =========Subject expert=======
 /// 5 => 'assign',// assigned work order list by cluster
@@ -20,6 +21,7 @@ String Work_order_status2 ="3";
 String Work_order_status3 ="4";
 String Work_order_status4 ="7";
 String Work_order_status5 ="10";
+String Work_order_status6 ="11";
 String SE_Work_order_status1 ="5";
 String SE_Work_order_status2 ="6";
 String SE_Work_order_status3 ="7";
@@ -28,6 +30,8 @@ String User_is_active = "1";
 String User_not_active  ="0";
 String User_is_on_leave = "1";
 String type = "mobile";
+String start_button_type="1";
+String completed_button_type="2";
 
 /// On boarding page content
 //on Boarding first page.
@@ -47,8 +51,8 @@ String title7 ="     Does it take too long to \ndiagnose the root cause of the \
 String title8 = "Take help of our Digital tool \nand expert panel for timely \n                resolution.";
 
 class MyZegoConst{
-  static const int appId = 1382134047;
-  static const String appSign = "c0c0758fa12bcc6354425a65706a5651cf27b8cfc9ec35b4731f50e9fe85cb08";
+  static const int appId = 1428945775;
+  static const String appSign = "20c932546e7897f3c5e699b0407fe84c618877ecdd6d817737f215af24bcbd86";
   static String callDuration = "";
   static String callType = "";
   static String callWorkId = "";

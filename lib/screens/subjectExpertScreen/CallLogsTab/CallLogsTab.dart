@@ -126,9 +126,9 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                               .toString() ==
                                           "null"
                                       ? "missed"
-                                      : convertDuration(get_call_log_list
-                                          .data!.today![index].duration
-                                          .toString()),
+                                      : get_call_log_list
+                                      .data!.today![index].duration
+                                      .toString(),
                                   style: GoogleFonts.lato(
                                       fontSize: 10.sp,
                                       color: Colors.grey,
@@ -217,9 +217,9 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                               .toString() ==
                                           "null"
                                       ? "missed"
-                                      : convertDuration(get_call_log_list
-                                          .data!.yesterday![index].duration
-                                          .toString()),
+                                      : get_call_log_list
+                                      .data!.yesterday![index].duration
+                                      .toString(),
                                   style: GoogleFonts.lato(
                                       fontSize: 10.sp,
                                       color: Colors.grey,
@@ -307,9 +307,9 @@ class _CallLogsTabState extends State<CallLogsTab> {
                                               .toString() ==
                                           "null"
                                       ? "missed"
-                                      : convertDuration(get_call_log_list
-                                          .data!.older![index].duration
-                                          .toString()),
+                                      : get_call_log_list
+                                      .data!.older![index].duration
+                                      .toString(),
                                   style: GoogleFonts.lato(
                                       fontSize: 10.sp,
                                       color: Colors.grey,

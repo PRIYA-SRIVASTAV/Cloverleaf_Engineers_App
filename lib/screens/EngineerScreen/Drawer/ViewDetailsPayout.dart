@@ -418,9 +418,11 @@ class _EngViewDetailsPayoutState extends State<EngViewDetailsPayout> {
                             ),
                           ] else ...[
                             Center(
-                              child: Text(
-                                "${get_View_Details_Payout_list.message.toString()}",
-                                style: GoogleFonts.lato(color: Colors.red),
+                              child: Container(
+                                child: Text(
+                                  "${get_View_Details_Payout_list.message.toString()}",
+                                  style: GoogleFonts.lato(color: Colors.red),
+                                ),
                               ),
                             ),
                           ]

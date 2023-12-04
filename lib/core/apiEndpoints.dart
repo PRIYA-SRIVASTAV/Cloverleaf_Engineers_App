@@ -11,11 +11,15 @@ class ApiEndpoints {
   static String post_work_parts_url = "$baseUrl/post-work-parts";
   static String post_work_reason_url = "$baseUrl/update-wo-status";
   static String post_FCM_Token = "$baseUrl/send-fcm";
+  static String send_otp_to_start_wo = "$baseUrl/send-otp";
+  static String verify_otp_to_start_wo = "$baseUrl/verify-otp";
+  static String send_otp_to_complete_wo = "$baseUrl/send-otp";
+  static String verify_otp_to_complete_wo = "$baseUrl/verify-otp";
 
   /// get apis
   static String Work_order_List_Url = "$baseUrl/work-list?wo_status=";
   static String Profile_detail_Url = "$baseUrl/engineer-profile-data";
-  static String get_parts_Url = "$baseUrl/parts";
+  static String get_parts_Url = "$baseUrl/parts?work_id=";
   static String get_user_status_Url = "$baseUrl/get-user-status";
   static String get_leave_calender_Url = "$baseUrl/get-calender";
   static String get_dashboard_data_Url = "$baseUrl/get-user-pie-detail";
@@ -40,7 +44,4 @@ class ApiEndpoints {
   static String SE_get_payout_detail_Url = "$baseUrl/get-payout-detail?payout_id=";
   static String get_SE_status_Url = "$baseUrl/get-user-status";
   static String get_SE_Call_logs_Url = "$baseUrl/call-log-list/";
-
-
-
 }

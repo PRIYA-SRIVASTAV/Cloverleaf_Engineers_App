@@ -1,4 +1,5 @@
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
+import 'package:cloverleaf_project/controller/verify_otp_to_start_wo_controller.dart';
 import 'package:cloverleaf_project/controller/work_order_list_controller.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/WorkOdersTabs/WOinfoAfterAccept.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,10 @@ import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/prefsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
+import '../../../controller/send_otp_to_complete_wo_controller.dart';
+import '../../../controller/send_otp_to_start_wo_controller.dart';
 import '../../../controller/update_wo_status_Controller.dart';
+import '../../../controller/verify_otp_to_complete_wo_controller.dart';
 import '../../../model/WorkOrderModel.dart';
 import '../../../utils/helperMethods.dart';
 import '../BottomNavigationPage.dart';
@@ -555,11 +559,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                                   .shade900),
                                                     ),
                                                     onPressed: () async {
+                                                      send_otp_to_start_wo_controller().send_otp_to_start_wo_controller_method(get_work_order_status1.data![index].workId.toString());
                                                       showDialog(
                                                         context: context,
                                                         builder: (context) {
                                                           return wo_start_OTP_dialog(
-                                                              context);
+                                                              context,index);
                                                         },
                                                       );
                                                     },
@@ -625,10 +630,10 @@ class _WorkOrdersState extends State<WorkOrders> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             WorkOrderDescriptionPage(
-                                                index: index),
+                                              list_index: index,),
                                       ),
                                     );
-                                  },
+                                   },
                                   child: Card(
                                     shape: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -1233,6 +1238,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                                   .primaryColor),
                                                     ),
                                                     onPressed: () async {
+                                                      send_otp_to_complete_wo_controller()
+                                                          .send_otp_to_complete_wo_controller_method(
+                                                          get_work_order_status3
+                                                              .data![index]
+                                                              .workId
+                                                              .toString());
                                                       showDialog(
                                                         context: context,
                                                         builder: (BuildContext
@@ -1626,7 +1637,7 @@ class _WorkOrdersState extends State<WorkOrders> {
 
   void get_work_order_status2_method() async {
     get_work_order_status2 = await work_order_list_controller()
-        .work_order_list_pending_controller_method(Work_order_status2);
+        .work_order_list_pending_controller_method(Work_order_status6);
     setState(() {
       is_status2_work_list_load = true;
     });
@@ -1880,7 +1891,7 @@ class _WorkOrdersState extends State<WorkOrders> {
     );
   }
 
-  Widget wo_start_OTP_dialog(context) {
+  Widget wo_start_OTP_dialog(context,index) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
@@ -1958,33 +1969,25 @@ class _WorkOrdersState extends State<WorkOrders> {
                               width: 25.w,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomNavigationPage(
-                                              BottomIndex: 1,
-                                              SendTabIndex: 1,
-                                            )),
-                                  );
-                                  // setState(() {
-                                  //   CalledApi == true;
-                                  // });
-                                  // var otp = _otpController[0].text.toString() +
-                                  //     _otpController[1].text.toString() +
-                                  //     _otpController[2].text.toString() +
-                                  //     _otpController[3].text.toString() +
-                                  //     _otpController[4].text.toString() +
-                                  //     _otpController[5].text.toString();
-                                  //
+                                  setState(() {
+                                    CalledApi == true;
+                                  });
+                                  var otp = _otpController[0].text.toString() +
+                                      _otpController[1].text.toString() +
+                                      _otpController[2].text.toString() +
+                                      _otpController[3].text.toString() +
+                                      _otpController[4].text.toString() +
+                                      _otpController[5].text.toString();
                                   // RegisterOtpController()
                                   //     .registerOtpMethod(
                                   //     widget.emailID, otp, context, widget.fromPage)
-                                  //     .whenComplete(() => setState(
-                                  //       () {
-                                  //     CalledApi = false;
-                                  //   },
-                                  // ));
+                                  verify_otp_to_start_wo_controller().verify_otp_to_start_wo_controller_method(get_work_order_status1.data![index].workId.toString(),otp,context)
+                                      .whenComplete(() => setState(
+                                        () {
+                                      CalledApi = false;
+                                    },
+                                  ),
+                                  );
                                 },
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all(
@@ -2083,7 +2086,7 @@ class _WorkOrdersState extends State<WorkOrders> {
     );
   }
 
-  Widget complete_OTP_dialog2(context, index) {
+  Widget complete_OTP_dialog2(context,index) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
@@ -2161,30 +2164,24 @@ class _WorkOrdersState extends State<WorkOrders> {
                               width: 25.w,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Complete_WO_dialog(context, index);
+                                  setState(() {
+                                    CalledApi == true;
+                                  });
+                                  var otp = _otpController[0].text.toString() +
+                                      _otpController[1].text.toString() +
+                                      _otpController[2].text.toString() +
+                                      _otpController[3].text.toString() +
+                                      _otpController[4].text.toString() +
+                                      _otpController[5].text.toString();
+                                  verify_otp_to_complete_wo_controller()
+                                      .verify_otp_to_complete_wo_controller_method(
+                                      otp,
+                                      get_work_order_status3.data![index].workId.toString(),context)
+                                      .whenComplete(() => setState(
+                                        () {
+                                      CalledApi = false;
                                     },
-                                  );
-                                  // setState(() {
-                                  //   CalledApi == true;
-                                  // });
-                                  // var otp = _otpController[0].text.toString() +
-                                  //     _otpController[1].text.toString() +
-                                  //     _otpController[2].text.toString() +
-                                  //     _otpController[3].text.toString() +
-                                  //     _otpController[4].text.toString() +
-                                  //     _otpController[5].text.toString();
-                                  //
-                                  // RegisterOtpController()
-                                  //     .registerOtpMethod(
-                                  //     widget.emailID, otp, context, widget.fromPage)
-                                  //     .whenComplete(() => setState(
-                                  //       () {
-                                  //     CalledApi = false;
-                                  //   },
-                                  // ));
+                                  ));
                                 },
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all(

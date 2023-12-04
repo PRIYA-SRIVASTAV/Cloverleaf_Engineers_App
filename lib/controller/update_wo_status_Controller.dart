@@ -45,9 +45,24 @@ class update_wo_status_Controller{
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>BottomNavigationPage(BottomIndex:1,SendTabIndex:3),
+          builder: (context) =>BottomNavigationPage(BottomIndex:1,SendTabIndex:2),
         ),
       );
+    } else {
+      customFlutterToast(r["message"].toString());
+    }
+  }
+  update_wo_status_Controller_method(work_id,context)async{
+    var r = await ApiCalling().update_wo_status(work_id,Work_order_status6);
+    log("update_wo_status after otp verified $r");
+    if (r['status'].toString()=="true") {
+      customFlutterToast(r["message"].toString());
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) =>BottomNavigationPage(BottomIndex:1,SendTabIndex:1),
+      //   ),
+      // );
     } else {
       customFlutterToast(r["message"].toString());
     }

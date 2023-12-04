@@ -863,7 +863,7 @@ class _SupportPageState extends State<SupportPage> {
 
   void get_work_order_status2_method() async {
     get_work_order_status2 = await work_order_list_controller()
-        .work_order_list_pending_controller_method(Work_order_status2);
+        .work_order_list_pending_controller_method(Work_order_status6);
     setState(() {
       is_status2_work_list_load = true;
     });

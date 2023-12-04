@@ -567,6 +567,117 @@ class ApiCalling {
     }
   }
 
+  Future send_otp_to_start_wo(work_id, button_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri send_otp_to_start_wo_Uri = Uri.parse(ApiEndpoints.send_otp_to_start_wo);
+        var map = Map<String, dynamic>();
+        map['work_id'] = work_id;
+        map['type'] = button_type;
+        var send_otp_to_start_wo_Response = await client.post(
+            send_otp_to_start_wo_Uri,
+            body: map,
+            headers: await headerWithoutContentTypeENG());
+        MYAPILOGS("send_otp_to_start_wo Api", send_otp_to_start_wo_Response);
+        if (send_otp_to_start_wo_Response.statusCode == 200) {
+          return jsonDecode(send_otp_to_start_wo_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(send_otp_to_start_wo_Response.body)['message']
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+  Future send_otp_to_complete_wo(work_id, button_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri send_otp_to_complete_wo_Uri = Uri.parse(ApiEndpoints.send_otp_to_complete_wo);
+        var map = Map<String, dynamic>();
+        map['work_id'] = work_id;
+        map['type'] = button_type;
+        var send_otp_to_complete_wo_Response = await client.post(
+            send_otp_to_complete_wo_Uri,
+            body: map,
+            headers: await headerWithoutContentTypeENG());
+        MYAPILOGS("send_otp_to_complete_wo Api", send_otp_to_complete_wo_Response);
+        if (send_otp_to_complete_wo_Response.statusCode == 200) {
+          return jsonDecode(send_otp_to_complete_wo_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(send_otp_to_complete_wo_Response.body)['message']
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+  Future verify_otp_to_start_wo(otp,work_id, button_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri verify_otp_to_start_wo_Uri = Uri.parse(ApiEndpoints.verify_otp_to_start_wo);
+        var map = Map<String, dynamic>();
+        map['otp']= otp;
+        map['work_id'] = work_id;
+        map['type'] = button_type;
+        var verify_otp_to_start_wo_Response = await client.post(
+            verify_otp_to_start_wo_Uri,
+            body: map,
+            headers: await headerWithoutContentTypeENG());
+        MYAPILOGS("verify_otp_to_start_wo Api", verify_otp_to_start_wo_Response);
+        if (verify_otp_to_start_wo_Response.statusCode == 200) {
+          return jsonDecode(verify_otp_to_start_wo_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(verify_otp_to_start_wo_Response.body)['message']
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+  Future verify_otp_to_complete_wo(otp,work_id, button_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri verify_otp_to_complete_wo_Uri = Uri.parse(ApiEndpoints.verify_otp_to_complete_wo);
+        var map = Map<String, dynamic>();
+        map['otp']= otp;
+        map['work_id'] = work_id;
+        map['type'] = button_type;
+        var verify_otp_to_complete_wo_Response = await client.post(
+            verify_otp_to_complete_wo_Uri,
+            body: map,
+            headers: await headerWithoutContentTypeENG());
+        MYAPILOGS("verify_otp_to_complete Api", verify_otp_to_complete_wo_Response);
+        if (verify_otp_to_complete_wo_Response.statusCode == 200) {
+          return jsonDecode(verify_otp_to_complete_wo_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(verify_otp_to_complete_wo_Response.body)['message']
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+
   /// ===============================================get Apis=================================================================
 
   /// Apis for Work order list
@@ -750,10 +861,10 @@ class ApiCalling {
     } catch (_) {}
   }
 
-  Future get_Parts_list() async {
+  Future get_Parts_list(work_id) async {
     try {
       if (await isConnectedToInternet()) {
-        Uri get_Parts_list_Uri = Uri.parse(ApiEndpoints.get_parts_Url);
+        Uri get_Parts_list_Uri = Uri.parse("${ApiEndpoints.get_parts_Url}${work_id}");
         var get_Parts_list_Uri_Res = await client.get(get_Parts_list_Uri,
             headers: await headerWithContentTypeENG());
         MYAPILOGS("get Parts list api", get_Parts_list_Uri_Res);
