@@ -43,445 +43,404 @@ class _SE_Payout_listState extends State<SE_Payout_list> {
         ),
         backgroundColor: appThemeColor,
         body: is_load_SE_Payout_list
-            ? SingleChildScrollView(
-                child: Container(
-                  // height: double.infinity,
-                  // width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0)),
-                    color: Colors.white,
-                  ),
-                  child: Container(
-                    height: 90.h,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          if (get_SE_Payout_list
-                              .data!.paymentList!.isNotEmpty) ...[
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
-                              itemCount:
-                                  get_SE_Payout_list.data!.paymentList!.length,
-                              itemBuilder: (BuildContext context, i) {
-                                return Card(
-                                  elevation: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 5),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 8,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10)),
-                                            width: double.infinity,
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 5.w),
-                                              child: Column(
+            ? Container(
+              // height: double.infinity,
+              // width: double.infinity,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0)),
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                child: ListView(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (get_SE_Payout_list.data!.isNotEmpty) ...[
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: get_SE_Payout_list.data!.length,
+                        itemBuilder: (BuildContext context, i) {
+                          return Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 5),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 8,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      width: double.infinity,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 5.w),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 4),
+                                              child: Row(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment
+                                                        .center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 5),
-                                                    child: Chip(
-                                                      visualDensity:
-                                                          const VisualDensity(
-                                                              vertical: -4,
-                                                              horizontal: 2),
-                                                      label: Text(
-                                                        get_SE_Payout_list
-                                                            .data!
-                                                            .paymentList![i]
-                                                            .date
-                                                            .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            color:
-                                                                appThemeColor,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      ),
-                                                      backgroundColor: Colors
-                                                          .blue
-                                                          .withOpacity(0.2),
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                        "Work Order id",
+                                                        style: GoogleFonts
+                                                            .lato(
+                                                                color: Colors
+                                                                    .grey)),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Text(
+                                                      ":",
+                                                      style: GoogleFonts.lato(
+                                                          color:
+                                                              appThemeColor),
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 4),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                              "Work Order id",
-                                                              style: GoogleFonts.lato(
-                                                                  color: Colors
-                                                                      .grey)),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Text(
-                                                            ":",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                                    color:
-                                                                        appThemeColor),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 3,
-                                                          child: Text(
-                                                            "# ${get_SE_Payout_list.data!.paymentList![i].workId.toString()}",
-                                                            style: GoogleFonts.rubik(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                      "#${get_SE_Payout_list.data![i].workId.toString()}",
+                                                      style: GoogleFonts.rubik(
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .w400),
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 4),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                              "Total amount",
-                                                              style: GoogleFonts.lato(
-                                                                  color: Colors
-                                                                      .grey)),
-                                                        ),
-                                                        Expanded(
-                                                            flex: 1,
-                                                            child: Text(":",
-                                                                style: GoogleFonts
-                                                                    .lato(
-                                                                        color:
-                                                                            appThemeColor))),
-                                                        Expanded(
-                                                          flex: 3,
-                                                          child: Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .currency_rupee_sharp,
-                                                                size: 10.sp,
-                                                              ),
-                                                              Text(
-                                                                get_SE_Payout_list
-                                                                    .data!
-                                                                    .paymentList![
-                                                                        i]
-                                                                    .totalAmountToPay
-                                                                    .toString(),
-                                                                style: GoogleFonts.rubik(
-                                                                    color:
-                                                                        appThemeColor,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 4),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                        "Total amount",
+                                                        style: GoogleFonts
+                                                            .lato(
+                                                                color: Colors
+                                                                    .grey)),
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 4),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(":",
+                                                          style: GoogleFonts
+                                                              .lato(
+                                                                  color:
+                                                                      appThemeColor))),
+                                                  Expanded(
+                                                    flex: 3,
                                                     child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
                                                       children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            "Paid amount",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                                    color: Colors
-                                                                        .grey),
-                                                          ),
+                                                        Icon(
+                                                          Icons
+                                                              .currency_rupee_sharp,
+                                                          size: 10.sp,
                                                         ),
-                                                        Expanded(
-                                                            flex: 1,
-                                                            child: Text(":",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        appThemeColor))),
-                                                        Expanded(
-                                                          flex: 3,
-                                                          child: Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .currency_rupee_sharp,
-                                                                size: 10.sp,
-                                                              ),
-                                                              Text(
-                                                                get_SE_Payout_list
-                                                                    .data!
-                                                                    .paymentList![
-                                                                        i]
-                                                                    .totalPaid
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  if (get_SE_Payout_list.data!.paymentList![i].pending != get_SE_Payout_list.data!.paymentList![i].totalPaid ) ...[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets
-                                                              .symmetric(
-                                                              vertical: 5,
-                                                              horizontal: 4),
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Expanded(
-                                                            flex: 2,
-                                                            child: Text(
-                                                              "Pending amount",
-                                                              style: GoogleFonts.lato(
-                                                                  color: Colors
-                                                                      .grey),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                              flex: 1,
-                                                              child: Text(
-                                                                ":",
-                                                                style: GoogleFonts
-                                                                    .lato(
-                                                                        color:
-                                                                            appThemeColor),
-                                                              )),
-                                                          Expanded(
-                                                            flex: 3,
-                                                            child: Row(
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .currency_rupee_sharp,
-                                                                  size: 10.sp,
-                                                                ),
-                                                                Text(
-                                                                    get_SE_Payout_list
-                                                                        .data!
-                                                                        .paymentList![
-                                                                            i]
-                                                                        .pending
-                                                                        .toString(),
-                                                                    style: GoogleFonts.rubik(
-                                                                        color: Colors
-                                                                            .red,
-                                                                        fontWeight:
-                                                                            FontWeight.w400)),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 4),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            "Call Duration",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                                    color: Colors
-                                                                        .grey),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                            flex: 1,
-                                                            child: Text(":",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        appThemeColor))),
-                                                        Expanded(
-                                                          flex: 3,
-                                                          child: Text(
-                                                            get_SE_Payout_list
-                                                                        .data!
-                                                                        .paymentList![
-                                                                            i]
-                                                                        .duration
-                                                                        .toString() ==
-                                                                    "null"
-                                                                ? ""
-                                                                : convertDuration(
-                                                                    get_SE_Payout_list
-                                                                        .data!
-                                                                        .paymentList![
-                                                                            i]
-                                                                        .duration
-                                                                        .toString(),
-                                                                  ),
-                                                            style: GoogleFonts.rubik(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 5),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        SizedBox(),
-                                                        if(get_SE_Payout_list.data!.paymentList![i].totalPaid.toString() != "0")...[
-                                                          InkWell(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                      SEViewDetailsPayout(
-                                                                        payout_id: get_SE_Payout_list
-                                                                            .data!
-                                                                            .paymentList![
-                                                                        i]
-                                                                            .id
-                                                                            .toString(),
-                                                                        work_id: get_SE_Payout_list
-                                                                            .data!
-                                                                            .paymentList![
-                                                                        i]
-                                                                            .workId
-                                                                            .toString(),
-                                                                      ),
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: Text(
-                                                              "View Transaction",
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize:
-                                                                  13.0,
-                                                                  decoration:
-                                                                  TextDecoration
-                                                                      .underline,
-                                                                  fontWeight:
+                                                        Text(
+                                                          get_SE_Payout_list
+                                                              .data![i]
+                                                              .totalAmountToPay
+                                                              .toString(),
+                                                          style: GoogleFonts.rubik(
+                                                              color:
+                                                                  appThemeColor,
+                                                              fontWeight:
                                                                   FontWeight
-                                                                      .w600,
-                                                                  color: Colors
-                                                                      .blue),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                                      .w600),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                          ),
+                                            Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 4),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                      "Paid amount",
+                                                      style: GoogleFonts
+                                                          .lato(
+                                                              color: Colors
+                                                                  .grey),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(":",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  appThemeColor))),
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .currency_rupee_sharp,
+                                                          size: 10.sp,
+                                                        ),
+                                                        Text(
+                                                          get_SE_Payout_list
+                                                              .data![i]
+                                                              .totalPaid
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            if (get_SE_Payout_list
+                                                    .data![i].pending !=
+                                                get_SE_Payout_list
+                                                    .data![i]
+                                                    .totalPaid) ...[
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .symmetric(
+                                                    vertical: 5,
+                                                    horizontal: 4),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 3,
+                                                      child: Text(
+                                                        "Pending amount",
+                                                        style: GoogleFonts
+                                                            .lato(
+                                                                color: Colors
+                                                                    .grey),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                        flex: 1,
+                                                        child: Text(
+                                                          ":",
+                                                          style: GoogleFonts
+                                                              .lato(
+                                                                  color:
+                                                                      appThemeColor),
+                                                        )),
+                                                    Expanded(
+                                                      flex: 3,
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .currency_rupee_sharp,
+                                                            size: 10.sp,
+                                                          ),
+                                                          Text(
+                                                              get_SE_Payout_list
+                                                                  .data![
+                                                                      i]
+                                                                  .pending
+                                                                  .toString(),
+                                                              style: GoogleFonts.rubik(
+                                                                  color: Colors
+                                                                      .red,
+                                                                  fontWeight:
+                                                                      FontWeight.w400)),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                            Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 4),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                      "Call Duration",
+                                                      style: GoogleFonts
+                                                          .lato(
+                                                              color: Colors
+                                                                  .grey),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(":",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  appThemeColor))),
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                      get_SE_Payout_list
+                                                                  .data![
+                                                                      i]
+                                                                  .seWorkingHours
+                                                                  .toString() ==
+                                                              "null"
+                                                          ? ""
+                                                          : get_SE_Payout_list
+                                                              .data![i]
+                                                              .seWorkingHours
+                                                              .toString(),
+                                                      style: GoogleFonts.rubik(
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .w400),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(vertical: 5),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  SizedBox(),
+                                                  if (get_SE_Payout_list
+                                                          .data![i]
+                                                          .totalPaid
+                                                          .toString() !=
+                                                      "0") ...[
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    SEViewDetailsPayout(
+                                                              payout_id: get_SE_Payout_list
+                                                                  .data![
+                                                                      i]
+                                                                  .id
+                                                                  .toString(),
+                                                              work_id: get_SE_Payout_list
+                                                                  .data![
+                                                                      i]
+                                                                  .workId
+                                                                  .toString(),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Text(
+                                                        "View Transaction",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                13.0,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600,
+                                                            color: Colors
+                                                                .blue),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return SizedBox(
-                                  height: 1.8.h,
-                                );
-                              },
+                                ],
+                              ),
                             ),
-                          ] else ...[
-                            Center(
-                              child:
-                                  Text("No Payout data available!!!",style: GoogleFonts.lato(color: Colors.red),),
-                            ),
-                          ],
-                        ],
+                          );
+                        },
+                        separatorBuilder:
+                            (BuildContext context, int index) {
+                          return SizedBox(
+                            height: 1.8.h,
+                          );
+                        },
                       ),
-                    ),
-                  ),
+                    ] else ...[
+                      Center(
+                        child: Text(
+                          "No Payout data available!!!",
+                          style: GoogleFonts.lato(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
-              )
+              ),
+            )
             : Container(
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(

@@ -55,83 +55,92 @@ class _Tab2FABState extends State<Tab2FAB> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (get_add_parts_list.data!.isNotEmpty) ...[
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 5),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    "Parts Id",
-                                    style: GoogleFonts.lato(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12.sp),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Text(
-                                    "Parts Name",
-                                    style: GoogleFonts.lato(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12.sp),
-                                  ),
-                                ),
-                              ],
+                        if (is_load_add_parts_list) ...[
+                          if (get_add_parts_list.data!.isNotEmpty) ...[
+                            SizedBox(
+                              height: 2.h,
                             ),
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: get_add_parts_list.data?.length,
-                            itemBuilder: (BuildContext context, i) {
-                              return Card(
-                                elevation: 3,
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 2.h, horizontal: 1.h),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Text(
-                                          get_add_parts_list.data![i].partsId
-                                              .toString(),
-                                          style: GoogleFonts.rubik(
-                                              fontSize: 10.sp),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 4,
-                                        child: Text(
-                                          get_add_parts_list.data![i].partsName
-                                              .toString(),
-                                          style: GoogleFonts.rubik(
-                                              fontSize: 10.sp),
-                                        ),
-                                      ),
-                                    ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 5),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Text(
+                                      "Parts Id",
+                                      style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12.sp),
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ] else ...[
-                          Container(
-                            height: 55.h,
-                            child: Center(
-                              child: Text(
-                                "${get_add_parts_list.message.toString()}",
-                                style: GoogleFonts.lato(color: Colors.red),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                      "Parts Name",
+                                      style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12.sp),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: get_add_parts_list.data?.length,
+                              itemBuilder: (BuildContext context, i) {
+                                return Card(
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 2.h, horizontal: 1.h),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Text(
+                                            get_add_parts_list.data![i].partsId
+                                                .toString(),
+                                            style: GoogleFonts.rubik(
+                                                fontSize: 10.sp),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 4,
+                                          child: Text(
+                                            get_add_parts_list
+                                                .data![i].partsName
+                                                .toString(),
+                                            style: GoogleFonts.rubik(
+                                                fontSize: 10.sp),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ] else ...[
+                            Container(
+                              height: 55.h,
+                              child: Center(
+                                child: Text(
+                                  "${get_add_parts_list.message.toString()}",
+                                  style: GoogleFonts.lato(color: Colors.red),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ] else ...[
+                          Center(
+                            child: CircularProgressIndicator(
+                              color: appThemeColor,
                             ),
                           ),
                         ],

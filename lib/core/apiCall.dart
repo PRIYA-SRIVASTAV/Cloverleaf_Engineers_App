@@ -17,6 +17,7 @@ import '../model/GetSECallLogsModel.dart';
 import '../model/GetSEDashbordDataModel.dart';
 import '../model/GetSEPayoutListModel.dart';
 import '../model/GetUserStatusModel.dart';
+import '../model/GetWorkorderdetailsModel.dart';
 import '../model/GetprofilePageModel.dart';
 import '../model/SE_Work_order_model.dart';
 import '../model/WorkOrderModel.dart';
@@ -101,16 +102,59 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+  /// multipart api
+  // Future User_Setting_Post_Api(image, name, email, mobileNo, address,
+  //     ano_address, city, state, zipCode, country, DOB, firm, profession) async {
+  //   try {
+  //     Uri User_setting_Uri = Uri.parse(ApiEndpoints.SettingPostApi);
+  //     var body = <String,String>{
+  //       "name" :name,
+  //       "email" :email,
+  //       "address":address,
+  //       "mobile_no":mobileNo,
+  //       "another_address":ano_address,
+  //       "city":city,
+  //       "state":state,
+  //       "zipcode":zipCode,
+  //       "country":country,
+  //       "dob":DOB,
+  //       "profession":profession,
+  //       "company_name":firm
+  //     };
+  //     var request = http.MultipartRequest('POST', User_setting_Uri);
+  //     request.fields.addAll(body);
+  //     if(image!=null){
+  //       request.files.add(await http.MultipartFile.fromPath("image", image.path));
+  //     }
+  //     //debugPrint(image.path.toString());
+  //     // request.headers.addAll({
+  //     //   "Authorization": "Bearer $token",
+  //     // });
+  //     http.StreamedResponse response = await request.send();
+  //     final a = await http.Response.fromStream(response);
+  //     debugPrint("User Settings Post Api Response ====${a.body}");
+  //     if(a.statusCode==200){
+  //       return jsonDecode(a.body);
+  //     }
+  //     else{
+  //       return customFlutterToast(jsonDecode(a.body)["message"].toString());
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   /// Api for Update profile
 
-  Future Update_Profile_details(name, phone, address1, address2, city, state,
+  Future Update_Profile_details(profileImage,name, phone, address1, address2, city, state,
       zip, oldPass, newPass, confPass) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Update_Profile_details_Url =
             Uri.parse(ApiEndpoints.Update_profile_url);
-        var map = {
+
+        var body = <String,String>{
+          "image":profileImage,
           "name": name,
           "phone": phone,
           "address_1": address1,
@@ -122,16 +166,22 @@ class ApiCalling {
           "password": newPass,
           "cpassword": confPass,
         };
-        var Update_Profile_details_Url_Response = await client.post(
-            Update_Profile_details_Url,
-            body: map,
-            headers: await headerWithoutContentTypeENG());
-        MYAPILOGS("Update profile Api", Update_Profile_details_Url_Response);
-        if (Update_Profile_details_Url_Response.statusCode == 200) {
-          return jsonDecode(Update_Profile_details_Url_Response.body);
+        var request = http.MultipartRequest('POST', Update_Profile_details_Url);
+        request.fields.addAll(body);
+        if(profileImage!=null){
+          request.files.add(await http.MultipartFile.fromPath("image", profileImage.path));
+        }
+        //debugPrint(image.path.toString());
+        // request.headers.addAll({
+        //   "Authorization": "Bearer $token",
+        // });
+        http.StreamedResponse response = await request.send();
+        final a = await http.Response.fromStream(response);
+        if (a.statusCode == 200) {
+          return jsonDecode(a.body);
         } else {
           customFlutterToast(
-              jsonDecode(Update_Profile_details_Url_Response.body)["message"]
+              jsonDecode(a.body)["message"]
                   .toString());
         }
       } catch (e) {
@@ -726,6 +776,29 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
+  Future get_Work_order_details(Work_id) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_Work_order_details_uri =
+        Uri.parse("${ApiEndpoints.Work_order_detail_Url}$Work_id");
+        var get_Work_order_details_Res = await client.get(
+            get_Work_order_details_uri,
+            headers: await headerWithContentTypeENG());
+        MYAPILOGS(
+            "get_Work_order_details api", get_Work_order_details_Res);
+        if (get_Work_order_details_Res.statusCode == 200) {
+          return getWorkorderdetailsModelFromJson(
+              get_Work_order_details_Res.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
 
   Future get_Work_order_list_for_accelerated(Work_Order_status3) async {
     try {

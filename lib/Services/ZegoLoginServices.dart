@@ -114,7 +114,8 @@ onUserLogin() async {
                                 data.inviter!.id.toString(),
                                 data.invitees[0].id.toString(),
                                 MyZegoConst.callDuration);
-                      }),
+                      },
+                  ),
                 ],
               );
             },
@@ -136,7 +137,8 @@ onUserLogin() async {
           debugPrint('onError:$error');
         };
         return config;
-      });
+      },
+  );
 }
 
 /// on user logout
@@ -289,8 +291,7 @@ callApi(call_type) async {
     user_type = "eng";
   } else {
     user_type = "se";
-  }
-  ;
+  };
   print("00000000000--->$user_type");
   if (user_type == "se") {
     await Post_SE_Call_details_controller()

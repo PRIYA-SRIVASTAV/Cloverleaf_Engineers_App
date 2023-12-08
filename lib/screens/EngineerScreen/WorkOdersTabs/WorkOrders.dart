@@ -629,7 +629,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            WorkOrderDescriptionPage(
+                                            WorkOrderDescriptionPage(Work_id: get_work_order_status2.data?[index].workId,
                                               list_index: index,),
                                       ),
                                     );

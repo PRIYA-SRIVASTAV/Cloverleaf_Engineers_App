@@ -15,6 +15,7 @@ import '../../../controller/is_update_active_controller.dart';
 import '../../../model/GetLeaveCalenderModel.dart';
 import '../../../model/GetprofilePageModel.dart';
 import '../../../utils/helperWidget.dart';
+import 'editProfilePageEng.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -26,22 +27,11 @@ class AppDrawer extends StatefulWidget {
 class _AppDrawerState extends State<AppDrawer> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController address1Controller = TextEditingController();
-  TextEditingController address2Controller = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
-  TextEditingController zipController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController oldPasswordController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-
   late GetProfileDetailsModel get_profile_details_data;
   late GetLeaveCalendarModel get_Leave_calendar_data;
   bool is_load_Leave_calendar_data = false;
   bool is_load_profile_details_data = false;
   bool on_leave_status = false;
-  final noteController = TextEditingController();
 
   @override
   void initState() {
@@ -54,16 +44,6 @@ class _AppDrawerState extends State<AppDrawer> {
     super.dispose();
     nameController.dispose();
     phoneController.dispose();
-    address1Controller.dispose();
-    address2Controller.dispose();
-    cityController.dispose();
-    stateController.dispose();
-    zipController.dispose();
-    dateController.dispose();
-    noteController.dispose();
-    oldPasswordController.dispose();
-    newPasswordController.dispose();
-    confirmPasswordController.dispose();
   }
 
   File? profileImage;
@@ -87,24 +67,34 @@ class _AppDrawerState extends State<AppDrawer> {
     return profileImage == null
         ? Container(
             height: 20.h,
-            width: 50.w,
-            decoration: const BoxDecoration(
+            width: 20.h,
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage("assets/images/3135715.png"),
-              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: get_profile_details_data.data!.image!.isEmpty ||
+                      get_profile_details_data.data!.image!.toString() == "" ||
+                      get_profile_details_data.data!.image == null
+                  ? Image.asset(
+                      "assets/images/3135715.png",
+                      fit: BoxFit.fill,
+                    )
+                  : Image.network(
+                      get_profile_details_data.data!.image.toString(),
+                      fit: BoxFit.fill,
+                    ),
             ),
           )
         : Container(
-            height: 30.h,
-            width: 60.w,
+            height: 20.h,
+            width: 20.h,
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(100),
               child: Image.file(
                 profileImage!,
                 fit: BoxFit.cover,
@@ -113,400 +103,400 @@ class _AppDrawerState extends State<AppDrawer> {
           );
   }
 
-  Widget editProfile(context) {
-    return Dialog(
-      child: Container(
-        height: 80.h,
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: 2.h, right: 2.h, bottom: 4.h, top: 4.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Contact Details",
-                      style: GoogleFonts.lato(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: appThemeColor),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "Name",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      cursorColor: appThemeColor,
-                      controller: nameController,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "Email",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "${get_profile_details_data.data!.email.toString()}",
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                      height: 3.h,
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "Mobile No.",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.rubik(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      onTap: () {},
-                      maxLength: 10,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        counterText: "",
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 1.5.h),
-                          child: Text(
-                            "+91",
-                            style: GoogleFonts.rubik(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black54),
-                          ),
-                        ),
-                      ),
-                      controller: phoneController,
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "Address 1:",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      controller: address1Controller,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "Address 2:",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      controller: address2Controller,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "City/Town:",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      controller: cityController,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "State/Province:",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      controller: stateController,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "Zip/Postal Code:",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      controller: zipController,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    Text(
-                      "Update Password",
-                      style: GoogleFonts.lato(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: appThemeColor),
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    Text(
-                      "Old Password",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      controller: oldPasswordController,
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.visibility),
-                        hintText: "Enter Old Password",
-                        hintStyle: GoogleFonts.lato(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black54),
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "New Password",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      controller: newPasswordController,
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.visibility),
-                        hintText: "Enter New Password",
-                        hintStyle: GoogleFonts.lato(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black54),
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      "Confirm Password",
-                      style: GoogleFonts.lato(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    TextFormField(
-                      controller: confirmPasswordController,
-                      cursorColor: appThemeColor,
-                      style: GoogleFonts.lato(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black54),
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.visibility),
-                        hintText: "Enter Confirm Password",
-                        hintStyle: GoogleFonts.lato(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black54),
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 6.h,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 5.h,
-                          width: 25.w,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey,
-                              side: BorderSide.none,
-                              shape: const StadiumBorder(),
-                            ),
-                            child: Text(
-                              "Cancel",
-                              style: GoogleFonts.lato(
-                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          height: 5.h,
-                          width: 25.w,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              await update_profile_detail_controller()
-                                  .update_profile_detail_controller_method(
-                                      nameController.text,
-                                      phoneController.text,
-                                      address1Controller.text,
-                                      address2Controller.text,
-                                      cityController.text,
-                                      stateController.text,
-                                      zipController.text,
-                                      oldPasswordController.text,
-                                      newPasswordController.text,
-                                      confirmPasswordController.text,
-                                      context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: appThemeColor,
-                              side: BorderSide.none,
-                              shape: const StadiumBorder(),
-                            ),
-                            child: Text(
-                              "Update",
-                              style: GoogleFonts.lato(
-                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              right: 2,
-              top: 2,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Align(
-                  alignment: Alignment.topRight,
-                  child: CircleAvatar(
-                    key: Key('closeIconKey'),
-                    radius: 15,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget editProfile(context) {
+  //   return Dialog(
+  //     child: Container(
+  //       height: 80.h,
+  //       child: Stack(
+  //         children: [
+  //           SingleChildScrollView(
+  //             child: Padding(
+  //               padding: EdgeInsets.only(
+  //                   left: 2.h, right: 2.h, bottom: 4.h, top: 4.h),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   Text(
+  //                     "Contact Details",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 16.sp,
+  //                         fontWeight: FontWeight.w600,
+  //                         color: appThemeColor),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "Name",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     cursorColor: appThemeColor,
+  //                     controller: nameController,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     decoration: InputDecoration(
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "Email",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "${get_profile_details_data.data!.email.toString()}",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   Divider(
+  //                     color: Colors.grey,
+  //                     height: 3.h,
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "Mobile No.",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.rubik(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     onTap: () {},
+  //                     maxLength: 10,
+  //                     keyboardType: TextInputType.phone,
+  //                     decoration: InputDecoration(
+  //                       counterText: "",
+  //                       prefixIcon: Padding(
+  //                         padding: EdgeInsets.symmetric(vertical: 1.5.h),
+  //                         child: Text(
+  //                           "+91",
+  //                           style: GoogleFonts.rubik(
+  //                               fontSize: 12.sp,
+  //                               fontWeight: FontWeight.w400,
+  //                               color: Colors.black54),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     controller: phoneController,
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "Address 1:",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     controller: address1Controller,
+  //                     decoration: InputDecoration(
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "Address 2:",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     controller: address2Controller,
+  //                     decoration: InputDecoration(
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "City/Town:",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     controller: cityController,
+  //                     decoration: InputDecoration(
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "State/Province:",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     controller: stateController,
+  //                     decoration: InputDecoration(
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "Zip/Postal Code:",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     controller: zipController,
+  //                     decoration: InputDecoration(
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 3.h,
+  //                   ),
+  //                   Text(
+  //                     "Update Password",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 16.sp,
+  //                         fontWeight: FontWeight.w600,
+  //                         color: appThemeColor),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 3.h,
+  //                   ),
+  //                   Text(
+  //                     "Old Password",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     controller: oldPasswordController,
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     decoration: InputDecoration(
+  //                       suffixIcon: Icon(Icons.visibility),
+  //                       hintText: "Enter Old Password",
+  //                       hintStyle: GoogleFonts.lato(
+  //                           fontSize: 12.sp,
+  //                           fontWeight: FontWeight.w400,
+  //                           color: Colors.black54),
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "New Password",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     controller: newPasswordController,
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     decoration: InputDecoration(
+  //                       suffixIcon: Icon(Icons.visibility),
+  //                       hintText: "Enter New Password",
+  //                       hintStyle: GoogleFonts.lato(
+  //                           fontSize: 12.sp,
+  //                           fontWeight: FontWeight.w400,
+  //                           color: Colors.black54),
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 2.h,
+  //                   ),
+  //                   Text(
+  //                     "Confirm Password",
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 14.sp, fontWeight: FontWeight.w600),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 0.5.h,
+  //                   ),
+  //                   TextFormField(
+  //                     controller: confirmPasswordController,
+  //                     cursorColor: appThemeColor,
+  //                     style: GoogleFonts.lato(
+  //                         fontSize: 12.sp,
+  //                         fontWeight: FontWeight.w400,
+  //                         color: Colors.black54),
+  //                     decoration: InputDecoration(
+  //                       suffixIcon: Icon(Icons.visibility),
+  //                       hintText: "Enter Confirm Password",
+  //                       hintStyle: GoogleFonts.lato(
+  //                           fontSize: 12.sp,
+  //                           fontWeight: FontWeight.w400,
+  //                           color: Colors.black54),
+  //                       border: UnderlineInputBorder(),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 6.h,
+  //                   ),
+  //                   Row(
+  //                     children: [
+  //                       SizedBox(
+  //                         height: 5.h,
+  //                         width: 25.w,
+  //                         child: ElevatedButton(
+  //                           onPressed: () {
+  //                             Navigator.pop(context);
+  //                           },
+  //                           style: ElevatedButton.styleFrom(
+  //                             backgroundColor: Colors.grey,
+  //                             side: BorderSide.none,
+  //                             shape: const StadiumBorder(),
+  //                           ),
+  //                           child: Text(
+  //                             "Cancel",
+  //                             style: GoogleFonts.lato(
+  //                                 fontSize: 12.sp, fontWeight: FontWeight.w600),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       const Spacer(),
+  //                       SizedBox(
+  //                         height: 5.h,
+  //                         width: 25.w,
+  //                         child: ElevatedButton(
+  //                           onPressed: () async {
+  //                             await update_profile_detail_controller()
+  //                                 .update_profile_detail_controller_method(
+  //                                     nameController.text,
+  //                                     phoneController.text,
+  //                                     address1Controller.text,
+  //                                     address2Controller.text,
+  //                                     cityController.text,
+  //                                     stateController.text,
+  //                                     zipController.text,
+  //                                     oldPasswordController.text,
+  //                                     newPasswordController.text,
+  //                                     confirmPasswordController.text,
+  //                                     context);
+  //                           },
+  //                           style: ElevatedButton.styleFrom(
+  //                             backgroundColor: appThemeColor,
+  //                             side: BorderSide.none,
+  //                             shape: const StadiumBorder(),
+  //                           ),
+  //                           child: Text(
+  //                             "Update",
+  //                             style: GoogleFonts.lato(
+  //                                 fontSize: 12.sp, fontWeight: FontWeight.w600),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //           Positioned(
+  //             right: 2,
+  //             top: 2,
+  //             child: GestureDetector(
+  //               onTap: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: const Align(
+  //                 alignment: Alignment.topRight,
+  //                 child: CircleAvatar(
+  //                   key: Key('closeIconKey'),
+  //                   radius: 15,
+  //                   backgroundColor: Colors.white,
+  //                   child: Icon(
+  //                     Icons.close,
+  //                     color: Colors.black,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void tapButton() async {
     on_leave_status = !on_leave_status;
@@ -537,25 +527,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child: Stack(
-                        children: [
-                          imageWidget(),
-                          Positioned(
-                            bottom: 0.h,
-                            right: 1.5.h,
-                            child: InkWell(
-                              onTap: () {
-                                getProfileImage(ImageSource.gallery);
-                              },
-                              child: Icon(
-                                Icons.camera_alt_rounded,
-                                color: appThemeColor,
-                                size: 28.sp,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      child: imageWidget(),
                     ),
                     SizedBox(
                       height: 5.h,
@@ -635,12 +607,18 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     InkWell(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return editProfile(context);
-                          },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => editProfilePagePage(),
+                          ),
                         );
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (context) {
+                        //     return editProfile(context);
+                        //   },
+                        // );
                       },
                       child: ListTile(
                         leading: profileListLeadingContainer(
@@ -772,14 +750,15 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   void get_profile_details_data_method() async {
-    get_profile_details_data = await get_profile_details_controller().get_profile_details_controller_method();
+    get_profile_details_data = await get_profile_details_controller()
+        .get_profile_details_controller_method();
     nameController.text = get_profile_details_data.data!.name.toString();
     phoneController.text = get_profile_details_data.data!.phone.toString();
-    address1Controller.text = get_profile_details_data.data!.address1.toString();
-    address2Controller.text = get_profile_details_data.data!.address2.toString();
-    cityController.text = get_profile_details_data.data!.city.toString();
-    stateController.text = get_profile_details_data.data!.state.toString();
-    zipController.text = get_profile_details_data.data!.zipCode.toString();
+    // address1Controller.text = get_profile_details_data.data!.address1.toString();
+    // address2Controller.text = get_profile_details_data.data!.address2.toString();
+    // cityController.text = get_profile_details_data.data!.city.toString();
+    // stateController.text = get_profile_details_data.data!.state.toString();
+    // zipController.text = get_profile_details_data.data!.zipCode.toString();
     print(get_profile_details_data);
     if (get_profile_details_data.status.toString() == "true") {
       setState(() {

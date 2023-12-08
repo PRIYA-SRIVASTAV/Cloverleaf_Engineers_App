@@ -2,7 +2,6 @@ import 'package:cloverleaf_project/controller/Get_Dashboard_percentage%20Details
 import 'package:cloverleaf_project/controller/Get_User_status_controller.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/test_payroll_ui.dart';
-import 'package:cloverleaf_project/utils/helperWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -130,6 +129,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
     Colors.grey
   ];
 
+  String _selectedLanguage = 'English';
   @override
   void initState() {
     super.initState();
@@ -148,7 +148,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 15),
+            padding: EdgeInsets.only(right: 1.h),
             child: is_load_user_status
                 ? FlutterSwitch(
                     width: 20.w,
@@ -175,10 +175,32 @@ class _dashBoardPageState extends State<dashBoardPage> {
                     height: 1.h,
                     width: 8.h,
                     child: Center(
-                      child: Text("Loading...",style: GoogleFonts.lato(),),
+                      child: Text(
+                        "Loading...",
+                        style: GoogleFonts.lato(),
+                      ),
                     ),
                   ),
           ),
+          Padding(
+            padding: EdgeInsets.only(top: 4.h,right: 2.h),
+            child: InkWell(
+              onTap: () {
+                _showLanguageMenu(context);
+              },
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.translate_sharp,
+                    size: 18.sp,
+                  ),
+                  Text('$_selectedLanguage',style: GoogleFonts.lato(
+                    fontSize: 10.sp
+                  ),),
+                ],
+              ),
+            ),
+          )
         ],
         leading: Builder(
           builder: (context) => IconButton(
@@ -227,7 +249,9 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       "Summary",
-                                      style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
+                                      style: GoogleFonts.lato(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                   SizedBox(
@@ -269,11 +293,18 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Completed Work Orders",
-                                          style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
+                                      Text(
+                                        "Completed Work Orders",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Text(
                                         "${get_dashboard_data.data.completed}",
-                                        style:GoogleFonts.rubik(fontSize: 16.sp,color: appThemeColor,fontWeight: FontWeight.w600),
+                                        style: GoogleFonts.rubik(
+                                            fontSize: 16.sp,
+                                            color: appThemeColor,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -308,11 +339,18 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Ongoing Work Orders",
-                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
+                                      Text(
+                                        "Ongoing Work Orders",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Text(
                                         "${get_dashboard_data.data.ongoing}",
-                                        style:GoogleFonts.rubik(fontSize: 16.sp,color: Colors.orange,fontWeight: FontWeight.w600),
+                                        style: GoogleFonts.rubik(
+                                            fontSize: 16.sp,
+                                            color: Colors.orange,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -348,11 +386,17 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Accelerated Work Orders",
-                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
+                                      Text(
+                                        "Accelerated Work Orders",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Text(
                                         "${get_dashboard_data.data.accelerate}",
-                                        style:GoogleFonts.rubik(fontSize: 16.sp,fontWeight: FontWeight.w600),
+                                        style: GoogleFonts.rubik(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -387,12 +431,18 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Unaccepted Work Orders",
-                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
+                                      Text(
+                                        "Unaccepted Work Orders",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Text(
                                         "${get_dashboard_data.data.assign}",
-                                        style:GoogleFonts.rubik(fontSize: 16.sp,color: Colors.blue,fontWeight: FontWeight.w600),
-
+                                        style: GoogleFonts.rubik(
+                                            fontSize: 16.sp,
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -426,8 +476,12 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Total Payouts",
-                                        style: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),),
+                                      Text(
+                                        "Total Payouts",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       Row(
                                         children: [
                                           Icon(
@@ -436,7 +490,10 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                           ),
                                           Text(
                                             "${get_dashboard_data.data.payout.toString()}",
-                                            style:GoogleFonts.rubik(fontSize: 16.sp,color: appThemeColor,fontWeight: FontWeight.w600),
+                                            style: GoogleFonts.rubik(
+                                                fontSize: 16.sp,
+                                                color: appThemeColor,
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ],
                                       )
@@ -446,12 +503,14 @@ class _dashBoardPageState extends State<dashBoardPage> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
               )
             : Center(
-                child: Text("Work order not assign yet !!!",style: GoogleFonts.lato(color: Colors.red),),
+                child: Text(
+                  "Work order not assign yet !!!",
+                  style: GoogleFonts.lato(color: Colors.red),
+                ),
               ),
       ),
     );
@@ -479,8 +538,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
               timeInSecForIosWeb: 1,
               backgroundColor: Colors.red,
               textColor: Colors.white,
-              fontSize: 16.sp
-          );
+              fontSize: 16.sp);
         });
       } else {
         setState(() {
@@ -501,7 +559,8 @@ class _dashBoardPageState extends State<dashBoardPage> {
   }
 
   void Get_User_status_method() async {
-    get_user_status_data = await Get_User_status_controller().Get_User_status_controller_method();
+    get_user_status_data =
+        await Get_User_status_controller().Get_User_status_controller_method();
     setState(() {
       if (get_user_status_data.data.toString() == "1") {
         online_offline_status = true;
@@ -526,6 +585,49 @@ class _dashBoardPageState extends State<dashBoardPage> {
     dataMap = percentage;
     setState(() {
       is_load_Dashboard_data = true;
+    });
+  }
+
+  void _showLanguageMenu(BuildContext context) {
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(100.h, 13.h, 0, 0),
+      items: [
+        PopupMenuItem(
+          child: Text('English',style: GoogleFonts.lato(fontSize: 10.sp),),
+          value: 'English',
+        ),
+        PopupMenuItem(
+          child: Text('हिंदी',style: GoogleFonts.lato(fontSize: 10.sp),),
+          value: 'हिंदी',
+        ),
+        PopupMenuItem(
+          child: Text('chinese',style: GoogleFonts.lato(fontSize: 10.sp),),
+          value: 'chinese',
+        ),
+        PopupMenuItem(
+          child: Text('Bengali',style: GoogleFonts.lato(fontSize: 10.sp),),
+          value: 'Bengali',
+        ),
+        PopupMenuItem(
+          child: Text('Tamil',style: GoogleFonts.lato(fontSize: 10.sp),),
+          value: 'Tamil',
+        ),
+        PopupMenuItem(
+          child: Text('Spanish',style: GoogleFonts.lato(fontSize: 10.sp),),
+          value: 'Spanish',
+        ),
+        PopupMenuItem(
+          child: Text('French',style: GoogleFonts.lato(fontSize: 10.sp),),
+          value: 'French',
+        ),
+      ],
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _selectedLanguage = value;
+        });
+      }
     });
   }
 }

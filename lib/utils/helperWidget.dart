@@ -5,13 +5,11 @@ import 'package:sizer/sizer.dart';
 import '../constant/colorConstant.dart';
 import '../constant/testStyleConstant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pie_chart/pie_chart.dart';
-
 import '../constant/textFieldConstant.dart';
 
 
 /// allowed pick files from mobile
-List <String> allowedFiles =  ['jpg', 'pdf', 'doc'];
+List <String> allowedFiles =  ['jpg', 'pdf', 'doc','png','mp4'];
 
 TextEditingController subjectController = TextEditingController();
 TextEditingController descriptionController = TextEditingController();

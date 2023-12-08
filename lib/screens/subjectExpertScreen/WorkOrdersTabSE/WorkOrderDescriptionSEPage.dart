@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloverleaf_project/constant/prefsConstant.dart';
 import 'package:flutter/material.dart';

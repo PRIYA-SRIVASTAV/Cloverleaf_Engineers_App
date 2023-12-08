@@ -18,6 +18,7 @@ class ApiEndpoints {
 
   /// get apis
   static String Work_order_List_Url = "$baseUrl/work-list?wo_status=";
+  static String Work_order_detail_Url = "$baseUrl/workorder-detail/";
   static String Profile_detail_Url = "$baseUrl/engineer-profile-data";
   static String get_parts_Url = "$baseUrl/parts?work_id=";
   static String get_user_status_Url = "$baseUrl/get-user-status";

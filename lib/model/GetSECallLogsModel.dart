@@ -29,9 +29,9 @@ class GetSeCallLogsList {
 }
 
 class Data {
-  List<Today>? today;
-  List<dynamic>? yesterday;
-  List<dynamic>? older;
+  List<Older>? today;
+  List<Older>? yesterday;
+  List<Older>? older;
 
   Data({
     this.today,
@@ -40,19 +40,19 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    today: json["today"] == null ? [] : List<Today>.from(json["today"]!.map((x) => Today.fromJson(x))),
-    yesterday: json["yesterday"] == null ? [] : List<dynamic>.from(json["yesterday"]!.map((x) => x)),
-    older: json["older"] == null ? [] : List<dynamic>.from(json["older"]!.map((x) => x)),
+    today: json["today"] == null ? [] : List<Older>.from(json["today"]!.map((x) => Older.fromJson(x))),
+    yesterday: json["yesterday"] == null ? [] : List<Older>.from(json["yesterday"]!.map((x) => Older.fromJson(x))),
+    older: json["older"] == null ? [] : List<Older>.from(json["older"]!.map((x) => Older.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "today": today == null ? [] : List<dynamic>.from(today!.map((x) => x.toJson())),
-    "yesterday": yesterday == null ? [] : List<dynamic>.from(yesterday!.map((x) => x)),
-    "older": older == null ? [] : List<dynamic>.from(older!.map((x) => x)),
+    "yesterday": yesterday == null ? [] : List<dynamic>.from(yesterday!.map((x) => x.toJson())),
+    "older": older == null ? [] : List<dynamic>.from(older!.map((x) => x.toJson())),
   };
 }
 
-class Today {
+class Older {
   String? engName;
   String? duration;
   int? callStatus;
@@ -61,7 +61,7 @@ class Today {
   String? date;
   String? time;
 
-  Today({
+  Older({
     this.engName,
     this.duration,
     this.callStatus,
@@ -71,7 +71,7 @@ class Today {
     this.time,
   });
 
-  factory Today.fromJson(Map<String, dynamic> json) => Today(
+  factory Older.fromJson(Map<String, dynamic> json) => Older(
     engName: json["eng_name"],
     duration: json["duration"],
     callStatus: json["call_status"],
