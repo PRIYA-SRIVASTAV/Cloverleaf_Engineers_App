@@ -6,7 +6,7 @@ import 'colorConstant.dart';
 
 /// Text Style
 TextStyle appTitleStyle = GoogleFonts.lato(fontWeight: FontWeight.w600, color: appThemeColor, fontSize:28.sp);
-TextStyle appSubTitleStyle = GoogleFonts.lato(fontWeight: FontWeight.w600, color: appThemeColor, fontSize: 8.sp);
+TextStyle appSubTitleStyle = GoogleFonts.lato(fontWeight: FontWeight.w600, color: appThemeColor, fontSize: 12.sp);
 TextStyle getStartedStyle = TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold);
 TextStyle textFieldTitleStyle = GoogleFonts.lato(color: Colors.grey,fontWeight: FontWeight.w500,fontSize: 14.sp);
 TextStyle chartValueStyle = TextStyle(fontWeight: FontWeight.bold, color: appThemeColor);

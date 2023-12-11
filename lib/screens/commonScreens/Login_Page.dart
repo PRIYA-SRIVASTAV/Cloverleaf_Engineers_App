@@ -41,25 +41,33 @@ class _Login_PageState extends State<Login_Page> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    Container(
+                      // decoration: BoxDecoration(color: appThemeColor,borderRadius: BorderRadius.circular(radius)),
                       height: 20.h,
                       width: 40.w,
                       child:
-                          Image.asset('assets/images/Cloverleaf-gif-video.gif'),
+                          Image.asset('assets/logo/newLogo.png',fit: BoxFit.contain),
                     ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
+                    // SizedBox(
+                    //   height: 2.h,
+                    // ),
                     Text(
                       "CLOVERLEAF",
                       style: appTitleStyle,
                     ),
                     Text(
-                      "BUILDING THE FUTURE OF MACHINE SERVICE",
+                      "GLOBAL SOLUTION PVT LTD.",
                       style: appSubTitleStyle,
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 0.5.h,
+                    ),
+                    Text(
+                      "An     Industry    4.0    Initiative",
+                      style: GoogleFonts.lato(fontWeight: FontWeight.w600, color: appThemeColor, fontSize: 12.sp),
+                    ),
+                    SizedBox(
+                      height:5.h,
                     ),
                     Align(
                       alignment: Alignment.bottomLeft,

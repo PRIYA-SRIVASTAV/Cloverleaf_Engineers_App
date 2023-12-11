@@ -368,7 +368,7 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          updateTechnicianSummary(),
+                                          updateTechnicianSummary(Work_id : get_work_order_status2.data!.workId.toString()),
                                     ),
                                   );
                                 },

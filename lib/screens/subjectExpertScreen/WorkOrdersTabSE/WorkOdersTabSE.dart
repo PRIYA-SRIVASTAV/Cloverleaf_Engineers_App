@@ -11,6 +11,7 @@ import '../../../constant/prefsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
 import '../../../model/SE_Work_order_model.dart';
 import '../../../utils/helperMethods.dart';
+import 'WoInfoPage.dart';
 
 class WorkOrderSE extends StatefulWidget {
   var TabIndex;
@@ -41,6 +42,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
+
         length: 3,
         initialIndex: widget.TabIndex,
         child: Scaffold(
@@ -135,19 +137,35 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            height: 3.h,
-                                            width: 10.h,
-                                            color: Colors.blue.withOpacity(0.3),
-                                            child: Center(
-                                              child: Text(
-                                                "Work-id #${get_SE_work_order_status1.data?[index].workId.toString()}",
-                                                style: GoogleFonts.lato(
-                                                    color: Colors.blue,
-                                                    fontSize: 10.sp,
-                                                    fontWeight: FontWeight.w600),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                height: 3.h,
+                                                width: 10.h,
+                                                color: Colors.blue.withOpacity(0.3),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Work-id #${get_SE_work_order_status1.data?[index].workId.toString()}",
+                                                    style: GoogleFonts.lato(
+                                                        color: Colors.blue,
+                                                        fontSize: 10.sp,
+                                                        fontWeight: FontWeight.w600),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              InkWell(
+                                                onTap: (){
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>woInfoPage(Tab1Index: index,),
+
+                                                    ),
+                                                  );
+                                                },
+                                                  child: Icon(Icons.info_outline,color: Colors.blue.shade900,size: 24.sp,))
+                                            ],
                                           ),
                                           Row(
                                             crossAxisAlignment:

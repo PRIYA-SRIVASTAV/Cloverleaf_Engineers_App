@@ -15,6 +15,7 @@ class ApiEndpoints {
   static String verify_otp_to_start_wo = "$baseUrl/verify-otp";
   static String send_otp_to_complete_wo = "$baseUrl/send-otp";
   static String verify_otp_to_complete_wo = "$baseUrl/verify-otp";
+  static String update_wo_extra_detail = "$baseUrl/insert-wo-extra-detail";
 
   /// get apis
   static String Work_order_List_Url = "$baseUrl/work-list?wo_status=";

@@ -3,9 +3,11 @@ import 'package:cloverleaf_project/controller/Post_FCM_Token_Controller.dart';
 import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../Services/ZegoLoginServices.dart';
+import '../../constant/colorConstant.dart';
 import '../../constant/prefsConstant.dart';
 import '../../constant/testStyleConstant.dart';
 import '../../utils/helperMethods.dart';
@@ -113,18 +115,22 @@ class _splashScreenState extends State<splashScreen> {
               SizedBox(
                 height: 20.h,
                 width: 40.w,
-                child: Image.asset('assets/images/Cloverleaf-gif-video.gif'),
-              ),
-              SizedBox(
-                height:2.h,
+                child: Image.asset('assets/logo/newLogo.png',fit: BoxFit.contain),
               ),
               Text(
                 "CLOVERLEAF",
                 style: appTitleStyle,
               ),
               Text(
-                "BUILDING THE FUTURE OF MACHINE SERVICE",
+                "GLOBAL SOLUTION PVT LTD.",
                 style: appSubTitleStyle,
+              ),
+              SizedBox(
+                height: 0.5.h,
+              ),
+              Text(
+                "An     Industry    4.0    Initiative",
+                style: GoogleFonts.lato(fontWeight: FontWeight.w600, color: appThemeColor, fontSize: 12.sp),
               ),
             ],
           ),

@@ -220,7 +220,7 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
           child: ListView(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Photos"),
+              Text("Photos",style: GoogleFonts.lato(),),
               SizedBox(
                 height: 1.h,
               ),

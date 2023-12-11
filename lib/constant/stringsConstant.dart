@@ -26,12 +26,11 @@ String SE_Work_order_status1 ="5";
 String SE_Work_order_status2 ="6";
 String SE_Work_order_status3 ="7";
 String SE_Work_order_status4 ="8";
-String User_is_active = "1";
-String User_not_active  ="0";
 String User_is_on_leave = "1";
 String type = "mobile";
 String start_button_type="1";
 String completed_button_type="2";
+
 
 /// On boarding page content
 //on Boarding first page.

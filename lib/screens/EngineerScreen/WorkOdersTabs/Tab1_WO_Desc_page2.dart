@@ -11,10 +11,13 @@ import 'package:sizer/sizer.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../constant/testStyleConstant.dart';
+import '../../../controller/update_wo_extra_detail_controller.dart';
 import '../../../utils/helperWidget.dart';
 
 class updateTechnicianSummary extends StatefulWidget {
-  const updateTechnicianSummary({super.key});
+  var Work_id;
+
+  updateTechnicianSummary({required this.Work_id, super.key});
 
   @override
   State<updateTechnicianSummary> createState() =>
@@ -26,7 +29,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
   TextEditingController hoursSpent1Controller = TextEditingController();
   TextEditingController hoursSPent2Controller = TextEditingController();
   FilePickerResult? result;
-  bool After_before_image_status = true;
+  bool After_before_image_type = false;
   List<String> images = [
     'assets/images/asset_1.png',
     'assets/images/asset_2.webp',
@@ -101,42 +104,59 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                               ToggleSwitch(
                                 minWidth: 18.w,
                                 minHeight: 4.h,
-                                initialLabelIndex: 0,
+                                initialLabelIndex:
+                                    After_before_image_type ? 0 : 1,
                                 totalSwitches: 2,
                                 labels: ['After', 'Before'],
                                 onToggle: (index) {
-                                  print('switched to: $index');
+                                  setState(
+                                    () {
+                                      //   After_before_image_type = index == 1;
+                                      //   // Perform any action or send the value when the toggle switch changes
+                                      //   if (After_before_image_type) {
+                                      //     // Value is ON
+                                      //     print('Toggle switch is ON');
+                                      //     // Call your function or perform your action here
+                                      //   } else {
+                                      //     // Value is OFF
+                                      //     print('Toggle switch is OFF');
+                                      //     // Call your function or perform your action here
+                                      //   }
+                                      // });
+                                      print('switched to: $index');
+                                    },
+                                  );
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        child: Text(
+                                          "Cancel",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      SizedBox(
+                                        width: 4.w,
+                                      ),
+                                      InkWell(
+                                        child: Text(
+                                          "Ok",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp,
+                                              color: appThemeColor,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        onTap: () {},
+                                      ),
+                                    ],
+                                  );
                                 },
                               ),
-                              Row(
-                                children: [
-                                  InkWell(
-                                    child: Text(
-                                      "Cancel",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 12.sp,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: 4.w,
-                                  ),
-                                  InkWell(
-                                    child: Text(
-                                      "Ok",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 12.sp,
-                                          color: appThemeColor,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                ],
-                              )
                             ],
                           ),
                         ),
@@ -277,7 +297,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
         width: 100.w,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+          ),
           color: Colors.white,
         ),
         child: Padding(
@@ -493,6 +515,15 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                             Theme.of(context).primaryColor),
                       ),
                       onPressed: () async {
+                        await update_wo_extra_detail_controller()
+                            .update_wo_extra_detail_controller_method(
+                                widget.Work_id,
+                                profileImage,
+                                hoursSpent1Controller.text,
+                                summaryController.text,
+                                result,
+                                After_before_image_type,
+                                context);
                         // var Work_id;
                         // await getPref().then((value) {
                         //   value.setString(

@@ -102,6 +102,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   /// multipart api
   // Future User_Setting_Post_Api(image, name, email, mobileNo, address,
   //     ano_address, city, state, zipCode, country, DOB, firm, profession) async {
@@ -146,15 +147,15 @@ class ApiCalling {
 
   /// Api for Update profile
 
-  Future Update_Profile_details(profileImage,name, phone, address1, address2, city, state,
-      zip, oldPass, newPass, confPass) async {
+  Future Update_Profile_details(profileImage, name, phone, address1, address2,
+      city, state, zip, oldPass, newPass, confPass) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Update_Profile_details_Url =
             Uri.parse(ApiEndpoints.Update_profile_url);
 
-        var body = <String,String>{
-          "image":profileImage,
+        var body = <String, String>{
+          "image": profileImage,
           "name": name,
           "phone": phone,
           "address_1": address1,
@@ -168,8 +169,9 @@ class ApiCalling {
         };
         var request = http.MultipartRequest('POST', Update_Profile_details_Url);
         request.fields.addAll(body);
-        if(profileImage!=null){
-          request.files.add(await http.MultipartFile.fromPath("image", profileImage.path));
+        if (profileImage != null) {
+          request.files.add(
+              await http.MultipartFile.fromPath("image", profileImage.path));
         }
         //debugPrint(image.path.toString());
         // request.headers.addAll({
@@ -180,9 +182,7 @@ class ApiCalling {
         if (a.statusCode == 200) {
           return jsonDecode(a.body);
         } else {
-          customFlutterToast(
-              jsonDecode(a.body)["message"]
-                  .toString());
+          customFlutterToast(jsonDecode(a.body)["message"].toString());
         }
       } catch (e) {
         debugPrint('Error: $e');
@@ -246,8 +246,7 @@ class ApiCalling {
         var Post_SE_Call_details_Url_Response = await client.post(
             Post_SE_Call_details_Url,
             body: map,
-            headers: await headerWithoutContentTypeSE()
-        );
+            headers: await headerWithoutContentTypeSE());
         MYAPILOGS("Post SE call start Api", Post_SE_Call_details_Url_Response);
         if (Post_SE_Call_details_Url_Response.statusCode == 200) {
           return jsonDecode(Post_SE_Call_details_Url_Response.body);
@@ -264,7 +263,8 @@ class ApiCalling {
     }
   }
 
-  Future Post_SE_Call_End(subj_expert_id, eng_id, call_duration, user_type) async {
+  Future Post_SE_Call_End(
+      subj_expert_id, eng_id, call_duration, user_type) async {
     if (await isConnectedToInternet()) {
       try {
         Uri Post_SE_Call_End_Url = Uri.parse(ApiEndpoints.SE_post_call_end);
@@ -620,7 +620,8 @@ class ApiCalling {
   Future send_otp_to_start_wo(work_id, button_type) async {
     if (await isConnectedToInternet()) {
       try {
-        Uri send_otp_to_start_wo_Uri = Uri.parse(ApiEndpoints.send_otp_to_start_wo);
+        Uri send_otp_to_start_wo_Uri =
+            Uri.parse(ApiEndpoints.send_otp_to_start_wo);
         var map = Map<String, dynamic>();
         map['work_id'] = work_id;
         map['type'] = button_type;
@@ -647,7 +648,8 @@ class ApiCalling {
   Future send_otp_to_complete_wo(work_id, button_type) async {
     if (await isConnectedToInternet()) {
       try {
-        Uri send_otp_to_complete_wo_Uri = Uri.parse(ApiEndpoints.send_otp_to_complete_wo);
+        Uri send_otp_to_complete_wo_Uri =
+            Uri.parse(ApiEndpoints.send_otp_to_complete_wo);
         var map = Map<String, dynamic>();
         map['work_id'] = work_id;
         map['type'] = button_type;
@@ -655,7 +657,8 @@ class ApiCalling {
             send_otp_to_complete_wo_Uri,
             body: map,
             headers: await headerWithoutContentTypeENG());
-        MYAPILOGS("send_otp_to_complete_wo Api", send_otp_to_complete_wo_Response);
+        MYAPILOGS(
+            "send_otp_to_complete_wo Api", send_otp_to_complete_wo_Response);
         if (send_otp_to_complete_wo_Response.statusCode == 200) {
           return jsonDecode(send_otp_to_complete_wo_Response.body);
         } else {
@@ -671,19 +674,21 @@ class ApiCalling {
     }
   }
 
-  Future verify_otp_to_start_wo(otp,work_id, button_type) async {
+  Future verify_otp_to_start_wo(otp, work_id, button_type) async {
     if (await isConnectedToInternet()) {
       try {
-        Uri verify_otp_to_start_wo_Uri = Uri.parse(ApiEndpoints.verify_otp_to_start_wo);
+        Uri verify_otp_to_start_wo_Uri =
+            Uri.parse(ApiEndpoints.verify_otp_to_start_wo);
         var map = Map<String, dynamic>();
-        map['otp']= otp;
+        map['otp'] = otp;
         map['work_id'] = work_id;
         map['type'] = button_type;
         var verify_otp_to_start_wo_Response = await client.post(
             verify_otp_to_start_wo_Uri,
             body: map,
             headers: await headerWithoutContentTypeENG());
-        MYAPILOGS("verify_otp_to_start_wo Api", verify_otp_to_start_wo_Response);
+        MYAPILOGS(
+            "verify_otp_to_start_wo Api", verify_otp_to_start_wo_Response);
         if (verify_otp_to_start_wo_Response.statusCode == 200) {
           return jsonDecode(verify_otp_to_start_wo_Response.body);
         } else {
@@ -699,19 +704,21 @@ class ApiCalling {
     }
   }
 
-  Future verify_otp_to_complete_wo(otp,work_id, button_type) async {
+  Future verify_otp_to_complete_wo(otp, work_id, button_type) async {
     if (await isConnectedToInternet()) {
       try {
-        Uri verify_otp_to_complete_wo_Uri = Uri.parse(ApiEndpoints.verify_otp_to_complete_wo);
+        Uri verify_otp_to_complete_wo_Uri =
+            Uri.parse(ApiEndpoints.verify_otp_to_complete_wo);
         var map = Map<String, dynamic>();
-        map['otp']= otp;
+        map['otp'] = otp;
         map['work_id'] = work_id;
         map['type'] = button_type;
         var verify_otp_to_complete_wo_Response = await client.post(
             verify_otp_to_complete_wo_Uri,
             body: map,
             headers: await headerWithoutContentTypeENG());
-        MYAPILOGS("verify_otp_to_complete Api", verify_otp_to_complete_wo_Response);
+        MYAPILOGS(
+            "verify_otp_to_complete Api", verify_otp_to_complete_wo_Response);
         if (verify_otp_to_complete_wo_Response.statusCode == 200) {
           return jsonDecode(verify_otp_to_complete_wo_Response.body);
         } else {
@@ -727,6 +734,50 @@ class ApiCalling {
     }
   }
 
+  Future update_wo_extra_detail(work_id, before_after_image, hrs_spent_by_tech,
+      tech_summary, attach_file, img_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri update_wo_extra_detail_Url =
+            Uri.parse(ApiEndpoints.update_wo_extra_detail);
+
+        var body = <String, String>{
+          "work_id": work_id,
+          "before_after_image": before_after_image,
+          "hrs_spent_by_tech": hrs_spent_by_tech,
+          "tech_summary": tech_summary,
+          "attach_file": attach_file,
+          "img_type": img_type
+        };
+        var request = http.MultipartRequest('POST', update_wo_extra_detail_Url);
+        request.fields.addAll(body);
+        if (before_after_image != null) {
+          request.files.add(
+            await http.MultipartFile.fromPath(
+                "before_after_image", before_after_image.path),
+          );
+        } else if (attach_file != null) {
+          request.files.add(await http.MultipartFile.fromPath(
+              "attach_file", attach_file.path));
+        }
+        //debugPrint(image.path.toString());
+        // request.headers.addAll({
+        //   "Authorization": "Bearer $token",
+        // });
+        http.StreamedResponse response = await request.send();
+        final a = await http.Response.fromStream(response);
+        if (a.statusCode == 200) {
+          return jsonDecode(a.body);
+        } else {
+          customFlutterToast(jsonDecode(a.body)["message"].toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
 
   /// ===============================================get Apis=================================================================
 
@@ -781,12 +832,11 @@ class ApiCalling {
     try {
       if (await isConnectedToInternet()) {
         Uri get_Work_order_details_uri =
-        Uri.parse("${ApiEndpoints.Work_order_detail_Url}$Work_id");
+            Uri.parse("${ApiEndpoints.Work_order_detail_Url}$Work_id");
         var get_Work_order_details_Res = await client.get(
             get_Work_order_details_uri,
             headers: await headerWithContentTypeENG());
-        MYAPILOGS(
-            "get_Work_order_details api", get_Work_order_details_Res);
+        MYAPILOGS("get_Work_order_details api", get_Work_order_details_Res);
         if (get_Work_order_details_Res.statusCode == 200) {
           return getWorkorderdetailsModelFromJson(
               get_Work_order_details_Res.body);
@@ -798,7 +848,6 @@ class ApiCalling {
       }
     } catch (_) {}
   }
-
 
   Future get_Work_order_list_for_accelerated(Work_Order_status3) async {
     try {
@@ -937,7 +986,8 @@ class ApiCalling {
   Future get_Parts_list(work_id) async {
     try {
       if (await isConnectedToInternet()) {
-        Uri get_Parts_list_Uri = Uri.parse("${ApiEndpoints.get_parts_Url}${work_id}");
+        Uri get_Parts_list_Uri =
+            Uri.parse("${ApiEndpoints.get_parts_Url}${work_id}");
         var get_Parts_list_Uri_Res = await client.get(get_Parts_list_Uri,
             headers: await headerWithContentTypeENG());
         MYAPILOGS("get Parts list api", get_Parts_list_Uri_Res);
