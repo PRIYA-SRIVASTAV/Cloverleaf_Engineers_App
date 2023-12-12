@@ -42,7 +42,6 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
-
         length: 3,
         initialIndex: widget.TabIndex,
         child: Scaffold(

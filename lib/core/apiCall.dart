@@ -75,7 +75,6 @@ class ApiCalling {
   /// ===============================================post Apis=================================================================
 
   /// Api for login
-
   Future Login(email, password, type, Fcm_token, zegoUserId) async {
     if (await isConnectedToInternet()) {
       try {
@@ -102,50 +101,94 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
+  ///================================================================================================================================///
   /// multipart api
-  // Future User_Setting_Post_Api(image, name, email, mobileNo, address,
-  //     ano_address, city, state, zipCode, country, DOB, firm, profession) async {
-  //   try {
-  //     Uri User_setting_Uri = Uri.parse(ApiEndpoints.SettingPostApi);
-  //     var body = <String,String>{
-  //       "name" :name,
-  //       "email" :email,
-  //       "address":address,
-  //       "mobile_no":mobileNo,
-  //       "another_address":ano_address,
-  //       "city":city,
-  //       "state":state,
-  //       "zipcode":zipCode,
-  //       "country":country,
-  //       "dob":DOB,
-  //       "profession":profession,
-  //       "company_name":firm
-  //     };
-  //     var request = http.MultipartRequest('POST', User_setting_Uri);
-  //     request.fields.addAll(body);
-  //     if(image!=null){
-  //       request.files.add(await http.MultipartFile.fromPath("image", image.path));
-  //     }
-  //     //debugPrint(image.path.toString());
-  //     // request.headers.addAll({
-  //     //   "Authorization": "Bearer $token",
-  //     // });
-  //     http.StreamedResponse response = await request.send();
-  //     final a = await http.Response.fromStream(response);
-  //     debugPrint("User Settings Post Api Response ====${a.body}");
-  //     if(a.statusCode==200){
-  //       return jsonDecode(a.body);
-  //     }
-  //     else{
-  //       return customFlutterToast(jsonDecode(a.body)["message"].toString());
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+  Future post_work_reason(
+      work_id, reason, work_order_status, escalate_img, escalate_file) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri post_work_reason_Uri = Uri.parse(ApiEndpoints.post_work_reason_url);
+        var body = <String, String>{
+          'work_id': work_id,
+          'wo_status': work_order_status,
+          'reason': reason,
+          'escalate_img': escalate_img,
+          'escalate_file': escalate_file,
+        };
+        var request = http.MultipartRequest('POST', post_work_reason_Uri);
+        request.fields.addAll(body);
+        if (escalate_img != null) {
+          request.files.add(await http.MultipartFile.fromPath(
+              "escalate_img", escalate_img.path));
+        }else if (escalate_file != null) {
+          request.files.add(await http.MultipartFile.fromPath(
+              "escalate_file", escalate_file.path));
+        }
+        //debugPrint(image.path.toString());
+        // request.headers.addAll({
+        //   "Authorization": "Bearer $token",
+        // });
+        http.StreamedResponse response = await request.send();
+        final a = await http.Response.fromStream(response);
+        print("post_work_parts_Response ===========> ${a.body}");
+        MYAPILOGS(" post work parts Api", a);
+        if (a.statusCode == 200) {
+          return jsonDecode(a.body);
+        } else {
+          return customFlutterToast(jsonDecode(a.body)["message"].toString());
+        }
+      } catch (e) {
+        print(e);
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
 
-  /// Api for Update profile
+  Future update_wo_extra_detail(work_id, before_after_image, hrs_spent_by_tech,
+      tech_summary, attach_file, img_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri update_wo_extra_detail_Url =
+        Uri.parse(ApiEndpoints.update_wo_extra_detail);
+
+        var body = <String, String>{
+          "work_id": work_id,
+          "before_after_image": before_after_image,
+          "hrs_spent_by_tech": hrs_spent_by_tech,
+          "tech_summary": tech_summary,
+          "attach_file": attach_file,
+          "img_type": img_type
+        };
+        var request = http.MultipartRequest('POST', update_wo_extra_detail_Url);
+        request.fields.addAll(body);
+        if (before_after_image != null) {
+          request.files.add(
+            await http.MultipartFile.fromPath(
+                "before_after_image", before_after_image.path),
+          );
+        } else if (attach_file != null) {
+          request.files.add(await http.MultipartFile.fromPath(
+              "attach_file", attach_file.path));
+        }
+        //debugPrint(image.path.toString());
+        // request.headers.addAll({
+        //   "Authorization": "Bearer $token",
+        // });
+        http.StreamedResponse response = await request.send();
+        final a = await http.Response.fromStream(response);
+        if (a.statusCode == 200) {
+          return jsonDecode(a.body);
+        } else {
+          customFlutterToast(jsonDecode(a.body)["message"].toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
 
   Future Update_Profile_details(profileImage, name, phone, address1, address2,
       city, state, zip, oldPass, newPass, confPass) async {
@@ -230,7 +273,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
+///================================================================================================================================///
   Future Post_SE_Call_start(
       subj_expert_id, eng_id, workorder_id, call_type) async {
     if (await isConnectedToInternet()) {
@@ -294,7 +337,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
+///================================================================================================================================///
   /// Api for is update active
   Future is_Update_ENG_active(is_active) async {
     if (await isConnectedToInternet()) {
@@ -347,7 +390,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
+  ///================================================================================================================================///
   /// Api for update-wo-status
   Future update_wo_status(work_id, work_order_status) async {
     if (await isConnectedToInternet()) {
@@ -404,6 +447,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+  ///================================================================================================================================///
 
   /// Api for Raise leave request
   Future Raise_leave_request(is_on_leave, notes, date) async {
@@ -479,34 +523,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
-  Future post_work_reason(work_id, reason, work_order_status) async {
-    if (await isConnectedToInternet()) {
-      try {
-        Uri post_work_reason_Uri = Uri.parse(ApiEndpoints.post_work_reason_url);
-        var map = Map<String, dynamic>();
-        map['work_id'] = work_id;
-        map['wo_status'] = work_order_status;
-        map['reason'] = reason;
-
-        var post_work_reason_Response = await client.post(post_work_reason_Uri,
-            body: map, headers: await headerWithoutContentTypeENG());
-        MYAPILOGS(" post work reason Api", post_work_reason_Response);
-        if (post_work_reason_Response.statusCode == 200) {
-          return jsonDecode(post_work_reason_Response.body);
-        } else {
-          customFlutterToast(
-            jsonDecode(post_work_reason_Response.body)['message'].toString(),
-          );
-        }
-      } catch (e) {
-        debugPrint('Error: $e');
-      }
-    } else {
-      debugPrint("Please Check Internet Connection");
-    }
-  }
-
+  ///================================================================================================================================///
   Future post_work_parts(work_id, parts_id, parts_name) async {
     if (await isConnectedToInternet()) {
       try {
@@ -565,7 +582,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
+  ///================================================================================================================================///
   Future ENG_Post_FCM_Token(FCM_token, ZegoUserId) async {
     if (await isConnectedToInternet()) {
       try {
@@ -616,7 +633,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
+  ///================================================================================================================================///
   Future send_otp_to_start_wo(work_id, button_type) async {
     if (await isConnectedToInternet()) {
       try {
@@ -673,7 +690,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
+  ///================================================================================================================================///
   Future verify_otp_to_start_wo(otp, work_id, button_type) async {
     if (await isConnectedToInternet()) {
       try {
@@ -733,51 +750,8 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+  ///================================================================================================================================///
 
-  Future update_wo_extra_detail(work_id, before_after_image, hrs_spent_by_tech,
-      tech_summary, attach_file, img_type) async {
-    if (await isConnectedToInternet()) {
-      try {
-        Uri update_wo_extra_detail_Url =
-            Uri.parse(ApiEndpoints.update_wo_extra_detail);
-
-        var body = <String, String>{
-          "work_id": work_id,
-          "before_after_image": before_after_image,
-          "hrs_spent_by_tech": hrs_spent_by_tech,
-          "tech_summary": tech_summary,
-          "attach_file": attach_file,
-          "img_type": img_type
-        };
-        var request = http.MultipartRequest('POST', update_wo_extra_detail_Url);
-        request.fields.addAll(body);
-        if (before_after_image != null) {
-          request.files.add(
-            await http.MultipartFile.fromPath(
-                "before_after_image", before_after_image.path),
-          );
-        } else if (attach_file != null) {
-          request.files.add(await http.MultipartFile.fromPath(
-              "attach_file", attach_file.path));
-        }
-        //debugPrint(image.path.toString());
-        // request.headers.addAll({
-        //   "Authorization": "Bearer $token",
-        // });
-        http.StreamedResponse response = await request.send();
-        final a = await http.Response.fromStream(response);
-        if (a.statusCode == 200) {
-          return jsonDecode(a.body);
-        } else {
-          customFlutterToast(jsonDecode(a.body)["message"].toString());
-        }
-      } catch (e) {
-        debugPrint('Error: $e');
-      }
-    } else {
-      debugPrint("Please Check Internet Connection");
-    }
-  }
 
   /// ===============================================get Apis=================================================================
 
@@ -827,7 +801,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
-
+  ///================================================================================================================================///
   Future get_Work_order_details(Work_id) async {
     try {
       if (await isConnectedToInternet()) {
@@ -848,7 +822,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
-
+  ///================================================================================================================================///
   Future get_Work_order_list_for_accelerated(Work_Order_status3) async {
     try {
       if (await isConnectedToInternet()) {
@@ -982,7 +956,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
-
+  ///================================================================================================================================///
   Future get_Parts_list(work_id) async {
     try {
       if (await isConnectedToInternet()) {
@@ -1019,9 +993,9 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+  ///================================================================================================================================///
 
   /// Api for get profile detail
-
   Future get_Profile_Details() async {
     try {
       if (await isConnectedToInternet()) {
@@ -1064,6 +1038,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+  ///================================================================================================================================///
 
   Future get_User_status() async {
     try {
@@ -1100,6 +1075,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+  ///================================================================================================================================///
 
   Future get_leave_calender() async {
     try {
@@ -1120,6 +1096,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+  ///================================================================================================================================///
 
   Future get_dashboard_data() async {
     try {
@@ -1163,6 +1140,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+  ///================================================================================================================================///
 
   Future eng_get_payout_by_month_list() async {
     try {
@@ -1177,24 +1155,6 @@ class ApiCalling {
         if (eng_get_payout_by_month_list_Response.statusCode == 200) {
           return getPayoutDataModelFromJson(
               eng_get_payout_by_month_list_Response.body);
-        } else {
-          Result.error("no internet connection");
-        }
-      } else {
-        customFlutterToast("Check your internet...");
-      }
-    } catch (_) {}
-  }
-
-  Future SE_payout_list() async {
-    try {
-      if (await isConnectedToInternet()) {
-        Uri SE_payout_list_Uri = Uri.parse(ApiEndpoints.SE_payout_list_Url);
-        var SE_payout_list_Response = await client.get(SE_payout_list_Uri,
-            headers: await headerWithContentTypeSE());
-        MYAPILOGS("get SE_payout_list api", SE_payout_list_Response);
-        if (SE_payout_list_Response.statusCode == 200) {
-          return getSePayoutListFromJson(SE_payout_list_Response.body);
         } else {
           Result.error("no internet connection");
         }
@@ -1273,6 +1233,25 @@ class ApiCalling {
     } catch (_) {}
   }
 
+  Future SE_payout_list() async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri SE_payout_list_Uri = Uri.parse(ApiEndpoints.SE_payout_list_Url);
+        var SE_payout_list_Response = await client.get(SE_payout_list_Uri,
+            headers: await headerWithContentTypeSE());
+        MYAPILOGS("get SE_payout_list api", SE_payout_list_Response);
+        if (SE_payout_list_Response.statusCode == 200) {
+          return getSePayoutListFromJson(SE_payout_list_Response.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+  ///================================================================================================================================///
+
   Future get_Add_Parts_list(Work_id) async {
     try {
       if (await isConnectedToInternet()) {
@@ -1313,6 +1292,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+  ///================================================================================================================================///
 
   Future get_SE_Call_logs_list(SE_ZegoUserId) async {
     try {
@@ -1333,6 +1313,8 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+///================================================================================================================================///
+
 }
 
 MYAPILOGS(api, response) {

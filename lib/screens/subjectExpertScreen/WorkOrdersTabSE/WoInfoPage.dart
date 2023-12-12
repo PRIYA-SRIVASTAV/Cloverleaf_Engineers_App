@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloverleaf_project/utils/helperMethods.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -22,10 +23,20 @@ class woInfoPage extends StatefulWidget {
 }
 
 class _woInfoPageState extends State<woInfoPage> {
+  bool isPermission = false;
+  var checkAllPermission = CheckPermission();
+
+  checkPermission() async {
+    var permission = await checkAllPermission.isStoragePermission();
+    if (permission) {
+      setState(() {
+        isPermission = true;
+      });
+    }
+  }
+
   late GetSeWorkOrderListModel get_SE_work_order_status2;
   bool is_status2_SE_work_list_load = false;
-  bool After_before_image_type = false;
-  bool isExpanded1 = true;
   List<String> images = [
     'assets/images/asset_1.png',
     'assets/images/asset_2.webp',
@@ -54,6 +65,7 @@ class _woInfoPageState extends State<woInfoPage> {
   void initState() {
     super.initState();
     get_SE_work_order_status2_method();
+    checkPermission();
   }
 
   Widget buildImageCarouselItem(String imageUrl, int index) {
@@ -68,11 +80,6 @@ class _woInfoPageState extends State<woInfoPage> {
     );
   }
 
-  void toggleContainerSize1() {
-    setState(() {
-      isExpanded1 = !isExpanded1;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,10 +137,10 @@ class _woInfoPageState extends State<woInfoPage> {
                       unselectedLabelColor: Colors.grey,
                       tabs: const [
                         Tab(
-                          text: 'Order details',
+                          text: 'Order Details',
                         ),
                         Tab(
-                          text: 'Engineer details',
+                          text: 'Summary Details',
                         ),
                       ],
                     ),
@@ -542,18 +549,56 @@ class _woInfoPageState extends State<woInfoPage> {
                                 Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 2.h),
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: documentList.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      var docData = documentList[index];
-                                      return DocumentListTile(
-                                        fileUrl: docData['url']!,
-                                        title: docData['title']!,
-                                      );
-                                    },
-                                  ),
+                                  child: isPermission
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: documentList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            var docData = documentList[index];
+                                            return DocumentListTile(
+                                              fileUrl: docData['url']!,
+                                              title: docData['title']!,
+                                            );
+                                          },
+                                        )
+                                      : TextButton(
+                                          onPressed: () {
+                                            checkPermission();
+                                            if (isPermission == true) {
+                                              CircularProgressIndicator(
+                                                color: appThemeColor,
+                                              );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      woInfoPage(
+                                                          Tab1Index:
+                                                              widget.Tab1Index),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 3.h,
+                                            width: 100.w,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.shade300,
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Press to Allow Permission !!!",
+                                                style: GoogleFonts.lato(
+                                                    fontSize: 10.sp,
+                                                    color:
+                                                        Colors.blue.shade900),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                 ),
                                 SizedBox(
                                   height: 4.h,

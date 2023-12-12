@@ -14,6 +14,7 @@ import '../../../model/GetSEDashbordDataModel.dart';
 import '../../../model/GetUserStatusModel.dart';
 import '../BottomNavigationPageSE.dart';
 import '../DrawerSE/DrawerSE.dart';
+import '../DrawerSE/SEpayoutPage.dart';
 
 class DashboardSE extends StatefulWidget {
   const DashboardSE({super.key});
@@ -305,12 +306,12 @@ class _DashboardSEState extends State<DashboardSE> {
                           ),
                           InkWell(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => PayoutPage(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SE_Payout_list(),
+                                ),
+                              );
                             },
                             child: SizedBox(
                               height: 8.h,
