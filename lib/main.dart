@@ -16,7 +16,7 @@ import 'constant/colorConstant.dart';
 Future<void> backgroundHandler(RemoteMessage message) async {
   String? title = message.data["title"];
   String? body = message.data["body"];
-  AudioNotificationPlayStop(1);
+  // AudioNotificationPlayStop(1);
   debugPrint("Notification!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   print("call when App in background");
   AwesomeNotifications().createNotification(
@@ -50,21 +50,24 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // await  AudioNotificationPlayStop(0);
 
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  /// initializing Awsome Notification///
+
   AwesomeNotifications().initialize(
       null,
       [
         NotificationChannel(
-          playSound: false,
+          playSound: true,
           channelKey: "push-notification-cloverleaf",
-          channelName: "push notification cloverleaf",
+          channelName: "push notification cloverleaff",
           channelDescription: "notification from cloverleaf",
           defaultColor: Colors.redAccent,
           ledColor: Colors.white,
-          importance: NotificationImportance.Max,
+          importance: NotificationImportance.High,
           channelShowBadge: true,
           locked: true,
+          soundSource: 'resource://raw/zego_incoming',
         ),
       ],
       channelGroups: [
@@ -73,7 +76,11 @@ void main() async {
             channelGroupName: 'Basic group'),
       ],
       debug: true);
-  // setupLocator();
+
+  ///Handling Background State///
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
+  /// checking For permission///
   if (Platform.isIOS) {
     await FirebaseMessaging.instance.requestPermission();
   } else if (Platform.isAndroid) {
@@ -118,7 +125,7 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
         debugPrint("call when App in foreground");
-        AudioNotificationPlayStop(1);
+        // AudioNotificationPlayStop(1);
         String? title = message.data["title"];
         String? body = message.data["body"];
         AwesomeNotifications().createNotification(
@@ -135,11 +142,11 @@ class _MyAppState extends State<MyApp> {
           ),
           actionButtons: [
             NotificationActionButton(
-              key: "ACCEPT",
-              label: "Accept",
-              color: appThemeColor,
-              autoDismissible: true,
-            ),
+                key: "ACCEPT",
+                label: "Accept",
+                color: appThemeColor,
+                autoDismissible: true,
+                buttonType: ActionButtonType.InputField),
             NotificationActionButton(
                 key: "REJECT",
                 label: "Reject",
@@ -170,6 +177,7 @@ class _MyAppState extends State<MyApp> {
             return Stack(
               children: [
                 child!,
+
                 /// support minimizing
                 ZegoUIKitPrebuiltCallMiniOverlayPage(
                   contextQuery: () {

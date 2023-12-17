@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  audioplayers: ^5.2.1
   get_it: ^7.6.0
   pie_chart: ^5.3.2
   syncfusion_flutter_charts: ^20.4.54
@@ -43,7 +44,7 @@ dependencies:
   intl: any
   flutter_switch: ^0.3.2
   table_calendar:
-  just_audio: ^0.9.25
+#  just_audio: ^0.9.25
   url_launcher: ^6.2.1
   flutter_phone_direct_caller: ^2.1.1
 
@@ -105,6 +106,8 @@ flutter:
     - assets/images/
     - assets/logo/
     - assets/notificationAudio/
+    - assets/notificationAudio/file_example_WAV_1MG.wav
+    - android/app/src/main/res/raw/zego_incoming.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

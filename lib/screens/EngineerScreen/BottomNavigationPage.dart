@@ -1,11 +1,12 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
+import '../../utils/helperMethods.dart';
 import 'DashboardTab/dashBoardPage.dart';
 import 'SupportTab/Support.dart';
 import 'WorkOdersTabs/WorkOrders.dart';
-
 
 class MainClassEng extends StatefulWidget {
   const MainClassEng({super.key});
@@ -15,28 +16,42 @@ class MainClassEng extends StatefulWidget {
 }
 
 class _MainClassEngState extends State<MainClassEng> {
-  // @override
-  // void initState() {
-  //   AwesomeNotifications().actionStream.listen(
-  //     (event) async {
-  //       if (event.buttonKeyPressed == "REJECT") {
-  //         debugPrint("Work Order rejected");
-  //         AudioNotificationPlayStop(0);
-  //       } else if (event.buttonKeyPressed == "ACCEPT") {
-  //         debugPrint("Work Order Accepted");
-  //         AudioNotificationPlayStop(0);
-  //         Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //                 builder: (_) => BottomNavigationPage(BottomIndex: 1,SendTabIndex: 1,)));
-  //       } else {
-  //         debugPrint("Clicked on notification");
-  //         AudioNotificationPlayStop(0);
-  //       }
-  //     },
-  //   );
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    AwesomeNotifications().actionStream.listen(
+      (event) async {
+        debugPrint("Clicked======${event.buttonKeyPressed}");
+        //await AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        // AudioNotificationPlayStop(0);
+        if (event.buttonKeyPressed == "REJECT") {
+          debugPrint("Work Order rejected");
+        } else if (event.buttonKeyPressed == "ACCEPT") {
+          debugPrint("Work Order Accepted");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => BottomNavigationPage(
+                        BottomIndex: 1,
+                        SendTabIndex: 1,
+                      )));
+        } else {
+          debugPrint("Clicked on notification");
+        }
+      },
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +72,6 @@ class BottomNavigationPage extends StatefulWidget {
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int _selectedIndex = 0;
   bool selectedTabs = true;
-
 
   void _onItemTapped(int index) {
     setState(
@@ -83,35 +97,45 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   Widget build(BuildContext context) {
     List _pages = [
       dashBoardPage(),
-      WorkOrders(TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex),
+      WorkOrders(
+          TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex),
       SupportPage(),
     ];
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar:
-        BottomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             backgroundColor: appThemeColor,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard_outlined,size: 16.sp,),
+                icon: Icon(
+                  Icons.dashboard_outlined,
+                  size: 16.sp,
+                ),
                 label: 'Dashboard',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.note_alt_outlined,size: 16.sp,),
+                icon: Icon(
+                  Icons.note_alt_outlined,
+                  size: 16.sp,
+                ),
                 label: 'Work Orders',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.support_agent,size: 16.sp,),
+                icon: Icon(
+                  Icons.support_agent,
+                  size: 16.sp,
+                ),
                 label: 'Support',
               ),
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white60,
-            selectedLabelStyle: GoogleFonts.lato(fontSize: 12.sp,fontWeight: FontWeight.w600),
+            selectedLabelStyle:
+                GoogleFonts.lato(fontSize: 12.sp, fontWeight: FontWeight.w600),
             unselectedLabelStyle: GoogleFonts.lato(fontSize: 10.sp),
-          iconSize: 15.sp,
+            iconSize: 15.sp,
             onTap: _onItemTapped,
             elevation: 5),
         body: _pages.elementAt(_selectedIndex),

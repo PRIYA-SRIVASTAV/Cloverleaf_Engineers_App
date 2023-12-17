@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,16 +26,20 @@ Future getPref() async {
   return prefs;
 }
 
-AudioPlayer player = AudioPlayer();
 
-AudioNotificationPlayStop(val) async {
-  await player.setAsset('assets/notificationAudio/notificationRing.mp3');
-  if (val == 1) {
-    player.play();
-  } else {
-    player.stop();
-  }
-}
+// final player = AudioPlayer();
+//
+// AudioNotificationPlayStop(val) async {
+//   if (val == 1) {
+//     debugPrint("=======Audio Player Started =========");
+//     await player.play(AssetSource('notificationAudio/notificationRing.mp3'));
+//
+//    // player.play();
+//   } else {
+//     await player.stop();
+//     debugPrint("=======Audio Player ended =========");
+//   }
+// }
 
 // void exitApp() {
 //   if (Platform.isAndroid) {

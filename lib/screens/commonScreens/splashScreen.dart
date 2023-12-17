@@ -87,7 +87,7 @@ class _splashScreenState extends State<splashScreen> {
         if (message != null) {
           if (message.data['id'] != 0) {
             print("call when app in terminated state");
-            AudioNotificationPlayStop(1);
+         //   AudioNotificationPlayStop(1);
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => BottomNavigationPage(BottomIndex: 2,SendTabIndex: 0,)
@@ -203,6 +203,6 @@ class _splashScreenState extends State<splashScreen> {
       });
     }
     zegoUserID = cacheUserID;
-    debugPrint("ZegoUserID------------------------>>>$cacheUserID");
+    debugPrint("ZegoUserID------------------------>>>$zegoUserID");
   }
 }

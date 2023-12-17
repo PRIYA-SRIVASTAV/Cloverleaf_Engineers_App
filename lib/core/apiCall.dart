@@ -85,7 +85,7 @@ class ApiCalling {
         map['type'] = type;
         map['fcm_token'] = Fcm_token;
         map['zego_user_id'] = zegoUserId;
-        print("-----------$map----------");
+        debugPrint("-----------$map----------");
         var Login_Response = await client.post(Login_Uri, body: map);
         MYAPILOGS("Login Api", Login_Response);
         if (Login_Response.statusCode == 200) {
