@@ -20,7 +20,7 @@ import '../../../model/GetWorkorderdetailsModel.dart';
 import '../../../model/WorkOrderModel.dart';
 import '../../../utils/helperMethods.dart';
 import 'WoEscalateToSEPage.dart';
-import 'Tab1_WO_Desc_page2.dart';
+import 'updateTechnicianSummary.dart';
 
 class Tab1_WO_Desc extends StatefulWidget {
   Tab1_WO_Desc({required this.Tab_index1,required this.Work_id, super.key});
