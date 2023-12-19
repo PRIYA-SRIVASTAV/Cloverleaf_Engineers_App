@@ -146,7 +146,7 @@ class _woInfoPageState extends State<woInfoPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 77.h,
+                    height: 78.h,
                     width: 100.w,
                     child: TabBarView(
                       children: [
@@ -209,22 +209,147 @@ class _woInfoPageState extends State<woInfoPage> {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 3.h,
+                                      height: 5.h,
                                     ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            height: 30.h,
-                                            width: 35.w,
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 30.h,
+                                              width: 35.w,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Asset Name",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0.5.h,
+                                                      ),
+                                                      Text(
+                                                        get_SE_work_order_status2
+                                                            .data![
+                                                                widget.Tab1Index]
+                                                            .asset
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Subject",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0.5.h,
+                                                      ),
+                                                      Text(
+                                                        get_SE_work_order_status2
+                                                            .data![
+                                                                widget.Tab1Index]
+                                                            .subject
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Location",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0.5.h,
+                                                      ),
+                                                      Text(
+                                                        get_SE_work_order_status2
+                                                            .data![
+                                                                widget.Tab1Index]
+                                                            .loc
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Description",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      ),
+                                                      SizedBox(height: 0.5.h),
+                                                      Text(
+                                                        get_SE_work_order_status2
+                                                            .data![
+                                                                widget.Tab1Index]
+                                                            .desc
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 20.h,
+                                            width: 30.w,
                                             child: Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                  MainAxisAlignment.spaceBetween,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
@@ -233,7 +358,7 @@ class _woInfoPageState extends State<woInfoPage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Asset Name",
+                                                      "Status",
                                                       style: GoogleFonts.lato(
                                                           fontSize: 12.sp,
                                                           fontWeight:
@@ -244,13 +369,12 @@ class _woInfoPageState extends State<woInfoPage> {
                                                     ),
                                                     Text(
                                                       get_SE_work_order_status2
-                                                          .data![
-                                                              widget.Tab1Index]
-                                                          .asset
+                                                          .data![widget.Tab1Index]
+                                                          .woStatus
                                                           .toString(),
                                                       style: GoogleFonts.lato(
                                                           fontSize: 10.sp,
-                                                          color: Colors.grey,
+                                                          color: Colors.orange,
                                                           fontWeight:
                                                               FontWeight.w600),
                                                     )
@@ -261,7 +385,7 @@ class _woInfoPageState extends State<woInfoPage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Subject",
+                                                      "Priority",
                                                       style: GoogleFonts.lato(
                                                           fontSize: 12.sp,
                                                           fontWeight:
@@ -272,13 +396,12 @@ class _woInfoPageState extends State<woInfoPage> {
                                                     ),
                                                     Text(
                                                       get_SE_work_order_status2
-                                                          .data![
-                                                              widget.Tab1Index]
-                                                          .subject
+                                                          .data![widget.Tab1Index]
+                                                          .priority
                                                           .toString(),
                                                       style: GoogleFonts.lato(
                                                           fontSize: 10.sp,
-                                                          color: Colors.grey,
+                                                          color: Colors.red,
                                                           fontWeight:
                                                               FontWeight.w600),
                                                     )
@@ -289,7 +412,7 @@ class _woInfoPageState extends State<woInfoPage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Location",
+                                                      "Category",
                                                       style: GoogleFonts.lato(
                                                           fontSize: 12.sp,
                                                           fontWeight:
@@ -300,35 +423,8 @@ class _woInfoPageState extends State<woInfoPage> {
                                                     ),
                                                     Text(
                                                       get_SE_work_order_status2
-                                                          .data![
-                                                              widget.Tab1Index]
-                                                          .loc
-                                                          .toString(),
-                                                      style: GoogleFonts.lato(
-                                                          fontSize: 10.sp,
-                                                          color: Colors.grey,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    )
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Description",
-                                                      style: GoogleFonts.lato(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    SizedBox(height: 0.5.h),
-                                                    Text(
-                                                      get_SE_work_order_status2
-                                                          .data![
-                                                              widget.Tab1Index]
-                                                          .desc
+                                                          .data![widget.Tab1Index]
+                                                          .category
                                                           .toString(),
                                                       style: GoogleFonts.lato(
                                                           fontSize: 10.sp,
@@ -341,101 +437,8 @@ class _woInfoPageState extends State<woInfoPage> {
                                               ],
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          height: 20.h,
-                                          width: 30.w,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Status",
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.5.h,
-                                                  ),
-                                                  Text(
-                                                    get_SE_work_order_status2
-                                                        .data![widget.Tab1Index]
-                                                        .woStatus
-                                                        .toString(),
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 10.sp,
-                                                        color: Colors.orange,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  )
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Priority",
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.5.h,
-                                                  ),
-                                                  Text(
-                                                    get_SE_work_order_status2
-                                                        .data![widget.Tab1Index]
-                                                        .priority
-                                                        .toString(),
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 10.sp,
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  )
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Category",
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.5.h,
-                                                  ),
-                                                  Text(
-                                                    get_SE_work_order_status2
-                                                        .data![widget.Tab1Index]
-                                                        .category
-                                                        .toString(),
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 10.sp,
-                                                        color: Colors.grey,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 )

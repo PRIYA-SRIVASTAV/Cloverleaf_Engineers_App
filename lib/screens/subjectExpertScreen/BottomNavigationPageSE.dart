@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -15,27 +16,33 @@ class MainClassSE extends StatefulWidget {
 
 class _MainClassSEState extends State<MainClassSE> {
   @override
-  // void initState() {
-  //   AwesomeNotifications().actionStream.listen(
-  //         (event) async {
-  //       if (event.buttonKeyPressed == "REJECT") {
-  //         debugPrint("Work Order rejected");
-  //         AudioNotificationPlayStop(0);
-  //       } else if (event.buttonKeyPressed == "ACCEPT") {
-  //         debugPrint("Work Order Accepted");
-  //         AudioNotificationPlayStop(0);
-  //         Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //                 builder: (_) => BottomNavigationPageSE(BottomIndex: 1,SendTabIndex: 1,)));
-  //       } else {
-  //         debugPrint("Clicked on notification");
-  //         AudioNotificationPlayStop(0);
-  //       }
-  //     },
-  //   );
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    AwesomeNotifications().actionStream.listen(
+          (event) async {
+        debugPrint("Clicked==SE====${event.buttonKeyPressed}");
+        if (event.buttonKeyPressed == "REJECT") {
+          debugPrint("Work Order SE rejected");
+        } else if (event.buttonKeyPressed == "ACCEPT") {
+          debugPrint("Work Order SE Accepted");
+          // update_wo_status_Controller()
+          //     .update_wo_status_accepted_Controller_method(Work_id, context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BottomNavigationPageSE(
+                BottomIndex: 1,
+                SendTabIndex: 0,
+              ),
+            ),
+          );
+        } else {
+          debugPrint("Clicked on notification SE");
+        }
+      },
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

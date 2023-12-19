@@ -123,209 +123,62 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                   parent: AlwaysScrollableScrollPhysics()),
                               itemCount: get_SE_work_order_status1.data?.length,
                               itemBuilder: (context, index) {
-                                return SizedBox(
-                                  height: 40.h,
-                                  child: Card(
-                                    shape: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey.shade200),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                height: 3.h,
-                                                width: 10.h,
-                                                color: Colors.blue.withOpacity(0.3),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Work-id #${get_SE_work_order_status1.data?[index].workId.toString()}",
-                                                    style: GoogleFonts.lato(
-                                                        color: Colors.blue,
-                                                        fontSize: 10.sp,
-                                                        fontWeight: FontWeight.w600),
-                                                  ),
+                                return Card(
+                                  shape: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.grey.shade200),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: 3.h,
+                                              width: 10.h,
+                                              color: Colors.blue.withOpacity(0.3),
+                                              child: Center(
+                                                child: Text(
+                                                  "Work-id #${get_SE_work_order_status1.data?[index].workId.toString()}",
+                                                  style: GoogleFonts.lato(
+                                                      color: Colors.blue,
+                                                      fontSize: 10.sp,
+                                                      fontWeight: FontWeight.w600),
                                                 ),
                                               ),
-                                              InkWell(
-                                                onTap: (){
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>woInfoPage(Tab1Index: index,),
+                                            ),
+                                            InkWell(
+                                              onTap: (){
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>woInfoPage(Tab1Index: index,),
 
-                                                    ),
-                                                  );
-                                                },
-                                                  child: Icon(Icons.info_outline,color: Colors.blue.shade900,size: 24.sp,))
-                                            ],
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Container(
-                                                  //color: Colors.red,
-                                                  height: 27.h,
-                                                  width: 40.w,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Asset Name",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(height: 0.5.h),
-                                                          Text(
-                                                            get_SE_work_order_status1
-                                                                .data![index].asset
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Subject",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(height: 0.5.h),
-                                                          Text(
-                                                            get_SE_work_order_status1
-                                                                .data![index]
-                                                                .subject
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Location",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(height: 0.5.h),
-                                                          Text(
-                                                            get_SE_work_order_status1
-                                                                .data![index].loc
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Engineer name",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(height: 0.5.h),
-                                                          Text(
-                                                            get_SE_work_order_status1
-                                                                .data![index]
-                                                                .assignedEngineerName
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ],
                                                   ),
-                                                ),
-                                              ),
-                                              Container(
-                                                // color: Colors.grey,
-                                                height: 20.h,
-                                                width: 30.w,
+                                                );
+                                              },
+                                                child: Icon(Icons.info_outline,color: Colors.blue.shade900,size: 24.sp,))
+                                          ],
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                //color: Colors.red,
+                                                height: 27.h,
+                                                width: 40.w,
                                                 child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceEvenly,
+                                                          .spaceAround,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -335,26 +188,29 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          "Status",
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          "Asset Name",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         ),
                                                         SizedBox(height: 0.5.h),
                                                         Text(
                                                           get_SE_work_order_status1
-                                                              .data![index]
-                                                              .woStatus
+                                                              .data![index].asset
                                                               .toString(),
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.orange,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         )
                                                       ],
                                                     ),
@@ -364,25 +220,30 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          "Priority",
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          "Subject",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         ),
                                                         SizedBox(height: 0.5.h),
                                                         Text(
                                                           get_SE_work_order_status1
                                                               .data![index]
-                                                              .priority
+                                                              .subject
                                                               .toString(),
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 10.sp,
-                                                              color: Colors.red,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         )
                                                       ],
                                                     ),
@@ -392,132 +253,268 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          "Engineer id",
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          "Location",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        ),
+                                                        SizedBox(height: 0.5.h),
+                                                        Text(
+                                                          get_SE_work_order_status1
+                                                              .data![index].loc
+                                                              .toString(),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Engineer name",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         ),
                                                         SizedBox(height: 0.5.h),
                                                         Text(
                                                           get_SE_work_order_status1
                                                               .data![index]
-                                                              .assignedEngineerId
+                                                              .assignedEngineerName
                                                               .toString(),
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 10.sp,
-                                                              color: Colors.grey,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         )
                                                       ],
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              SizedBox(
-                                                width: 25.w,
-                                                child: ElevatedButton(
-                                                  style: ButtonStyle(
-                                                    shape:
-                                                        MaterialStateProperty.all(
-                                                      RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                20),
+                                            ),
+                                            Container(
+                                              // color: Colors.grey,
+                                              height: 20.h,
+                                              width: 30.w,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Status",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
                                                       ),
+                                                      SizedBox(height: 0.5.h),
+                                                      Text(
+                                                        get_SE_work_order_status1
+                                                            .data![index]
+                                                            .woStatus
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color:
+                                                                Colors.orange,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Priority",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(height: 0.5.h),
+                                                      Text(
+                                                        get_SE_work_order_status1
+                                                            .data![index]
+                                                            .priority
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Engineer id",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(height: 0.5.h),
+                                                      Text(
+                                                        get_SE_work_order_status1
+                                                            .data![index]
+                                                            .assignedEngineerId
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            SizedBox(
+                                              width: 25.w,
+                                              child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
                                                     ),
-                                                    backgroundColor:
-                                                        MaterialStateProperty.all(
-                                                            Theme.of(context)
-                                                                .primaryColor),
                                                   ),
-                                                  onPressed: () async {
-                                                    var Work_id;
-                                                    await getPref().then((value) {
-                                                      value.setString(
-                                                          KEYWORKID,
-                                                          get_SE_work_order_status1
-                                                              .data?[index].workId
-                                                              .toString());
-                                                    });
-                                                    await getPref().then((value) {
-                                                      Work_id = value
-                                                          .getString(KEYWORKID);
-                                                    });
-                                                    print(
-                                                        "@@@@@@@@@@@@@@@@@@@ $Work_id");
-                                                    SE_update_wo_status_Controller()
-                                                        .SE_update_wo_status_accepted_Controller_method(
-                                                            Work_id, context);
-                                                    get_SE_work_order_status1_method();
-                                                  },
-                                                  child: Text(
-                                                    "Accept",
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 10.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Theme.of(context)
+                                                              .primaryColor),
+                                                ),
+                                                onPressed: () async {
+                                                  var Work_id;
+                                                  await getPref().then((value) {
+                                                    value.setString(
+                                                        KEYWORKID,
+                                                        get_SE_work_order_status1
+                                                            .data?[index].workId
+                                                            .toString());
+                                                  });
+                                                  await getPref().then((value) {
+                                                    Work_id = value
+                                                        .getString(KEYWORKID);
+                                                  });
+                                                  print(
+                                                      "@@@@@@@@@@@@@@@@@@@ $Work_id");
+                                                  SE_update_wo_status_Controller()
+                                                      .SE_update_wo_status_accepted_Controller_method(
+                                                          Work_id, context);
+                                                  get_SE_work_order_status1_method();
+                                                },
+                                                child: Text(
+                                                  "Accept",
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 10.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600),
                                                 ),
                                               ),
-                                              SizedBox(
-                                                width: 25.w,
-                                                child: ElevatedButton(
-                                                  style: ButtonStyle(
-                                                    shape:
-                                                        MaterialStateProperty.all(
-                                                      RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                20),
-                                                      ),
+                                            ),
+                                            SizedBox(
+                                              width: 25.w,
+                                              child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
                                                     ),
-                                                    backgroundColor:
-                                                        MaterialStateProperty.all(
-                                                            Colors.grey),
                                                   ),
-                                                  onPressed: () async {
-                                                    var Work_id;
-                                                    await getPref().then((value) {
-                                                      value.setString(
-                                                          KEYWORKID,
-                                                          get_SE_work_order_status1
-                                                              .data?[index].workId
-                                                              .toString());
-                                                    });
-                                                    await getPref().then((value) {
-                                                      Work_id = value
-                                                          .getString(KEYWORKID);
-                                                    });
-                                                    print(
-                                                        "@@@@@@@@@@@@@@@@@@@ $Work_id");
-                                                    SE_update_wo_status_Controller()
-                                                        .SE_update_wo_status_Rejected_Controller_method(
-                                                            Work_id, context);
-                                                    get_SE_work_order_status1_method();
-                                                  },
-                                                  child: Text(
-                                                    "Reject",
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 10.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.grey),
                                                 ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                                onPressed: () async {
+                                                  var Work_id;
+                                                  await getPref().then((value) {
+                                                    value.setString(
+                                                        KEYWORKID,
+                                                        get_SE_work_order_status1
+                                                            .data?[index].workId
+                                                            .toString());
+                                                  });
+                                                  await getPref().then((value) {
+                                                    Work_id = value
+                                                        .getString(KEYWORKID);
+                                                  });
+                                                  print(
+                                                      "@@@@@@@@@@@@@@@@@@@ $Work_id");
+                                                  SE_update_wo_status_Controller()
+                                                      .SE_update_wo_status_Rejected_Controller_method(
+                                                          Work_id, context);
+                                                  get_SE_work_order_status1_method();
+                                                },
+                                                child: Text(
+                                                  "Reject",
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 10.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
                                     ),
                                   ),
                                 );
@@ -557,190 +554,50 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                       ),
                                     );
                                   },
-                                  child: SizedBox(
-                                    height: 35.h,
-                                    child: Card(
-                                      shape: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey.shade200),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              height: 3.h,
-                                              width: 10.h,
-                                              color: Colors.blue.withOpacity(0.3),
-                                              child: Center(
-                                                child: Text(
-                                                  "Work-id #${get_SE_work_order_status2.data?[index].workId.toString()}",
-                                                  style: GoogleFonts.lato(
-                                                      color: Colors.blue,
-                                                      fontSize: 10.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
+                                  child: Card(
+                                    shape: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.grey.shade200),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 3.h,
+                                            width: 10.h,
+                                            color: Colors.blue.withOpacity(0.3),
+                                            child: Center(
+                                              child: Text(
+                                                "Work-id #${get_SE_work_order_status2.data?[index].workId.toString()}",
+                                                style: GoogleFonts.lato(
+                                                    color: Colors.blue,
+                                                    fontSize: 10.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                             ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    //color: Colors.red,
-                                                    height: 27.h,
-                                                    width: 40.w,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "Asset Name",
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 0.5.h,
-                                                            ),
-                                                            Text(
-                                                              get_SE_work_order_status2
-                                                                  .data![index]
-                                                                  .asset
-                                                                  .toString(),
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 10.sp,
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "Subject",
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 0.5.h,
-                                                            ),
-                                                            Text(
-                                                              get_SE_work_order_status2
-                                                                  .data![index]
-                                                                  .subject
-                                                                  .toString(),
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 10.sp,
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "Location",
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 0.5.h,
-                                                            ),
-                                                            Text(
-                                                              get_SE_work_order_status2
-                                                                  .data![index].loc
-                                                                  .toString(),
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 10.sp,
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "Engineer name",
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 0.5.h,
-                                                            ),
-                                                            Text(
-                                                              get_SE_work_order_status2
-                                                                  .data![index]
-                                                                  .assignedEngineerName
-                                                                  .toString(),
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize: 10.sp,
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  // color: Colors.grey,
-                                                  height: 20.h,
-                                                  width: 30.w,
+                                          ),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  //color: Colors.red,
+                                                  height: 27.h,
+                                                  width: 40.w,
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceEvenly,
+                                                            .spaceAround,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Column(
                                                         crossAxisAlignment:
@@ -748,14 +605,12 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            "Status",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                            "Asset Name",
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
                                                           ),
                                                           SizedBox(
                                                             height: 0.5.h,
@@ -763,17 +618,15 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           Text(
                                                             get_SE_work_order_status2
                                                                 .data![index]
-                                                                .woStatus
+                                                                .asset
                                                                 .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .orange,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 10.sp,
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
                                                           )
                                                         ],
                                                       ),
@@ -783,14 +636,12 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            "Priority",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                            "Subject",
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
                                                           ),
                                                           SizedBox(
                                                             height: 0.5.h,
@@ -798,17 +649,15 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           Text(
                                                             get_SE_work_order_status2
                                                                 .data![index]
-                                                                .priority
+                                                                .subject
                                                                 .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .red,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 10.sp,
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
                                                           )
                                                         ],
                                                       ),
@@ -818,14 +667,42 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            "Engineer id",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                            "Location",
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 0.5.h,
+                                                          ),
+                                                          Text(
+                                                            get_SE_work_order_status2
+                                                                .data![index].loc
+                                                                .toString(),
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 10.sp,
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            "Engineer name",
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
                                                           ),
                                                           SizedBox(
                                                             height: 0.5.h,
@@ -833,27 +710,144 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           Text(
                                                             get_SE_work_order_status2
                                                                 .data![index]
-                                                                .assignedEngineerId
+                                                                .assignedEngineerName
                                                                 .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 10.sp,
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
                                                           )
                                                         ],
                                                       ),
                                                     ],
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                              ),
+                                              Container(
+                                                // color: Colors.grey,
+                                                height: 20.h,
+                                                width: 30.w,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Status",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 0.5.h,
+                                                        ),
+                                                        Text(
+                                                          get_SE_work_order_status2
+                                                              .data![index]
+                                                              .woStatus
+                                                              .toString(),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .orange,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Priority",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 0.5.h,
+                                                        ),
+                                                        Text(
+                                                          get_SE_work_order_status2
+                                                              .data![index]
+                                                              .priority
+                                                              .toString(),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .red,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Engineer id",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 0.5.h,
+                                                        ),
+                                                        Text(
+                                                          get_SE_work_order_status2
+                                                              .data![index]
+                                                              .assignedEngineerId
+                                                              .toString(),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -884,201 +878,46 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                   parent: AlwaysScrollableScrollPhysics()),
                               itemCount: get_SE_work_order_status3.data?.length,
                               itemBuilder: (context, index) {
-                                return SizedBox(
-                                  height: 35.h,
-                                  child: Card(
-                                    shape: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey.shade200),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 3.h,
-                                            width: 10.h,
-                                            color: Colors.blue.withOpacity(0.3),
-                                            child: Center(
-                                              child: Text(
-                                                "Work-id #${get_SE_work_order_status3.data?[index].workId.toString()}",
-                                                style: GoogleFonts.lato(
-                                                    color: Colors.blue,
-                                                    fontSize: 10.sp,
-                                                    fontWeight: FontWeight.w600),
-                                              ),
+                                return Card(
+                                  shape: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.grey.shade200),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 3.h,
+                                          width: 10.h,
+                                          color: Colors.blue.withOpacity(0.3),
+                                          child: Center(
+                                            child: Text(
+                                              "Work-id #${get_SE_work_order_status3.data?[index].workId.toString()}",
+                                              style: GoogleFonts.lato(
+                                                  color: Colors.blue,
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.w600),
                                             ),
                                           ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Container(
-                                                  //color: Colors.red,
-                                                  height: 27.h,
-                                                  width: 40.w,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Asset Name",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 0.5.h,
-                                                          ),
-                                                          Text(
-                                                            get_SE_work_order_status3
-                                                                .data![index].asset
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Subject",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 0.5.h,
-                                                          ),
-                                                          Text(
-                                                            get_SE_work_order_status3
-                                                                .data![index]
-                                                                .subject
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Location",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 0.5.h,
-                                                          ),
-                                                          Text(
-                                                            get_SE_work_order_status3
-                                                                .data![index].loc
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Engineer name",
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 0.5.h,
-                                                          ),
-                                                          Text(
-                                                            get_SE_work_order_status3
-                                                                .data![index]
-                                                                .assignedEngineerName
-                                                                .toString(),
-                                                            style:
-                                                                GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                // color: Colors.grey,
-                                                height: 20.h,
-                                                width: 30.w,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                //color: Colors.red,
+                                                height: 27.h,
+                                                width: 40.w,
                                                 child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceEvenly,
+                                                          .spaceAround,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -1088,28 +927,31 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          "Status",
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          "Asset Name",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         ),
                                                         SizedBox(
                                                           height: 0.5.h,
                                                         ),
                                                         Text(
                                                           get_SE_work_order_status3
-                                                              .data![index]
-                                                              .woStatus
+                                                              .data![index].asset
                                                               .toString(),
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.orange,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         )
                                                       ],
                                                     ),
@@ -1119,12 +961,14 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          "Priority",
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          "Subject",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         ),
                                                         SizedBox(
                                                           height: 0.5.h,
@@ -1132,14 +976,17 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         Text(
                                                           get_SE_work_order_status3
                                                               .data![index]
-                                                              .priority
+                                                              .subject
                                                               .toString(),
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 10.sp,
-                                                              color: Colors.red,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         )
                                                       ],
                                                     ),
@@ -1149,12 +996,48 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          "Engineer id",
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          "Location",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 0.5.h,
+                                                        ),
+                                                        Text(
+                                                          get_SE_work_order_status3
+                                                              .data![index].loc
+                                                              .toString(),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Engineer name",
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         ),
                                                         SizedBox(
                                                           height: 0.5.h,
@@ -1162,24 +1045,132 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         Text(
                                                           get_SE_work_order_status3
                                                               .data![index]
-                                                              .assignedEngineerId
+                                                              .assignedEngineerName
                                                               .toString(),
-                                                          style: GoogleFonts.lato(
-                                                              fontSize: 10.sp,
-                                                              color: Colors.grey,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                          style:
+                                                              GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         )
                                                       ],
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                            ),
+                                            Container(
+                                              // color: Colors.grey,
+                                              height: 20.h,
+                                              width: 30.w,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Status",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0.5.h,
+                                                      ),
+                                                      Text(
+                                                        get_SE_work_order_status3
+                                                            .data![index]
+                                                            .woStatus
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color:
+                                                                Colors.orange,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Priority",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0.5.h,
+                                                      ),
+                                                      Text(
+                                                        get_SE_work_order_status3
+                                                            .data![index]
+                                                            .priority
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Engineer id",
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0.5.h,
+                                                      ),
+                                                      Text(
+                                                        get_SE_work_order_status3
+                                                            .data![index]
+                                                            .assignedEngineerId
+                                                            .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize: 10.sp,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 );

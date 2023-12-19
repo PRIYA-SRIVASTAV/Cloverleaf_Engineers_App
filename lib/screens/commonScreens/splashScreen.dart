@@ -87,15 +87,14 @@ class _splashScreenState extends State<splashScreen> {
         if (message != null) {
           if (message.data['id'] != 0) {
             print("call when app in terminated state");
-         //   AudioNotificationPlayStop(1);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => BottomNavigationPage(BottomIndex: 2,SendTabIndex: 0,)
-                    /*DemoScreen(
-                  id: message.data['_id'],
-                ),*/
-              ),
-            );
+         //    Navigator.of(context).push(
+         //      MaterialPageRoute(
+         //        builder: (context) => BottomNavigationPage(BottomIndex: 2,SendTabIndex: 0,)
+         //            /*DemoScreen(
+         //          id: message.data['_id'],
+         //        ),*/
+         //      ),
+         //    );
           }
         }
       },

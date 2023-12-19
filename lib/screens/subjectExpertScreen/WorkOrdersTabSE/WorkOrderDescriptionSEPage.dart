@@ -113,799 +113,798 @@ class _WorkOrderDescriptionSEpageState
       length: 3,
       child: is_status2_SE_work_list_load
           ? SafeArea(
-              child: Scaffold(
-                appBar: AppBar(
-                  elevation: 0.0,
-                  title: Text(
-                    "Work Order # ${get_SE_work_order_status2.data?[widget.index].workId}",
-                    style: dashboardStyle,
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0.0,
+            title: Text(
+              "Work Order # ${get_SE_work_order_status2.data?[widget.index]
+                  .workId}",
+              style: dashboardStyle,
+            ),
+            leading: Builder(
+              builder: (context) =>
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios),
+                    // Icon to represent the drawer
+                    onPressed: () {
+                      Navigator.pop(context); // Open the drawer
+                    },
                   ),
-                  leading: Builder(
-                    builder: (context) => IconButton(
-                      icon: const Icon(Icons.arrow_back_ios),
-                      // Icon to represent the drawer
-                      onPressed: () {
-                        Navigator.pop(context); // Open the drawer
-                      },
+            ),
+            backgroundColor: appThemeColor,
+          ),
+          body: Padding(
+            padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 1.h),
+            child: is_status2_SE_work_list_load
+                ? SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 5.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(25.h),
+                    ),
+                    child: TabBar(
+                      indicator: BoxDecoration(
+                        color: Theme
+                            .of(context)
+                            .primaryColor,
+                        borderRadius: BorderRadius.circular(25.h),
+                      ),
+                      labelColor: Colors.white,
+                      labelStyle: GoogleFonts.lato(
+                          fontSize: 9.5.sp,
+                          fontWeight: FontWeight.w600),
+                      unselectedLabelColor: Colors.grey,
+                      tabs: const [
+                        Tab(
+                          text: 'Order Details',
+                        ),
+                        Tab(
+                          text: 'Summary',
+                        ),
+                        Tab(
+                          text: 'Parts Used',
+                        ),
+                      ],
                     ),
                   ),
-                  backgroundColor: appThemeColor,
-                ),
-                body: Padding(
-                  padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 1.h),
-                  child: is_status2_SE_work_list_load
-                      ? SingleChildScrollView(
-                          child: Column(
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  SizedBox(
+                    height: 70.h,
+                    width: 100.w,
+                    child: TabBarView(
+                      children: [
+                        if (is_status2_SE_work_list_load ==
+                            true) ...[
+                          get_SE_work_order_status2.data!.isNotEmpty
+                              ? Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                  borderRadius: BorderRadius.circular(25.h),
+                              CarouselSlider(
+                                options: CarouselOptions(
+                                  height: 20.h,
+                                  autoPlay: true,
+                                  autoPlayInterval:
+                                  Duration(seconds: 5),
+                                  autoPlayAnimationDuration:
+                                  Duration(
+                                      milliseconds: 800),
+                                  pauseAutoPlayOnTouch: true,
+                                  enlargeCenterPage: true,
+                                  enableInfiniteScroll: true,
                                 ),
-                                child: TabBar(
-                                  indicator: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius: BorderRadius.circular(25.h),
+                                items: [
+                                  Container(
+                                    height: 20.h,
+                                    width: double.infinity,
+                                    color: Colors.grey
+                                        .withOpacity(0.3),
+                                    child: Image.memory(
+                                        bytesImage),
                                   ),
-                                  labelColor: Colors.white,
-                                  labelStyle: GoogleFonts.lato(
-                                      fontSize: 9.5.sp,
-                                      fontWeight: FontWeight.w600),
-                                  unselectedLabelColor: Colors.grey,
-                                  tabs: const [
-                                    Tab(
-                                      text: 'Order Description',
+                                  Container(
+                                    height: 20.h,
+                                    width: double.infinity,
+                                    color: Colors.grey
+                                        .withOpacity(0.3),
+                                    child: Image.asset(
+                                        "assets/images/asset_2.webp"),
+                                  ),
+                                  Container(
+                                    height: 20.h,
+                                    width: double.infinity,
+                                    color: Colors.grey
+                                        .withOpacity(0.3),
+                                    child: Image.asset(
+                                        "assets/images/asset_3.jpg"),
+                                  ),
+                                  Container(
+                                    height: 20.h,
+                                    width: double.infinity,
+                                    color: Colors.grey
+                                        .withOpacity(0.3),
+                                    child: Image.asset(
+                                        "assets/images/asset_4.jpg"),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 3.h,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 2.h),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment
+                                          .start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            height: 30.h,
+                                            width: 35.w,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceBetween,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Asset Name",
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          12.sp,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                      0.5.h,
+                                                    ),
+                                                    Text(
+                                                      get_SE_work_order_status2
+                                                          .data![widget.index]
+                                                          .asset
+                                                          .toString(),
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          10.sp,
+                                                          color: Colors.grey,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Subject",
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          12.sp,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                      0.5.h,
+                                                    ),
+                                                    Text(
+                                                      get_SE_work_order_status2
+                                                          .data![widget.index]
+                                                          .subject
+                                                          .toString(),
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          10.sp,
+                                                          color: Colors.grey,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Location",
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          12.sp,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                      0.5.h,
+                                                    ),
+                                                    Text(
+                                                      get_SE_work_order_status2
+                                                          .data![widget.index]
+                                                          .loc
+                                                          .toString(),
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          10.sp,
+                                                          color: Colors.grey,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    )
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      "Description",
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          12.sp,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    ),
+                                                    SizedBox(
+                                                        height:
+                                                        0.5.h),
+                                                    Text(
+                                                      get_SE_work_order_status2
+                                                          .data![widget.index]
+                                                          .desc
+                                                          .toString(),
+                                                      style: GoogleFonts.lato(
+                                                          fontSize:
+                                                          10.sp,
+                                                          color: Colors.grey,
+                                                          fontWeight: FontWeight
+                                                              .w600),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 20.h,
+                                          width: 30.w,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(
+                                                    "Status",
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 12
+                                                            .sp,
+                                                        fontWeight:
+                                                        FontWeight.w600),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                    0.5.h,
+                                                  ),
+                                                  Text(
+                                                    get_SE_work_order_status2
+                                                        .data![
+                                                    widget.index]
+                                                        .woStatus
+                                                        .toString(),
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 10
+                                                            .sp,
+                                                        color: Colors
+                                                            .orange,
+                                                        fontWeight:
+                                                        FontWeight.w600),
+                                                  )
+                                                ],
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(
+                                                    "Priority",
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 12
+                                                            .sp,
+                                                        fontWeight:
+                                                        FontWeight.w600),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                    0.5.h,
+                                                  ),
+                                                  Text(
+                                                    get_SE_work_order_status2
+                                                        .data![
+                                                    widget.index]
+                                                        .priority
+                                                        .toString(),
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 10
+                                                            .sp,
+                                                        color: Colors
+                                                            .red,
+                                                        fontWeight:
+                                                        FontWeight.w600),
+                                                  )
+                                                ],
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(
+                                                    "Category",
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 12
+                                                            .sp,
+                                                        fontWeight:
+                                                        FontWeight.w600),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                    0.5.h,
+                                                  ),
+                                                  Text(
+                                                    get_SE_work_order_status2
+                                                        .data![
+                                                    widget.index]
+                                                        .category
+                                                        .toString(),
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 10
+                                                            .sp,
+                                                        color: Colors
+                                                            .grey,
+                                                        fontWeight:
+                                                        FontWeight.w600),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Tab(
-                                      text: 'Summary Details',
+                                    SizedBox(
+                                      height: 4.h,
                                     ),
-                                    Tab(
-                                      text: 'Parts Used',
+                                    Container(
+                                      height: 8.h,
+                                      width: 100.w,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Video/Voice Call to Engineer",
+                                            style: GoogleFonts.lato(
+                                                fontSize:
+                                                12.sp,
+                                                fontWeight:
+                                                FontWeight
+                                                    .w600),
+                                          ),
+                                          Row(
+                                            children: [
+                                              sendCallButton(
+                                                isVideoCall:
+                                                false,
+                                                inviteeUsersIDTextCtrl:
+                                                inviteeController,
+                                                onCallFinished:
+                                                onSendCallInvitationFinished,
+                                              ),
+                                              sendCallButton(
+                                                isVideoCall:
+                                                true,
+                                                inviteeUsersIDTextCtrl:
+                                                inviteeController,
+                                                onCallFinished:
+                                                onSendCallInvitationFinished,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
+                              )
+                            ],
+                          )
+                              : Center(
+                            child: Text(
+                                "${get_SE_work_order_status2.message
+                                    .toString()}"),
+                          ),
+                        ] else
+                          ...[
+                            Center(
+                              child: CircularProgressIndicator(
+                                color: appThemeColor,
                               ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              SizedBox(
-                                height: 70.h,
-                                width: 100.w,
-                                child: TabBarView(
-                                  children: [
-                                    if (is_status2_SE_work_list_load ==
-                                        true) ...[
-                                      get_SE_work_order_status2.data!.isNotEmpty
-                                          ? Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                CarouselSlider(
-                                                  options: CarouselOptions(
-                                                    height: 20.h,
-                                                    autoPlay: true,
-                                                    autoPlayInterval:
-                                                        Duration(seconds: 5),
-                                                    autoPlayAnimationDuration:
-                                                        Duration(
-                                                            milliseconds: 800),
-                                                    pauseAutoPlayOnTouch: true,
-                                                    enlargeCenterPage: true,
-                                                    enableInfiniteScroll: true,
-                                                  ),
-                                                  items: [
-                                                    Container(
-                                                      height: 20.h,
-                                                      width: double.infinity,
-                                                      color: Colors.grey
-                                                          .withOpacity(0.3),
-                                                      child: Image.memory(
-                                                          bytesImage),
-                                                    ),
-                                                    Container(
-                                                      height: 20.h,
-                                                      width: double.infinity,
-                                                      color: Colors.grey
-                                                          .withOpacity(0.3),
-                                                      child: Image.asset(
-                                                          "assets/images/asset_2.webp"),
-                                                    ),
-                                                    Container(
-                                                      height: 20.h,
-                                                      width: double.infinity,
-                                                      color: Colors.grey
-                                                          .withOpacity(0.3),
-                                                      child: Image.asset(
-                                                          "assets/images/asset_3.jpg"),
-                                                    ),
-                                                    Container(
-                                                      height: 20.h,
-                                                      width: double.infinity,
-                                                      color: Colors.grey
-                                                          .withOpacity(0.3),
-                                                      child: Image.asset(
-                                                          "assets/images/asset_4.jpg"),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 3.h,
-                                                ),
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Container(
-                                                        height: 30.h,
-                                                        width: 35.w,
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  "Asset Name",
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 0.5.h,
-                                                                ),
-                                                                Text(
-                                                                  get_SE_work_order_status2
-                                                                      .data![widget
-                                                                          .index]
-                                                                      .asset
-                                                                      .toString(),
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          10.sp,
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  "Subject",
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 0.5.h,
-                                                                ),
-                                                                Text(
-                                                                  get_SE_work_order_status2
-                                                                      .data![widget
-                                                                          .index]
-                                                                      .subject
-                                                                      .toString(),
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          10.sp,
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  "Location",
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 0.5.h,
-                                                                ),
-                                                                Text(
-                                                                  get_SE_work_order_status2
-                                                                      .data![widget
-                                                                          .index]
-                                                                      .loc
-                                                                      .toString(),
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          10.sp,
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  "Description",
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                                SizedBox(
-                                                                    height:
-                                                                        0.5.h),
-                                                                Text(
-                                                                  get_SE_work_order_status2
-                                                                      .data![widget
-                                                                          .index]
-                                                                      .desc
-                                                                      .toString(),
-                                                                  style: GoogleFonts.lato(
-                                                                      fontSize:
-                                                                          10.sp,
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: 20.h,
-                                                      width: 30.w,
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "Status",
-                                                                style: GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 0.5.h,
-                                                              ),
-                                                              Text(
-                                                                get_SE_work_order_status2
-                                                                    .data![widget
-                                                                        .index]
-                                                                    .woStatus
-                                                                    .toString(),
-                                                                style: GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .orange,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "Priority",
-                                                                style: GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 0.5.h,
-                                                              ),
-                                                              Text(
-                                                                get_SE_work_order_status2
-                                                                    .data![widget
-                                                                        .index]
-                                                                    .priority
-                                                                    .toString(),
-                                                                style: GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .red,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "Category",
-                                                                style: GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 0.5.h,
-                                                              ),
-                                                              Text(
-                                                                get_SE_work_order_status2
-                                                                    .data![widget
-                                                                        .index]
-                                                                    .category
-                                                                    .toString(),
-                                                                style: GoogleFonts.lato(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
-                                                Container(
-                                                  height: 8.h,
-                                                  width: 40.h,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            "Video/Voice Call to Engineer",
-                                                            style: GoogleFonts.lato(
-                                                                fontSize: 12.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              sendCallButton(
-                                                                isVideoCall:
-                                                                    false,
-                                                                inviteeUsersIDTextCtrl:
-                                                                    inviteeController,
-                                                                onCallFinished:
-                                                                    onSendCallInvitationFinished,
-                                                              ),
-                                                              sendCallButton(
-                                                                isVideoCall:
-                                                                    true,
-                                                                inviteeUsersIDTextCtrl:
-                                                                    inviteeController,
-                                                                onCallFinished:
-                                                                    onSendCallInvitationFinished,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : Center(
+                            )
+                          ],
+                        SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: 2.h, right: 2.h, top: 2.h),
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Photos",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                CarouselSlider.builder(
+                                  options: CarouselOptions(
+                                    height: 20.h,
+                                    autoPlay: true,
+                                    autoPlayInterval:
+                                    Duration(seconds: 5),
+                                    autoPlayAnimationDuration:
+                                    Duration(milliseconds: 800),
+                                    pauseAutoPlayOnTouch: true,
+                                    enlargeCenterPage: true,
+                                    enableInfiniteScroll: true,
+                                  ),
+                                  itemCount: images.length,
+                                  itemBuilder:
+                                      (BuildContext context,
+                                      int index,
+                                      int realIndex) {
+                                    final imageUrl = images[index];
+                                    return images[index] == 0
+                                        ? Container(
+                                      height: 20.h,
+                                      width: 100.w,
+                                      color: Colors.grey,
+                                    )
+                                        : buildImageCarouselItem(
+                                        imageUrl, index);
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  "Escalate Reason",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                Card(
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(
+                                        vertical: 8,
+                                        horizontal: 5),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 8,
+                                          child: Container(
+                                            decoration:
+                                            BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10),
+                                            ),
+                                            width: double.infinity,
+                                            child: Padding(
+                                              padding: EdgeInsets
+                                                  .symmetric(
+                                                  horizontal:
+                                                  5.w),
                                               child: Text(
-                                                  "${get_SE_work_order_status2.message.toString()}"),
+                                                "djcndkjcnkjdnxkjqswqwlksmqahhhhhhhxksajchsijdwksnjxshxgysgxysgvbxcfdghszbxgvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvwwwwwwwwygxhvxaghxhg",
+                                                style: GoogleFonts
+                                                    .lato(
+                                                    fontSize:
+                                                    10.sp),
+                                              ),
                                             ),
-                                    ] else ...[
-                                      Center(
-                                        child: CircularProgressIndicator(
-                                          color: appThemeColor,
+                                          ),
                                         ),
-                                      )
-                                    ],
-                                    SingleChildScrollView(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 2.h, right: 2.h, top: 2.h),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Photos",
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            CarouselSlider.builder(
-                                              options: CarouselOptions(
-                                                height: 20.h,
-                                                autoPlay: true,
-                                                autoPlayInterval:
-                                                    Duration(seconds: 5),
-                                                autoPlayAnimationDuration:
-                                                    Duration(milliseconds: 800),
-                                                pauseAutoPlayOnTouch: true,
-                                                enlargeCenterPage: true,
-                                                enableInfiniteScroll: true,
-                                              ),
-                                              itemCount: images.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index,
-                                                      int realIndex) {
-                                                final imageUrl = images[index];
-                                                return images[index] == 0
-                                                    ? Container(
-                                                        height: 20.h,
-                                                        width: 100.w,
-                                                        color: Colors.grey,
-                                                      )
-                                                    : buildImageCarouselItem(
-                                                        imageUrl, index);
-                                              },
-                                            ),
-                                            SizedBox(
-                                              height: 4.h,
-                                            ),
-                                            Text(
-                                              "Escalate Reason",
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Card(
-                                              elevation: 3,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 8,
-                                                        horizontal: 5),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 8,
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        width: double.infinity,
-                                                        child: Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      5.w),
-                                                          child: Text(
-                                                            "djcndkjcnkjdnxkjqswqwlksmqahhhhhhhxksajchsijdwksnjxshxgysgxysgvbxcfdghszbxgvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvwwwwwwwwygxhvxaghxhg",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                                    fontSize:
-                                                                        10.sp),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5.h,
-                                            ),
-                                            Text(
-                                              "Attachments",
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 2.h),
-                                              child: isPermission
-                                                  ? ListView.builder(
-                                                      shrinkWrap: true,
-                                                      itemCount:
-                                                          documentList.length,
-                                                      itemBuilder:
-                                                          (BuildContext context,
-                                                              int index) {
-                                                        var docData =
-                                                            documentList[index];
-                                                        return DocumentListTile(
-                                                          fileUrl:
-                                                              docData['url']!,
-                                                          title:
-                                                              docData['title']!,
-                                                        );
-                                                      },
-                                                    )
-                                                  : TextButton(
-                                                      onPressed: () {
-                                                        checkPermission();
-                                                        if (isPermission ==
-                                                            true) {
-                                                          CircularProgressIndicator(
-                                                            color:
-                                                                appThemeColor,
-                                                          );
-                                                          Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  woInfoPage(
-                                                                      Tab1Index:
-                                                                          widget
-                                                                              .index),
-                                                            ),
-                                                          );
-                                                        }
-                                                      },
-                                                      child: Container(
-                                                        height: 3.h,
-                                                        width: 100.w,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors
-                                                              .grey.shade300,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Press to Allow Permission !!!",
-                                                            style: GoogleFonts.lato(
-                                                                fontSize: 10.sp,
-                                                                color: Colors
-                                                                    .blue
-                                                                    .shade900),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                            ),
-                                            SizedBox(
-                                              height: 4.h,
-                                            )
-                                          ],
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  "Attachments",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 2.h),
+                                  child: isPermission
+                                      ? ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                    documentList.length,
+                                    itemBuilder:
+                                        (BuildContext context,
+                                        int index) {
+                                      var docData =
+                                      documentList[index];
+                                      return DocumentListTile(
+                                        fileUrl:
+                                        docData['url']!,
+                                        title:
+                                        docData['title']!,
+                                      );
+                                    },
+                                  )
+                                      : TextButton(
+                                    onPressed: () {
+                                      checkPermission();
+                                      if (isPermission ==
+                                          true) {
+                                        CircularProgressIndicator(
+                                          color:
+                                          appThemeColor,
+                                        );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                woInfoPage(
+                                                    Tab1Index:
+                                                    widget
+                                                        .index),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 3.h,
+                                      width: 100.w,
+                                      decoration:
+                                      BoxDecoration(
+                                        color: Colors
+                                            .grey.shade300,
+                                        borderRadius:
+                                        BorderRadius
+                                            .circular(12),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Press to Allow Permission !!!",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 10.sp,
+                                              color: Colors
+                                                  .blue
+                                                  .shade900),
                                         ),
                                       ),
                                     ),
-                                    if (is_load_SE_add_parts_list == true) ...[
-                                      SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 2.w,
-                                                  vertical: 1.h),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  if (get_SE_add_parts_list
-                                                      .data!.isNotEmpty) ...[
-                                                    SizedBox(
-                                                      height: 2.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        if (is_load_SE_add_parts_list == true) ...[
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 2.w,
+                                      vertical: 1.h),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      if (get_SE_add_parts_list
+                                          .data!.isNotEmpty) ...[
+                                        SizedBox(
+                                          height: 2.h,
+                                        ),
+                                        Padding(
+                                            padding:
+                                            const EdgeInsets
+                                                .symmetric(
+                                                vertical: 8,
+                                                horizontal: 5),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Text(
+                                                    "Parts Id",
+                                                    style: GoogleFonts.lato(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w600,
+                                                        fontSize:
+                                                        12.sp),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: Text(
+                                                    "Parts Name",
+                                                    style: GoogleFonts.lato(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w600,
+                                                        fontSize:
+                                                        12.sp),
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                        SizedBox(
+                                          height: 2.h,
+                                        ),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                          const ClampingScrollPhysics(),
+                                          itemCount:
+                                          get_SE_add_parts_list
+                                              .data?.length,
+                                          itemBuilder:
+                                              (BuildContext context,
+                                              i) {
+                                            return Card(
+                                              elevation: 3,
+                                              child: Padding(
+                                                padding: EdgeInsets
+                                                    .symmetric(
+                                                    vertical:
+                                                    2.h,
+                                                    horizontal:
+                                                    1.h),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 3,
+                                                      child: Text(
+                                                        get_SE_add_parts_list
+                                                            .data![
+                                                        i]
+                                                            .partsId
+                                                            .toString(),
+                                                        style: GoogleFonts
+                                                            .rubik(
+                                                            fontSize:
+                                                            10.sp),
+                                                      ),
                                                     ),
-                                                    Padding(
-                                                        padding:
-                                                        const EdgeInsets
-                                                            .symmetric(
-                                                            vertical: 8,
-                                                            horizontal: 5),
-                                                        child: Row(
-                                                          children: [
-                                                            Expanded(
-                                                              flex: 3,
-                                                              child: Text(
-                                                                "Parts Id",
-                                                                style: GoogleFonts.lato(
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                    fontSize:
-                                                                    12.sp),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              flex: 4,
-                                                              child: Text(
-                                                                "Parts Name",
-                                                                style: GoogleFonts.lato(
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                    fontSize:
-                                                                    12.sp),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )),
-                                                    SizedBox(
-                                                      height: 2.h,
-                                                    ),
-                                                    ListView.builder(
-                                                      shrinkWrap: true,
-                                                      physics:
-                                                      const ClampingScrollPhysics(),
-                                                      itemCount:
-                                                      get_SE_add_parts_list
-                                                          .data?.length,
-                                                      itemBuilder:
-                                                          (BuildContext context,
-                                                          i) {
-                                                        return Card(
-                                                          elevation: 3,
-                                                          child: Padding(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                vertical:
-                                                                2.h,
-                                                                horizontal:
-                                                                1.h),
-                                                            child: Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  flex: 3,
-                                                                  child: Text(
-                                                                    get_SE_add_parts_list
-                                                                        .data![
-                                                                    i]
-                                                                        .partsId
-                                                                        .toString(),
-                                                                    style: GoogleFonts.rubik(
-                                                                        fontSize:
-                                                                        10.sp),
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  flex: 4,
-                                                                  child: Text(
-                                                                    get_SE_add_parts_list
-                                                                        .data![
-                                                                    i]
-                                                                        .partsName
-                                                                        .toString(),
-                                                                    style: GoogleFonts.rubik(
-                                                                        fontSize:
-                                                                        10.sp),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ] else ...[
-                                                    Container(
-                                                      height: 55.h,
-                                                      child: Center(
-                                                        child: Text(
-                                                            "${get_SE_add_parts_list.message.toString()}"),
+                                                    Expanded(
+                                                      flex: 4,
+                                                      child: Text(
+                                                        get_SE_add_parts_list
+                                                            .data![
+                                                        i]
+                                                            .partsName
+                                                            .toString(),
+                                                        style: GoogleFonts
+                                                            .rubik(
+                                                            fontSize:
+                                                            10.sp),
                                                       ),
                                                     ),
                                                   ],
-                                                ],
+                                                ),
                                               ),
+                                            );
+                                          },
+                                        ),
+                                      ] else
+                                        ...[
+                                          Container(
+                                            height: 55.h,
+                                            child: Center(
+                                              child: Text(
+                                                "${get_SE_add_parts_list.message
+                                                    .toString()}",
+                                                style: GoogleFonts.lato(color: Colors.red),),
                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    ] else ...[
-                                      Center(
-                                        child: CircularProgressIndicator(
-                                          color: appThemeColor,
-                                        ),
-                                      )
+                                          ),
+                                        ],
                                     ],
-                                  ],
+                                  ),
                                 ),
+                              ],
+                            ),
+                          )
+                        ] else
+                          ...[
+                            Center(
+                              child: CircularProgressIndicator(
+                                color: appThemeColor,
                               ),
-                            ],
-                          ),
-                        )
-                      : Center(
-                          child: CircularProgressIndicator(
-                            color: appThemeColor,
-                          ),
-                        ),
-                ),
+                            )
+                          ],
+                      ],
+                    ),
+                  ),
+                ],
               ),
             )
-          : SafeArea(
-              child: Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(
-                    color: appThemeColor,
-                  ),
-                ),
+                : Center(
+              child: CircularProgressIndicator(
+                color: appThemeColor,
               ),
             ),
+          ),
+        ),
+      )
+          : SafeArea(
+        child: Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(
+              color: appThemeColor,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -914,7 +913,7 @@ class _WorkOrderDescriptionSEpageState
         .SE_work_order_list_pending_controller_method(SE_Work_order_status2);
     get_SE_add_parts_list_method();
     inviteeController.text =
-        get_SE_work_order_status2.data![widget.index].zegoUserId!;
+    get_SE_work_order_status2.data![widget.index].zegoUserId!;
     //  get_SE_work_order_status2.data[widget.index].zegoUserId;
     setState(() {
       is_status2_SE_work_list_load = true;
@@ -924,7 +923,7 @@ class _WorkOrderDescriptionSEpageState
   void get_SE_add_parts_list_method() async {
     get_SE_add_parts_list = await Get_Add_Parts_list_controller()
         .Get_Add_SE_Parts_list_controller_method(
-            get_SE_work_order_status2.data?[widget.index].workId.toString());
+        get_SE_work_order_status2.data?[widget.index].workId.toString());
     setState(() {
       is_load_SE_add_parts_list = true;
     });
@@ -932,7 +931,7 @@ class _WorkOrderDescriptionSEpageState
 
   void get_SE_parts_list_data_method() async {
     get_SE_parts_list_data =
-        await Get_Parts_List_Controller().Get_SE_Parts_List_Controller_method();
+    await Get_Parts_List_Controller().Get_SE_Parts_List_Controller_method();
     setState(() {
       is_load_SE_parts_list = true;
     });

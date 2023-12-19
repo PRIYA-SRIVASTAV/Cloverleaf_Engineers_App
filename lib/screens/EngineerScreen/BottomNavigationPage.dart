@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
+import '../../controller/update_wo_status_Controller.dart';
 import '../../utils/helperMethods.dart';
 import 'DashboardTab/dashBoardPage.dart';
 import 'SupportTab/Support.dart';
@@ -21,30 +22,21 @@ class _MainClassEngState extends State<MainClassEng> {
     AwesomeNotifications().actionStream.listen(
       (event) async {
         debugPrint("Clicked======${event.buttonKeyPressed}");
-        //await AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
-        // AudioNotificationPlayStop(0);
         if (event.buttonKeyPressed == "REJECT") {
           debugPrint("Work Order rejected");
         } else if (event.buttonKeyPressed == "ACCEPT") {
           debugPrint("Work Order Accepted");
+          // update_wo_status_Controller()
+          //     .update_wo_status_accepted_Controller_method(Work_id, context);
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => BottomNavigationPage(
-                        BottomIndex: 1,
-                        SendTabIndex: 1,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (_) => BottomNavigationPage(
+                BottomIndex: 1,
+                SendTabIndex: 0,
+              ),
+            ),
+          );
         } else {
           debugPrint("Clicked on notification");
         }

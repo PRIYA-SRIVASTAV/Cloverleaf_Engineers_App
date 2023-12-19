@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cloverleaf_project/screens/EngineerScreen/BottomNavigationPage.dart';
 import 'package:cloverleaf_project/screens/commonScreens/splashScreen.dart';
-import 'package:cloverleaf_project/utils/helperMethods.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -146,7 +144,7 @@ class _MyAppState extends State<MyApp> {
                 label: "Accept",
                 color: appThemeColor,
                 autoDismissible: true,
-                buttonType: ActionButtonType.InputField),
+            ),
             NotificationActionButton(
                 key: "REJECT",
                 label: "Reject",
@@ -177,7 +175,6 @@ class _MyAppState extends State<MyApp> {
             return Stack(
               children: [
                 child!,
-
                 /// support minimizing
                 ZegoUIKitPrebuiltCallMiniOverlayPage(
                   contextQuery: () {
