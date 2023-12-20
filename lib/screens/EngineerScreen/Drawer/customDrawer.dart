@@ -81,7 +81,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       fit: BoxFit.fill,
                     )
                   : Image.network(
-                      get_profile_details_data.data!.image.toString(),
+                      get_profile_details_data.data!.image!,
                       fit: BoxFit.fill,
                     ),
             ),
@@ -359,11 +359,6 @@ class _AppDrawerState extends State<AppDrawer> {
         .get_profile_details_controller_method();
     nameController.text = get_profile_details_data.data!.name.toString();
     phoneController.text = get_profile_details_data.data!.phone.toString();
-    // address1Controller.text = get_profile_details_data.data!.address1.toString();
-    // address2Controller.text = get_profile_details_data.data!.address2.toString();
-    // cityController.text = get_profile_details_data.data!.city.toString();
-    // stateController.text = get_profile_details_data.data!.state.toString();
-    // zipController.text = get_profile_details_data.data!.zipCode.toString();
     print(get_profile_details_data);
     if (get_profile_details_data.status.toString() == "true") {
       setState(() {
@@ -371,20 +366,4 @@ class _AppDrawerState extends State<AppDrawer> {
       });
     }
   }
-
-// void get_Leave_calendar_data_method() async {
-//   get_Leave_calendar_data = await Get_Leave_calendar_controller()
-//       .Get_Leave_calendar_controller_method();
-//   print("/////////////// ${get_Leave_calendar_data}");
-//   //noteController.text = get_Leave_calendar_data.data.note.toString();
-//   setState(() {
-//     if (get_Leave_calendar_data.status.toString() == "true") {
-//       on_leave_status = true;
-//       is_load_Leave_calendar_data = true;
-//     } else {
-//       on_leave_status = false;
-//       is_load_Leave_calendar_data = true;
-//     }
-//   });
-// }
 }

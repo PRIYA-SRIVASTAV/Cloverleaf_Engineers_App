@@ -4,7 +4,7 @@ import '../utils/helperWidget.dart';
 class update_wo_extra_detail_controller {
   update_wo_extra_detail_controller_method(work_id, before_after_image,
       hrs_spent_by_tech, tech_summary, attach_file, img_type, context) async {
-    var r = await ApiCalling().update_wo_extra_detail(
+    var r = await ApiCalling().update_technician_summary_detail(
         work_id,
         before_after_image,
         hrs_spent_by_tech,
@@ -19,6 +19,7 @@ class update_wo_extra_detail_controller {
       // );
     } else {
       customFlutterToast(r['message'].toString());
+
     }
   }
 }

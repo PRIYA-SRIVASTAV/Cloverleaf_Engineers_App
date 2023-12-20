@@ -81,7 +81,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/logo/play_store_512.png"
+  image_path: "assets/logo/cloverleafLogo.png"
   min_sdk_android: 21
 
   # The "flutter_lints" package below contains a set of recommended lints to

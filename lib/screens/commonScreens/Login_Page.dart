@@ -46,7 +46,7 @@ class _Login_PageState extends State<Login_Page> {
                       height: 20.h,
                       width: 40.w,
                       child:
-                          Image.asset('assets/logo/newLogo.png',fit: BoxFit.contain),
+                          Image.asset('assets/logo/cloverleafLogo.png',fit: BoxFit.contain),
                     ),
                     // SizedBox(
                     //   height: 2.h,

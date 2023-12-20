@@ -29,6 +29,7 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
     'assets/images/asset_3.jpg',
     'assets/images/asset_4.jpg'
   ];
+
   @override
   void dispose() {
     super.dispose();
@@ -53,134 +54,6 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
   }
 
   FilePickerResult? result;
-
-  Widget imageWidget() {
-    return profileImage == null
-        ? DottedBorder(
-            color: Colors.blue.withOpacity(0.4),
-            //color of dotted/dash line
-            strokeWidth: 2,
-            //thickness of dash/dots
-            dashPattern: [5, 3],
-            //dash patterns, 10 is dash width, 6 is space width
-            child: Container(
-              height: 20.h,
-              width: 80.h,
-              child: Center(
-                child: InkWell(
-                  onTap: () {
-                    getProfileImage(ImageSource.camera);
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.upload_rounded,
-                        color: Colors.blue.shade900,
-                      ),
-                      Text("Upload image"),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          )
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.file(
-                  profileImage!,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              DottedBorder(
-                color: Colors.blue.withOpacity(0.4),
-                //color of dotted/dash line
-                strokeWidth: 2,
-                //thickness of dash/dots
-                dashPattern: [5, 3],
-                //dash patterns, 10 is dash width, 6 is space width
-                child: Container(
-                  height: 5.h,
-                  width: 80.h,
-                  child: Center(
-                    child: InkWell(
-                      onTap: () {
-                        getProfileImage(ImageSource.camera);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.upload_rounded,
-                            color: Colors.blue.shade900,
-                          ),
-                          Text("Upload more images"),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          );
-  }
-
-  Widget buildImageCarouselItem(String imageUrl, int index) {
-    return Stack(
-      children: [
-        Image.asset(
-          imageUrl,
-          fit: BoxFit.cover,
-          width: double.infinity,
-        ),
-        Positioned(
-          child: Container(
-            height: 2.h,
-            width: 15.w,
-            color: appThemeColor,
-            child: Center(
-              child: Text(
-                "After",
-                style: GoogleFonts.lato(color: Colors.white, fontSize: 10.sp),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 0.h,
-          right: 0.w,
-          child: InkWell(
-            child: Container(
-              height: 3.h,
-              width: 3.h,
-              child: Center(
-                child: Text(
-                  "╳",
-                  style: GoogleFonts.lato(
-                      color: Colors.white,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              color: Colors.red,
-            ),
-            onTap: () {
-              // Remove the image from the list
-              setState(() {
-                images.removeAt(index);
-              });
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +91,10 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
           child: ListView(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Photos",style: GoogleFonts.lato(),),
+              Text(
+                "Photos",
+                style: GoogleFonts.lato(),
+              ),
               SizedBox(
                 height: 1.h,
               ),
@@ -281,39 +157,32 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical:2.w,horizontal: 2.h),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 2.w, horizontal: 2.h),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            ClipRRect(
-                              // borderRadius: BorderRadius.circular(12),
-                              child: Image.file(
-                                profileImage!,
-                                fit: BoxFit.cover,
+                            Container(
+                              height: 35.h,
+                              child: PageView.builder(
+                                itemCount: images.length,
+                                pageSnapping: true,
+                                itemBuilder: (context, index) {
+                                  return Image.file(
+                                      profileImage!,
+                                      fit: BoxFit.cover);
+                                },
+                                // itemBuilder: (context, pagePosition) {
+                                //   return Container(
+                                //     margin: EdgeInsets.all(10),
+                                //     child: Image.file(
+                                //       profileImage!,
+                                //       fit: BoxFit.cover,
+                                //     ),
+                                //   );
+                                // },
                               ),
                             ),
-                            // CarouselSlider.builder(
-                            //   options: CarouselOptions(
-                            //     height: 20.h,
-                            //     autoPlay: true,
-                            //     autoPlayInterval: Duration(seconds: 5),
-                            //     autoPlayAnimationDuration: Duration(milliseconds: 800),
-                            //     pauseAutoPlayOnTouch: true,
-                            //     enlargeCenterPage: true,
-                            //     enableInfiniteScroll: true,
-                            //   ),
-                            //   itemCount: images.length,
-                            //   itemBuilder: (BuildContext context, int index, int realIndex) {
-                            //     final imageUrl = images[index];
-                            //     return images[index] == 0
-                            //         ? Container(
-                            //       height: 20.h,
-                            //       width: 100.w,
-                            //       color: Colors.grey,
-                            //     )
-                            //         : buildImageCarouselItem(imageUrl, index);
-                            //   },
-                            // ),
                             DottedBorder(
                               color: Colors.blue.shade900.withOpacity(0.4),
                               //color of dotted/dash line
@@ -452,10 +321,11 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                 child: Center(
                                   child: InkWell(
                                     onTap: () async {
-                                      result = await FilePicker.platform.pickFiles(
-                                          allowMultiple: false,
-                                          type: FileType.custom,
-                                          allowedExtensions: allowedFiles);
+                                      result = await FilePicker.platform
+                                          .pickFiles(
+                                              allowMultiple: false,
+                                              type: FileType.custom,
+                                              allowedExtensions: allowedFiles);
                                       if (result == null) {
                                         print("No file selected");
                                       } else {
@@ -466,8 +336,10 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                       }
                                     },
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.file_present,
@@ -499,13 +371,18 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                 color: Colors.blue.shade900.withOpacity(0.2),
                                 height: 4.h,
                                 width: 100.w,
-                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       "${result?.names}",
                                       style: GoogleFonts.lato(fontSize: 10.sp),
                                     ),
-                                    Icon(Icons.highlight_remove,color: Colors.red,)
+                                    Icon(
+                                      Icons.highlight_remove,
+                                      color: Colors.red,
+                                    )
                                   ],
                                 ),
                               );
@@ -573,7 +450,11 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                       onPressed: () async {
                         await post_work_reason_controller()
                             .post_work_reason_controller_method(
-                                widget.work_id, ReasonController.text,profileImage,result, context);
+                                widget.work_id,
+                                ReasonController.text,
+                                profileImage,
+                                result,
+                                context);
                         ReasonController.clear();
                       },
                       style: ElevatedButton.styleFrom(

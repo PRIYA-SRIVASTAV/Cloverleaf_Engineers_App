@@ -145,7 +145,7 @@ class ApiCalling {
     }
   }
 
-  Future update_wo_extra_detail(work_id, before_after_image, hrs_spent_by_tech,
+  Future update_technician_summary_detail(work_id, before_after_image, hrs_spent_by_tech,
       tech_summary, attach_file, img_type) async {
     if (await isConnectedToInternet()) {
       try {
@@ -154,11 +154,9 @@ class ApiCalling {
 
         var body = <String, String>{
           "work_id": work_id,
-          "before_after_image": before_after_image,
           "hrs_spent_by_tech": hrs_spent_by_tech,
           "tech_summary": tech_summary,
-          "attach_file": attach_file,
-          "img_type": img_type
+          "type": img_type
         };
         var request = http.MultipartRequest('POST', update_wo_extra_detail_Url);
         request.fields.addAll(body);
@@ -171,10 +169,13 @@ class ApiCalling {
           request.files.add(await http.MultipartFile.fromPath(
               "attach_file", attach_file.path));
         }
+        var pref = await getPref();
+        String token = "";
+        if (pref.getString(KEYENGTOKEN) != null) token = pref.getString(KEYENGTOKEN);
         //debugPrint(image.path.toString());
-        // request.headers.addAll({
-        //   "Authorization": "Bearer $token",
-        // });
+        request.headers.addAll({
+          "Authorization": "Bearer $token",
+        });
         http.StreamedResponse response = await request.send();
         final a = await http.Response.fromStream(response);
         if (a.statusCode == 200) {
@@ -189,49 +190,45 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
-  Future Update_Profile_details(profileImage, name, phone, address1, address2,
+  Future Update_Profile_details(image, name, phone, address1, address2,
       city, state, zip, oldPass, newPass, confPass) async {
-    if (await isConnectedToInternet()) {
-      try {
-        Uri Update_Profile_details_Url =
-            Uri.parse(ApiEndpoints.Update_profile_url);
-
-        var body = <String, String>{
-          "image": profileImage,
-          "name": name,
-          "phone": phone,
-          "address_1": address1,
-          "address_2": address2,
-          "city": city,
-          "state": state,
-          "zip_code": zip,
-          "old_password": oldPass,
-          "password": newPass,
-          "cpassword": confPass,
-        };
-        var request = http.MultipartRequest('POST', Update_Profile_details_Url);
-        request.fields.addAll(body);
-        if (profileImage != null) {
-          request.files.add(
-              await http.MultipartFile.fromPath("image", profileImage.path));
-        }
-        //debugPrint(image.path.toString());
-        // request.headers.addAll({
-        //   "Authorization": "Bearer $token",
-        // });
-        http.StreamedResponse response = await request.send();
-        final a = await http.Response.fromStream(response);
-        if (a.statusCode == 200) {
-          return jsonDecode(a.body);
-        } else {
-          customFlutterToast(jsonDecode(a.body)["message"].toString());
-        }
-      } catch (e) {
-        debugPrint('Error: $e');
+    try {
+      Uri User_setting_Uri = Uri.parse(ApiEndpoints.Update_profile_url);
+      var body = <String, String>{
+        "name": name,
+        "phone": phone,
+        "address_1": address1,
+        "address_2": address2,
+        "city": city,
+        "state": state,
+        "zip_code": zip,
+        "old_password": oldPass,
+        "password": newPass,
+        "cpassword": confPass,
+      };
+      var request = http.MultipartRequest('POST', User_setting_Uri);
+      request.fields.addAll(body);
+      if (image != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath("image", image.path));
       }
-    } else {
-      debugPrint("Please Check Internet Connection");
+      var pref = await getPref();
+      String token = "";
+      if (pref.getString(KEYENGTOKEN) != null) token = pref.getString(KEYENGTOKEN);
+      //debugPrint(image.path.toString());
+      request.headers.addAll({
+        "Authorization": "Bearer $token",
+      });
+      http.StreamedResponse response = await request.send();
+      final a = await http.Response.fromStream(response);
+      debugPrint("Update_Profile_details Api Response ====${a.body}");
+      if (a.statusCode == 200) {
+        return jsonDecode(a.body);
+      } else {
+        return customFlutterToast(jsonDecode(a.body)["message"].toString());
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

@@ -151,7 +151,7 @@ class _editProfilePagePageState extends State<editProfilePagePage> {
                           imageWidget(),
                           Positioned(
                             bottom: 0.h,
-                            right: 1.5.h,
+                            right: 0.h,
                             child: InkWell(
                               onTap: () {
                                 getProfileImage(ImageSource.gallery);
