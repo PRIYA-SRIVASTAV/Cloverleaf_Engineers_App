@@ -144,9 +144,8 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-
-  Future update_technician_summary_detail(work_id, before_after_image, hrs_spent_by_tech,
-      tech_summary, attach_file, img_type) async {
+  Future update_technician_summary_detail(work_id, img_type, before_after_image, hrs_spent_by_tech,
+      tech_summary, attach_file) async {
     if (await isConnectedToInternet()) {
       try {
         Uri update_wo_extra_detail_Url =
@@ -154,16 +153,15 @@ class ApiCalling {
 
         var body = <String, String>{
           "work_id": work_id,
+          "type": img_type,
           "hrs_spent_by_tech": hrs_spent_by_tech,
           "tech_summary": tech_summary,
-          "type": img_type
         };
         var request = http.MultipartRequest('POST', update_wo_extra_detail_Url);
         request.fields.addAll(body);
         if (before_after_image != null) {
           request.files.add(
-            await http.MultipartFile.fromPath(
-                "before_after_image", before_after_image.path),
+            await http.MultipartFile.fromPath("before_after_image", before_after_image.path),
           );
         } else if (attach_file != null) {
           request.files.add(await http.MultipartFile.fromPath(
@@ -172,7 +170,6 @@ class ApiCalling {
         var pref = await getPref();
         String token = "";
         if (pref.getString(KEYENGTOKEN) != null) token = pref.getString(KEYENGTOKEN);
-        //debugPrint(image.path.toString());
         request.headers.addAll({
           "Authorization": "Bearer $token",
         });

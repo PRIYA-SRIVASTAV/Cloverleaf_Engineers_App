@@ -23,12 +23,7 @@ class WoEscalateToSEPage extends StatefulWidget {
 
 class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
   TextEditingController ReasonController = TextEditingController();
-  List<String> images = [
-    'assets/images/asset_1.png',
-    'assets/images/asset_2.webp',
-    'assets/images/asset_3.jpg',
-    'assets/images/asset_4.jpg'
-  ];
+  List<String> uploadedImages = [];
 
   @override
   void dispose() {
@@ -47,6 +42,7 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
 
       setState(() {
         this.profileImage = profileImageTemporary;
+        uploadedImages.add(profileImage.name);
       });
     } catch (e) {
       print("Failed to pick image : $e");
@@ -98,7 +94,7 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
               SizedBox(
                 height: 1.h,
               ),
-              profileImage == null
+              uploadedImages.isEmpty
                   ? Container(
                       height: 30.h,
                       width: 100.w,
@@ -165,11 +161,11 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                             Container(
                               height: 35.h,
                               child: PageView.builder(
-                                itemCount: images.length,
+                                itemCount: uploadedImages.length,
                                 pageSnapping: true,
                                 itemBuilder: (context, index) {
-                                  return Image.file(
-                                      profileImage!,
+                                  return Image.asset(
+                                      uploadedImages[index].toString(),
                                       fit: BoxFit.cover);
                                 },
                                 // itemBuilder: (context, pagePosition) {

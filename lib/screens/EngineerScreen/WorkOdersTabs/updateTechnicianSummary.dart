@@ -31,7 +31,6 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
   TextEditingController hoursSPent2Controller = TextEditingController();
   FilePickerResult? result;
   List selectedFiles = [];
-  List removeSelectedFiles = [];
   bool After_before_image_type = false;
   List<String> images = [
     'assets/images/asset_1.png',
@@ -64,7 +63,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
       showDialog(
         context: context,
         builder: (context) {
-          return Image_pick_dialog(context, profileImage);
+          return Image_pick_dialog(context);
         },
       );
     } catch (e) {
@@ -72,7 +71,13 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
     }
   }
 
-  Widget Image_pick_dialog(context, profileImage) {
+  void tapButton() async {
+    setState(() {
+      After_before_image_type = !After_before_image_type;
+    });
+  }
+
+  Widget Image_pick_dialog(context) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
@@ -111,6 +116,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                 totalSwitches: 2,
                                 labels: ['After', 'Before'],
                                 onToggle: (index) {
+                                  tapButton();
                                   print('switched to: $index');
                                 },
                               ),
@@ -139,7 +145,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                               profileImage,
                                               hoursSpent1Controller.text,
                                               summaryController.text,
-                                              result,
+                                              selectedFiles.length,
                                               After_before_image_type,
                                               context);
                                     },
@@ -524,7 +530,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                 children: [
                                   Text(selectedFiles[index].toString()),
                                   InkWell(
-                                    onTap: (){},
+                                    onTap: () {},
                                     child: Icon(
                                       Icons.highlight_remove,
                                       size: 20.sp,
@@ -535,7 +541,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 1.h,)
+                          SizedBox(
+                            height: 1.h,
+                          )
                         ],
                       );
                     },
