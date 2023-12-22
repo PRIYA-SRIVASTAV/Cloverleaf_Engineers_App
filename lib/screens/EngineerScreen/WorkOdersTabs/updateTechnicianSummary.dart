@@ -13,6 +13,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../../constant/testStyleConstant.dart';
 import '../../../controller/update_wo_extra_detail_controller.dart';
 import '../../../utils/helperWidget.dart';
+import '../BottomNavigationPage.dart';
 
 class updateTechnicianSummary extends StatefulWidget {
   var Work_id;
@@ -29,6 +30,8 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
   TextEditingController hoursSpent1Controller = TextEditingController();
   TextEditingController hoursSPent2Controller = TextEditingController();
   FilePickerResult? result;
+  List selectedFiles = [];
+  List removeSelectedFiles = [];
   bool After_before_image_type = false;
   List<String> images = [
     'assets/images/asset_1.png',
@@ -104,7 +107,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                               ToggleSwitch(
                                 minWidth: 18.w,
                                 minHeight: 4.h,
-                                initialLabelIndex:0,
+                                initialLabelIndex: 0,
                                 totalSwitches: 2,
                                 labels: ['After', 'Before'],
                                 onToggle: (index) {
@@ -129,16 +132,16 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                     width: 4.w,
                                   ),
                                   InkWell(
-                                    onTap: () async{
+                                    onTap: () async {
                                       await update_wo_extra_detail_controller()
                                           .update_wo_extra_detail_controller_method(
-                                          widget.Work_id,
-                                          profileImage,
-                                          hoursSpent1Controller.text,
-                                          summaryController.text,
-                                          result,
-                                          After_before_image_type,
-                                          context);
+                                              widget.Work_id,
+                                              profileImage,
+                                              hoursSpent1Controller.text,
+                                              summaryController.text,
+                                              result,
+                                              After_before_image_type,
+                                              context);
                                     },
                                     child: Text(
                                       "Ok",
@@ -296,7 +299,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
           color: Colors.white,
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 5.h, left: 2.h, right: 2.h),
+          padding: EdgeInsets.only(top: 3.h, left: 2.h, right: 2.h),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,7 +315,8 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                     enableInfiniteScroll: true,
                   ),
                   itemCount: images.length,
-                  itemBuilder: (BuildContext context, int index, int realIndex) {
+                  itemBuilder:
+                      (BuildContext context, int index, int realIndex) {
                     final imageUrl = images[index];
                     return images[index] == 0
                         ? Container(
@@ -463,6 +467,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                         allowMultiple: false,
                         type: FileType.custom,
                         allowedExtensions: allowedFiles);
+                    selectedFiles.add(result!.names.toString());
                     if (result == null) {
                       print("No file selected");
                     } else {
@@ -472,25 +477,72 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                       }
                     }
                   },
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.file_present_outlined,
-                        color: Colors.black,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.file_present_outlined,
+                            color: Colors.blue.shade900,
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            "Attach files",
+                            style: GoogleFonts.lato(
+                                color: Colors.blue.shade900, fontSize: 12.sp),
+                          )
+                        ],
                       ),
                       SizedBox(
-                        width: 1.w,
+                        height: 2.h,
                       ),
-                      Text(
-                        "Attach files",
-                        style: GoogleFonts.lato(
-                            color: Colors.black, fontSize: 12.sp),
-                      )
                     ],
                   ),
                 ),
+                if (selectedFiles.isNotEmpty) ...[
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: selectedFiles.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Container(
+                            height: 4.h,
+                            width: 100.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: appThemeColor.withOpacity(0.2),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(selectedFiles[index].toString()),
+                                  InkWell(
+                                    onTap: (){},
+                                    child: Icon(
+                                      Icons.highlight_remove,
+                                      size: 20.sp,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 1.h,)
+                        ],
+                      );
+                    },
+                  ),
+                ],
                 SizedBox(
-                  height: 8.h,
+                  height: 5.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -546,6 +598,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 3.h,
+                )
               ],
             ),
           ),

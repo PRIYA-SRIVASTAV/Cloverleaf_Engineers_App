@@ -32,22 +32,12 @@ class Tab1_WO_Desc extends StatefulWidget {
 }
 
 class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
-  FilePickerResult? result;
-  bool isExpanded1 = true;
-  bool isExpanded2 = true;
   late List<FocusNode> _focusNodes;
   late List<TextEditingController> _otpController;
   bool CalledApi = false;
   TextEditingController commentController = TextEditingController();
   bool is_status2_work_list_load = false;
   late GetWorkorderdetailsModel get_work_order_status2;
-  bool After_before_image_status = true;
-  List<String> images = [
-    'assets/images/asset_1.png',
-    'assets/images/asset_2.webp',
-    'assets/images/asset_3.jpg',
-    'assets/images/asset_4.jpg'
-  ];
 
   @override
   void initState() {
@@ -64,17 +54,6 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
     commentController.dispose();
   }
 
-  void toggleContainerSize1() {
-    setState(() {
-      isExpanded1 = !isExpanded1;
-    });
-  }
-
-  void toggleContainerSize2() {
-    setState(() {
-      isExpanded2 = !isExpanded2;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,26 +70,28 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CarouselSlider.builder(
-                                options: CarouselOptions(
-                                  height: 20.h,
-                                  autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 5),
-                                  autoPlayAnimationDuration:
-                                      Duration(milliseconds: 800),
-                                  pauseAutoPlayOnTouch: true,
-                                  enlargeCenterPage: true,
-                                  enableInfiniteScroll: true,
+                              if(get_work_order_status2.data!.clientImages!.isNotEmpty)...[
+                                CarouselSlider.builder(
+                                  options: CarouselOptions(
+                                    height: 20.h,
+                                    autoPlay: true,
+                                    autoPlayInterval: Duration(seconds: 5),
+                                    autoPlayAnimationDuration:
+                                    Duration(milliseconds: 800),
+                                    pauseAutoPlayOnTouch: true,
+                                    enlargeCenterPage: true,
+                                    enableInfiniteScroll: true,
+                                  ),
+                                  itemCount: get_work_order_status2.data!.clientImages!.length,
+                                  itemBuilder: (BuildContext context, int index,
+                                      int realIndex) {
+                                    String base64 = get_work_order_status2.data!.clientImages![index].toString();
+                                    Uint8List bytesImage = const Base64Decoder().convert(base64);
+                                    return buildImageCarouselItem(
+                                        bytesImage, index);
+                                  },
                                 ),
-                                itemCount: get_work_order_status2.data!.clientImages!.length,
-                                itemBuilder: (BuildContext context, int index,
-                                    int realIndex) {
-                                  String base64 = get_work_order_status2.data!.clientImages![index].toString();
-                                  Uint8List bytesImage = const Base64Decoder().convert(base64);
-                                  return buildImageCarouselItem(
-                                      bytesImage, index);
-                                },
-                              ),
+                              ],
                               SizedBox(
                                 height: 6.h,
                               ),
@@ -470,7 +451,7 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                           )
                         : Center(
                             child: Text(
-                                "${get_work_order_status2.message.toString()}"),
+                                "${get_work_order_status2.message.toString()}",style: GoogleFonts.lato(color: Colors.red),),
                           ),
                   ],
                 ),
@@ -489,119 +470,6 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
       bytesImage,
       fit: BoxFit.cover,
       width: double.infinity,
-    );
-  }
-
-  Widget Complete_WO_dialog() {
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Dialog(
-          child: Container(
-            height: 32.h,
-            child: Stack(
-              // alignment: Alignment.topRight,
-              children: [
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 3.h, left: 3.h, right: 3.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Confirmation",
-                          style: GoogleFonts.lato(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.sp,
-                              color: appThemeColor),
-                        ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        TextFormField(
-                          controller: commentController,
-                          maxLength: 100,
-                          decoration: InputDecoration(
-                              counterText: "",
-                              suffixIcon: Icon(Icons.note_alt),
-                              border: UnderlineInputBorder(),
-                              hintText: "Enter any comment"),
-                        ),
-                        SizedBox(height: 2.h),
-                        Text(
-                          'Are you sure you want to mark it as Complete?',
-                          style: GoogleFonts.lato(fontWeight: FontWeight.w500),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 12.h, top: 3.h),
-                          child: Row(
-                            children: [
-                              TextButton(
-                                child: Text(
-                                  'Cancel',
-                                  style: GoogleFonts.lato(
-                                      fontSize: 10.sp, color: Colors.red),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pop(); // Close the dialog
-                                },
-                              ),
-                              TextButton(
-                                child: Text(
-                                  'Continue',
-                                  style: GoogleFonts.lato(
-                                      fontSize: 10.sp, color: appThemeColor),
-                                ),
-                                onPressed: () async {
-                                  var Work_id;
-                                  await getPref().then((value) {
-                                    value.setString(
-                                        KEYWORKID,
-                                        get_work_order_status2
-                                            .data!.workId
-                                            .toString());
-                                  });
-                                  await getPref().then((value) {
-                                    Work_id = value.getString(KEYWORKID);
-                                  });
-                                  await update_wo_status_Controller()
-                                      .update_wo_status_completed_Controller_method(
-                                          Work_id, context);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 2,
-                  top: 2,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Align(
-                      alignment: Alignment.topRight,
-                      child: CircleAvatar(
-                        key: Key('closeIconKey'),
-                        radius: 15,
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 

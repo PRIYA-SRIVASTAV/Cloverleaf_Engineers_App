@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../constant/colorConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../controller/Get_Add_Parts_list_controller.dart';
@@ -9,7 +8,6 @@ import '../../../controller/Get_Parts_List_Controller.dart';
 import '../../../controller/post_work_parts_controller.dart';
 import '../../../controller/work_order_list_controller.dart';
 import '../../../model/GetAddPartsListModel.dart';
-import '../../../model/GetDashboardDataModel.dart';
 import '../../../model/GetPartsModel.dart';
 import '../../../model/WorkOrderModel.dart';
 
@@ -213,9 +211,6 @@ class _Tab2FABState extends State<Tab2FAB> {
                         ),
                       ),
                     );
-              /* : Dialog(
-                      child: Text("${get_parts_list_data.message.toString()}",style: GoogleFonts.lato(color: Colors.red),),
-                    );*/
             },
           );
         },
