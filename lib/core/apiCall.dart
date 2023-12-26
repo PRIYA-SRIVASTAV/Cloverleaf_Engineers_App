@@ -16,6 +16,7 @@ import '../model/GetProfileSEModel.dart';
 import '../model/GetSECallLogsModel.dart';
 import '../model/GetSEDashbordDataModel.dart';
 import '../model/GetSEPayoutListModel.dart';
+import '../model/GetTechnicianSummaryModel.dart';
 import '../model/GetUserStatusModel.dart';
 import '../model/GetWorkorderdetailsModel.dart';
 import '../model/GetprofilePageModel.dart';
@@ -101,6 +102,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   ///================================================================================================================================///
   /// multipart api
   Future post_work_reason(
@@ -120,7 +122,7 @@ class ApiCalling {
         if (escalate_img != null) {
           request.files.add(await http.MultipartFile.fromPath(
               "escalate_img", escalate_img.path));
-        }else if (escalate_file != null) {
+        } else if (escalate_file != null) {
           request.files.add(await http.MultipartFile.fromPath(
               "escalate_file", escalate_file.path));
         }
@@ -144,24 +146,26 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-  Future update_technician_summary_detail(work_id, img_type, before_after_image, hrs_spent_by_tech,
-      tech_summary, attach_file) async {
+
+  Future update_technician_summary_detail(work_id, before_after_image,
+      hrs_spent_by_tech, tech_summary, attach_file, img_type) async {
     if (await isConnectedToInternet()) {
       try {
         Uri update_wo_extra_detail_Url =
-        Uri.parse(ApiEndpoints.update_wo_extra_detail);
+            Uri.parse(ApiEndpoints.update_wo_extra_detail);
 
         var body = <String, String>{
           "work_id": work_id,
-          "type": img_type,
           "hrs_spent_by_tech": hrs_spent_by_tech,
           "tech_summary": tech_summary,
+          "type": img_type,
         };
         var request = http.MultipartRequest('POST', update_wo_extra_detail_Url);
         request.fields.addAll(body);
         if (before_after_image != null) {
           request.files.add(
-            await http.MultipartFile.fromPath("before_after_image", before_after_image.path),
+            await http.MultipartFile.fromPath(
+                "before_after_image", before_after_image.path),
           );
         } else if (attach_file != null) {
           request.files.add(await http.MultipartFile.fromPath(
@@ -169,7 +173,8 @@ class ApiCalling {
         }
         var pref = await getPref();
         String token = "";
-        if (pref.getString(KEYENGTOKEN) != null) token = pref.getString(KEYENGTOKEN);
+        if (pref.getString(KEYENGTOKEN) != null)
+          token = pref.getString(KEYENGTOKEN);
         request.headers.addAll({
           "Authorization": "Bearer $token",
         });
@@ -187,8 +192,9 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-  Future Update_Profile_details(image, name, phone, address1, address2,
-      city, state, zip, oldPass, newPass, confPass) async {
+
+  Future Update_Profile_details(image, name, phone, address1, address2, city,
+      state, zip, oldPass, newPass, confPass) async {
     try {
       Uri User_setting_Uri = Uri.parse(ApiEndpoints.Update_profile_url);
       var body = <String, String>{
@@ -211,7 +217,8 @@ class ApiCalling {
       }
       var pref = await getPref();
       String token = "";
-      if (pref.getString(KEYENGTOKEN) != null) token = pref.getString(KEYENGTOKEN);
+      if (pref.getString(KEYENGTOKEN) != null)
+        token = pref.getString(KEYENGTOKEN);
       //debugPrint(image.path.toString());
       request.headers.addAll({
         "Authorization": "Bearer $token",
@@ -267,7 +274,8 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-///================================================================================================================================///
+
+  ///================================================================================================================================///
   Future Post_SE_Call_start(
       subj_expert_id, eng_id, workorder_id, call_type) async {
     if (await isConnectedToInternet()) {
@@ -331,7 +339,8 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-///================================================================================================================================///
+
+  ///================================================================================================================================///
   /// Api for is update active
   Future is_Update_ENG_active(is_active) async {
     if (await isConnectedToInternet()) {
@@ -384,6 +393,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   ///================================================================================================================================///
   /// Api for update-wo-status
   Future update_wo_status(work_id, work_order_status) async {
@@ -441,6 +451,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   ///================================================================================================================================///
 
   /// Api for Raise leave request
@@ -517,6 +528,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   ///================================================================================================================================///
   Future post_work_parts(work_id, parts_id, parts_name) async {
     if (await isConnectedToInternet()) {
@@ -576,6 +588,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   ///================================================================================================================================///
   Future ENG_Post_FCM_Token(FCM_token, ZegoUserId) async {
     if (await isConnectedToInternet()) {
@@ -627,6 +640,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   ///================================================================================================================================///
   Future send_otp_to_start_wo(work_id, button_type) async {
     if (await isConnectedToInternet()) {
@@ -684,6 +698,7 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
+
   ///================================================================================================================================///
   Future verify_otp_to_start_wo(otp, work_id, button_type) async {
     if (await isConnectedToInternet()) {
@@ -744,8 +759,8 @@ class ApiCalling {
       debugPrint("Please Check Internet Connection");
     }
   }
-  ///================================================================================================================================///
 
+  ///================================================================================================================================///
 
   /// ===============================================get Apis=================================================================
 
@@ -795,6 +810,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
   Future get_Work_order_details(Work_id) async {
     try {
@@ -816,6 +832,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
   Future get_Work_order_list_for_accelerated(Work_Order_status3) async {
     try {
@@ -950,6 +967,28 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
+  Future get_technician_summary(Work_id) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_technician_summary_Uri =
+        Uri.parse("${ApiEndpoints.get_technician_summary}$Work_id");
+        var get_technician_summary_Response = await client.get(
+            get_technician_summary_Uri,
+            headers: await headerWithContentTypeENG());
+        MYAPILOGS("get_technician_summary api", get_technician_summary_Response);
+        if (get_technician_summary_Response.statusCode == 200) {
+          return getTechnicianSummaryModelFromJson(get_technician_summary_Response.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+
   ///================================================================================================================================///
   Future get_Parts_list(work_id) async {
     try {
@@ -987,6 +1026,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
 
   /// Api for get profile detail
@@ -1032,6 +1072,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
 
   Future get_User_status() async {
@@ -1069,6 +1110,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
 
   Future get_leave_calender() async {
@@ -1090,6 +1132,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
 
   Future get_dashboard_data() async {
@@ -1134,6 +1177,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
 
   Future eng_get_payout_by_month_list() async {
@@ -1244,6 +1288,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
 
   Future get_Add_Parts_list(Work_id) async {
@@ -1286,6 +1331,7 @@ class ApiCalling {
       }
     } catch (_) {}
   }
+
   ///================================================================================================================================///
 
   Future get_SE_Call_logs_list(SE_ZegoUserId) async {
@@ -1307,8 +1353,8 @@ class ApiCalling {
       }
     } catch (_) {}
   }
-///================================================================================================================================///
 
+  ///================================================================================================================================///
 }
 
 MYAPILOGS(api, response) {

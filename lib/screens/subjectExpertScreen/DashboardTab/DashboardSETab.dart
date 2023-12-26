@@ -377,8 +377,7 @@ class _DashboardSEState extends State<DashboardSE> {
   }
 
   void Get_SE_status_method() async {
-    Get_SE_status =
-        await Get_User_status_controller().Get_SE_status_controller_method();
+    Get_SE_status = await Get_User_status_controller().Get_SE_status_controller_method();
     setState(() {
       if (Get_SE_status.data.toString() == "1") {
         online_offline_SE_status = true;

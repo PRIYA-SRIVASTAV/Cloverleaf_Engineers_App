@@ -29,6 +29,7 @@ class ApiEndpoints {
   static String get_payout_by_month2_Url = "$baseUrl/get-payout-list?";
   static String get_payout_by_month3_Url = "$baseUrl/get-payout-detail?payout_id=";
   static String get_Add_Parts_list_Url = "$baseUrl/get-parts/";
+  static String get_technician_summary = "$baseUrl/get-wo-extra-detail?work_id=";
 
 //============================== Api's for Subject Expert =============================================================
 
