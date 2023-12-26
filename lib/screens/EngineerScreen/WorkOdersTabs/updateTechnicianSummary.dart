@@ -32,7 +32,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
   TextEditingController hoursSpent1Controller = TextEditingController();
   TextEditingController hoursSPent2Controller = TextEditingController();
   FilePickerResult? result;
-  List selectedFiles = [];
+  List<FilePickerResult> selectedFiles = [];
+
+  // List<FilePickerResult> filePath =[];
   bool After_before_image_type = false;
   List<String> images = [
     'assets/images/asset_1.png',
@@ -92,113 +94,110 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
-          child: Expanded(
-            child: Container(
-              height: 65.h,
-              child: Stack(
-                // alignment: Alignment.topRight,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 2.h, vertical: 3.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Photos",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.sp,
-                              color: appThemeColor),
-                        ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        imageWidget(),
-                        Padding(
-                          padding: EdgeInsets.only(top: 2.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ToggleSwitch(
-                                minWidth: 18.w,
-                                minHeight: 4.h,
-                                initialLabelIndex: 0,
-                                totalSwitches: 2,
-                                labels: ['After', 'Before'],
-                                onToggle: (index) {
-                                  tapButton();
-                                  print('switched to: $index');
-                                },
-                              ),
-                              Row(
-                                children: [
-                                  InkWell(
-                                    child: Text(
-                                      "Cancel",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 12.sp,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
+          child: Container(
+            height: 65.h,
+            child: Stack(
+              // alignment: Alignment.topRight,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 3.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Photos",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                            color: appThemeColor),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      imageWidget(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 2.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ToggleSwitch(
+                              minWidth: 18.w,
+                              minHeight: 4.h,
+                              initialLabelIndex: 0,
+                              totalSwitches: 2,
+                              labels: ['After', 'Before'],
+                              onToggle: (index) {
+                                tapButton();
+                                print('switched to: $index');
+                              },
+                            ),
+                            Row(
+                              children: [
+                                InkWell(
+                                  child: Text(
+                                    "Cancel",
+                                    style: GoogleFonts.lato(
+                                        fontSize: 12.sp,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                  SizedBox(
-                                    width: 4.w,
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    await update_wo_extra_detail_controller()
+                                        .update_wo_extra_detail_controller_method(
+                                            widget.Work_id,
+                                            profileImage,
+                                            hoursSpent1Controller.text,
+                                            summaryController.text,
+                                            result,
+                                            false,
+                                            context);
+                                  },
+                                  child: Text(
+                                    "Ok",
+                                    style: GoogleFonts.lato(
+                                        fontSize: 12.sp,
+                                        color: appThemeColor,
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                  InkWell(
-                                    onTap: () async {
-                                      await update_wo_extra_detail_controller()
-                                          .update_wo_extra_detail_controller_method(
-                                              widget.Work_id,
-                                              profileImage,
-                                              hoursSpent1Controller.text,
-                                              summaryController.text,
-                                              result,
-                                              false,
-                                              context);
-                                    },
-                                    child: Text(
-                                      "Ok",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 12.sp,
-                                          color: appThemeColor,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Positioned(
-                    right: 2,
-                    top: 2,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Align(
-                        alignment: Alignment.topRight,
-                        child: CircleAvatar(
-                          key: Key('closeIconKey'),
-                          radius: 15,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.black,
-                          ),
+                ),
+                Positioned(
+                  right: 2,
+                  top: 2,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Align(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                        key: Key('closeIconKey'),
+                        radius: 15,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.black,
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -484,16 +483,18 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                       InkWell(
                         onTap: () async {
                           result = await FilePicker.platform.pickFiles(
-                              allowMultiple: false,
+                              allowMultiple: true,
                               type: FileType.custom,
                               allowedExtensions: allowedFiles);
-                          selectedFiles.add(result!.names.toString());
                           if (result == null) {
-                            print("No file selected");
                           } else {
+                            selectedFiles.clear();
                             setState(() {});
                             for (var element in result!.files) {
-                              log(element.name);
+                              // log("Selected File Name" +//
+                              // seelement.name.toString());// log("Selected File Name" + result.toString());
+
+                              selectedFiles.add(result!);
                             }
                           }
                         },
@@ -543,7 +544,16 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(selectedFiles[index].toString()),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            selectedFiles[index]
+                                                .files[index]
+                                                .name
+                                                .toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
                                         InkWell(
                                           onTap: () {},
                                           child: Icon(
@@ -584,15 +594,19 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                     Theme.of(context).primaryColor),
                               ),
                               onPressed: () async {
-                                await update_wo_extra_detail_controller()
-                                    .update_wo_extra_detail_controller_method(
-                                        widget.Work_id,
-                                        profileImage,
-                                        hoursSpent1Controller.text,
-                                        summaryController.text,
-                                        result,
-                                        false,
-                                        context);
+                                for (int i = 0; i < selectedFiles.length; i++) {
+                                  update_wo_extra_detail_controller()
+                                      .update_wo_extra_detail_controller_method(
+                                          widget.Work_id,
+                                          profileImage,
+                                          hoursSpent1Controller.text,
+                                          summaryController.text,
+                                          selectedFiles[i].files[i],
+                                          false,
+                                          context);
+
+                                  debugPrint("Called For Times");
+                                }
                               },
                               child: Text(
                                 "Update",
@@ -611,7 +625,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                   ),
                 ),
               )
-            : CircularProgressIndicator(color: appThemeColor),
+            : Center(child: CircularProgressIndicator(color: appThemeColor)),
       ),
     );
   }

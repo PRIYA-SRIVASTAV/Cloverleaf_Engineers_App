@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cloverleaf_project/core/results.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -147,12 +148,11 @@ class ApiCalling {
     }
   }
 
-  Future update_technician_summary_detail(work_id, before_after_image,
-      hrs_spent_by_tech, tech_summary, attach_file, img_type) async {
+  Future update_technician_summary_detail(work_id, before_after_image, hrs_spent_by_tech, tech_summary, attach_file, img_type) async {
     if (await isConnectedToInternet()) {
       try {
         Uri update_wo_extra_detail_Url =
-            Uri.parse(ApiEndpoints.update_wo_extra_detail);
+        Uri.parse(ApiEndpoints.update_wo_extra_detail);
 
         var body = <String, String>{
           "work_id": work_id,
@@ -168,8 +168,8 @@ class ApiCalling {
                 "before_after_image", before_after_image.path),
           );
         } else if (attach_file != null) {
-          request.files.add(await http.MultipartFile.fromPath(
-              "attach_file", attach_file.path));
+          PlatformFile data =attach_file;
+          request.files.add(await http.MultipartFile.fromPath("attach_file", data.path!));
         }
         var pref = await getPref();
         String token = "";
