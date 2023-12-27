@@ -107,16 +107,14 @@ class ApiCalling {
   ///================================================================================================================================///
   /// multipart api
   Future post_work_reason(
-      work_id, reason, work_order_status, escalate_img, escalate_file) async {
+      work_id, reason, escalate_img, escalate_file,work_order_status) async {
     if (await isConnectedToInternet()) {
       try {
         Uri post_work_reason_Uri = Uri.parse(ApiEndpoints.post_work_reason_url);
         var body = <String, String>{
           'work_id': work_id,
-          'wo_status': work_order_status,
           'reason': reason,
-          'escalate_img': escalate_img,
-          'escalate_file': escalate_file,
+          'wo_status': work_order_status,
         };
         var request = http.MultipartRequest('POST', post_work_reason_Uri);
         request.fields.addAll(body);
@@ -127,10 +125,13 @@ class ApiCalling {
           request.files.add(await http.MultipartFile.fromPath(
               "escalate_file", escalate_file.path));
         }
-        //debugPrint(image.path.toString());
-        // request.headers.addAll({
-        //   "Authorization": "Bearer $token",
-        // });
+        var pref = await getPref();
+        String token = "";
+        if (pref.getString(KEYENGTOKEN) != null)
+          token = pref.getString(KEYENGTOKEN);
+        request.headers.addAll({
+          "Authorization": "Bearer $token",
+        });
         http.StreamedResponse response = await request.send();
         final a = await http.Response.fromStream(response);
         print("post_work_parts_Response ===========> ${a.body}");

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -12,9 +11,10 @@ import '../../../constant/colorConstant.dart';
 import '../../../constant/testStyleConstant.dart';
 import '../../../controller/post_work_reason_controller.dart';
 import '../../../utils/helperWidget.dart';
+import '../BottomNavigationPage.dart';
 
 class WoEscalateToSEPage extends StatefulWidget {
-  var work_id;
+  final work_id;
 
   WoEscalateToSEPage({required this.work_id, super.key});
 
@@ -25,6 +25,13 @@ class WoEscalateToSEPage extends StatefulWidget {
 class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
   TextEditingController ReasonController = TextEditingController();
   List uploadedImages = [];
+  bool isApiCall = false;
+
+  /// image variable
+  File? _image;
+  final picker = ImagePicker();
+
+  ///....
 
   @override
   void dispose() {
@@ -121,7 +128,8 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                             child: Center(
                               child: InkWell(
                                 onTap: () {
-                                  getProfileImage(ImageSource.camera);
+                                  // getProfileImage(ImageSource.camera);
+                                  getImageFromCamera();
                                 },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -162,6 +170,12 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                           children: [
                             Container(
                               height: 35.h,
+                              // child: Image.file(
+                              //   _image!,
+                              //   height: 8.h,
+                              //   width: 8.h,
+                              //   fit: BoxFit.fitWidth,
+                              // ),
                               child: CarouselSlider.builder(
                                 options: CarouselOptions(
                                   height: 20.h,
@@ -176,8 +190,7 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                 itemCount: uploadedImages.length,
                                 itemBuilder: (BuildContext context, int index,
                                     int realIndex) {
-                                  var imageUrl =
-                                      uploadedImages[index].toString();
+                                  var imageUrl = uploadedImages[index];
                                   return /*get_tech_summary_data
                                         .data!.beforeAfterImage?[index] == 0
                                 ? Container(
@@ -203,7 +216,8 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                 child: Center(
                                   child: InkWell(
                                     onTap: () {
-                                      getProfileImage(ImageSource.camera);
+                                      // getProfileImage(ImageSource.camera);
+                                      getImageFromCamera();
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -377,7 +391,8 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                 return Column(
                                   children: [
                                     Container(
-                                      color: Colors.blue.shade900.withOpacity(0.2),
+                                      color:
+                                          Colors.blue.shade900.withOpacity(0.2),
                                       height: 4.h,
                                       width: 100.w,
                                       child: Row(
@@ -395,7 +410,15 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                             ),
                                           ),
                                           InkWell(
-                                            onTap: () {},
+                                            onTap: () {
+                                              setState(() {
+                                                selectedFiles.removeAt(index);
+                                                result!.files.removeAt(index);
+                                                if (result!.files.isEmpty) {
+                                                  result = null;
+                                                }
+                                              });
+                                            },
                                             child: Icon(
                                               Icons.highlight_remove,
                                               color: Colors.red,
@@ -404,7 +427,9 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 1.h,)
+                                    SizedBox(
+                                      height: 1.h,
+                                    )
                                   ],
                                 );
                               },
@@ -470,25 +495,69 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                     width: 35.w,
                     child: ElevatedButton(
                       onPressed: () async {
-                        await post_work_reason_controller()
-                            .post_work_reason_controller_method(
-                                widget.work_id,
-                                ReasonController.text,
-                                profileImage,
-                                result,
-                                context);
-                        ReasonController.clear();
+                        setState(() {
+                          isApiCall = true;
+                        });
+                        var a ;
+                        if (uploadedImages.isNotEmpty) {
+                          for (int i = 0; i < uploadedImages.length; i++) {
+                           a =  await post_work_reason_controller()
+                                .post_work_reason_controller_method(
+                                    widget.work_id,
+                                    ReasonController.text,
+                                    uploadedImages[i],
+                                    null,
+                                    context);
+                          }
+                        }
+                        if (selectedFiles.isNotEmpty) {
+                          for (int i = 0; i < selectedFiles.length; i++) {
+                           a =  await post_work_reason_controller()
+                                .post_work_reason_controller_method(
+                                    widget.work_id,
+                                    ReasonController.text,
+                                    null,
+                                    selectedFiles[i].files[i],
+                                    context);
+                          }
+                        }
+                        if (uploadedImages.isEmpty && selectedFiles.isEmpty) {
+                         a =  await post_work_reason_controller()
+                              .post_work_reason_controller_method(
+                                  widget.work_id,
+                                  ReasonController.text,
+                                  null,
+                                  null,
+                                  context);
+                        }
+                        print("Post work reason=======> $a");
+                        if (a['status'].toString() == "true") {
+                          customFlutterToast(a["message"].toString());
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  BottomNavigationPage(BottomIndex: 1, SendTabIndex: 2),
+                            ),
+                          );
+                        } else {
+                          customFlutterToast(a["message"].toString());
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: appThemeColor,
                         side: BorderSide.none,
                         shape: const StadiumBorder(),
                       ),
-                      child: Text(
-                        "Escalate",
-                        style: GoogleFonts.lato(
-                            fontSize: 12.sp, fontWeight: FontWeight.w600),
-                      ),
+                      child: isApiCall
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Escalate",
+                              style: GoogleFonts.lato(
+                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
+                            ),
                     ),
                   ),
                 ],
@@ -508,38 +577,51 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
         //   fit: BoxFit.cover,
         //   width: double.infinity,
         // ),
-        Image(
-          image: AssetImage(imageUrl),
-          fit: BoxFit.cover,
+        Image.file(
+          imageUrl,
+          //  height: 8.h,
           width: double.infinity,
-        )
-        // Positioned(
-        //   top: 0.h,
-        //   right: 0.w,
-        //   child: InkWell(
-        //     child: Container(
-        //       height: 3.h,
-        //       width: 3.h,
-        //       child: Center(
-        //         child: Text(
-        //           "╳",
-        //           style: GoogleFonts.lato(
-        //               color: Colors.white,
-        //               fontSize: 12.sp,
-        //               fontWeight: FontWeight.w600),
-        //         ),
-        //       ),
-        //       color: Colors.red,
-        //     ),
-        //     onTap: () {
-        //       // Remove the image from the list
-        //       setState(() {
-        //         uploadedImages.removeAt(index);
-        //       });
-        //     },
-        //   ),
-        // ),
+          fit: BoxFit.fill,
+        ),
+        Positioned(
+          top: 0.h,
+          right: 0.w,
+          child: InkWell(
+            child: Container(
+              height: 3.h,
+              width: 3.h,
+              child: Center(
+                child: Text(
+                  "╳",
+                  style: GoogleFonts.lato(
+                      color: Colors.white,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+              color: Colors.red,
+            ),
+            onTap: () {
+              // Remove the image from the list
+              setState(() {
+                uploadedImages.removeAt(index);
+              });
+            },
+          ),
+        ),
       ],
     );
+  }
+
+  /// method for taking camera Pic
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        uploadedImages.add(_image);
+      }
+    });
   }
 }

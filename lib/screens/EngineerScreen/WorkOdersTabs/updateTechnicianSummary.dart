@@ -339,13 +339,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                             enlargeCenterPage: true,
                             enableInfiniteScroll: false,
                           ),
-                          itemCount: get_tech_summary_data
-                              .data!.beforeAfterImage?.length,
-                          itemBuilder:
-                              (BuildContext context, int index, int realIndex) {
-                            var imageUrl = get_tech_summary_data
-                                .data!.beforeAfterImage?[index].path
-                                .toString();
+                          itemCount: get_tech_summary_data.data!.beforeAfterImage?.length,
+                          itemBuilder: (BuildContext context, int index, int realIndex) {
+                            var imageUrl = get_tech_summary_data.data!.beforeAfterImage?[index].path.toString();
                             return /*get_tech_summary_data
                                         .data!.beforeAfterImage?[index] == 0
                                 ? Container(
@@ -650,6 +646,10 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                     Theme.of(context).primaryColor),
                               ),
                               onPressed: () async {
+                                setState(() {
+                                  apiCalled = true;
+                                });
+                                var r ;
                                 for (int i = 0; i < selectedFiles.length; i++) {
                                   update_wo_extra_detail_controller()
                                       .update_wo_extra_detail_controller_method(
@@ -661,6 +661,16 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                           "3",
                                           context);
                                   debugPrint("Called For Times = $i");
+                                }
+                                print("update_wo_extra_detail=======> $r");
+                                if (r['status'].toString() == 'true') {
+                                  customFlutterToast(r['message'].toString());
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => updateTechnicianSummary(Work_id: widget.Work_id,)),
+                                  );
+                                } else {
+                                  customFlutterToast(r['message'].toString());
                                 }
                               },
                               child: apiCalled

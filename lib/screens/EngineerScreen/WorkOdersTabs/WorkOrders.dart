@@ -14,7 +14,6 @@ import '../../../controller/update_wo_status_Controller.dart';
 import '../../../controller/verify_otp_to_complete_wo_controller.dart';
 import '../../../model/WorkOrderModel.dart';
 import '../../../utils/helperMethods.dart';
-import '../BottomNavigationPage.dart';
 import '../Drawer/customDrawer.dart';
 import 'AssetDesc/AssetDescrptionPage.dart';
 import 'WorkOrderDescription.dart';

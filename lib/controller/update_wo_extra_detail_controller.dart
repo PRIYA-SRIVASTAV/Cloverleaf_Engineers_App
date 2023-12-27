@@ -14,16 +14,6 @@ class update_wo_extra_detail_controller {
       attach_file,
       img_type == true ? "1" : "2"
     );
-
     /// before_img - 1 , after_img - 2
-    if (r['status'].toString() == 'true') {
-      customFlutterToast(r['message'].toString());
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => updateTechnicianSummary(Work_id: work_id,)),
-      );
-    } else {
-      customFlutterToast(r['message'].toString());
-    }
   }
 }
