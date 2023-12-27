@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class WoEscalateToSEPage extends StatefulWidget {
 
 class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
   TextEditingController ReasonController = TextEditingController();
-  List<String> uploadedImages = [];
+  List uploadedImages = [];
 
   @override
   void dispose() {
@@ -49,6 +50,7 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
     }
   }
 
+  List<FilePickerResult> selectedFiles = [];
   FilePickerResult? result;
 
   @override
@@ -160,23 +162,32 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                           children: [
                             Container(
                               height: 35.h,
-                              child: PageView.builder(
+                              child: CarouselSlider.builder(
+                                options: CarouselOptions(
+                                  height: 20.h,
+                                  autoPlay: true,
+                                  autoPlayInterval: Duration(seconds: 5),
+                                  autoPlayAnimationDuration:
+                                      Duration(milliseconds: 800),
+                                  pauseAutoPlayOnTouch: true,
+                                  enlargeCenterPage: true,
+                                  enableInfiniteScroll: false,
+                                ),
                                 itemCount: uploadedImages.length,
-                                pageSnapping: true,
-                                itemBuilder: (context, index) {
-                                  return Image.asset(
-                                      uploadedImages[index].toString(),
-                                      fit: BoxFit.cover);
+                                itemBuilder: (BuildContext context, int index,
+                                    int realIndex) {
+                                  var imageUrl =
+                                      uploadedImages[index].toString();
+                                  return /*get_tech_summary_data
+                                        .data!.beforeAfterImage?[index] == 0
+                                ? Container(
+                                    height: 20.h,
+                                    width: 100.w,
+                                    color: Colors.grey,
+                                  )
+                                :*/
+                                      buildImageCarouselItem(imageUrl, index);
                                 },
-                                // itemBuilder: (context, pagePosition) {
-                                //   return Container(
-                                //     margin: EdgeInsets.all(10),
-                                //     child: Image.file(
-                                //       profileImage!,
-                                //       fit: BoxFit.cover,
-                                //     ),
-                                //   );
-                                // },
                               ),
                             ),
                             DottedBorder(
@@ -249,15 +260,15 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                           child: InkWell(
                             onTap: () async {
                               result = await FilePicker.platform.pickFiles(
-                                  allowMultiple: false,
+                                  allowMultiple: true,
                                   type: FileType.custom,
                                   allowedExtensions: allowedFiles);
                               if (result == null) {
-                                print("No file selected");
                               } else {
+                                selectedFiles.clear();
                                 setState(() {});
                                 for (var element in result!.files) {
-                                  log(element.name);
+                                  selectedFiles.add(result!);
                                 }
                               }
                             },
@@ -300,7 +311,7 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                     child: Column(
                       children: [
                         Container(
-                          height: 15.h,
+                          height: 10.h,
                           width: 100.w,
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
@@ -319,19 +330,19 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                                     onTap: () async {
                                       result = await FilePicker.platform
                                           .pickFiles(
-                                              allowMultiple: false,
+                                              allowMultiple: true,
                                               type: FileType.custom,
                                               allowedExtensions: allowedFiles);
                                       if (result == null) {
-                                        print("No file selected");
                                       } else {
+                                        selectedFiles.clear();
                                         setState(() {});
                                         for (var element in result!.files) {
-                                          log(element.name);
+                                          selectedFiles.add(result!);
                                         }
                                       }
                                     },
-                                    child: Column(
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
@@ -355,36 +366,51 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: result?.count,
-                            itemBuilder: (context, index) {
-                              //final callLog = callLogs[index];
-                              return Container(
-                                color: Colors.blue.shade900.withOpacity(0.2),
-                                height: 4.h,
-                                width: 100.w,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                        if (selectedFiles.isNotEmpty) ...[
+                          Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              //physics: NeverScrollableScrollPhysics(),
+                              itemCount: selectedFiles.length,
+                              itemBuilder: (context, index) {
+                                //final callLog = callLogs[index];
+                                return Column(
                                   children: [
-                                    Text(
-                                      "${result?.names}",
-                                      style: GoogleFonts.lato(fontSize: 10.sp),
+                                    Container(
+                                      color: Colors.blue.shade900.withOpacity(0.2),
+                                      height: 4.h,
+                                      width: 100.w,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              selectedFiles[index]
+                                                  .files[index]
+                                                  .name
+                                                  .toString(),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: Icon(
+                                              Icons.highlight_remove,
+                                              color: Colors.red,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    Icon(
-                                      Icons.highlight_remove,
-                                      color: Colors.red,
-                                    )
+                                    SizedBox(height: 1.h,)
                                   ],
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
-                        ),
+                        ],
                       ],
                     ),
                   ),
@@ -471,6 +497,49 @@ class _WoEscalateToSEPageState extends State<WoEscalateToSEPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildImageCarouselItem(imageUrl, index) {
+    return Stack(
+      children: [
+        // Image.asset(
+        //   imageUrl,
+        //   fit: BoxFit.cover,
+        //   width: double.infinity,
+        // ),
+        Image(
+          image: AssetImage(imageUrl),
+          fit: BoxFit.cover,
+          width: double.infinity,
+        )
+        // Positioned(
+        //   top: 0.h,
+        //   right: 0.w,
+        //   child: InkWell(
+        //     child: Container(
+        //       height: 3.h,
+        //       width: 3.h,
+        //       child: Center(
+        //         child: Text(
+        //           "╳",
+        //           style: GoogleFonts.lato(
+        //               color: Colors.white,
+        //               fontSize: 12.sp,
+        //               fontWeight: FontWeight.w600),
+        //         ),
+        //       ),
+        //       color: Colors.red,
+        //     ),
+        //     onTap: () {
+        //       // Remove the image from the list
+        //       setState(() {
+        //         uploadedImages.removeAt(index);
+        //       });
+        //     },
+        //   ),
+        // ),
+      ],
     );
   }
 }

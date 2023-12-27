@@ -227,7 +227,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
         child: is_load_Dashboard_data
             ? Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: get_dashboard_data.data.compPerc.isEmpty
+                child: get_dashboard_data.data!.compPerc!.isEmpty
                     ? Center(
                         child: Text("${get_dashboard_data.message.toString()}"),
                       )
@@ -300,7 +300,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        "${get_dashboard_data.data.completed}",
+                                        "${get_dashboard_data.data!.completed}",
                                         style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
                                             color: appThemeColor,
@@ -346,7 +346,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        "${get_dashboard_data.data.ongoing}",
+                                        "${get_dashboard_data.data!.ongoing}",
                                         style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
                                             color: Colors.orange,
@@ -393,7 +393,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        "${get_dashboard_data.data.accelerate}",
+                                        "${get_dashboard_data.data!.accelerate}",
                                         style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w600),
@@ -438,7 +438,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        "${get_dashboard_data.data.assign}",
+                                        "${get_dashboard_data.data!.assign}",
                                         style: GoogleFonts.rubik(
                                             fontSize: 16.sp,
                                             color: Colors.blue,
@@ -489,7 +489,7 @@ class _dashBoardPageState extends State<dashBoardPage> {
                                             size: 16.sp,
                                           ),
                                           Text(
-                                            "${get_dashboard_data.data.payout.toString()}",
+                                            "${get_dashboard_data.data!.payout.toString()}",
                                             style: GoogleFonts.rubik(
                                                 fontSize: 16.sp,
                                                 color: appThemeColor,
@@ -576,11 +576,11 @@ class _dashBoardPageState extends State<dashBoardPage> {
     get_dashboard_data = await Get_Dashboard_percentage_details_Controller()
         .Get_Dashboard_percentage_details_Controller_method();
     Map<String, double> percentage = {
-      'Completed': double.parse(get_dashboard_data.data.compPerc.toString()),
-      'Pending': double.parse(get_dashboard_data.data.pendingPerc.toString()),
+      'Completed': double.parse(get_dashboard_data.data!.compPerc.toString()),
+      'Pending': double.parse(get_dashboard_data.data!.pendingPerc.toString()),
       'UnAccepted':
-          double.parse(get_dashboard_data.data.unassignPerc.toString()),
-      'Accelerated': double.parse(get_dashboard_data.data.accPerc.toString()),
+          double.parse(get_dashboard_data.data!.unassignPerc.toString()),
+      'Accelerated': double.parse(get_dashboard_data.data!.accPerc.toString()),
     };
     dataMap = percentage;
     setState(() {

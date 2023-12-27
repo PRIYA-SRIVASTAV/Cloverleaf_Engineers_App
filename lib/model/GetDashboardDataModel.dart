@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getDashboardDataModel = getDashboardDataModelFromJson(jsonString);
-
 import 'dart:convert';
 
 GetDashboardDataModel getDashboardDataModelFromJson(String str) => GetDashboardDataModel.fromJson(json.decode(str));
@@ -9,52 +5,52 @@ GetDashboardDataModel getDashboardDataModelFromJson(String str) => GetDashboardD
 String getDashboardDataModelToJson(GetDashboardDataModel data) => json.encode(data.toJson());
 
 class GetDashboardDataModel {
-  bool status;
-  Data data;
-  String message;
+  bool? status;
+  Data? data;
+  String? message;
 
   GetDashboardDataModel({
-    required this.status,
-    required this.data,
-    required this.message,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory GetDashboardDataModel.fromJson(Map<String, dynamic> json) => GetDashboardDataModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data?.toJson(),
     "message": message,
   };
 }
 
 class Data {
-  int assign;
-  int ongoing;
-  int accelerate;
-  int completed;
-  int rejected;
-  String payout;
-  String pendingPerc;
-  String unassignPerc;
-  String compPerc;
-  String accPerc;
+  int? assign;
+  int? ongoing;
+  int? accelerate;
+  int? completed;
+  int? rejected;
+  String? payout;
+  String? pendingPerc;
+  String? unassignPerc;
+  String? compPerc;
+  String? accPerc;
 
   Data({
-    required this.assign,
-    required this.ongoing,
-    required this.accelerate,
-    required this.completed,
-    required this.rejected,
-    required this.payout,
-    required this.pendingPerc,
-    required this.unassignPerc,
-    required this.compPerc,
-    required this.accPerc,
+    this.assign,
+    this.ongoing,
+    this.accelerate,
+    this.completed,
+    this.rejected,
+    this.payout,
+    this.pendingPerc,
+    this.unassignPerc,
+    this.compPerc,
+    this.accPerc,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(

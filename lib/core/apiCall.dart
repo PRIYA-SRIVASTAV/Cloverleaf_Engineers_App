@@ -148,7 +148,7 @@ class ApiCalling {
     }
   }
 
-  Future update_technician_summary_detail(work_id, before_after_image, hrs_spent_by_tech, tech_summary, attach_file, img_type) async {
+  Future update_technician_summary_detail (work_id, before_after_image, hrs_spent_by_tech, tech_summary, attach_file, img_type) async {
     if (await isConnectedToInternet()) {
       try {
         Uri update_wo_extra_detail_Url =
@@ -181,6 +181,7 @@ class ApiCalling {
         http.StreamedResponse response = await request.send();
         final a = await http.Response.fromStream(response);
         if (a.statusCode == 200) {
+          debugPrint("======update_technician_summary_detail_api======> ${jsonDecode(a.body)}");
           return jsonDecode(a.body);
         } else {
           customFlutterToast(jsonDecode(a.body)["message"].toString());

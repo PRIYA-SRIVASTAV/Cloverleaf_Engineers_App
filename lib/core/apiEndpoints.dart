@@ -1,6 +1,7 @@
+// var baseUrl = "http://192.168.1.2:8000/api";
 var baseUrl = "https://cloverleafglobal.in/cloverleaf123/public/api";
 class ApiEndpoints {
-  //Api's for Engineer
+///============================== Apis for Engineer =============================================================
   /// post apis
   static String Login_url = "$baseUrl/login";
   static String Update_profile_url = "$baseUrl/update-engineer-profile";
@@ -31,7 +32,7 @@ class ApiEndpoints {
   static String get_Add_Parts_list_Url = "$baseUrl/get-parts/";
   static String get_technician_summary = "$baseUrl/get-wo-extra-detail?work_id=";
 
-//============================== Api's for Subject Expert =============================================================
+///============================== Apis for Subject Expert =============================================================
 
 /// post apis
   static String SE_update_wo_status_url = "$baseUrl/update-se-status";

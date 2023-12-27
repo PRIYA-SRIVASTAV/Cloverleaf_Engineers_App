@@ -1,6 +1,7 @@
 import 'package:cloverleaf_project/core/apiCall.dart';
 import 'package:flutter/material.dart';
 import '../screens/EngineerScreen/BottomNavigationPage.dart';
+import '../screens/EngineerScreen/WorkOdersTabs/updateTechnicianSummary.dart';
 import '../utils/helperWidget.dart';
 
 class update_wo_extra_detail_controller {
@@ -19,7 +20,7 @@ class update_wo_extra_detail_controller {
       customFlutterToast(r['message'].toString());
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BottomNavigationPage()),
+        MaterialPageRoute(builder: (context) => updateTechnicianSummary(Work_id: work_id,)),
       );
     } else {
       customFlutterToast(r['message'].toString());

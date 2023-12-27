@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloverleaf_project/constant/colorConstant.dart';
 import 'package:file_picker/file_picker.dart';
@@ -9,13 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-
 import '../../../constant/testStyleConstant.dart';
 import '../../../controller/Get_technician_summary_controller.dart';
 import '../../../controller/update_wo_extra_detail_controller.dart';
 import '../../../model/GetTechnicianSummaryModel.dart';
 import '../../../utils/helperWidget.dart';
-import '../BottomNavigationPage.dart';
 
 class updateTechnicianSummary extends StatefulWidget {
   var Work_id;
@@ -30,11 +26,8 @@ class updateTechnicianSummary extends StatefulWidget {
 class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
   TextEditingController summaryController = TextEditingController();
   TextEditingController hoursSpent1Controller = TextEditingController();
-  TextEditingController hoursSPent2Controller = TextEditingController();
   FilePickerResult? result;
   List<FilePickerResult> selectedFiles = [];
-
-  // List<FilePickerResult> filePath =[];
   bool After_before_image_type = false;
   List<String> images = [
     'assets/images/asset_1.png',
@@ -44,6 +37,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
   ];
   late GetTechnicianSummaryModel get_tech_summary_data;
   bool is_load_get_tech_summary_data = false;
+  bool apiCalled = false;
 
   @override
   void initState() {
@@ -58,7 +52,6 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
     super.dispose();
     summaryController.dispose();
     hoursSpent1Controller.dispose();
-    hoursSPent2Controller.dispose();
   }
 
   File? profileImage;
@@ -157,16 +150,20 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                             hoursSpent1Controller.text,
                                             summaryController.text,
                                             result,
-                                            false,
+                                            After_before_image_type,
                                             context);
                                   },
-                                  child: Text(
-                                    "Ok",
-                                    style: GoogleFonts.lato(
-                                        fontSize: 12.sp,
-                                        color: appThemeColor,
-                                        fontWeight: FontWeight.w600),
-                                  ),
+                                  child: apiCalled
+                                      ? CircularProgressIndicator(
+                                          color: Colors.white,
+                                        )
+                                      : Text(
+                                          "Ok",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp,
+                                              color: appThemeColor,
+                                              fontWeight: FontWeight.w600),
+                                        ),
                                 ),
                               ],
                             )
@@ -205,10 +202,10 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
     );
   }
 
-  Widget buildImageCarouselItem(String imageUrl, int index) {
+  Widget buildImageCarouselItem(imageUrl, index) {
     return Stack(
       children: [
-        Image.asset(
+        Image.network(
           imageUrl,
           fit: BoxFit.cover,
           width: double.infinity,
@@ -219,10 +216,18 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
             width: 15.w,
             color: appThemeColor,
             child: Center(
-              child: Text(
-                "After",
-                style: GoogleFonts.lato(color: Colors.white, fontSize: 10.sp),
-              ),
+              child:
+                  get_tech_summary_data.data!.beforeAfterImage![index].type == 1
+                      ? Text(
+                          "Before",
+                          style: GoogleFonts.lato(
+                              color: Colors.white, fontSize: 10.sp),
+                        )
+                      : Text(
+                          "After",
+                          style: GoogleFonts.lato(
+                              color: Colors.white, fontSize: 10.sp),
+                        ),
             ),
           ),
         ),
@@ -321,30 +326,53 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CarouselSlider.builder(
-                        options: CarouselOptions(
-                          height: 20.h,
-                          autoPlay: true,
-                          autoPlayInterval: Duration(seconds: 5),
-                          autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
-                          pauseAutoPlayOnTouch: true,
-                          enlargeCenterPage: true,
-                          enableInfiniteScroll: true,
+                      if (get_tech_summary_data
+                          .data!.beforeAfterImage!.isNotEmpty) ...[
+                        CarouselSlider.builder(
+                          options: CarouselOptions(
+                            height: 20.h,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 5),
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 800),
+                            pauseAutoPlayOnTouch: true,
+                            enlargeCenterPage: true,
+                            enableInfiniteScroll: false,
+                          ),
+                          itemCount: get_tech_summary_data
+                              .data!.beforeAfterImage?.length,
+                          itemBuilder:
+                              (BuildContext context, int index, int realIndex) {
+                            var imageUrl = get_tech_summary_data
+                                .data!.beforeAfterImage?[index].path
+                                .toString();
+                            return /*get_tech_summary_data
+                                        .data!.beforeAfterImage?[index] == 0
+                                ? Container(
+                                    height: 20.h,
+                                    width: 100.w,
+                                    color: Colors.grey,
+                                  )
+                                :*/
+                                buildImageCarouselItem(imageUrl, index);
+                          },
                         ),
-                        itemCount: images.length,
-                        itemBuilder:
-                            (BuildContext context, int index, int realIndex) {
-                          final imageUrl = images[index];
-                          return images[index] == 0
-                              ? Container(
-                                  height: 20.h,
-                                  width: 100.w,
-                                  color: Colors.grey,
-                                )
-                              : buildImageCarouselItem(imageUrl, index);
-                        },
-                      ),
+                      ] else ...[
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.sp),
+                              color: Colors.grey.withOpacity(0.3)),
+                          height: 25.h,
+                          width: 80.h,
+                          child: Center(
+                            child: Icon(
+                              Icons.image_outlined,
+                              color: Colors.blue.shade900,
+                              size: 40.sp,
+                            ),
+                          ),
+                        ),
+                      ],
                       SizedBox(
                         height: 3.h,
                       ),
@@ -429,7 +457,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                         children: [
                           Container(
                             height: 6.h,
-                            width: 35.w,
+                            width: 60.w,
                             child: TextFormField(
                               cursorColor: appThemeColor,
                               onChanged: (value) {
@@ -451,30 +479,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                               ),
                             ),
                           ),
-                          Container(
-                            height: 6.h,
-                            width: 35.w,
-                            child: TextFormField(
-                              cursorColor: appThemeColor,
-                              onChanged: (value) {
-                                // setState(() {
-                                //   textValue = value;
-                                // });
-                              },
-                              onTap: () {},
-                              controller: hoursSPent2Controller,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: appThemeColor, width: 0.5.w),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                            ),
-                          ),
+                          SizedBox()
                         ],
                       ),
                       SizedBox(
@@ -523,10 +528,12 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                           ],
                         ),
                       ),
-                      if (selectedFiles.isNotEmpty) ...[
+                      if (get_tech_summary_data
+                          .data!.attachFile!.isNotEmpty) ...[
                         ListView.builder(
                           shrinkWrap: true,
-                          itemCount: selectedFiles.length,
+                          itemCount: get_tech_summary_data
+                              .data!.attachFile!.length,
                           itemBuilder: (context, index) {
                             return Column(
                               children: [
@@ -546,10 +553,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                         Expanded(
                                           flex: 1,
                                           child: Text(
-                                            selectedFiles[index]
-                                                .files[index]
-                                                .name
-                                                .toString(),
+                                            get_tech_summary_data
+                                                .data!.attachFile![index]
+                                                .path![index].toString(),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -572,6 +578,57 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                             );
                           },
                         ),
+                      ] else ...[
+                        if (selectedFiles.isNotEmpty) ...[
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: selectedFiles.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    height: 4.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: appThemeColor.withOpacity(0.2),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              selectedFiles[index]
+                                                  .files[index]
+                                                  .name
+                                                  .toString(),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: Icon(
+                                              Icons.highlight_remove,
+                                              size: 20.sp,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ],
                       ],
                       SizedBox(
                         height: 5.h,
@@ -601,18 +658,25 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                           hoursSpent1Controller.text,
                                           summaryController.text,
                                           selectedFiles[i].files[i],
-                                          false,
+                                          "3",
                                           context);
-
-                                  debugPrint("Called For Times");
+                                  debugPrint("Called For Times = $i");
                                 }
                               },
-                              child: Text(
-                                "Update",
-                                style: GoogleFonts.lato(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600),
-                              ),
+                              child: apiCalled
+                                  ? SizedBox(
+                                      height: 3.h,
+                                      width: 3.h,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : Text(
+                                      "Update",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                             ),
                           ),
                         ],
@@ -632,8 +696,12 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
   void get_tech_summary_data_method() async {
     get_tech_summary_data = await get_technician_summary_controller()
         .get_technician_summary_controller_method(widget.Work_id);
-    setState(() {
-      is_load_get_tech_summary_data = true;
-    });
+    if(get_tech_summary_data.status.toString()=="true"){
+      summaryController.text =  get_tech_summary_data.data!.techSummary.toString();
+      hoursSpent1Controller.text = get_tech_summary_data.data!.hrsSpentByTech.toString();
+      setState(() {
+        is_load_get_tech_summary_data = true;
+      });
+    }
   }
 }

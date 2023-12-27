@@ -29,61 +29,79 @@ class GetTechnicianSummaryModel {
 }
 
 class Data {
-  List<AfterImage>? beforeImage;
-  List<AfterImage>? afterImage;
-  List<AfterImage>? attachFile;
+  List<AttachFile>? beforeAfterImage;
+  List<AttachFile>? attachFile;
   String? techSummary;
   String? hrsSpentByTech;
 
   Data({
-    this.beforeImage,
-    this.afterImage,
+    this.beforeAfterImage,
     this.attachFile,
     this.techSummary,
     this.hrsSpentByTech,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    beforeImage: json["before_image"] == null ? [] : List<AfterImage>.from(json["before_image"]!.map((x) => AfterImage.fromJson(x))),
-    afterImage: json["after_image"] == null ? [] : List<AfterImage>.from(json["after_image"]!.map((x) => AfterImage.fromJson(x))),
-    attachFile: json["attach_file"] == null ? [] : List<AfterImage>.from(json["attach_file"]!.map((x) => AfterImage.fromJson(x))),
+    beforeAfterImage: json["before_after_image"] == null ? [] : List<AttachFile>.from(json["before_after_image"]!.map((x) => AttachFile.fromJson(x))),
+    attachFile: json["attach_file"] == null ? [] : List<AttachFile>.from(json["attach_file"]!.map((x) => AttachFile.fromJson(x))),
     techSummary: json["tech_summary"],
     hrsSpentByTech: json["hrs_spent_by_tech"],
   );
 
   Map<String, dynamic> toJson() => {
-    "before_image": beforeImage == null ? [] : List<dynamic>.from(beforeImage!.map((x) => x.toJson())),
-    "after_image": afterImage == null ? [] : List<dynamic>.from(afterImage!.map((x) => x.toJson())),
+    "before_after_image": beforeAfterImage == null ? [] : List<dynamic>.from(beforeAfterImage!.map((x) => x.toJson())),
     "attach_file": attachFile == null ? [] : List<dynamic>.from(attachFile!.map((x) => x.toJson())),
     "tech_summary": techSummary,
     "hrs_spent_by_tech": hrsSpentByTech,
   };
 }
 
-class AfterImage {
+class AttachFile {
   int? type;
   String? path;
-  String? date;
+  Date? date;
   String? time;
 
-  AfterImage({
+  AttachFile({
     this.type,
     this.path,
     this.date,
     this.time,
   });
 
-  factory AfterImage.fromJson(Map<String, dynamic> json) => AfterImage(
+  factory AttachFile.fromJson(Map<String, dynamic> json) => AttachFile(
     type: json["type"],
     path: json["path"],
-    date: json["date"],
+    date: dateValues.map[json["date"]]!,
     time: json["time"],
   );
 
   Map<String, dynamic> toJson() => {
     "type": type,
     "path": path,
-    "date": date,
+    "date": dateValues.reverse[date],
     "time": time,
   };
+}
+
+enum Date {
+  THE_26_DEC_2023,
+  THE_27_DEC_2023
+}
+
+final dateValues = EnumValues({
+  "26 Dec 2023": Date.THE_26_DEC_2023,
+  "27 Dec 2023": Date.THE_27_DEC_2023
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }
