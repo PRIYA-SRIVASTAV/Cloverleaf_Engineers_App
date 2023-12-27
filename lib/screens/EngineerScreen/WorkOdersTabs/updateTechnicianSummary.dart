@@ -493,7 +493,6 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                             for (var element in result!.files) {
                               // log("Selected File Name" +//
                               // seelement.name.toString());// log("Selected File Name" + result.toString());
-
                               selectedFiles.add(result!);
                             }
                           }
