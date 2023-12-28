@@ -1,40 +1,45 @@
 import 'dart:io';
+
+import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloverleaf_project/constant/colorConstant.dart';
+import 'package:cloverleaf_project/controller/delete_uploaded_files_images_controller.dart';
+import 'package:cloverleaf_project/screens/EngineerScreen/WorkOdersTabs/getTechnicianSummary.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../../../constant/colorConstant.dart';
 import '../../../constant/testStyleConstant.dart';
 import '../../../controller/Get_technician_summary_controller.dart';
 import '../../../controller/update_wo_extra_detail_controller.dart';
 import '../../../model/GetTechnicianSummaryModel.dart';
 import '../../../utils/helperWidget.dart';
 
-class updateTechnicianSummary extends StatefulWidget {
-  var Work_id;
+class updateTechnicianSummary1 extends StatefulWidget {
+  var work_id;
 
-  updateTechnicianSummary({required this.Work_id, super.key});
+  updateTechnicianSummary1({required this.work_id, super.key});
 
   @override
-  State<updateTechnicianSummary> createState() =>
-      _updateTechnicianSummaryState();
+  State<updateTechnicianSummary1> createState() =>
+      _updateTechnicianSummary1State();
 }
 
-class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
+class _updateTechnicianSummary1State extends State<updateTechnicianSummary1> {
   TextEditingController summaryController = TextEditingController();
   TextEditingController hoursSpent1Controller = TextEditingController();
   FilePickerResult? result;
   List<FilePickerResult> selectedFiles = [];
   bool After_before_image_type = false;
-  List<String> images = [
-    'assets/images/asset_1.png',
-    'assets/images/asset_2.webp',
-    'assets/images/asset_3.jpg',
-    'assets/images/asset_4.jpg'
-  ];
+
+  // List<String> images = [
+  //   'assets/images/asset_1.png',
+  //   'assets/images/asset_2.webp',
+  //   'assets/images/asset_3.jpg',
+  //   'assets/images/asset_4.jpg'
+  // ];
   late GetTechnicianSummaryModel get_tech_summary_data;
   bool is_load_get_tech_summary_data = false;
   bool apiCalled = false;
@@ -143,9 +148,12 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                 ),
                                 InkWell(
                                   onTap: () async {
+                                    setState(() {
+                                      apiCalled = true;
+                                    });
                                     await update_wo_extra_detail_controller()
-                                        .update_wo_extra_detail_controller_method(
-                                            widget.Work_id,
+                                        .update_before_after_image_controller_method(
+                                            widget.work_id,
                                             profileImage,
                                             hoursSpent1Controller.text,
                                             summaryController.text,
@@ -154,8 +162,12 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                             context);
                                   },
                                   child: apiCalled
-                                      ? CircularProgressIndicator(
-                                          color: Colors.white,
+                                      ? Container(
+                                          height: 2.h,
+                                          width: 2.h,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.blue.shade900,
+                                          ),
                                         )
                                       : Text(
                                           "Ok",
@@ -251,9 +263,21 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
             ),
             onTap: () {
               // Remove the image from the list
-              setState(() {
-                images.removeAt(index);
-              });
+              delete_uploaded_files_images_controller()
+                  .delete_uploaded_files_images_controller_method(
+                      get_tech_summary_data.data!.beforeAfterImage![index].id
+                          .toString(),
+                      widget.work_id,
+                      get_tech_summary_data.data!.beforeAfterImage![index].name
+                          .toString(),
+                      get_tech_summary_data.data!.beforeAfterImage![index].type
+                          .toString(),
+                      context);
+              if(apiCalled==true){
+                setState(() {
+                  get_tech_summary_data.data!.beforeAfterImage!.removeAt(index);
+                });
+              }
             },
           ),
         ),
@@ -294,7 +318,7 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
       appBar: AppBar(
         elevation: 0.0,
         title: Text(
-          "Technician Summary",
+          "Edit Technician Summary",
           style: dashboardStyle,
         ),
         leading: Builder(
@@ -302,7 +326,14 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
             icon: const Icon(Icons.arrow_back_ios),
             // Icon to represent the drawer
             onPressed: () {
-              Navigator.pop(context); // Open the drawer
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => getTechnicianSummary(
+                    Work_id: widget.work_id,
+                  ),
+                ),
+              );
             },
           ),
         ),
@@ -326,6 +357,25 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.photo_album_outlined,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            "Images",
+                            style: GoogleFonts.lato(
+                                fontSize: 12.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
                       if (get_tech_summary_data
                           .data!.beforeAfterImage!.isNotEmpty) ...[
                         CarouselSlider.builder(
@@ -339,9 +389,13 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                             enlargeCenterPage: true,
                             enableInfiniteScroll: false,
                           ),
-                          itemCount: get_tech_summary_data.data!.beforeAfterImage?.length,
-                          itemBuilder: (BuildContext context, int index, int realIndex) {
-                            var imageUrl = get_tech_summary_data.data!.beforeAfterImage?[index].path.toString();
+                          itemCount: get_tech_summary_data
+                              .data!.beforeAfterImage?.length,
+                          itemBuilder:
+                              (BuildContext context, int index, int realIndex) {
+                            var imageUrl = get_tech_summary_data
+                                .data!.beforeAfterImage?[index].path
+                                .toString();
                             return /*get_tech_summary_data
                                         .data!.beforeAfterImage?[index] == 0
                                 ? Container(
@@ -360,12 +414,20 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                               color: Colors.grey.withOpacity(0.3)),
                           height: 25.h,
                           width: 80.h,
-                          child: Center(
-                            child: Icon(
-                              Icons.image_outlined,
-                              color: Colors.blue.shade900,
-                              size: 40.sp,
-                            ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.image_outlined,
+                                color: Colors.grey,
+                                size: 40.sp,
+                              ),
+                              Text(
+                                "No images selected !!",
+                                style: GoogleFonts.lato(
+                                    color: Colors.grey, fontSize: 12.sp),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -403,10 +465,21 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                       SizedBox(
                         height: 2.h,
                       ),
-                      Text(
-                        "Summary",
-                        style: GoogleFonts.lato(
-                            fontSize: 12.sp, fontWeight: FontWeight.w600),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.summarize_outlined,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            "Summary",
+                            style: GoogleFonts.lato(
+                                fontSize: 12.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 1.h,
@@ -438,12 +511,23 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                         ),
                       ),
                       SizedBox(
-                        height: 4.h,
+                        height: 2.h,
                       ),
-                      Text(
-                        "Hours spent by technician",
-                        style: GoogleFonts.lato(
-                            fontSize: 12.sp, fontWeight: FontWeight.w600),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.access_time_outlined,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            "Hours spent by technician",
+                            style: GoogleFonts.lato(
+                                fontSize: 12.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 1.h,
@@ -524,12 +608,11 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                           ],
                         ),
                       ),
-                      if (get_tech_summary_data
-                          .data!.attachFile!.isNotEmpty) ...[
+                      if (selectedFiles.isNotEmpty) ...[
                         ListView.builder(
                           shrinkWrap: true,
-                          itemCount: get_tech_summary_data
-                              .data!.attachFile!.length,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemCount: selectedFiles.length,
                           itemBuilder: (context, index) {
                             return Column(
                               children: [
@@ -546,14 +629,12 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            get_tech_summary_data
-                                                .data!.attachFile![index]
-                                                .path![index].toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                        Text(
+                                          selectedFiles[index]
+                                              .files[index]
+                                              .name
+                                              .toString(),
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                         InkWell(
                                           onTap: () {},
@@ -574,60 +655,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                             );
                           },
                         ),
-                      ] else ...[
-                        if (selectedFiles.isNotEmpty) ...[
-                          ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: selectedFiles.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  Container(
-                                    height: 4.h,
-                                    width: 100.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: appThemeColor.withOpacity(0.2),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                              selectedFiles[index]
-                                                  .files[index]
-                                                  .name
-                                                  .toString(),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {},
-                                            child: Icon(
-                                              Icons.highlight_remove,
-                                              size: 20.sp,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  )
-                                ],
-                              );
-                            },
-                          ),
-                        ],
                       ],
                       SizedBox(
-                        height: 5.h,
+                        height: 1.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -646,14 +676,10 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                     Theme.of(context).primaryColor),
                               ),
                               onPressed: () async {
-                                setState(() {
-                                  apiCalled = true;
-                                });
-                                var r ;
                                 for (int i = 0; i < selectedFiles.length; i++) {
                                   update_wo_extra_detail_controller()
                                       .update_wo_extra_detail_controller_method(
-                                          widget.Work_id,
+                                          widget.work_id,
                                           profileImage,
                                           hoursSpent1Controller.text,
                                           summaryController.text,
@@ -662,16 +688,9 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
                                           context);
                                   debugPrint("Called For Times = $i");
                                 }
-                                print("update_wo_extra_detail=======> $r");
-                                if (r['status'].toString() == 'true') {
-                                  customFlutterToast(r['message'].toString());
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => updateTechnicianSummary(Work_id: widget.Work_id,)),
-                                  );
-                                } else {
-                                  customFlutterToast(r['message'].toString());
-                                }
+                                setState(() {
+                                  apiCalled = true;
+                                });
                               },
                               child: apiCalled
                                   ? SizedBox(
@@ -705,10 +724,8 @@ class _updateTechnicianSummaryState extends State<updateTechnicianSummary> {
 
   void get_tech_summary_data_method() async {
     get_tech_summary_data = await get_technician_summary_controller()
-        .get_technician_summary_controller_method(widget.Work_id);
-    if(get_tech_summary_data.status.toString()=="true"){
-      summaryController.text =  get_tech_summary_data.data!.techSummary.toString();
-      hoursSpent1Controller.text = get_tech_summary_data.data!.hrsSpentByTech.toString();
+        .get_technician_summary_controller_method(widget.work_id);
+    if (get_tech_summary_data.status.toString() == "true") {
       setState(() {
         is_load_get_tech_summary_data = true;
       });

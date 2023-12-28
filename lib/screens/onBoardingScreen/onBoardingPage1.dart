@@ -132,9 +132,11 @@ class _OnBoardingPage1State extends State<OnBoardingPage1> {
                         ),
                         InkWell(
                           onTap: () {
-                            pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.ease,
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Login_Page(),
+                              ),
                             );
                           },
                           child: Icon(

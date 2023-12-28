@@ -3,9 +3,7 @@ import 'package:cloverleaf_project/controller/Get_Payout_Data_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../model/GetPayoutDataModel.dart';
 import 'ViewDetailsPayout.dart';
 

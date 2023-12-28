@@ -1,5 +1,5 @@
-// var baseUrl = "http://192.168.1.2:8000/api";
-var baseUrl = "https://cloverleafglobal.in/cloverleaf123/public/api";
+// var baseUrl = "http://192.168.1.4:8000/api";
+ var baseUrl = "https://cloverleafglobal.in/cloverleaf123/public/api";
 class ApiEndpoints {
 ///============================== Apis for Engineer =============================================================
   /// post apis
@@ -17,6 +17,7 @@ class ApiEndpoints {
   static String send_otp_to_complete_wo = "$baseUrl/send-otp";
   static String verify_otp_to_complete_wo = "$baseUrl/verify-otp";
   static String update_wo_extra_detail = "$baseUrl/insert-wo-extra-detail";
+  static String delete_uploaded_files_images = "$baseUrl/delete-wo-file";
 
   /// get apis
   static String Work_order_List_Url = "$baseUrl/work-list?wo_status=";
@@ -31,6 +32,7 @@ class ApiEndpoints {
   static String get_payout_by_month3_Url = "$baseUrl/get-payout-detail?payout_id=";
   static String get_Add_Parts_list_Url = "$baseUrl/get-parts/";
   static String get_technician_summary = "$baseUrl/get-wo-extra-detail?work_id=";
+  static String get_escalate_data = "$baseUrl//get-escalate-data?work_id=";
 
 ///============================== Apis for Subject Expert =============================================================
 

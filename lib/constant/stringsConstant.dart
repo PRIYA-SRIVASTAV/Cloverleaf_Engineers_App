@@ -15,7 +15,6 @@
 
 String skip = "Skip";
 String dashboard = "Dashboard";
-String workOrders = "Work Orders";
 String Work_order_status1 ="2";
 String Work_order_status2 ="3";
 String Work_order_status3 ="4";

@@ -57,51 +57,37 @@ class Data {
 }
 
 class AttachFile {
+  int? id;
   int? type;
   String? path;
-  Date? date;
+  String? name;
+  String? date;
   String? time;
 
   AttachFile({
+    this.id,
     this.type,
     this.path,
+    this.name,
     this.date,
     this.time,
   });
 
   factory AttachFile.fromJson(Map<String, dynamic> json) => AttachFile(
+    id: json["id"],
     type: json["type"],
     path: json["path"],
-    date: dateValues.map[json["date"]]!,
+    name: json["name"],
+    date: json["date"],
     time: json["time"],
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
     "type": type,
     "path": path,
-    "date": dateValues.reverse[date],
+    "name": name,
+    "date": date,
     "time": time,
   };
-}
-
-enum Date {
-  THE_26_DEC_2023,
-  THE_27_DEC_2023
-}
-
-final dateValues = EnumValues({
-  "26 Dec 2023": Date.THE_26_DEC_2023,
-  "27 Dec 2023": Date.THE_27_DEC_2023
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

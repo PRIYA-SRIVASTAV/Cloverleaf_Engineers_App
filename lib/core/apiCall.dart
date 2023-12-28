@@ -762,6 +762,59 @@ class ApiCalling {
     }
   }
 
+  Future delete_uploaded_files_images(id,work_id,file_name,file_type) async {
+    if (await isConnectedToInternet()) {
+      try {
+        Uri delete_uploaded_files_images_Uri =
+            Uri.parse(ApiEndpoints.delete_uploaded_files_images);
+        var map = Map<String, dynamic>();
+        map['id'] = id;
+        map['work_id'] = work_id;
+        map['file_name'] = file_name;
+        map['file_type'] = file_type;
+        var delete_uploaded_files_images_Response = await client.post(
+            delete_uploaded_files_images_Uri,
+            body: map,
+            headers: await headerWithoutContentTypeENG());
+        MYAPILOGS(
+            "delete_uploaded_files_images Api", delete_uploaded_files_images_Response);
+        if (delete_uploaded_files_images_Response.statusCode == 200) {
+          return jsonDecode(delete_uploaded_files_images_Response.body);
+        } else {
+          customFlutterToast(
+              jsonDecode(delete_uploaded_files_images_Response.body)['message']
+                  .toString());
+        }
+      } catch (e) {
+        debugPrint('Error: $e');
+      }
+    } else {
+      debugPrint("Please Check Internet Connection");
+    }
+  }
+
+  // Future delete_uploaded_files_images() async {
+  //   if (await isConnectedToInternet()) {
+  //     try {
+  //       Uri delete_uploaded_files_images_Url = Uri.parse(ApiEndpoints.delete_uploaded_files_images);
+  //
+  //       var delete_uploaded_files_images_Response = await client.delete(delete_uploaded_files_images_Url, headers: await headerWithoutContentType());
+  //
+  //       MYAPILOGS("Create task Api", delete_uploaded_files_images_Response);
+  //       if (delete_uploaded_files_images_Response.statusCode == 200) {
+  //         return jsonDecode(delete_uploaded_files_images_Response.body);
+  //       } else {
+  //         customFlutterToast(
+  //             jsonDecode(delete_uploaded_files_images_Response.body)["message"].toString());
+  //       }
+  //     } catch (e) {
+  //       debugPrint('Error: $e');
+  //     }
+  //   } else {
+  //     debugPrint("Please Check Internet Connection");
+  //   }
+  // }
+
   ///================================================================================================================================///
 
   /// ===============================================get Apis=================================================================
@@ -981,6 +1034,26 @@ class ApiCalling {
         MYAPILOGS("get_technician_summary api", get_technician_summary_Response);
         if (get_technician_summary_Response.statusCode == 200) {
           return getTechnicianSummaryModelFromJson(get_technician_summary_Response.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+  Future get_escalate_data(Work_id) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_escalate_data_Uri =
+        Uri.parse("${ApiEndpoints.get_escalate_data}$Work_id");
+        var get_escalate_data_Response = await client.get(
+            get_escalate_data_Uri,
+            headers: await headerWithContentTypeENG());
+        MYAPILOGS("get_escalate_data api", get_escalate_data_Response);
+        if (get_escalate_data_Response.statusCode == 200) {
+          return getTechnicianSummaryModelFromJson(get_escalate_data_Response.body);
         } else {
           Result.error("no internet connection");
         }

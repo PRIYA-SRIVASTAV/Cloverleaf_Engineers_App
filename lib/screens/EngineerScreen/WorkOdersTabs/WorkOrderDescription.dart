@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constant/colorConstant.dart';
-import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
-import '../../../controller/get_Work_order_details_controller.dart';
-import '../../../controller/work_order_list_controller.dart';
-import '../../../model/GetWorkorderdetailsModel.dart';
-import '../../../model/WorkOrderModel.dart';
 import 'Tab2FAB_forPartsList.dart';
 import 'Tab1_WO_Desc_Page.dart';
 
