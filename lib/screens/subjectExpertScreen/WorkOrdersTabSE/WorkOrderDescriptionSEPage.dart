@@ -68,7 +68,6 @@ class _WorkOrderDescriptionSEpageState
     super.dispose();
   }
 
-
   Widget buildImageCarouselItem(bytesImage, index) {
     return Stack(
       children: [
@@ -781,16 +780,13 @@ class _WorkOrderDescriptionSEpageState
                                                                           5.w),
                                                               child: get_SE_work_order_status2
                                                                           .data!
-                                                                          .comment![
-                                                                              widget.Index]
+                                                                          .comment![widget.Index]
                                                                           .commentType
-                                                                          .toString() ==
-                                                                      4
+                                                                          .toString() == 4
                                                                   ? Text(
                                                                       get_SE_work_order_status2
                                                                           .data!
-                                                                          .comment![
-                                                                              widget.Index]
+                                                                          .comment![widget.Index]
                                                                           .comment
                                                                           .toString(),
                                                                       style: GoogleFonts.lato(
@@ -834,114 +830,114 @@ class _WorkOrderDescriptionSEpageState
                                                     ),
                                                   ],
                                                 ),
-                                                // SizedBox(
-                                                //   height: 2.h,
-                                                // ),
-                                                // Padding(
-                                                //     padding:
-                                                //         EdgeInsets.symmetric(
-                                                //             horizontal: 2.h),
-                                                //     child:
-                                                //         get_SE_work_order_status2
-                                                //                 .data!
-                                                //                 .escalateWoData!
-                                                //                 .escalateFile!
-                                                //                 .isNotEmpty
-                                                //             ? isPermission
-                                                //                 ? ListView
-                                                //                     .builder(
-                                                //                     shrinkWrap:
-                                                //                         true,
-                                                //                     itemCount: get_SE_work_order_status2
-                                                //                         .data!
-                                                //                         .escalateWoData!
-                                                //                         .escalateFile!
-                                                //                         .length,
-                                                //                     itemBuilder:
-                                                //                         (BuildContext
-                                                //                                 context,
-                                                //                             int index) {
-                                                //                       return DocumentListTile(
-                                                //                         fileUrl: get_SE_work_order_status2
-                                                //                             .data!
-                                                //                             .escalateWoData!
-                                                //                             .escalateFile![index]
-                                                //                             .path!
-                                                //                             .toString(),
-                                                //                         title: get_SE_work_order_status2
-                                                //                             .data!
-                                                //                             .escalateWoData!
-                                                //                             .escalateFile![index]
-                                                //                             .name!
-                                                //                             .toString(),
-                                                //                       );
-                                                //                     },
-                                                //                   )
-                                                //                 : TextButton(
-                                                //                     onPressed:
-                                                //                         () {
-                                                //                       checkPermission();
-                                                //                       if (isPermission ==
-                                                //                           true) {
-                                                //                         CircularProgressIndicator(
-                                                //                           color:
-                                                //                               appThemeColor,
-                                                //                         );
-                                                //                         Navigator
-                                                //                             .push(
-                                                //                           context,
-                                                //                           MaterialPageRoute(
-                                                //                             builder: (context) =>
-                                                //                                 SEwoInfoPage(
-                                                //                               Tab1Index: widget.Index,
-                                                //                               Work_id: get_SE_work_order_status2.data!.workId.toString(),
-                                                //                             ),
-                                                //                           ),
-                                                //                         );
-                                                //                       }
-                                                //                     },
-                                                //                     child:
-                                                //                         Container(
-                                                //                       height:
-                                                //                           3.h,
-                                                //                       width:
-                                                //                           100.w,
-                                                //                       decoration:
-                                                //                           BoxDecoration(
-                                                //                         color: Colors
-                                                //                             .grey
-                                                //                             .shade300,
-                                                //                         borderRadius:
-                                                //                             BorderRadius.circular(12),
-                                                //                       ),
-                                                //                       child:
-                                                //                           Center(
-                                                //                         child:
-                                                //                             Text(
-                                                //                           "Press to Allow Permission !!!",
-                                                //                           style: GoogleFonts.lato(
-                                                //                               fontSize: 10.sp,
-                                                //                               color: Colors.blue.shade900),
-                                                //                         ),
-                                                //                       ),
-                                                //                     ),
-                                                //                   )
-                                                //             : Row(
-                                                //                 children: [
-                                                //                   Text(
-                                                //                     "No escalated file available !!",
-                                                //                     style: GoogleFonts.lato(
-                                                //                         color: Colors
-                                                //                             .grey),
-                                                //                   ),
-                                                //                   Icon(
-                                                //                     Icons
-                                                //                         .not_interested,
-                                                //                     color: Colors
-                                                //                         .red,
-                                                //                   )
-                                                //                 ],
-                                                //               )),
+                                                SizedBox(
+                                                  height: 2.h,
+                                                ),
+                                                Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 2.h),
+                                                    child:
+                                                        get_SE_work_order_status2
+                                                                .data!
+                                                                .escalateWoData!
+                                                                .escalateFile!
+                                                                .isNotEmpty
+                                                            ? /*isPermission
+                                                                ?*/ ListView.builder(
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    itemCount: get_SE_work_order_status2
+                                                                        .data!
+                                                                        .escalateWoData!
+                                                                        .escalateFile!
+                                                                        .length,
+                                                                    itemBuilder:
+                                                                        (BuildContext
+                                                                                context,
+                                                                            int index) {
+                                                                      return DocumentListTile(
+                                                                        fileUrl: get_SE_work_order_status2
+                                                                            .data!
+                                                                            .escalateWoData!
+                                                                            .escalateFile![index]
+                                                                            .path!
+                                                                            .toString(),
+                                                                        title: get_SE_work_order_status2
+                                                                            .data!
+                                                                            .escalateWoData!
+                                                                            .escalateFile![index]
+                                                                            .name!
+                                                                            .toString(),
+                                                                      );
+                                                                    },
+                                                                  )
+                                                                /*: TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      checkPermission();
+                                                                      if (isPermission ==
+                                                                          true) {
+                                                                        CircularProgressIndicator(
+                                                                          color:
+                                                                              appThemeColor,
+                                                                        );
+                                                                        // Navigator
+                                                                        //     .push(
+                                                                        //   context,
+                                                                        //   MaterialPageRoute(
+                                                                        //     builder: (context) =>
+                                                                        //         SEwoInfoPage(
+                                                                        //       Tab1Index: widget.Index,
+                                                                        //       Work_id: get_SE_work_order_status2.data!.workId.toString(),
+                                                                        //     ),
+                                                                        //   ),
+                                                                        // );
+                                                                      }
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          3.h,
+                                                                      width:
+                                                                          100.w,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .shade300,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12),
+                                                                      ),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          "Press to Allow Permission !!!",
+                                                                          style: GoogleFonts.lato(
+                                                                              fontSize: 10.sp,
+                                                                              color: Colors.blue.shade900),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )*/
+                                                            : Row(
+                                                                children: [
+                                                                  Text(
+                                                                    "No escalated file available !!",
+                                                                    style: GoogleFonts.lato(
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .not_interested,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  )
+                                                                ],
+                                                              ),
+                                                ),
                                                 SizedBox(
                                                   height: 4.h,
                                                 )
@@ -958,7 +954,6 @@ class _WorkOrderDescriptionSEpageState
                                         ),
                                       )
                                     ],
-
                                     // if (is_load_SE_add_parts_list == true) ...[
                                     //   if (get_SE_add_parts_list.data!.isNotEmpty) ...[
                                     //     SizedBox(
