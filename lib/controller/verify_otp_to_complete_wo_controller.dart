@@ -23,7 +23,7 @@ class verify_otp_to_complete_wo_controller {
             builder: (context) =>
                 BottomNavigationPage(
                   BottomIndex: 1,
-                  SendTabIndex: 2,
+                  SendTabIndex: 1,
                 ),
           ),
         );

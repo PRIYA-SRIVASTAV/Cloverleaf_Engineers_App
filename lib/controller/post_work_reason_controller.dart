@@ -5,8 +5,14 @@ import '../screens/EngineerScreen/BottomNavigationPage.dart';
 import '../utils/helperWidget.dart';
 
 class post_work_reason_controller {
-  post_work_reason_controller_method(work_id, reason,escalate_img,escalate_file, context) async {
-    var r = await ApiCalling().post_work_reason(work_id, reason,escalate_img,escalate_file,Work_order_status3);
-    return r ;
+  post_work_reason_controller_method(
+      work_id, reason, escalate_img, escalate_file, context) async {
+    if (reason.toString().isEmpty) {
+      customFlutterToast("reason can't be empty");
+    } else {
+      var r = await ApiCalling().post_work_reason(
+          work_id, reason, escalate_img, escalate_file, Work_order_status3);
+      return r;
+    }
   }
 }

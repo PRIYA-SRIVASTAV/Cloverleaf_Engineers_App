@@ -18,21 +18,21 @@ class update_wo_extra_detail_controller {
     print("update_after_before_img=======> $a");
     if (a['status'].toString() == 'true') {
       customFlutterToast(a['message'].toString());
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => updateTechnicianSummary1(
-            work_id: work_id,
+          builder: (context) => getTechnicianSummary(
+            Work_id: work_id,
           ),
         ),
       );
     } else {
       customFlutterToast(a['message'].toString());
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => updateTechnicianSummary1(
-            work_id: work_id,
+          builder: (context) => getTechnicianSummary(
+            Work_id: work_id,
           ),
         ),
       );
@@ -53,7 +53,7 @@ class update_wo_extra_detail_controller {
     print("update_wo_extra_detail=======> $r");
     if (r['status'].toString() == 'true') {
       customFlutterToast(r['message'].toString());
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => getTechnicianSummary(
@@ -63,7 +63,7 @@ class update_wo_extra_detail_controller {
       );
     } else {
       customFlutterToast(r['message'].toString());
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => getTechnicianSummary(

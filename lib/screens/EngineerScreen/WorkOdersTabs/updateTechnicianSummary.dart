@@ -273,7 +273,7 @@ class _updateTechnicianSummary1State extends State<updateTechnicianSummary1> {
                       get_tech_summary_data.data!.beforeAfterImage![index].type
                           .toString(),
                       context);
-              if(apiCalled==true){
+              if (apiCalled == true) {
                 setState(() {
                   get_tech_summary_data.data!.beforeAfterImage!.removeAt(index);
                 });
@@ -314,410 +314,426 @@ class _updateTechnicianSummary1State extends State<updateTechnicianSummary1> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text(
-          "Edit Technician Summary",
-          style: dashboardStyle,
-        ),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            // Icon to represent the drawer
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => getTechnicianSummary(
-                    Work_id: widget.work_id,
-                  ),
-                ),
-              );
-            },
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          title: Text(
+            "Edit Technician Summary",
+            style: dashboardStyle,
           ),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              // Icon to represent the drawer
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          backgroundColor: appThemeColor,
         ),
         backgroundColor: appThemeColor,
-      ),
-      backgroundColor: appThemeColor,
-      body: Container(
-        height: 100.h,
-        width: 100.w,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0),
-            topRight: Radius.circular(30.0),
+        body: Container(
+          height: 100.h,
+          width: 100.w,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            color: Colors.white,
           ),
-          color: Colors.white,
-        ),
-        child: is_load_get_tech_summary_data
-            ? Padding(
-                padding: EdgeInsets.only(top: 3.h, left: 2.h, right: 2.h),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.photo_album_outlined,
-                            color: Colors.black,
-                          ),
-                          SizedBox(
-                            width: 1.w,
-                          ),
-                          Text(
-                            "Images",
-                            style: GoogleFonts.lato(
-                                fontSize: 12.sp, fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      if (get_tech_summary_data
-                          .data!.beforeAfterImage!.isNotEmpty) ...[
-                        CarouselSlider.builder(
-                          options: CarouselOptions(
-                            height: 20.h,
-                            autoPlay: true,
-                            autoPlayInterval: Duration(seconds: 5),
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
-                            pauseAutoPlayOnTouch: true,
-                            enlargeCenterPage: true,
-                            enableInfiniteScroll: false,
-                          ),
-                          itemCount: get_tech_summary_data
-                              .data!.beforeAfterImage?.length,
-                          itemBuilder:
-                              (BuildContext context, int index, int realIndex) {
-                            var imageUrl = get_tech_summary_data
-                                .data!.beforeAfterImage?[index].path
-                                .toString();
-                            return /*get_tech_summary_data
-                                        .data!.beforeAfterImage?[index] == 0
-                                ? Container(
-                                    height: 20.h,
-                                    width: 100.w,
-                                    color: Colors.grey,
-                                  )
-                                :*/
-                                buildImageCarouselItem(imageUrl, index);
-                          },
-                        ),
-                      ] else ...[
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.sp),
-                              color: Colors.grey.withOpacity(0.3)),
-                          height: 25.h,
-                          width: 80.h,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.image_outlined,
-                                color: Colors.grey,
-                                size: 40.sp,
-                              ),
-                              Text(
-                                "No images selected !!",
-                                style: GoogleFonts.lato(
-                                    color: Colors.grey, fontSize: 12.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          getProfileImage(ImageSource.camera);
-                        },
-                        child: Row(
+          child: is_load_get_tech_summary_data
+              ? Padding(
+                  padding: EdgeInsets.only(top: 3.h, left: 2.h, right: 2.h),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
                             Icon(
-                              Icons.camera_alt,
-                              color: appThemeColor,
-                              size: 30.sp,
-                            ),
-                            Text(
-                              "|",
-                              style: GoogleFonts.lato(
-                                  color: Colors.black,
-                                  fontSize: 35.sp,
-                                  fontWeight: FontWeight.w300),
+                              Icons.photo_album_outlined,
+                              color: Colors.black,
                             ),
                             SizedBox(
                               width: 1.w,
                             ),
-                            Text("Upload image",
-                                style: GoogleFonts.lato(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600)),
+                            Text(
+                              "Images",
+                              style: GoogleFonts.lato(
+                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
+                            ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.summarize_outlined,
-                            color: Colors.black,
-                          ),
-                          SizedBox(
-                            width: 1.w,
-                          ),
-                          Text(
-                            "Summary",
-                            style: GoogleFonts.lato(
-                                fontSize: 12.sp, fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      Container(
-                        height: 6.h,
-                        child: TextFormField(
-                          cursorColor: appThemeColor,
-                          onChanged: (value) {
-                            // setState(() {
-                            //   textValue = value;
-                            // });
-                          },
-                          onTap: () {},
-                          controller: summaryController,
-                          decoration: InputDecoration(
-                            hintText: "enter summary & fixes",
-                            hintStyle: GoogleFonts.lato(
-                                fontSize: 10.sp, color: Colors.grey),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appThemeColor, width: 0.5.w),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
+                        SizedBox(
+                          height: 3.h,
                         ),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.access_time_outlined,
-                            color: Colors.black,
-                          ),
-                          SizedBox(
-                            width: 1.w,
-                          ),
-                          Text(
-                            "Hours spent by technician",
-                            style: GoogleFonts.lato(
-                                fontSize: 12.sp, fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 6.h,
-                            width: 60.w,
-                            child: TextFormField(
-                              cursorColor: appThemeColor,
-                              onChanged: (value) {
-                                // setState(() {
-                                //   textValue = value;
-                                // });
-                              },
-                              onTap: () {},
-                              controller: hoursSpent1Controller,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: appThemeColor, width: 0.5.w),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
+                        if (get_tech_summary_data
+                            .data!.beforeAfterImage!.isNotEmpty) ...[
+                          CarouselSlider.builder(
+                            options: CarouselOptions(
+                              height: 20.h,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 5),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              pauseAutoPlayOnTouch: true,
+                              enlargeCenterPage: true,
+                              enableInfiniteScroll: false,
                             ),
+                            itemCount: get_tech_summary_data
+                                .data!.beforeAfterImage?.length,
+                            itemBuilder: (BuildContext context, int index,
+                                int realIndex) {
+                              var imageUrl = get_tech_summary_data
+                                  .data!.beforeAfterImage?[index].path
+                                  .toString();
+                              return /*get_tech_summary_data
+                                          .data!.beforeAfterImage?[index] == 0
+                                  ? Container(
+                                      height: 20.h,
+                                      width: 100.w,
+                                      color: Colors.grey,
+                                    )
+                                  :*/
+                                  buildImageCarouselItem(imageUrl, index);
+                            },
                           ),
-                          SizedBox()
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          result = await FilePicker.platform.pickFiles(
-                              allowMultiple: true,
-                              type: FileType.custom,
-                              allowedExtensions: allowedFiles);
-                          if (result == null) {
-                          } else {
-                            selectedFiles.clear();
-                            setState(() {});
-                            for (var element in result!.files) {
-                              // log("Selected File Name" +//
-                              // seelement.name.toString());// log("Selected File Name" + result.toString());
-                              selectedFiles.add(result!);
-                            }
-                          }
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
+                        ] else ...[
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.sp),
+                                color: Colors.grey.withOpacity(0.3)),
+                            height: 25.h,
+                            width: 80.h,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Icons.file_present_outlined,
-                                  color: Colors.blue.shade900,
-                                ),
-                                SizedBox(
-                                  width: 1.w,
+                                  Icons.image_outlined,
+                                  color: Colors.grey,
+                                  size: 40.sp,
                                 ),
                                 Text(
-                                  "Attach files",
+                                  "No images selected !!",
                                   style: GoogleFonts.lato(
-                                      color: Colors.blue.shade900,
-                                      fontSize: 12.sp),
-                                )
+                                      color: Colors.grey, fontSize: 12.sp),
+                                ),
                               ],
                             ),
+                          ),
+                        ],
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            getProfileImage(ImageSource.camera);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.camera_alt,
+                                color: appThemeColor,
+                                size: 30.sp,
+                              ),
+                              Text(
+                                "|",
+                                style: GoogleFonts.lato(
+                                    color: Colors.black,
+                                    fontSize: 35.sp,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                              Text("Upload image",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.summarize_outlined,
+                              color: Colors.black,
+                            ),
                             SizedBox(
-                              height: 2.h,
+                              width: 1.w,
+                            ),
+                            Text(
+                              "Summary",
+                              style: GoogleFonts.lato(
+                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
-                      ),
-                      if (selectedFiles.isNotEmpty) ...[
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          itemCount: selectedFiles.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  height: 4.h,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: appThemeColor.withOpacity(0.2),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Container(
+                          height: 6.h,
+                          child: TextFormField(
+                            cursorColor: appThemeColor,
+                            onChanged: (value) {
+                              // setState(() {
+                              //   textValue = value;
+                              // });
+                            },
+                            onTap: () {},
+                            controller: summaryController,
+                            decoration: InputDecoration(
+                              hintText: "enter summary & fixes",
+                              hintStyle: GoogleFonts.lato(
+                                  fontSize: 10.sp, color: Colors.grey),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: appThemeColor, width: 0.5.w),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_outlined,
+                              color: Colors.black,
+                            ),
+                            SizedBox(
+                              width: 1.w,
+                            ),
+                            Text(
+                              "Hours spent by technician",
+                              style: GoogleFonts.lato(
+                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: 6.h,
+                              width: 60.w,
+                              child: TextFormField(
+                                cursorColor: appThemeColor,
+                                onChanged: (value) {
+                                  // setState(() {
+                                  //   textValue = value;
+                                  // });
+                                },
+                                onTap: () {},
+                                controller: hoursSpent1Controller,
+                                decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: appThemeColor, width: 0.5.w),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          selectedFiles[index]
-                                              .files[index]
-                                              .name
-                                              .toString(),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Icon(
-                                            Icons.highlight_remove,
-                                            size: 20.sp,
-                                            color: Colors.red,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox()
+                          ],
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            result = await FilePicker.platform.pickFiles(
+                                allowMultiple: true,
+                                type: FileType.custom,
+                                allowedExtensions: allowedFiles);
+                            if (result == null) {
+                            } else {
+                              selectedFiles.clear();
+                              setState(() {});
+                              for (var element in result!.files) {
+                                // log("Selected File Name" +//
+                                // seelement.name.toString());// log("Selected File Name" + result.toString());
+                                selectedFiles.add(result!);
+                              }
+                            }
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.file_present_outlined,
+                                    color: Colors.blue.shade900,
+                                  ),
+                                  SizedBox(
+                                    width: 1.w,
+                                  ),
+                                  Text(
+                                    "Attach files",
+                                    style: GoogleFonts.lato(
+                                        color: Colors.blue.shade900,
+                                        fontSize: 12.sp),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (selectedFiles.isNotEmpty) ...[
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: AlwaysScrollableScrollPhysics(),
+                            itemCount: selectedFiles.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    height: 4.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: appThemeColor.withOpacity(0.2),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              selectedFiles[index]
+                                                  .files[index]
+                                                  .name
+                                                  .toString(),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          // InkWell(
+                                          //   onTap: () {
+                                          //     setState(() {
+                                          //       selectedFiles.removeAt(index--);
+                                          //       customFlutterToast(
+                                          //           "${selectedFiles[index].files[index].name.toString()} Unselected !!");
+                                          //     });
+                                          //   },
+                                          //   child: Icon(
+                                          //     Icons.highlight_remove,
+                                          //     size: 20.sp,
+                                          //     color: Colors.red,
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                )
-                              ],
-                            );
-                          },
+                                  SizedBox(
+                                    height: 1.h,
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ],
+                        SizedBox(
+                          height: 1.h,
                         ),
-                      ],
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(),
-                          SizedBox(
-                            width: 30.w,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(),
+                            SizedBox(
+                              width: 30.w,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                   ),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Theme.of(context).primaryColor),
                                 ),
-                                backgroundColor: MaterialStateProperty.all(
-                                    Theme.of(context).primaryColor),
-                              ),
-                              onPressed: () async {
-                                for (int i = 0; i < selectedFiles.length; i++) {
+                                onPressed: () async {
+                                  for (int i = 0;
+                                      i < selectedFiles.length;
+                                      i++) {
+                                    update_wo_extra_detail_controller()
+                                        .update_wo_extra_detail_controller_method(
+                                            widget.work_id,
+                                            profileImage,
+                                            hoursSpent1Controller.text,
+                                            summaryController.text,
+                                            selectedFiles[i].files[i],
+                                            "3",
+                                            context);
+                                    debugPrint("Called For Times = $i");
+                                  }
+                                  setState(() {
+                                    apiCalled = true;
+                                  });
                                   update_wo_extra_detail_controller()
                                       .update_wo_extra_detail_controller_method(
                                           widget.work_id,
-                                          profileImage,
+                                          null,
                                           hoursSpent1Controller.text,
                                           summaryController.text,
-                                          selectedFiles[i].files[i],
+                                          null,
                                           "3",
                                           context);
-                                  debugPrint("Called For Times = $i");
-                                }
-                                setState(() {
-                                  apiCalled = true;
-                                });
-                              },
-                              child: apiCalled
-                                  ? SizedBox(
-                                      height: 3.h,
-                                      width: 3.h,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
+                                },
+                                child: apiCalled
+                                    ? SizedBox(
+                                        height: 3.h,
+                                        width: 3.h,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : Text(
+                                        "Update",
+                                        style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600),
                                       ),
-                                    )
-                                  : Text(
-                                      "Update",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w600),
-                                    ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      )
-                    ],
+                          ],
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )
-            : Center(child: CircularProgressIndicator(color: appThemeColor)),
+                )
+              : Center(child: CircularProgressIndicator(color: appThemeColor)),
+        ),
       ),
     );
   }

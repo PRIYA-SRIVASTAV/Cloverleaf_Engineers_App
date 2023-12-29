@@ -30,7 +30,6 @@ class WorkOrders extends StatefulWidget {
 class _WorkOrdersState extends State<WorkOrders> {
   late List<FocusNode> _focusNodes;
   late List<TextEditingController> _otpController;
-
   TextEditingController CommentController = TextEditingController();
   late GetWorkOrderListModel get_work_order_status1;
   late GetWorkOrderListModel get_work_order_status2;
@@ -515,10 +514,11 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     showDialog(
                                                       context: context,
                                                       builder: (context) {
-                                                        return Reject_WO_dialog(context, index);
+                                                        return Reject_WO_dialog(
+                                                            context, index);
                                                       },
                                                     );
-                                                    },
+                                                  },
                                                   child: Text(
                                                     "Reject",
                                                     style: GoogleFonts.lato(
@@ -557,13 +557,12 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                               .all(Colors.blue
                                                                   .shade900),
                                                     ),
-                                                    onPressed: () async {
-                                                      send_otp_to_start_wo_controller().send_otp_to_start_wo_controller_method(get_work_order_status1.data![index].workId.toString());
+                                                    onPressed: () {
                                                       showDialog(
                                                         context: context,
                                                         builder: (context) {
                                                           return wo_start_OTP_dialog(
-                                                              context,index);
+                                                              context, index);
                                                         },
                                                       );
                                                     },
@@ -582,10 +581,19 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     color: Colors.blue.shade900,
                                                     size: 26.sp,
                                                   ),
-                                                  onTap: (){
+                                                  onTap: () {
                                                     Navigator.push(
                                                       context,
-                                                      MaterialPageRoute(builder: (context) => woDetailsAfterAccept(Tab_index1:index)),
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            woDetailsAfterAccept(
+                                                                work_id: get_work_order_status1
+                                                                    .data![
+                                                                        index]
+                                                                    .workId
+                                                                    .toString(),
+                                                                Index: index),
+                                                      ),
                                                     );
                                                   },
                                                 )
@@ -628,11 +636,14 @@ class _WorkOrdersState extends State<WorkOrders> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            WorkOrderDescriptionPage(Work_id: get_work_order_status2.data?[index].workId,
-                                              list_index: index,),
+                                            WorkOrderDescriptionPage(
+                                          Work_id: get_work_order_status2
+                                              .data?[index].workId,
+                                          list_index: index,
+                                        ),
                                       ),
                                     );
-                                   },
+                                  },
                                   child: Card(
                                     shape: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -1239,10 +1250,10 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                     onPressed: () async {
                                                       send_otp_to_complete_wo_controller()
                                                           .send_otp_to_complete_wo_controller_method(
-                                                          get_work_order_status3
-                                                              .data![index]
-                                                              .workId
-                                                              .toString());
+                                                              get_work_order_status3
+                                                                  .data![index]
+                                                                  .workId
+                                                                  .toString());
                                                       showDialog(
                                                         context: context,
                                                         builder: (BuildContext
@@ -1798,9 +1809,8 @@ class _WorkOrdersState extends State<WorkOrders> {
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: appThemeColor,
-                                    width: 0.25.h),
+                              borderSide: BorderSide(
+                                  color: appThemeColor, width: 0.25.h),
                             ),
                             counterText: "",
                             suffixIcon: Icon(Icons.note_alt),
@@ -1833,25 +1843,19 @@ class _WorkOrdersState extends State<WorkOrders> {
                               ),
                               onPressed: () async {
                                 var Work_id;
-                                await getPref()
-                                    .then((value) {
+                                await getPref().then((value) {
                                   value.setString(
                                       KEYWORKID,
-                                      get_work_order_status1
-                                          .data?[index]
-                                          .workId
+                                      get_work_order_status1.data?[index].workId
                                           .toString());
                                 });
-                                await getPref()
-                                    .then((value) {
-                                  Work_id = value
-                                      .getString(KEYWORKID);
+                                await getPref().then((value) {
+                                  Work_id = value.getString(KEYWORKID);
                                 });
-                                debugPrint(
-                                    "@@@@@@@@@@@@@@@@@@@ $Work_id");
+                                debugPrint("@@@@@@@@@@@@@@@@@@@ $Work_id");
                                 await update_wo_status_Controller()
                                     .update_wo_status_rejected_Controller_method(
-                                    Work_id, context);
+                                        Work_id, context);
                                 get_work_order_status1_method();
                               },
                             ),
@@ -1890,7 +1894,7 @@ class _WorkOrdersState extends State<WorkOrders> {
     );
   }
 
-  Widget wo_start_OTP_dialog(context,index) {
+  Widget wo_start_OTP_dialog(context, index) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
@@ -1947,12 +1951,13 @@ class _WorkOrdersState extends State<WorkOrders> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(fontSize: 16.sp),
                                   decoration: InputDecoration(
-                                      counterText: '',
-                                      border: OutlineInputBorder(),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: appThemeColor,
-                                              width: 0.25.h))),
+                                    counterText: '',
+                                    border: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: appThemeColor, width: 0.25.h),
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -1962,8 +1967,24 @@ class _WorkOrdersState extends State<WorkOrders> {
                           height: 2.h,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            InkWell(
+                              onTap: () {
+                                send_otp_to_start_wo_controller()
+                                    .send_otp_to_start_wo_controller_method(
+                                        get_work_order_status3
+                                            .data![index].workId
+                                            .toString());
+                              },
+                              child: Text(
+                                "Get Otp",
+                                style: GoogleFonts.lato(
+                                    color: Colors.blue.shade900,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
                             SizedBox(
                               width: 25.w,
                               child: ElevatedButton(
@@ -1977,16 +1998,20 @@ class _WorkOrdersState extends State<WorkOrders> {
                                       _otpController[3].text.toString() +
                                       _otpController[4].text.toString() +
                                       _otpController[5].text.toString();
-                                  // RegisterOtpController()
-                                  //     .registerOtpMethod(
-                                  //     widget.emailID, otp, context, widget.fromPage)
-                                  verify_otp_to_start_wo_controller().verify_otp_to_start_wo_controller_method(get_work_order_status1.data![index].workId.toString(),otp,context)
-                                      .whenComplete(() => setState(
-                                        () {
-                                      CalledApi = false;
-                                    },
-                                  ),
-                                  );
+                                  verify_otp_to_start_wo_controller()
+                                      .verify_otp_to_start_wo_controller_method(
+                                          get_work_order_status1
+                                              .data![index].workId
+                                              .toString(),
+                                          otp,
+                                          context)
+                                      .whenComplete(
+                                        () => setState(
+                                          () {
+                                            CalledApi = false;
+                                          },
+                                        ),
+                                      );
                                 },
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all(
@@ -2010,48 +2035,6 @@ class _WorkOrdersState extends State<WorkOrders> {
                         SizedBox(
                           height: 2.h,
                         ),
-                        // SizedBox(
-                        //   height: 5.h,
-                        // ),
-                        // TextFormField(
-                        //   controller: ReasonController,
-                        //   maxLength: 100,
-                        //   decoration: InputDecoration(counterStyle: GoogleFonts.rubik(fontSize: 10.sp,color: Colors.grey),
-                        //       suffixIcon: Icon(Icons.note_alt),
-                        //       border: UnderlineInputBorder(),
-                        //       hintText: "Enter reason",
-                        //       hintStyle: GoogleFonts.lato(fontWeight:FontWeight.w600,color: Colors.grey,fontSize: 12.sp)
-                        //   ),
-                        // ),
-                        // SizedBox(height: 3.h),
-                        // Center(
-                        //   child: SizedBox(
-                        //     height: 5.h,
-                        //     width: 40.w,
-                        //     child: ElevatedButton(
-                        //       onPressed: () async {
-                        //         await post_work_reason_controller()
-                        //             .post_work_reason_controller_method(
-                        //             get_work_order_status2
-                        //                 .data![widget.Tab_index1].workId
-                        //                 .toString(),
-                        //             ReasonController.text,
-                        //             context);
-                        //         ReasonController.clear();
-                        //       },
-                        //       style: ElevatedButton.styleFrom(
-                        //         backgroundColor: appThemeColor,
-                        //         side: BorderSide.none,
-                        //         shape: const StadiumBorder(),
-                        //       ),
-                        //       child: Text(
-                        //         "Ask to callback",
-                        //         style:  GoogleFonts.lato(
-                        //             fontSize: 12.sp, color: Colors.white, fontWeight: FontWeight.w600),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -2085,7 +2068,7 @@ class _WorkOrdersState extends State<WorkOrders> {
     );
   }
 
-  Widget complete_OTP_dialog2(context,index) {
+  Widget complete_OTP_dialog2(context, index) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Dialog(
@@ -2142,12 +2125,13 @@ class _WorkOrdersState extends State<WorkOrders> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(fontSize: 16.sp),
                                   decoration: InputDecoration(
-                                      counterText: '',
-                                      border: OutlineInputBorder(),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: appThemeColor,
-                                              width: 0.25.h))),
+                                    counterText: '',
+                                    border: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: appThemeColor, width: 0.25.h),
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -2157,8 +2141,24 @@ class _WorkOrdersState extends State<WorkOrders> {
                           height: 2.h,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            InkWell(
+                              onTap: () {
+                                send_otp_to_start_wo_controller()
+                                    .send_otp_to_start_wo_controller_method(
+                                  get_work_order_status3.data![index].workId
+                                      .toString(),
+                                );
+                              },
+                              child: Text(
+                                "Get Otp",
+                                style: GoogleFonts.lato(
+                                    color: Colors.blue.shade900,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
                             SizedBox(
                               width: 25.w,
                               child: ElevatedButton(
@@ -2174,13 +2174,16 @@ class _WorkOrdersState extends State<WorkOrders> {
                                       _otpController[5].text.toString();
                                   verify_otp_to_complete_wo_controller()
                                       .verify_otp_to_complete_wo_controller_method(
-                                      otp,
-                                      get_work_order_status3.data![index].workId.toString(),context)
+                                          otp,
+                                          get_work_order_status3
+                                              .data![index].workId
+                                              .toString(),
+                                          context)
                                       .whenComplete(() => setState(
-                                        () {
-                                      CalledApi = false;
-                                    },
-                                  ));
+                                            () {
+                                              CalledApi = false;
+                                            },
+                                          ));
                                 },
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all(
@@ -2204,48 +2207,6 @@ class _WorkOrdersState extends State<WorkOrders> {
                         SizedBox(
                           height: 2.h,
                         ),
-                        // SizedBox(
-                        //   height: 5.h,
-                        // ),
-                        // TextFormField(
-                        //   controller: ReasonController,
-                        //   maxLength: 100,
-                        //   decoration: InputDecoration(counterStyle: GoogleFonts.rubik(fontSize: 10.sp,color: Colors.grey),
-                        //       suffixIcon: Icon(Icons.note_alt),
-                        //       border: UnderlineInputBorder(),
-                        //       hintText: "Enter reason",
-                        //       hintStyle: GoogleFonts.lato(fontWeight:FontWeight.w600,color: Colors.grey,fontSize: 12.sp)
-                        //   ),
-                        // ),
-                        // SizedBox(height: 3.h),
-                        // Center(
-                        //   child: SizedBox(
-                        //     height: 5.h,
-                        //     width: 40.w,
-                        //     child: ElevatedButton(
-                        //       onPressed: () async {
-                        //         await post_work_reason_controller()
-                        //             .post_work_reason_controller_method(
-                        //             get_work_order_status2
-                        //                 .data![widget.Tab_index1].workId
-                        //                 .toString(),
-                        //             ReasonController.text,
-                        //             context);
-                        //         ReasonController.clear();
-                        //       },
-                        //       style: ElevatedButton.styleFrom(
-                        //         backgroundColor: appThemeColor,
-                        //         side: BorderSide.none,
-                        //         shape: const StadiumBorder(),
-                        //       ),
-                        //       child: Text(
-                        //         "Ask to callback",
-                        //         style:  GoogleFonts.lato(
-                        //             fontSize: 12.sp, color: Colors.white, fontWeight: FontWeight.w600),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

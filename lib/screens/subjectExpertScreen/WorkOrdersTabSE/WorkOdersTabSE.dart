@@ -11,7 +11,7 @@ import '../../../constant/prefsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
 import '../../../model/SE_Work_order_model.dart';
 import '../../../utils/helperMethods.dart';
-import 'WoInfoPage.dart';
+import 'SEwoInfoPage.dart';
 
 class WorkOrderSE extends StatefulWidget {
   var TabIndex;
@@ -53,7 +53,8 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
             ),
             leading: Builder(
               builder: (context) => IconButton(
-                icon: const Icon(Icons.menu), // Icon to represent the drawer
+                icon: const Icon(Icons.menu),
+                // Icon to represent the drawer
                 onPressed: () {
                   Scaffold.of(context).openDrawer(); // Open the drawer
                 },
@@ -135,33 +136,46 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
                                               height: 3.h,
                                               width: 10.h,
-                                              color: Colors.blue.withOpacity(0.3),
+                                              color:
+                                                  Colors.blue.withOpacity(0.3),
                                               child: Center(
                                                 child: Text(
                                                   "Work-id #${get_SE_work_order_status1.data?[index].workId.toString()}",
                                                   style: GoogleFonts.lato(
                                                       color: Colors.blue,
                                                       fontSize: 10.sp,
-                                                      fontWeight: FontWeight.w600),
+                                                      fontWeight:
+                                                          FontWeight.w600),
                                                 ),
                                               ),
                                             ),
                                             InkWell(
-                                              onTap: (){
+                                              onTap: () {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) =>woInfoPage(Tab1Index: index,),
-
+                                                    builder: (context) => SEwoInfoPage(
+                                                        Tab1Index: index,
+                                                        Work_id:
+                                                            get_SE_work_order_status1
+                                                                .data![index]
+                                                                .workId
+                                                                .toString()),
                                                   ),
                                                 );
                                               },
-                                                child: Icon(Icons.info_outline,color: Colors.blue.shade900,size: 24.sp,))
+                                              child: Icon(
+                                                Icons.info_outline,
+                                                color: Colors.blue.shade900,
+                                                size: 24.sp,
+                                              ),
+                                            )
                                           ],
                                         ),
                                         Row(
@@ -200,7 +214,8 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         SizedBox(height: 0.5.h),
                                                         Text(
                                                           get_SE_work_order_status1
-                                                              .data![index].asset
+                                                              .data![index]
+                                                              .asset
                                                               .toString(),
                                                           style:
                                                               GoogleFonts.lato(
@@ -550,7 +565,11 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             WorkOrderDescriptionSEpage(
-                                                index: index),
+                                          Index: index,
+                                          work_id: get_SE_work_order_status2
+                                              .data![index].workId
+                                              .toString(),
+                                        ),
                                       ),
                                     );
                                   },
@@ -679,7 +698,8 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                           ),
                                                           Text(
                                                             get_SE_work_order_status2
-                                                                .data![index].loc
+                                                                .data![index]
+                                                                .loc
                                                                 .toString(),
                                                             style: GoogleFonts.lato(
                                                                 fontSize: 10.sp,
@@ -864,8 +884,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                           ],
                         ] else ...[
                           Center(
-                            child:
-                            CircularProgressIndicator(
+                            child: CircularProgressIndicator(
                               color: appThemeColor,
                             ),
                           )
@@ -941,7 +960,8 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
                                                         ),
                                                         Text(
                                                           get_SE_work_order_status3
-                                                              .data![index].asset
+                                                              .data![index]
+                                                              .asset
                                                               .toString(),
                                                           style:
                                                               GoogleFonts.lato(

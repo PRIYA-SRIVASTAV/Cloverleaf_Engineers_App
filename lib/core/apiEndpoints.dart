@@ -32,7 +32,6 @@ class ApiEndpoints {
   static String get_payout_by_month3_Url = "$baseUrl/get-payout-detail?payout_id=";
   static String get_Add_Parts_list_Url = "$baseUrl/get-parts/";
   static String get_technician_summary = "$baseUrl/get-wo-extra-detail?work_id=";
-  static String get_escalate_data = "$baseUrl//get-escalate-data?work_id=";
 
 ///============================== Apis for Subject Expert =============================================================
 
@@ -50,4 +49,6 @@ class ApiEndpoints {
   static String SE_get_payout_detail_Url = "$baseUrl/get-payout-detail?payout_id=";
   static String get_SE_status_Url = "$baseUrl/get-user-status";
   static String get_SE_Call_logs_Url = "$baseUrl/call-log-list/";
+  static String get_SE_escalate_data = "$baseUrl/get-escalate-data?work_id=";
+
 }

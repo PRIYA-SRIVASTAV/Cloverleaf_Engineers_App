@@ -10,7 +10,6 @@ import 'package:path/path.dart' as Path;
 
 class DocumentListTile extends StatefulWidget {
   var fileUrl;
-
   var title;
 
   DocumentListTile({required this.title, required this.fileUrl, super.key});
@@ -87,89 +86,89 @@ class _DocumentListTileState extends State<DocumentListTile> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 10.h,
-      shadowColor: Colors.grey.shade100,
+      shadowColor: appThemeColor.withOpacity(0.3),
       child: ListTile(
         title: Text(
           widget.title,
           style: GoogleFonts.lato(fontSize: 10.sp),
         ),
-        leading: InkWell(
-          onTap: () {
-            fileExists && downloading == false
-                ? openFile()
-                : cancelDownload();
-          },
-          child: fileExists && downloading == false
-              ? Icon(Icons.window,color: appThemeColor,)
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.close,
-                      color: Colors.grey,
-                    ),
-                    Text(
-                      "Cancel",
-                      style: GoogleFonts.lato(fontSize: 8.sp),
-                    ),
-                    Text(
-                      "download",
-                      style: GoogleFonts.lato(fontSize: 8.sp),
-                    ),
-                  ],
-                ),
-        ),
-        trailing: InkWell(
-          onTap: () {
-            fileExists && downloading == false
-                ? print("exit")
-                : startDownload();
-          },
-          child: fileExists
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.save,
-                      color: Colors.blue.shade900,
-                    ),
-                    Text(
-                      "Saved",
-                      style: GoogleFonts.lato(fontSize: 8.sp),
-                    ),
-                  ],
-                )
-              : downloading
-                  ? Stack(
-            alignment: Alignment.center,
-                      children: [
-                        CircularProgressIndicator(
-                          value: progress,
-                          strokeWidth: 3,
-                          backgroundColor: Colors.grey,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.blue),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            "${(progress * 100).toStringAsFixed(2)}%",
-                            style: GoogleFonts.lato(fontSize: 8.sp),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.download),
-                        Text(
-                          "Download",
-                          style: GoogleFonts.lato(fontSize: 8.sp),
-                        ),
-                      ],
-                    ),
-        ),
+        // leading: InkWell(
+        //   onTap: () {
+        //     fileExists && downloading == false
+        //         ? openFile()
+        //         : cancelDownload();
+        //   },
+        //   child: fileExists && downloading == false
+        //       ? Icon(Icons.window,color: appThemeColor,)
+        //       : Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Icon(
+        //               Icons.close,
+        //               color: Colors.grey,
+        //             ),
+        //             Text(
+        //               "Cancel",
+        //               style: GoogleFonts.lato(fontSize: 8.sp),
+        //             ),
+        //             Text(
+        //               "download",
+        //               style: GoogleFonts.lato(fontSize: 8.sp),
+        //             ),
+        //           ],
+        //         ),
+        // ),
+        // trailing: InkWell(
+        //   onTap: () {
+        //     fileExists && downloading == false
+        //         ? print("exit")
+        //         : startDownload();
+        //   },
+        //   child: fileExists
+        //       ? Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Icon(
+        //               Icons.save,
+        //               color: Colors.blue.shade900,
+        //             ),
+        //             Text(
+        //               "Saved",
+        //               style: GoogleFonts.lato(fontSize: 8.sp),
+        //             ),
+        //           ],
+        //         )
+        //       : downloading
+        //           ? Stack(
+        //     alignment: Alignment.center,
+        //               children: [
+        //                 CircularProgressIndicator(
+        //                   value: progress,
+        //                   strokeWidth: 3,
+        //                   backgroundColor: Colors.grey,
+        //                   valueColor:
+        //                       AlwaysStoppedAnimation<Color>(Colors.blue),
+        //                 ),
+        //                 Padding(
+        //                   padding: const EdgeInsets.all(4.0),
+        //                   child: Text(
+        //                     "${(progress * 100).toStringAsFixed(2)}%",
+        //                     style: GoogleFonts.lato(fontSize: 8.sp),
+        //                   ),
+        //                 ),
+        //               ],
+        //             )
+        //           : Column(
+        //               mainAxisAlignment: MainAxisAlignment.center,
+        //               children: [
+        //                 Icon(Icons.download),
+        //                 Text(
+        //                   "Download",
+        //                   style: GoogleFonts.lato(fontSize: 8.sp),
+        //                 ),
+        //               ],
+        //             ),
+        // ),
       ),
     );
   }

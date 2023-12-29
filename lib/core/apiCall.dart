@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../constant/prefsConstant.dart';
 import '../model/GetAddPartsListModel.dart';
 import '../model/GetDashboardDataModel.dart';
+import '../model/GetEscalateDataModel.dart';
 import '../model/GetLeaveCalenderModel.dart';
 import '../model/GetPartsModel.dart';
 import '../model/GetPayoutDataModel.dart';
@@ -1043,17 +1044,17 @@ class ApiCalling {
     } catch (_) {}
   }
 
-  Future get_escalate_data(Work_id) async {
+  Future get_SE_escalate_data(Work_id) async {
     try {
       if (await isConnectedToInternet()) {
         Uri get_escalate_data_Uri =
-        Uri.parse("${ApiEndpoints.get_escalate_data}$Work_id");
+        Uri.parse("${ApiEndpoints.get_SE_escalate_data}$Work_id");
         var get_escalate_data_Response = await client.get(
             get_escalate_data_Uri,
-            headers: await headerWithContentTypeENG());
+            headers: await headerWithContentTypeSE());
         MYAPILOGS("get_escalate_data api", get_escalate_data_Response);
         if (get_escalate_data_Response.statusCode == 200) {
-          return getTechnicianSummaryModelFromJson(get_escalate_data_Response.body);
+          return getEscalateDataModelFromJson(get_escalate_data_Response.body);
         } else {
           Result.error("no internet connection");
         }
@@ -1075,24 +1076,6 @@ class ApiCalling {
         MYAPILOGS("get Parts list api", get_Parts_list_Uri_Res);
         if (get_Parts_list_Uri_Res.statusCode == 200) {
           return getPartsModelFromJson(get_Parts_list_Uri_Res.body);
-        } else {
-          Result.error("no internet connection");
-        }
-      } else {
-        customFlutterToast("Check your internet...");
-      }
-    } catch (_) {}
-  }
-
-  Future get_SE_Parts_list() async {
-    try {
-      if (await isConnectedToInternet()) {
-        Uri get_SE_Parts_list_Uri = Uri.parse(ApiEndpoints.get_parts_Url);
-        var get_SE_Parts_list_Uri_Res = await client.get(get_SE_Parts_list_Uri,
-            headers: await headerWithContentTypeSE());
-        MYAPILOGS("get SE Parts list api", get_SE_Parts_list_Uri_Res);
-        if (get_SE_Parts_list_Uri_Res.statusCode == 200) {
-          return getPartsModelFromJson(get_SE_Parts_list_Uri_Res.body);
         } else {
           Result.error("no internet connection");
         }
