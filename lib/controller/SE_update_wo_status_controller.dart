@@ -11,11 +11,11 @@ class SE_update_wo_status_Controller{
     log("SE_update_wo_status accepted $r");
     if (r['status'].toString()=="true") {
       customFlutterToast(r["message"].toString());
+     // update_wo_status_Controller().update_wo_status_completed_Controller_method(work_id, context);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>BottomNavigationPageSE(BottomIndex:1,SendTabIndex:0),
-
+          builder: (context) =>BottomNavigationPageSE(BottomIndex:1,SendTabIndex:1),
         ),
       );
     } else {

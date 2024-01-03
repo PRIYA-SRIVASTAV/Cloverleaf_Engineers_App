@@ -192,9 +192,6 @@ class _WorkOrderDescriptionSEpageState
                                                   NeverScrollableScrollPhysics(),
                                               shrinkWrap: true,
                                               children: [
-                                                SizedBox(
-                                                  height: 2.h,
-                                                ),
                                                 Row(
                                                   children: [
                                                     Icon(
@@ -297,7 +294,7 @@ class _WorkOrderDescriptionSEpageState
                                                   ),
                                                 ],
                                                 SizedBox(
-                                                  height: 5.h,
+                                                  height: 1.h,
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.all(
@@ -556,7 +553,7 @@ class _WorkOrderDescriptionSEpageState
                                                         ],
                                                       ),
                                                       SizedBox(
-                                                        height: 2.h,
+                                                        height: 1.h,
                                                       ),
                                                       Container(
                                                         height: 8.h,
@@ -952,7 +949,7 @@ class _WorkOrderDescriptionSEpageState
                                         child: CircularProgressIndicator(
                                           color: appThemeColor,
                                         ),
-                                      )
+                                      ),
                                     ],
                                     // if (is_load_SE_add_parts_list == true) ...[
                                     //   if (get_SE_add_parts_list.data!.isNotEmpty) ...[

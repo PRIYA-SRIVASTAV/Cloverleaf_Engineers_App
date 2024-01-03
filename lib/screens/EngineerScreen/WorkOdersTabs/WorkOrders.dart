@@ -51,7 +51,13 @@ class _WorkOrdersState extends State<WorkOrders> {
     get_work_order_status3_method();
     get_work_order_status4_method();
   }
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    CommentController.dispose();
+    _otpController.clear();
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -1247,13 +1253,7 @@ class _WorkOrdersState extends State<WorkOrders> {
                                                                       context)
                                                                   .primaryColor),
                                                     ),
-                                                    onPressed: () async {
-                                                      send_otp_to_complete_wo_controller()
-                                                          .send_otp_to_complete_wo_controller_method(
-                                                              get_work_order_status3
-                                                                  .data![index]
-                                                                  .workId
-                                                                  .toString());
+                                                    onPressed: (){
                                                       showDialog(
                                                         context: context,
                                                         builder: (BuildContext
@@ -1669,115 +1669,6 @@ class _WorkOrdersState extends State<WorkOrders> {
     });
   }
 
-  Widget Complete_WO_dialog(context, index) {
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Dialog(
-          child: Container(
-            height: 32.h,
-            child: Stack(
-              // alignment: Alignment.topRight,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 3.h, left: 3.h, right: 3.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Confirmation",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.sp,
-                            color: appThemeColor),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      TextFormField(
-                        controller: CommentController,
-                        maxLength: 100,
-                        decoration: InputDecoration(
-                            counterText: "",
-                            suffixIcon: Icon(Icons.note_alt),
-                            border: UnderlineInputBorder(),
-                            hintText: "Enter any comment"),
-                      ),
-                      SizedBox(height: 2.h),
-                      Text(
-                        'Are you sure you want to mark it as Complete?',
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 12.h, top: 3.h),
-                        child: Row(
-                          children: [
-                            TextButton(
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    fontSize: 10.sp, color: Colors.red),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop(); // Close the dialog
-                              },
-                            ),
-                            TextButton(
-                              child: Text(
-                                'Complete',
-                                style: TextStyle(
-                                    fontSize: 10.sp, color: appThemeColor),
-                              ),
-                              onPressed: () async {
-                                var Work_id;
-                                await getPref().then((value) {
-                                  value.setString(
-                                      KEYWORKID,
-                                      get_work_order_status3.data?[index].workId
-                                          .toString());
-                                });
-                                await getPref().then((value) {
-                                  Work_id = value.getString(KEYWORKID);
-                                });
-                                await update_wo_status_Controller()
-                                    .update_wo_status_completed_Controller_method(
-                                        Work_id, context);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 2,
-                  top: 2,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Align(
-                      alignment: Alignment.topRight,
-                      child: CircleAvatar(
-                        key: Key('closeIconKey'),
-                        radius: 15,
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   Widget Reject_WO_dialog(context, index) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
@@ -2144,12 +2035,11 @@ class _WorkOrdersState extends State<WorkOrders> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
-                              onTap: () {
-                                send_otp_to_start_wo_controller()
-                                    .send_otp_to_start_wo_controller_method(
+                              onTap: () async {
+                                send_otp_to_complete_wo_controller()
+                                    .send_otp_to_complete_wo_controller_method(
                                   get_work_order_status3.data![index].workId
-                                      .toString(),
-                                );
+                                      .toString());
                               },
                               child: Text(
                                 "Get Otp",

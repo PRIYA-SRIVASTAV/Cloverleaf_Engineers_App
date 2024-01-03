@@ -414,11 +414,6 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                                                           .primaryColor),
                                             ),
                                             onPressed: () {
-                                              send_otp_to_complete_wo_controller()
-                                                  .send_otp_to_complete_wo_controller_method(
-                                                      get_work_order_status2
-                                                          .data!.workId
-                                                          .toString());
                                               showDialog(
                                                 context: context,
                                                 builder: (context) {
@@ -542,8 +537,24 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                           height: 2.h,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            InkWell(
+                              onTap: () async {
+                                send_otp_to_complete_wo_controller()
+                                    .send_otp_to_complete_wo_controller_method(
+                                    get_work_order_status2
+                                        .data!.workId
+                                        .toString());
+                              },
+                              child: Text(
+                                "Get Otp",
+                                style: GoogleFonts.lato(
+                                    color: Colors.blue.shade900,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
                             SizedBox(
                               width: 25.w,
                               child: ElevatedButton(
