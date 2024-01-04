@@ -47,22 +47,6 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   File? profileImage;
-
-  Future getProfileImage(ImageSource source) async {
-    try {
-      final profileImage = await ImagePicker().pickImage(source: source);
-      if (profileImage == null) return;
-
-      final profileImageTemporary = File(profileImage.path);
-
-      setState(() {
-        this.profileImage = profileImageTemporary;
-      });
-    } catch (e) {
-      print("Failed to pick image : $e");
-    }
-  }
-
   Widget imageWidget() {
     return profileImage == null
         ? Container(

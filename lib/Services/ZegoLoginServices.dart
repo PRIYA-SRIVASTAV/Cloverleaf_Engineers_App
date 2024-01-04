@@ -40,9 +40,9 @@ onUserLogin() async {
 
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
-      appID: 1428945775 /*input your AppID*/,
+      appID: 55373530 /*input your AppID*/,
       appSign:
-          "20c932546e7897f3c5e699b0407fe84c618877ecdd6d817737f215af24bcbd86" /*input your AppSign*/,
+          "1fd3a12c1d077c2b62f614f78874c990676539210c24f0942ee99c1c0adb76d9" /*input your AppSign*/,
       userID: currentUser.id,
       userName: currentUser.name,
       androidNotificationConfig: ZegoAndroidNotificationConfig(

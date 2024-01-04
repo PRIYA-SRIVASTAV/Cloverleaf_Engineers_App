@@ -239,13 +239,12 @@ class ApiCalling {
     }
   }
 
-  Future Update_SE_Profile_details(name, phone, address1, address2, city, state,
-      zip, oldPass, newPass, confPass) async {
+  Future Update_SE_Profile_details(image, name, phone, address1, address2, city,
+      state, zip, oldPass, newPass, confPass) async {
     if (await isConnectedToInternet()) {
       try {
-        Uri Update_SE_Profile_details_Url =
-            Uri.parse(ApiEndpoints.SE_Update_profile_url);
-        var map = {
+        Uri Update_SE_Profile_details_Url = Uri.parse(ApiEndpoints.SE_Update_profile_url);
+        var body = <String, String>{
           "name": name,
           "phone": phone,
           "address_1": address1,
@@ -257,18 +256,27 @@ class ApiCalling {
           "password": newPass,
           "cpassword": confPass,
         };
-        var Update_SE_Profile_details_Url_Response = await client.post(
-            Update_SE_Profile_details_Url,
-            body: map,
-            headers: await headerWithoutContentTypeSE());
-        MYAPILOGS(
-            "SE Update profile Api", Update_SE_Profile_details_Url_Response);
-        if (Update_SE_Profile_details_Url_Response.statusCode == 200) {
-          return jsonDecode(Update_SE_Profile_details_Url_Response.body);
+        var request = http.MultipartRequest('POST', Update_SE_Profile_details_Url);
+        request.fields.addAll(body);
+        if (image != null) {
+          request.files
+              .add(await http.MultipartFile.fromPath("image", image.path));
+        }
+        var pref = await getPref();
+        String token = "";
+        if (pref.getString(KEYSETOKEN) != null)
+          token = pref.getString(KEYSETOKEN);
+        //debugPrint(image.path.toString());
+        request.headers.addAll({
+          "Authorization": "Bearer $token",
+        });
+        http.StreamedResponse response = await request.send();
+        final a = await http.Response.fromStream(response);
+        debugPrint("Update_SE_Profile_details Api Response ====${a.body}");
+        if (a.statusCode == 200) {
+          return jsonDecode(a.body);
         } else {
-          customFlutterToast(
-              jsonDecode(Update_SE_Profile_details_Url_Response.body)["message"]
-                  .toString());
+          return customFlutterToast(jsonDecode(a.body)["message"].toString());
         }
       } catch (e) {
         debugPrint('Error: $e');

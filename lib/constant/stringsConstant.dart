@@ -49,8 +49,8 @@ String title7 ="     Does it take too long to \ndiagnose the root cause of the \
 String title8 = "Take help of our Digital tool \nand expert panel for timely \n                resolution.";
 
 class MyZegoConst{
-  static const int appId = 1428945775;
-  static const String appSign = "20c932546e7897f3c5e699b0407fe84c618877ecdd6d817737f215af24bcbd86";
+  static const int appId = 55373530;
+  static const String appSign = "1fd3a12c1d077c2b62f614f78874c990676539210c24f0942ee99c1c0adb76d9";
   static String callDuration = "";
   static String callType = "";
   static String callWorkId = "";
