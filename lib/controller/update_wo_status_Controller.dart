@@ -45,7 +45,7 @@ class update_wo_status_Controller{
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>BottomNavigationPage(BottomIndex:1,SendTabIndex:2),
+          builder: (context) =>BottomNavigationPage(BottomIndex:1,SendTabIndex:3),
         ),
       );
     } else {

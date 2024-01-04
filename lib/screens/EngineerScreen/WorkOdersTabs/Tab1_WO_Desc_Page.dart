@@ -60,6 +60,26 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                             children: [
                               if (get_work_order_status2
                                   .data!.clientImages!.isNotEmpty) ...[
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.photo_size_select_actual_outlined,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      width: 1.w,
+                                    ),
+                                    Text(
+                                      "Client Photos",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
                                 CarouselSlider.builder(
                                   options: CarouselOptions(
                                     height: 20.h,
@@ -84,9 +104,57 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                                         bytesImage, index);
                                   },
                                 ),
+                              ] else ...[
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.photo_size_select_actual_outlined,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      width: 1.w,
+                                    ),
+                                    Text(
+                                      "Client Photos",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(12.sp),
+                                      color: Colors.grey.withOpacity(0.3)),
+                                  height: 25.h,
+                                  width: 80.h,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.image_not_supported_outlined,
+                                          color: Colors.grey,
+                                          size: 40.sp,
+                                        ),
+                                        Text(
+                                          "Client photos not available !!",
+                                          style: GoogleFonts.lato(
+                                              color: Colors.grey,
+                                              fontSize: 12.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
                               SizedBox(
-                                height: 6.h,
+                                height:3.h,
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -543,9 +611,8 @@ class _Tab1_WO_DescState extends State<Tab1_WO_Desc> {
                               onTap: () async {
                                 send_otp_to_complete_wo_controller()
                                     .send_otp_to_complete_wo_controller_method(
-                                    get_work_order_status2
-                                        .data!.workId
-                                        .toString());
+                                        get_work_order_status2.data!.workId
+                                            .toString());
                               },
                               child: Text(
                                 "Get Otp",

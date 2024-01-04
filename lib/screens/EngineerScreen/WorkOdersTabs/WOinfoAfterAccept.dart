@@ -78,11 +78,25 @@ class _woDetailsAfterAcceptState extends State<woDetailsAfterAccept> {
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
                                   if (get_work_order_status1
                                       .data!.clientImages!.isNotEmpty) ...[
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.photo_size_select_actual_outlined,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: 1.w,
+                                        ),
+                                        Text(
+                                          "Client Photos",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp, fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 2.h,),
                                     CarouselSlider.builder(
                                       options: CarouselOptions(
                                         height: 20.h,
@@ -107,6 +121,54 @@ class _woDetailsAfterAcceptState extends State<woDetailsAfterAccept> {
                                         return buildImageCarouselItem(
                                             bytesImage, index);
                                       },
+                                    ),
+                                  ]else...[
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.photo_size_select_actual_outlined,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: 1.w,
+                                        ),
+                                        Text(
+                                          "Client Photos",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp, fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(12.sp),
+                                          color: Colors.grey.withOpacity(0.3)),
+                                      height: 25.h,
+                                      width: 80.h,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons
+                                                  .image_not_supported_outlined,
+                                              color: Colors.grey,
+                                              size: 40.sp,
+                                            ),
+                                            Text(
+                                              "Client photos not available !!",
+                                              style: GoogleFonts.lato(
+                                                  color: Colors.grey,
+                                                  fontSize: 12.sp),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ],
                                   SizedBox(

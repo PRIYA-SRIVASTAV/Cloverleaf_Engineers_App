@@ -202,6 +202,6 @@ class _splashScreenState extends State<splashScreen> {
       });
     }
     zegoUserID = cacheUserID;
-    debugPrint("ZegoUserID------------------------>>>$zegoUserID");
+   // debugPrint("ZegoUserID------------------------>>>$zegoUserID");
   }
 }

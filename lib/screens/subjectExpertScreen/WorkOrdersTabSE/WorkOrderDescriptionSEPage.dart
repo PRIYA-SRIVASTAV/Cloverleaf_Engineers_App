@@ -11,22 +11,20 @@ import '../../../constant/colorConstant.dart';
 import '../../../constant/stringsConstant.dart';
 import '../../../constant/testStyleConstant.dart';
 import '../../../controller/Get_Add_Parts_list_controller.dart';
-import '../../../controller/Get_Parts_List_Controller.dart';
 import '../../../model/GetAddPartsListModel.dart';
 import '../../../model/GetEscalateDataModel.dart';
-import '../../../model/GetPartsModel.dart';
 import '../../../utils/helperMethods.dart';
 import 'DocumentListTile.dart';
-
+import 'OrderDetailsTab.dart';
+import 'PartsUsedTab.dart';
+import 'SummaryTab.dart';
 
 class WorkOrderDescriptionSEpage extends StatefulWidget {
   var work_id;
   var Index;
 
   WorkOrderDescriptionSEpage(
-      {required this.Index,
-      required this.work_id,
-      super.key});
+      {required this.Index, required this.work_id, super.key});
 
   @override
   State<WorkOrderDescriptionSEpage> createState() =>
@@ -35,93 +33,22 @@ class WorkOrderDescriptionSEpage extends StatefulWidget {
 
 class _WorkOrderDescriptionSEpageState
     extends State<WorkOrderDescriptionSEpage> {
-  TextEditingController inviteeController = TextEditingController();
-  String? selectedValue;
-  String? dropdownvalue;
-  String? dropdownvalueName;
   late GetEscalateDataModel get_SE_work_order_status2;
-  late GetPartsModel get_SE_parts_list_data;
   late GetAddPartsListModel get_SE_add_parts_list;
   bool is_status2_SE_work_list_load = false;
   bool is_load_SE_add_parts_list = false;
-  bool isPermission = false;
-  var checkAllPermission = CheckPermission();
-
-  checkPermission() async {
-    var permission = await checkAllPermission.isStoragePermission();
-    if (permission) {
-      setState(() {
-        isPermission = true;
-      });
-    }
-  }
 
   @override
   void initState() {
     super.initState();
     get_SE_work_order_status2_method();
-    //get_SE_add_parts_list_method();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Widget buildImageCarouselItem(bytesImage, index) {
-    return Stack(
-      children: [
-        Image.memory(
-          bytesImage,
-          fit: BoxFit.cover,
-          width: double.infinity,
-        ),
-      ],
-    );
-  }
-
-  Widget buildImageCarouselItem2(bytesImage, index) {
-    return Stack(
-      children: [
-        Image.network(
-          bytesImage,
-          fit: BoxFit.cover,
-          width: double.infinity,
-        ),
-        Positioned(
-          child: Container(
-            height: 2.h,
-            width: 15.w,
-            color: appThemeColor,
-            child: Center(
-              child: get_SE_work_order_status2.data!.escalateWoData!
-                  .beforeEscalateImage![index].type ==
-                  2
-                  ? Text(
-                "Before",
-                style: GoogleFonts.lato(
-                    color: Colors.white, fontSize: 10.sp),
-              )
-                  : Text(
-                "Escalate",
-                style: GoogleFonts.lato(
-                    color: Colors.white, fontSize: 10.sp),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (is_status2_SE_work_list_load) {
-      settingDataForPostApiCall();
-    }
     return DefaultTabController(
       initialIndex: 0,
-      length: 2,
+      length: 3,
       child: is_status2_SE_work_list_load
           ? SafeArea(
               child: Scaffold(
@@ -171,9 +98,9 @@ class _WorkOrderDescriptionSEpageState
                                     Tab(
                                       text: 'Summary',
                                     ),
-                                    // Tab(
-                                    //   text: 'Parts Used',
-                                    // ),
+                                    Tab(
+                                      text: 'Parts Used',
+                                    ),
                                   ],
                                 ),
                               ),
@@ -185,772 +112,793 @@ class _WorkOrderDescriptionSEpageState
                                 width: 100.w,
                                 child: TabBarView(
                                   children: [
-                                    if (is_status2_SE_work_list_load == true) ...[
-                                      get_SE_work_order_status2.data != null
-                                          ? ListView(
-                                              physics:
-                                                  NeverScrollableScrollPhysics(),
-                                              shrinkWrap: true,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons
-                                                          .photo_size_select_actual_outlined,
-                                                      color: Colors.black,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 1.w,
-                                                    ),
-                                                    Text(
-                                                      "Client Photos",
-                                                      style: GoogleFonts.lato(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 2.h,
-                                                ),
-                                                if (get_SE_work_order_status2
-                                                    .data!
-                                                    .clientImages!
-                                                    .isNotEmpty) ...[
-                                                  CarouselSlider.builder(
-                                                    options: CarouselOptions(
-                                                      height: 20.h,
-                                                      autoPlay: true,
-                                                      autoPlayInterval:
-                                                          Duration(seconds: 5),
-                                                      autoPlayAnimationDuration:
-                                                          Duration(
-                                                              milliseconds:
-                                                                  800),
-                                                      pauseAutoPlayOnTouch:
-                                                          true,
-                                                      enlargeCenterPage: true,
-                                                      enableInfiniteScroll:
-                                                          true,
-                                                    ),
-                                                    itemCount:
-                                                        get_SE_work_order_status2
-                                                            .data!
-                                                            .clientImages!
-                                                            .length,
-                                                    itemBuilder:
-                                                        (BuildContext context,
-                                                            int index,
-                                                            int realIndex) {
-                                                      String base64 =
-                                                          get_SE_work_order_status2
-                                                              .data!
-                                                              .clientImages![
-                                                                  index]
-                                                              .toString();
-                                                      Uint8List bytesImage =
-                                                          const Base64Decoder()
-                                                              .convert(base64);
-                                                      return buildImageCarouselItem(
-                                                          bytesImage, index);
-                                                    },
-                                                  ),
-                                                ] else ...[
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    12.sp),
-                                                        color: Colors.grey
-                                                            .withOpacity(0.3)),
-                                                    height: 25.h,
-                                                    width: 80.h,
-                                                    child: Center(
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons
-                                                                .image_not_supported_outlined,
-                                                            color: Colors.grey,
-                                                            size: 40.sp,
-                                                          ),
-                                                          Text(
-                                                            "Client photos not available !!",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                        12.sp),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                                SizedBox(
-                                                  height: 1.h,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      12.0),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Expanded(
-                                                            child: Container(
-                                                              height: 30.h,
-                                                              width: 35.w,
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Asset Name",
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                12.sp,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            0.5.h,
-                                                                      ),
-                                                                      Text(
-                                                                        get_SE_work_order_status2
-                                                                            .data!
-                                                                            .assetName
-                                                                            .toString(),
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                10.sp,
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Subject",
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                12.sp,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            0.5.h,
-                                                                      ),
-                                                                      Text(
-                                                                        get_SE_work_order_status2
-                                                                            .data!
-                                                                            .subject
-                                                                            .toString(),
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                10.sp,
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Location",
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                12.sp,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            0.5.h,
-                                                                      ),
-                                                                      Text(
-                                                                        get_SE_work_order_status2
-                                                                            .data!
-                                                                            .location
-                                                                            .toString(),
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                10.sp,
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Description",
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                12.sp,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              0.5.h),
-                                                                      Text(
-                                                                        get_SE_work_order_status2
-                                                                            .data!
-                                                                            .desc
-                                                                            .toString(),
-                                                                        style: GoogleFonts.lato(
-                                                                            fontSize:
-                                                                                10.sp,
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            height: 20.h,
-                                                            width: 30.w,
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      "Status",
-                                                                      style: GoogleFonts.lato(
-                                                                          fontSize: 12
-                                                                              .sp,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height:
-                                                                          0.5.h,
-                                                                    ),
-                                                                    Text(
-                                                                      get_SE_work_order_status2
-                                                                          .data!
-                                                                          .woStatus
-                                                                          .toString(),
-                                                                      style: GoogleFonts.lato(
-                                                                          fontSize: 10
-                                                                              .sp,
-                                                                          color: Colors
-                                                                              .orange,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      "Priority",
-                                                                      style: GoogleFonts.lato(
-                                                                          fontSize: 12
-                                                                              .sp,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height:
-                                                                          0.5.h,
-                                                                    ),
-                                                                    Text(
-                                                                      get_SE_work_order_status2
-                                                                          .data!
-                                                                          .priority
-                                                                          .toString(),
-                                                                      style: GoogleFonts.lato(
-                                                                          fontSize: 10
-                                                                              .sp,
-                                                                          color: Colors
-                                                                              .red,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      "Category",
-                                                                      style: GoogleFonts.lato(
-                                                                          fontSize: 12
-                                                                              .sp,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height:
-                                                                          0.5.h,
-                                                                    ),
-                                                                    Text(
-                                                                      get_SE_work_order_status2
-                                                                          .data!
-                                                                          .category
-                                                                          .toString(),
-                                                                      style: GoogleFonts.lato(
-                                                                          fontSize: 10
-                                                                              .sp,
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 1.h,
-                                                      ),
-                                                      Container(
-                                                        height: 8.h,
-                                                        width: 100.w,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Text(
-                                                              "Video/Voice Call to Engineer",
-                                                              style: GoogleFonts.lato(
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                sendCallButton(
-                                                                  isVideoCall:
-                                                                      false,
-                                                                  inviteeUsersIDTextCtrl:
-                                                                      inviteeController,
-                                                                  onCallFinished:
-                                                                      onSendCallInvitationFinished,
-                                                                ),
-                                                                sendCallButton(
-                                                                  isVideoCall:
-                                                                      true,
-                                                                  inviteeUsersIDTextCtrl:
-                                                                      inviteeController,
-                                                                  onCallFinished:
-                                                                      onSendCallInvitationFinished,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : Center(
-                                              child: Text(
-                                                  "${get_SE_work_order_status2.message.toString()}"),
-                                            ),
-                                    ] else ...[
-                                      Center(
-                                        child: CircularProgressIndicator(
-                                          color: appThemeColor,
-                                        ),
-                                      )
-                                    ],
-                                    if (is_status2_SE_work_list_load == true) ...[
-                                      get_SE_work_order_status2.data != null
-                                          ? ListView(
-                                              physics:
-                                                  AlwaysScrollableScrollPhysics(),
-                                              children: [
-                                                SizedBox(
-                                                  height: 2.h,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons
-                                                          .photo_size_select_actual_outlined,
-                                                      color: Colors.black,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 1.w,
-                                                    ),
-                                                    Text(
-                                                      "Escalate Photos",
-                                                      style: GoogleFonts.lato(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 2.h,
-                                                ),
-                                                if (get_SE_work_order_status2
-                                                    .data!
-                                                    .escalateWoData!
-                                                    .beforeEscalateImage!
-                                                    .isNotEmpty) ...[
-                                                  CarouselSlider.builder(
-                                                    options: CarouselOptions(
-                                                      height: 20.h,
-                                                      autoPlay: true,
-                                                      autoPlayInterval:
-                                                          Duration(seconds: 5),
-                                                      autoPlayAnimationDuration:
-                                                          Duration(
-                                                              milliseconds:
-                                                                  800),
-                                                      pauseAutoPlayOnTouch:
-                                                          true,
-                                                      enlargeCenterPage: true,
-                                                      enableInfiniteScroll:
-                                                          true,
-                                                    ),
-                                                    itemCount:
-                                                        get_SE_work_order_status2
-                                                            .data!
-                                                            .escalateWoData!
-                                                            .beforeEscalateImage!
-                                                            .length,
-                                                    itemBuilder:
-                                                        (BuildContext context,
-                                                            int index,
-                                                            int realIndex) {
-                                                      var imageUrl =
-                                                          get_SE_work_order_status2
-                                                              .data!
-                                                              .escalateWoData!
-                                                              .beforeEscalateImage![
-                                                                  index]
-                                                              .path
-                                                              .toString();
-                                                      return buildImageCarouselItem2(
-                                                          imageUrl, index);
-                                                    },
-                                                  ),
-                                                ] else ...[
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    12.sp),
-                                                        color: Colors.grey
-                                                            .withOpacity(0.3)),
-                                                    height: 25.h,
-                                                    width: 80.h,
-                                                    child: Center(
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons
-                                                                .image_not_supported_outlined,
-                                                            color: Colors.grey,
-                                                            size: 40.sp,
-                                                          ),
-                                                          Text(
-                                                            "Escalated Photos not available !!",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                        12.sp),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons
-                                                          .report_problem_outlined,
-                                                      color: Colors.black,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 1.w,
-                                                    ),
-                                                    Text(
-                                                      "Escalate Reason",
-                                                      style: GoogleFonts.lato(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 2.h,
-                                                ),
-                                                Card(
-                                                  elevation: 3,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 8,
-                                                        horizontal: 5),
-                                                    child: Row(
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 8,
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            ),
-                                                            width:
-                                                                double.infinity,
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          5.w),
-                                                              child: get_SE_work_order_status2
-                                                                          .data!
-                                                                          .comment![widget.Index]
-                                                                          .commentType
-                                                                          .toString() == 4
-                                                                  ? Text(
-                                                                      get_SE_work_order_status2
-                                                                          .data!
-                                                                          .comment![widget.Index]
-                                                                          .comment
-                                                                          .toString(),
-                                                                      style: GoogleFonts.lato(
-                                                                          fontSize:
-                                                                              10.sp),
-                                                                    )
-                                                                  : Text(
-                                                                      "Reason not available !!",
-                                                                      style: GoogleFonts.lato(
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          fontSize:
-                                                                              10.sp),
-                                                                    ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 5.h,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons
-                                                          .drive_file_move_rtl_sharp,
-                                                      color: Colors.black,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 1.w,
-                                                    ),
-                                                    Text(
-                                                      "Escalate Files",
-                                                      style: GoogleFonts.lato(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 2.h,
-                                                ),
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 2.h),
-                                                    child:
-                                                        get_SE_work_order_status2
-                                                                .data!
-                                                                .escalateWoData!
-                                                                .escalateFile!
-                                                                .isNotEmpty
-                                                            ? /*isPermission
-                                                                ?*/ ListView.builder(
-                                                                    shrinkWrap:
-                                                                        true,
-                                                                    itemCount: get_SE_work_order_status2
-                                                                        .data!
-                                                                        .escalateWoData!
-                                                                        .escalateFile!
-                                                                        .length,
-                                                                    itemBuilder:
-                                                                        (BuildContext
-                                                                                context,
-                                                                            int index) {
-                                                                      return DocumentListTile(
-                                                                        fileUrl: get_SE_work_order_status2
-                                                                            .data!
-                                                                            .escalateWoData!
-                                                                            .escalateFile![index]
-                                                                            .path!
-                                                                            .toString(),
-                                                                        title: get_SE_work_order_status2
-                                                                            .data!
-                                                                            .escalateWoData!
-                                                                            .escalateFile![index]
-                                                                            .name!
-                                                                            .toString(),
-                                                                      );
-                                                                    },
-                                                                  )
-                                                                /*: TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      checkPermission();
-                                                                      if (isPermission ==
-                                                                          true) {
-                                                                        CircularProgressIndicator(
-                                                                          color:
-                                                                              appThemeColor,
-                                                                        );
-                                                                        // Navigator
-                                                                        //     .push(
-                                                                        //   context,
-                                                                        //   MaterialPageRoute(
-                                                                        //     builder: (context) =>
-                                                                        //         SEwoInfoPage(
-                                                                        //       Tab1Index: widget.Index,
-                                                                        //       Work_id: get_SE_work_order_status2.data!.workId.toString(),
-                                                                        //     ),
-                                                                        //   ),
-                                                                        // );
-                                                                      }
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          3.h,
-                                                                      width:
-                                                                          100.w,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .shade300,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(12),
-                                                                      ),
-                                                                      child:
-                                                                          Center(
-                                                                        child:
-                                                                            Text(
-                                                                          "Press to Allow Permission !!!",
-                                                                          style: GoogleFonts.lato(
-                                                                              fontSize: 10.sp,
-                                                                              color: Colors.blue.shade900),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  )*/
-                                                            : Row(
-                                                                children: [
-                                                                  Text(
-                                                                    "No escalated file available !!",
-                                                                    style: GoogleFonts.lato(
-                                                                        color: Colors
-                                                                            .grey),
-                                                                  ),
-                                                                  Icon(
-                                                                    Icons
-                                                                        .not_interested,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  )
-                                                                ],
-                                                              ),
-                                                ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                )
-                                              ],
-                                            )
-                                          : Center(
-                                              child: Text(
-                                                  "${get_SE_work_order_status2.message.toString()}"),
-                                            ),
-                                    ] else ...[
-                                      Center(
-                                        child: CircularProgressIndicator(
-                                          color: appThemeColor,
-                                        ),
-                                      ),
-                                    ],
+                                    OrderDetailsTab(
+                                      work_id: widget.work_id,
+                                    ),
+                                    SummaryTab(
+                                      index: widget.Index,
+                                      work_id: get_SE_work_order_status2
+                                          .data!.workId
+                                          .toString(),
+                                    ),
+                                    PartsUsedTab(
+                                      work_id: get_SE_work_order_status2
+                                          .data!.workId
+                                          .toString(),
+                                    ),
+                                    // if (is_status2_SE_work_list_load == true) ...[
+                                    //   get_SE_work_order_status2.data != null
+                                    //       ? ListView(
+                                    //           physics:
+                                    //               NeverScrollableScrollPhysics(),
+                                    //           shrinkWrap: true,
+                                    //           children: [
+                                    //             Row(
+                                    //               children: [
+                                    //                 Icon(
+                                    //                   Icons
+                                    //                       .photo_size_select_actual_outlined,
+                                    //                   color: Colors.black,
+                                    //                 ),
+                                    //                 SizedBox(
+                                    //                   width: 1.w,
+                                    //                 ),
+                                    //                 Text(
+                                    //                   "Client Photos",
+                                    //                   style: GoogleFonts.lato(
+                                    //                       fontSize: 12.sp,
+                                    //                       fontWeight:
+                                    //                           FontWeight.w600),
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //             SizedBox(
+                                    //               height: 2.h,
+                                    //             ),
+                                    //             if (get_SE_work_order_status2
+                                    //                 .data!
+                                    //                 .clientImages!
+                                    //                 .isNotEmpty) ...[
+                                    //               CarouselSlider.builder(
+                                    //                 options: CarouselOptions(
+                                    //                   height: 20.h,
+                                    //                   autoPlay: true,
+                                    //                   autoPlayInterval:
+                                    //                       Duration(seconds: 5),
+                                    //                   autoPlayAnimationDuration:
+                                    //                       Duration(
+                                    //                           milliseconds:
+                                    //                               800),
+                                    //                   pauseAutoPlayOnTouch:
+                                    //                       true,
+                                    //                   enlargeCenterPage: true,
+                                    //                   enableInfiniteScroll:
+                                    //                       true,
+                                    //                 ),
+                                    //                 itemCount:
+                                    //                     get_SE_work_order_status2
+                                    //                         .data!
+                                    //                         .clientImages!
+                                    //                         .length,
+                                    //                 itemBuilder:
+                                    //                     (BuildContext context,
+                                    //                         int index,
+                                    //                         int realIndex) {
+                                    //                   String base64 =
+                                    //                       get_SE_work_order_status2
+                                    //                           .data!
+                                    //                           .clientImages![
+                                    //                               index]
+                                    //                           .toString();
+                                    //                   Uint8List bytesImage =
+                                    //                       const Base64Decoder()
+                                    //                           .convert(base64);
+                                    //                   return buildImageCarouselItem(
+                                    //                       bytesImage, index);
+                                    //                 },
+                                    //               ),
+                                    //             ] else ...[
+                                    //               Container(
+                                    //                 decoration: BoxDecoration(
+                                    //                     borderRadius:
+                                    //                         BorderRadius
+                                    //                             .circular(
+                                    //                                 12.sp),
+                                    //                     color: Colors.grey
+                                    //                         .withOpacity(0.3)),
+                                    //                 height: 25.h,
+                                    //                 width: 80.h,
+                                    //                 child: Center(
+                                    //                   child: Column(
+                                    //                     mainAxisAlignment:
+                                    //                         MainAxisAlignment
+                                    //                             .center,
+                                    //                     children: [
+                                    //                       Icon(
+                                    //                         Icons
+                                    //                             .image_not_supported_outlined,
+                                    //                         color: Colors.grey,
+                                    //                         size: 40.sp,
+                                    //                       ),
+                                    //                       Text(
+                                    //                         "Client photos not available !!",
+                                    //                         style: GoogleFonts
+                                    //                             .lato(
+                                    //                                 color: Colors
+                                    //                                     .grey,
+                                    //                                 fontSize:
+                                    //                                     12.sp),
+                                    //                       ),
+                                    //                     ],
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //             ],
+                                    //             SizedBox(
+                                    //               height: 1.h,
+                                    //             ),
+                                    //             Padding(
+                                    //               padding: const EdgeInsets.all(
+                                    //                   12.0),
+                                    //               child: Column(
+                                    //                 children: [
+                                    //                   Row(
+                                    //                     crossAxisAlignment:
+                                    //                         CrossAxisAlignment
+                                    //                             .start,
+                                    //                     mainAxisAlignment:
+                                    //                         MainAxisAlignment
+                                    //                             .spaceBetween,
+                                    //                     children: [
+                                    //                       Expanded(
+                                    //                         child: Container(
+                                    //                           height: 30.h,
+                                    //                           width: 35.w,
+                                    //                           child: Column(
+                                    //                             mainAxisAlignment:
+                                    //                                 MainAxisAlignment
+                                    //                                     .spaceBetween,
+                                    //                             crossAxisAlignment:
+                                    //                                 CrossAxisAlignment
+                                    //                                     .start,
+                                    //                             children: [
+                                    //                               Column(
+                                    //                                 crossAxisAlignment:
+                                    //                                     CrossAxisAlignment
+                                    //                                         .start,
+                                    //                                 children: [
+                                    //                                   Text(
+                                    //                                     "Asset Name",
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             12.sp,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   ),
+                                    //                                   SizedBox(
+                                    //                                     height:
+                                    //                                         0.5.h,
+                                    //                                   ),
+                                    //                                   Text(
+                                    //                                     get_SE_work_order_status2
+                                    //                                         .data!
+                                    //                                         .assetName
+                                    //                                         .toString(),
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             10.sp,
+                                    //                                         color: Colors.grey,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   )
+                                    //                                 ],
+                                    //                               ),
+                                    //                               Column(
+                                    //                                 crossAxisAlignment:
+                                    //                                     CrossAxisAlignment
+                                    //                                         .start,
+                                    //                                 children: [
+                                    //                                   Text(
+                                    //                                     "Subject",
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             12.sp,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   ),
+                                    //                                   SizedBox(
+                                    //                                     height:
+                                    //                                         0.5.h,
+                                    //                                   ),
+                                    //                                   Text(
+                                    //                                     get_SE_work_order_status2
+                                    //                                         .data!
+                                    //                                         .subject
+                                    //                                         .toString(),
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             10.sp,
+                                    //                                         color: Colors.grey,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   )
+                                    //                                 ],
+                                    //                               ),
+                                    //                               Column(
+                                    //                                 crossAxisAlignment:
+                                    //                                     CrossAxisAlignment
+                                    //                                         .start,
+                                    //                                 children: [
+                                    //                                   Text(
+                                    //                                     "Location",
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             12.sp,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   ),
+                                    //                                   SizedBox(
+                                    //                                     height:
+                                    //                                         0.5.h,
+                                    //                                   ),
+                                    //                                   Text(
+                                    //                                     get_SE_work_order_status2
+                                    //                                         .data!
+                                    //                                         .location
+                                    //                                         .toString(),
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             10.sp,
+                                    //                                         color: Colors.grey,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   )
+                                    //                                 ],
+                                    //                               ),
+                                    //                               Column(
+                                    //                                 crossAxisAlignment:
+                                    //                                     CrossAxisAlignment
+                                    //                                         .start,
+                                    //                                 children: [
+                                    //                                   Text(
+                                    //                                     "Description",
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             12.sp,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   ),
+                                    //                                   SizedBox(
+                                    //                                       height:
+                                    //                                           0.5.h),
+                                    //                                   Text(
+                                    //                                     get_SE_work_order_status2
+                                    //                                         .data!
+                                    //                                         .desc
+                                    //                                         .toString(),
+                                    //                                     style: GoogleFonts.lato(
+                                    //                                         fontSize:
+                                    //                                             10.sp,
+                                    //                                         color: Colors.grey,
+                                    //                                         fontWeight: FontWeight.w600),
+                                    //                                   )
+                                    //                                 ],
+                                    //                               ),
+                                    //                             ],
+                                    //                           ),
+                                    //                         ),
+                                    //                       ),
+                                    //                       Container(
+                                    //                         height: 20.h,
+                                    //                         width: 30.w,
+                                    //                         child: Column(
+                                    //                           mainAxisAlignment:
+                                    //                               MainAxisAlignment
+                                    //                                   .spaceBetween,
+                                    //                           crossAxisAlignment:
+                                    //                               CrossAxisAlignment
+                                    //                                   .start,
+                                    //                           children: [
+                                    //                             Column(
+                                    //                               crossAxisAlignment:
+                                    //                                   CrossAxisAlignment
+                                    //                                       .start,
+                                    //                               children: [
+                                    //                                 Text(
+                                    //                                   "Status",
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       fontSize: 12
+                                    //                                           .sp,
+                                    //                                       fontWeight:
+                                    //                                           FontWeight.w600),
+                                    //                                 ),
+                                    //                                 SizedBox(
+                                    //                                   height:
+                                    //                                       0.5.h,
+                                    //                                 ),
+                                    //                                 Text(
+                                    //                                   get_SE_work_order_status2
+                                    //                                       .data!
+                                    //                                       .woStatus
+                                    //                                       .toString(),
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       fontSize: 10
+                                    //                                           .sp,
+                                    //                                       color: Colors
+                                    //                                           .orange,
+                                    //                                       fontWeight:
+                                    //                                           FontWeight.w600),
+                                    //                                 )
+                                    //                               ],
+                                    //                             ),
+                                    //                             Column(
+                                    //                               crossAxisAlignment:
+                                    //                                   CrossAxisAlignment
+                                    //                                       .start,
+                                    //                               children: [
+                                    //                                 Text(
+                                    //                                   "Priority",
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       fontSize: 12
+                                    //                                           .sp,
+                                    //                                       fontWeight:
+                                    //                                           FontWeight.w600),
+                                    //                                 ),
+                                    //                                 SizedBox(
+                                    //                                   height:
+                                    //                                       0.5.h,
+                                    //                                 ),
+                                    //                                 Text(
+                                    //                                   get_SE_work_order_status2
+                                    //                                       .data!
+                                    //                                       .priority
+                                    //                                       .toString(),
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       fontSize: 10
+                                    //                                           .sp,
+                                    //                                       color: Colors
+                                    //                                           .red,
+                                    //                                       fontWeight:
+                                    //                                           FontWeight.w600),
+                                    //                                 )
+                                    //                               ],
+                                    //                             ),
+                                    //                             Column(
+                                    //                               crossAxisAlignment:
+                                    //                                   CrossAxisAlignment
+                                    //                                       .start,
+                                    //                               children: [
+                                    //                                 Text(
+                                    //                                   "Category",
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       fontSize: 12
+                                    //                                           .sp,
+                                    //                                       fontWeight:
+                                    //                                           FontWeight.w600),
+                                    //                                 ),
+                                    //                                 SizedBox(
+                                    //                                   height:
+                                    //                                       0.5.h,
+                                    //                                 ),
+                                    //                                 Text(
+                                    //                                   get_SE_work_order_status2
+                                    //                                       .data!
+                                    //                                       .category
+                                    //                                       .toString(),
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       fontSize: 10
+                                    //                                           .sp,
+                                    //                                       color: Colors
+                                    //                                           .grey,
+                                    //                                       fontWeight:
+                                    //                                           FontWeight.w600),
+                                    //                                 )
+                                    //                               ],
+                                    //                             ),
+                                    //                           ],
+                                    //                         ),
+                                    //                       ),
+                                    //                     ],
+                                    //                   ),
+                                    //                   SizedBox(
+                                    //                     height: 1.h,
+                                    //                   ),
+                                    //                   Container(
+                                    //                     height: 8.h,
+                                    //                     width: 100.w,
+                                    //                     child: Row(
+                                    //                       mainAxisAlignment:
+                                    //                           MainAxisAlignment
+                                    //                               .spaceBetween,
+                                    //                       children: [
+                                    //                         Text(
+                                    //                           "Video/Voice Call to Engineer",
+                                    //                           style: GoogleFonts.lato(
+                                    //                               fontSize:
+                                    //                                   12.sp,
+                                    //                               fontWeight:
+                                    //                                   FontWeight
+                                    //                                       .w600),
+                                    //                         ),
+                                    //                         Row(
+                                    //                           children: [
+                                    //                             sendCallButton(
+                                    //                               isVideoCall:
+                                    //                                   false,
+                                    //                               inviteeUsersIDTextCtrl:
+                                    //                                   inviteeController,
+                                    //                               onCallFinished:
+                                    //                                   onSendCallInvitationFinished,
+                                    //                             ),
+                                    //                             sendCallButton(
+                                    //                               isVideoCall:
+                                    //                                   true,
+                                    //                               inviteeUsersIDTextCtrl:
+                                    //                                   inviteeController,
+                                    //                               onCallFinished:
+                                    //                                   onSendCallInvitationFinished,
+                                    //                             ),
+                                    //                           ],
+                                    //                         ),
+                                    //                       ],
+                                    //                     ),
+                                    //                   ),
+                                    //                 ],
+                                    //               ),
+                                    //             ),
+                                    //           ],
+                                    //         )
+                                    //       : Center(
+                                    //           child: Text(
+                                    //               "${get_SE_work_order_status2.message.toString()}"),
+                                    //         ),
+                                    // ] else ...[
+                                    //   Center(
+                                    //     child: CircularProgressIndicator(
+                                    //       color: appThemeColor,
+                                    //     ),
+                                    //   )
+                                    // ],
+                                    // if (is_status2_SE_work_list_load == true) ...[
+                                    //   get_SE_work_order_status2.data != null
+                                    //       ? ListView(
+                                    //           physics:
+                                    //               AlwaysScrollableScrollPhysics(),
+                                    //           children: [
+                                    //             SizedBox(
+                                    //               height: 2.h,
+                                    //             ),
+                                    //             Row(
+                                    //               children: [
+                                    //                 Icon(
+                                    //                   Icons
+                                    //                       .photo_size_select_actual_outlined,
+                                    //                   color: Colors.black,
+                                    //                 ),
+                                    //                 SizedBox(
+                                    //                   width: 1.w,
+                                    //                 ),
+                                    //                 Text(
+                                    //                   "Escalate Photos",
+                                    //                   style: GoogleFonts.lato(
+                                    //                       fontSize: 12.sp,
+                                    //                       fontWeight:
+                                    //                           FontWeight.w600),
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //             SizedBox(
+                                    //               height: 2.h,
+                                    //             ),
+                                    //             if (get_SE_work_order_status2
+                                    //                 .data!
+                                    //                 .escalateWoData!
+                                    //                 .beforeEscalateImage!
+                                    //                 .isNotEmpty) ...[
+                                    //               CarouselSlider.builder(
+                                    //                 options: CarouselOptions(
+                                    //                   height: 20.h,
+                                    //                   autoPlay: true,
+                                    //                   autoPlayInterval:
+                                    //                       Duration(seconds: 5),
+                                    //                   autoPlayAnimationDuration:
+                                    //                       Duration(
+                                    //                           milliseconds:
+                                    //                               800),
+                                    //                   pauseAutoPlayOnTouch:
+                                    //                       true,
+                                    //                   enlargeCenterPage: true,
+                                    //                   enableInfiniteScroll:
+                                    //                       true,
+                                    //                 ),
+                                    //                 itemCount:
+                                    //                     get_SE_work_order_status2
+                                    //                         .data!
+                                    //                         .escalateWoData!
+                                    //                         .beforeEscalateImage!
+                                    //                         .length,
+                                    //                 itemBuilder:
+                                    //                     (BuildContext context,
+                                    //                         int index,
+                                    //                         int realIndex) {
+                                    //                   var imageUrl =
+                                    //                       get_SE_work_order_status2
+                                    //                           .data!
+                                    //                           .escalateWoData!
+                                    //                           .beforeEscalateImage![
+                                    //                               index]
+                                    //                           .path
+                                    //                           .toString();
+                                    //                   return buildImageCarouselItem2(
+                                    //                       imageUrl, index);
+                                    //                 },
+                                    //               ),
+                                    //             ] else ...[
+                                    //               Container(
+                                    //                 decoration: BoxDecoration(
+                                    //                     borderRadius:
+                                    //                         BorderRadius
+                                    //                             .circular(
+                                    //                                 12.sp),
+                                    //                     color: Colors.grey
+                                    //                         .withOpacity(0.3)),
+                                    //                 height: 25.h,
+                                    //                 width: 80.h,
+                                    //                 child: Center(
+                                    //                   child: Column(
+                                    //                     mainAxisAlignment:
+                                    //                         MainAxisAlignment
+                                    //                             .center,
+                                    //                     children: [
+                                    //                       Icon(
+                                    //                         Icons
+                                    //                             .image_not_supported_outlined,
+                                    //                         color: Colors.grey,
+                                    //                         size: 40.sp,
+                                    //                       ),
+                                    //                       Text(
+                                    //                         "Escalated Photos not available !!",
+                                    //                         style: GoogleFonts
+                                    //                             .lato(
+                                    //                                 color: Colors
+                                    //                                     .grey,
+                                    //                                 fontSize:
+                                    //                                     12.sp),
+                                    //                       ),
+                                    //                     ],
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //             ],
+                                    //             SizedBox(
+                                    //               height: 4.h,
+                                    //             ),
+                                    //             Row(
+                                    //               children: [
+                                    //                 Icon(
+                                    //                   Icons
+                                    //                       .report_problem_outlined,
+                                    //                   color: Colors.black,
+                                    //                 ),
+                                    //                 SizedBox(
+                                    //                   width: 1.w,
+                                    //                 ),
+                                    //                 Text(
+                                    //                   "Escalate Reason",
+                                    //                   style: GoogleFonts.lato(
+                                    //                       fontSize: 12.sp,
+                                    //                       fontWeight:
+                                    //                           FontWeight.w600),
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //             SizedBox(
+                                    //               height: 2.h,
+                                    //             ),
+                                    //             Card(
+                                    //               elevation: 3,
+                                    //               child: Padding(
+                                    //                 padding: const EdgeInsets
+                                    //                         .symmetric(
+                                    //                     vertical: 8,
+                                    //                     horizontal: 5),
+                                    //                 child: Row(
+                                    //                   children: [
+                                    //                     Expanded(
+                                    //                       flex: 8,
+                                    //                       child: get_SE_work_order_status2.data!.comment!.isNotEmpty ? Container(
+                                    //                         decoration:
+                                    //                             BoxDecoration(
+                                    //                           color:
+                                    //                               Colors.white,
+                                    //                           borderRadius:
+                                    //                               BorderRadius
+                                    //                                   .circular(
+                                    //                                       10),
+                                    //                         ),
+                                    //                         width:
+                                    //                             double.infinity,
+                                    //                         child: Padding(
+                                    //                           padding: EdgeInsets
+                                    //                               .symmetric(
+                                    //                                   horizontal:
+                                    //                                       5.w),
+                                    //                           child: get_SE_work_order_status2
+                                    //                                       .data!
+                                    //                                       .comment![widget.Index]
+                                    //                                       .commentType == 4
+                                    //                               ? Text(
+                                    //                                   get_SE_work_order_status2
+                                    //                                       .data!
+                                    //                                       .comment![widget.Index]
+                                    //                                       .comment
+                                    //                                       .toString(),
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       fontSize:
+                                    //                                           10.sp),
+                                    //                                 )
+                                    //                               : Text(
+                                    //                                   "Reason not available !!",
+                                    //                                   style: GoogleFonts.lato(
+                                    //                                       color: Colors
+                                    //                                           .grey,
+                                    //                                       fontSize:
+                                    //                                           10.sp),
+                                    //                                 ),
+                                    //                         ),
+                                    //                       )
+                                    //                           : Text(
+                                    //                         "Reason not available !!",
+                                    //                         style: GoogleFonts.lato(
+                                    //                             color: Colors
+                                    //                                 .grey,
+                                    //                             fontSize:
+                                    //                             10.sp),
+                                    //                       ),
+                                    //                     ),
+                                    //                   ],
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //             SizedBox(
+                                    //               height: 5.h,
+                                    //             ),
+                                    //             Row(
+                                    //               children: [
+                                    //                 Icon(
+                                    //                   Icons
+                                    //                       .drive_file_move_rtl_sharp,
+                                    //                   color: Colors.black,
+                                    //                 ),
+                                    //                 SizedBox(
+                                    //                   width: 1.w,
+                                    //                 ),
+                                    //                 Text(
+                                    //                   "Escalate Files",
+                                    //                   style: GoogleFonts.lato(
+                                    //                       fontSize: 12.sp,
+                                    //                       fontWeight:
+                                    //                           FontWeight.w600),
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //             SizedBox(
+                                    //               height: 2.h,
+                                    //             ),
+                                    //             Padding(
+                                    //                 padding:
+                                    //                     EdgeInsets.symmetric(
+                                    //                         horizontal: 2.h),
+                                    //                 child:
+                                    //                     get_SE_work_order_status2
+                                    //                             .data!
+                                    //                             .escalateWoData!
+                                    //                             .escalateFile!
+                                    //                             .isNotEmpty
+                                    //                         ? /*isPermission
+                                    //                             ?*/ ListView.builder(
+                                    //                                 shrinkWrap:
+                                    //                                     true,
+                                    //                                 itemCount: get_SE_work_order_status2
+                                    //                                     .data!
+                                    //                                     .escalateWoData!
+                                    //                                     .escalateFile!
+                                    //                                     .length,
+                                    //                                 itemBuilder:
+                                    //                                     (BuildContext
+                                    //                                             context,
+                                    //                                         int index) {
+                                    //                                   return DocumentListTile(
+                                    //                                     fileUrl: get_SE_work_order_status2
+                                    //                                         .data!
+                                    //                                         .escalateWoData!
+                                    //                                         .escalateFile![index]
+                                    //                                         .path!
+                                    //                                         .toString(),
+                                    //                                     title: get_SE_work_order_status2
+                                    //                                         .data!
+                                    //                                         .escalateWoData!
+                                    //                                         .escalateFile![index]
+                                    //                                         .name!
+                                    //                                         .toString(),
+                                    //                                   );
+                                    //                                 },
+                                    //                               )
+                                    //                             /*: TextButton(
+                                    //                                 onPressed:
+                                    //                                     () {
+                                    //                                   checkPermission();
+                                    //                                   if (isPermission ==
+                                    //                                       true) {
+                                    //                                     CircularProgressIndicator(
+                                    //                                       color:
+                                    //                                           appThemeColor,
+                                    //                                     );
+                                    //                                     // Navigator
+                                    //                                     //     .push(
+                                    //                                     //   context,
+                                    //                                     //   MaterialPageRoute(
+                                    //                                     //     builder: (context) =>
+                                    //                                     //         SEwoInfoPage(
+                                    //                                     //       Tab1Index: widget.Index,
+                                    //                                     //       Work_id: get_SE_work_order_status2.data!.workId.toString(),
+                                    //                                     //     ),
+                                    //                                     //   ),
+                                    //                                     // );
+                                    //                                   }
+                                    //                                 },
+                                    //                                 child:
+                                    //                                     Container(
+                                    //                                   height:
+                                    //                                       3.h,
+                                    //                                   width:
+                                    //                                       100.w,
+                                    //                                   decoration:
+                                    //                                       BoxDecoration(
+                                    //                                     color: Colors
+                                    //                                         .grey
+                                    //                                         .shade300,
+                                    //                                     borderRadius:
+                                    //                                         BorderRadius.circular(12),
+                                    //                                   ),
+                                    //                                   child:
+                                    //                                       Center(
+                                    //                                     child:
+                                    //                                         Text(
+                                    //                                       "Press to Allow Permission !!!",
+                                    //                                       style: GoogleFonts.lato(
+                                    //                                           fontSize: 10.sp,
+                                    //                                           color: Colors.blue.shade900),
+                                    //                                     ),
+                                    //                                   ),
+                                    //                                 ),
+                                    //                               )*/
+                                    //                         : Row(
+                                    //                             children: [
+                                    //                               Text(
+                                    //                                 "No escalated file available !!",
+                                    //                                 style: GoogleFonts.lato(
+                                    //                                     color: Colors
+                                    //                                         .grey),
+                                    //                               ),
+                                    //                               Icon(
+                                    //                                 Icons
+                                    //                                     .not_interested,
+                                    //                                 color: Colors
+                                    //                                     .red,
+                                    //                               )
+                                    //                             ],
+                                    //                           ),
+                                    //             ),
+                                    //             SizedBox(
+                                    //               height: 4.h,
+                                    //             )
+                                    //           ],
+                                    //         )
+                                    //       : Center(
+                                    //           child: Text(
+                                    //               "${get_SE_work_order_status2.message.toString()}"),
+                                    //         ),
+                                    // ] else ...[
+                                    //   Center(
+                                    //     child: CircularProgressIndicator(
+                                    //       color: appThemeColor,
+                                    //     ),
+                                    //   ),
+                                    // ],
                                     // if (is_load_SE_add_parts_list == true) ...[
                                     //   if (get_SE_add_parts_list.data!.isNotEmpty) ...[
                                     //     SizedBox(
@@ -1086,25 +1034,8 @@ class _WorkOrderDescriptionSEpageState
   void get_SE_work_order_status2_method() async {
     get_SE_work_order_status2 = await get_escalate_data_controller()
         .get_escalate_data_controller_method(widget.work_id);
-    inviteeController.text = get_SE_work_order_status2.data!.zegoUserId.toString();
-    //  get_SE_work_order_status2.data[widget.index].zegoUserId;
     setState(() {
       is_status2_SE_work_list_load = true;
     });
-  }
-
-  void get_SE_add_parts_list_method() async {
-    get_SE_add_parts_list = await Get_Add_Parts_list_controller()
-        .Get_Add_SE_Parts_list_controller_method(
-            get_SE_work_order_status2.data?.workId.toString());
-    setState(() {
-      is_load_SE_add_parts_list = true;
-    });
-  }
-
-  void settingDataForPostApiCall() {
-    MyZegoConst.callWorkId = get_SE_work_order_status2.data!.workId.toString();
-    MyZegoConst.ENg_Zego_id = get_SE_work_order_status2.data!.zegoUserId.toString();
-    MyZegoConst.SE_Zego_id = currentUser.id.toString();
   }
 }

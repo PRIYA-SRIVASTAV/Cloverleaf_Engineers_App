@@ -21,7 +21,7 @@ class Tab2FAB extends StatefulWidget {
 }
 
 class _Tab2FABState extends State<Tab2FAB> {
-  TextEditingController othersController = TextEditingController();
+ // TextEditingController othersController = TextEditingController();
   bool is_load_add_parts_list = false;
   bool is_load_parts_list = false;
   bool is_status2_work_list_load = false;
@@ -309,15 +309,15 @@ class _Tab2FABState extends State<Tab2FAB> {
                             ),
                           ),
                         ),
-                        if (dropdownvalue == "0") ...[
-                          TextFormField(
-                            onTap: () {},
-                            decoration: const InputDecoration(
-                              suffixIcon: Icon(Icons.note_alt_outlined),
-                            ),
-                            controller: othersController,
-                          ),
-                        ],
+                        // if (dropdownvalue == "0") ...[
+                        //   TextFormField(
+                        //     onTap: () {},
+                        //     decoration: const InputDecoration(
+                        //       suffixIcon: Icon(Icons.note_alt_outlined),
+                        //     ),
+                        //     controller: othersController,
+                        //   ),
+                        // ],
                         SizedBox(height: 4.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

@@ -33,13 +33,6 @@ class _updateTechnicianSummary1State extends State<updateTechnicianSummary1> {
   FilePickerResult? result;
   List<FilePickerResult> selectedFiles = [];
   bool After_before_image_type = false;
-
-  // List<String> images = [
-  //   'assets/images/asset_1.png',
-  //   'assets/images/asset_2.webp',
-  //   'assets/images/asset_3.jpg',
-  //   'assets/images/asset_4.jpg'
-  // ];
   late GetTechnicianSummaryModel get_tech_summary_data;
   bool is_load_get_tech_summary_data = false;
   bool apiCalled = false;
@@ -491,9 +484,9 @@ class _updateTechnicianSummary1State extends State<updateTechnicianSummary1> {
                             onTap: () {},
                             controller: summaryController,
                             decoration: InputDecoration(
-                              hintText: "enter summary & fixes",
-                              hintStyle: GoogleFonts.lato(
-                                  fontSize: 10.sp, color: Colors.grey),
+                              // hintText: "enter summary & fixes",
+                              // hintStyle: GoogleFonts.lato(
+                              //     fontSize: 10.sp, color: Colors.grey),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: appThemeColor, width: 0.5.w),
@@ -741,6 +734,8 @@ class _updateTechnicianSummary1State extends State<updateTechnicianSummary1> {
   void get_tech_summary_data_method() async {
     get_tech_summary_data = await get_technician_summary_controller()
         .get_technician_summary_controller_method(widget.work_id);
+    summaryController.text = get_tech_summary_data.data!.techSummary.toString();
+    hoursSpent1Controller.text = get_tech_summary_data.data!.hrsSpentByTech.toString();
     if (get_tech_summary_data.status.toString() == "true") {
       setState(() {
         is_load_get_tech_summary_data = true;

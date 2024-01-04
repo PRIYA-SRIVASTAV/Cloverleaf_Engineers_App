@@ -184,6 +184,25 @@ class _getTechnicianSummaryState extends State<getTechnicianSummary> {
                             },
                           ),
                         ] else ...[
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.photo_album_outlined,
+                                color: Colors.black,
+                              ),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                              Text(
+                                "Images",
+                                style: GoogleFonts.lato(
+                                    fontSize: 12.sp, fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.sp),
@@ -437,37 +456,6 @@ class _getTechnicianSummaryState extends State<getTechnicianSummary> {
                                       ),
                                     ),
                                   );
-                                  // setState(() {
-                                  //   apiCalled = true;
-                                  // });
-                                  // var r;
-                                  // for (int i = 0; i < selectedFiles.length; i++) {
-                                  //   update_wo_extra_detail_controller()
-                                  //       .update_wo_extra_detail_controller_method(
-                                  //           widget.Work_id,
-                                  //           profileImage,
-                                  //           hoursSpent1Controller.text,
-                                  //           summaryController.text,
-                                  //           selectedFiles[i].files[i],
-                                  //           "3",
-                                  //           context);
-                                  //   debugPrint("Called For Times = $i");
-                                  // }
-                                  // print("update_wo_extra_detail=======> $r");
-                                  // if (r['status'].toString() == 'true') {
-                                  //   customFlutterToast(r['message'].toString());
-                                  //   Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             updateTechnicianSummary(
-                                  //               Work_id: widget.Work_id,
-                                  //             ),
-                                  //     ),
-                                  //   );
-                                  // } else {
-                                  //   customFlutterToast(r['message'].toString());
-                                  // }
                                 },
                                 child: Text(
                                   "Edit",

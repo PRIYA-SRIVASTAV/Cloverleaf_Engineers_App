@@ -205,26 +205,26 @@ class _SEwoInfoPageState extends State<SEwoInfoPage> {
                                   SizedBox(
                                     height: 2.h,
                                   ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.photo_size_select_actual_outlined,
-                                        color: Colors.black,
-                                      ),
-                                      SizedBox(
-                                        width: 1.w,
-                                      ),
-                                      Text(
-                                        "Client Photos",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 12.sp, fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
                                   if (get_SE_work_order_status2.data!.clientImages!.isNotEmpty) ...[
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.photo_size_select_actual_outlined,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: 1.w,
+                                        ),
+                                        Text(
+                                          "Client Photos",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp, fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
                                     CarouselSlider.builder(
                                       options: CarouselOptions(
                                         height: 20.h,
@@ -252,6 +252,25 @@ class _SEwoInfoPageState extends State<SEwoInfoPage> {
                                       },
                                     ),
                                   ] else ...[
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.photo_size_select_actual_outlined,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: 1.w,
+                                        ),
+                                        Text(
+                                          "Client Photos",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp, fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
                                     Container(
                                       decoration: BoxDecoration(
                                           borderRadius:
