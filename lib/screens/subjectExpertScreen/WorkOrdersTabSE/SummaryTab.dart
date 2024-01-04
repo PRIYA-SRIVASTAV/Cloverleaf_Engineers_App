@@ -77,7 +77,7 @@ class _SummaryTabState extends State<SummaryTab> {
                               Duration(milliseconds: 800),
                           pauseAutoPlayOnTouch: true,
                           enlargeCenterPage: true,
-                          enableInfiniteScroll: true,
+                          enableInfiniteScroll: false,
                         ),
                         itemCount: get_SE_work_order_status2
                             .data!.escalateWoData!.beforeEscalateImage!.length,
@@ -160,8 +160,8 @@ class _SummaryTabState extends State<SummaryTab> {
                                         child: get_SE_work_order_status2
                                                     .data!
                                                     .comment![widget.index]
-                                                    .commentType ==
-                                                4
+                                                    .commentType.toString() ==
+                                                "4"
                                             ? Text(
                                                 get_SE_work_order_status2
                                                     .data!
@@ -172,7 +172,7 @@ class _SummaryTabState extends State<SummaryTab> {
                                                     fontSize: 10.sp),
                                               )
                                             : Text(
-                                                "Reason not available !!",
+                                                "Reason not available!!",
                                                 style: GoogleFonts.lato(
                                                     color: Colors.grey,
                                                     fontSize: 10.sp),
@@ -180,7 +180,7 @@ class _SummaryTabState extends State<SummaryTab> {
                                       ),
                                     )
                                   : Text(
-                                      "Reason not available !!",
+                                      "Reason not available 2 !!",
                                       style: GoogleFonts.lato(
                                           color: Colors.grey, fontSize: 10.sp),
                                     ),
