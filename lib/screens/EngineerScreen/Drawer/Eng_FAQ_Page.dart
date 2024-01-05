@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../constant/colorConstant.dart';
 import '../../../constant/testStyleConstant.dart';
-class FAQ_Page extends StatefulWidget {
-  const FAQ_Page({super.key});
+class Eng_FAQ_Page extends StatefulWidget {
+  const Eng_FAQ_Page({super.key});
 
   @override
-  State<FAQ_Page> createState() => _FAQ_PageState();
+  State<Eng_FAQ_Page> createState() => _Eng_FAQ_PageState();
 }
 
-class _FAQ_PageState extends State<FAQ_Page> {
+class _Eng_FAQ_PageState extends State<Eng_FAQ_Page> {
   bool isExpanded1 = true;
   bool isExpanded2 = true;
   bool isExpanded3 = true;

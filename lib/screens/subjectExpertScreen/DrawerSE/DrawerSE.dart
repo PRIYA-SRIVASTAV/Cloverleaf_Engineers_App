@@ -10,7 +10,7 @@ import '../../../../constant/testStyleConstant.dart';
 import '../../../../utils/helperWidget.dart';
 import '../../../controller/Get_SE_profile_details_controller.dart';
 import '../../../model/GetProfileSEModel.dart';
-import 'FAQ_Page.dart';
+import 'SE_FAQ_Page.dart';
 import 'SEeditProfilePage.dart';
 import 'SEpayoutPage.dart';
 
@@ -257,7 +257,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FAQ_Page(),
+                            builder: (context) => SE_FAQ_Page(),
                           ),
                         );
                       },

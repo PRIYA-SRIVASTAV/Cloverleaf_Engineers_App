@@ -4,10 +4,15 @@ import 'package:cloverleaf_project/controller/Update_profile_detail_controller.d
 import 'package:cloverleaf_project/screens/EngineerScreen/Drawer/test_payroll_ui.dart';
 import 'package:cloverleaf_project/screens/commonScreens/Login_Page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../constant/prefsConstant.dart';
+import '../../../utils/helperMethods.dart';
+import 'Eng_FAQ_Page.dart';
 import 'Leave_Request_calender.dart';
 import '../../../constant/colorConstant.dart';
 import '../../../constant/testStyleConstant.dart';
@@ -25,6 +30,14 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  String? support_number;
+  directCall() async {
+   await launchUrl(
+        Uri(scheme: 'tel',path: "${support_number}"),
+        mode: LaunchMode.externalApplication
+    );
+   // await FlutterPhoneDirectCaller.callNumber(support_number!);
+  }
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   late GetProfileDetailsModel get_profile_details_data;
@@ -35,6 +48,13 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   void initState() {
+    getPref().then((value) {
+      if (mounted) {
+        setState(() {
+          support_number = value.getString(KEYSUPPORTNUMBER);
+        });
+      }
+    });
     get_profile_details_data_method();
     super.initState();
   }
@@ -99,15 +119,27 @@ class _AppDrawerState extends State<AppDrawer> {
               padding: EdgeInsets.zero,
               children: [
                 SizedBox(
-                  height: 15.h,
+                  height: 18.h,
                   child: DrawerHeader(
                     decoration: BoxDecoration(
                       color: appThemeColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Settings', style: dashboardStyle),
+                        InkWell(
+                          onTap: () {
+                            directCall();
+                          },
+                          child: Column(
+                            children: [
+                              Icon(Icons.support_agent_outlined,color: Colors.white,size: 28.sp,),
+                              Text("Support",style: GoogleFonts.lato(color: Colors.white),)
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -119,7 +151,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       child: imageWidget(),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height:2.h,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 3.w),
@@ -186,13 +218,10 @@ class _AppDrawerState extends State<AppDrawer> {
                       ),
                     ),
                     SizedBox(
-                      height: 2.h,
+                      height: 0.5.h,
                     ),
                     const Divider(
                       color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
                     ),
                     InkWell(
                       onTap: () {
@@ -202,12 +231,6 @@ class _AppDrawerState extends State<AppDrawer> {
                             builder: (context) => editProfilePagePage(),
                           ),
                         );
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (context) {
-                        //     return editProfile(context);
-                        //   },
-                        // );
                       },
                       child: ListTile(
                         leading: profileListLeadingContainer(
@@ -282,6 +305,38 @@ class _AppDrawerState extends State<AppDrawer> {
                             context),
                         title: Text(
                           "PayOut",
+                          style: profileOptionsStyle,
+                        ),
+                        trailing: profileListTrailingContainer(
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14.sp,
+                            ),
+                            context),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Eng_FAQ_Page(),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        leading: profileListLeadingContainer(
+                            Icon(
+                              Icons.question_answer_outlined,
+                              color: Colors.white,
+                              size: 14.sp,
+                            ),
+                            context),
+                        title: Text(
+                          "FAQ",
                           style: profileOptionsStyle,
                         ),
                         trailing: profileListTrailingContainer(
