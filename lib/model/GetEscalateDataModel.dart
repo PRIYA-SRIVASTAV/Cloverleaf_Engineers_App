@@ -46,7 +46,7 @@ class Data {
   int? workId;
   String? zegoUserId;
   List<String>? clientImages;
-  List<Comment>? comment;
+  Reason? reason;
   EscalateWoData? escalateWoData;
 
   Data({
@@ -63,7 +63,7 @@ class Data {
     this.workId,
     this.zegoUserId,
     this.clientImages,
-    this.comment,
+    this.reason,
     this.escalateWoData,
   });
 
@@ -81,7 +81,7 @@ class Data {
     workId: json["work_id"],
     zegoUserId: json["zego_user_id"],
     clientImages: json["client_images"] == null ? [] : List<String>.from(json["client_images"]!.map((x) => x)),
-    comment: json["comment"] == null ? [] : List<Comment>.from(json["comment"]!.map((x) => Comment.fromJson(x))),
+    reason: json["reason"] == null ? null : Reason.fromJson(json["reason"]),
     escalateWoData: json["escalate_wo_data"] == null ? null : EscalateWoData.fromJson(json["escalate_wo_data"]),
   );
 
@@ -99,40 +99,8 @@ class Data {
     "work_id": workId,
     "zego_user_id": zegoUserId,
     "client_images": clientImages == null ? [] : List<dynamic>.from(clientImages!.map((x) => x)),
-    "comment": comment == null ? [] : List<dynamic>.from(comment!.map((x) => x.toJson())),
+    "reason": reason?.toJson(),
     "escalate_wo_data": escalateWoData?.toJson(),
-  };
-}
-
-class Comment {
-  int? commentType;
-  String? comment;
-  String? name;
-  String? date;
-  String? time;
-
-  Comment({
-    this.commentType,
-    this.comment,
-    this.name,
-    this.date,
-    this.time,
-  });
-
-  factory Comment.fromJson(Map<String, dynamic> json) => Comment(
-    commentType: json["comment_type"],
-    comment: json["comment"],
-    name: json["name"],
-    date: json["date"],
-    time: json["time"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "comment_type": commentType,
-    "comment": comment,
-    "name": name,
-    "date": date,
-    "time": time,
   };
 }
 
@@ -187,6 +155,38 @@ class BeforeEscalateImage {
     "type": type,
     "name": name,
     "path": path,
+    "date": date,
+    "time": time,
+  };
+}
+
+class Reason {
+  int? commentType;
+  String? comment;
+  String? name;
+  String? date;
+  String? time;
+
+  Reason({
+    this.commentType,
+    this.comment,
+    this.name,
+    this.date,
+    this.time,
+  });
+
+  factory Reason.fromJson(Map<String, dynamic> json) => Reason(
+    commentType: json["comment_type"],
+    comment: json["comment"],
+    name: json["name"],
+    date: json["date"],
+    time: json["time"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "comment_type": commentType,
+    "comment": comment,
+    "name": name,
     "date": date,
     "time": time,
   };

@@ -234,7 +234,7 @@ class _SEwoInfoPageState extends State<SEwoInfoPage> {
                                             Duration(milliseconds: 800),
                                         pauseAutoPlayOnTouch: true,
                                         enlargeCenterPage: true,
-                                        enableInfiniteScroll: true,
+                                        enableInfiniteScroll: false,
                                       ),
                                       itemCount: get_SE_work_order_status2
                                           .data!.clientImages!.length,
@@ -575,7 +575,7 @@ class _SEwoInfoPageState extends State<SEwoInfoPage> {
                                             Duration(milliseconds: 800),
                                         pauseAutoPlayOnTouch: true,
                                         enlargeCenterPage: true,
-                                        enableInfiniteScroll: true,
+                                        enableInfiniteScroll: false,
                                       ),
                                       itemCount: get_SE_work_order_status2
                                           .data!
@@ -666,28 +666,20 @@ class _SEwoInfoPageState extends State<SEwoInfoPage> {
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 5.w),
                                                 child: get_SE_work_order_status2
-                                                            .data!
-                                                            .comment![widget
-                                                                .Tab1Index]
-                                                            .commentType
-                                                            .toString() ==
-                                                        4
+                                                    .data!.reason!.commentType ==
+                                                    4
                                                     ? Text(
-                                                        get_SE_work_order_status2
-                                                            .data!
-                                                            .comment![widget
-                                                                .Tab1Index]
-                                                            .comment
-                                                            .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize: 10.sp),
-                                                      )
+                                                  get_SE_work_order_status2
+                                                      .data!.reason!.comment
+                                                      .toString(),
+                                                  style:
+                                                  GoogleFonts.lato(fontSize: 10.sp),
+                                                )
                                                     : Text(
-                                                        "Reason not available !!",
-                                                        style: GoogleFonts.lato(
-                                                            color: Colors.grey,
-                                                            fontSize: 10.sp),
-                                                      ),
+                                                  "Reason not available !!",
+                                                  style:
+                                                  GoogleFonts.lato(fontSize: 10.sp),
+                                                ),
                                               ),
                                             ),
                                           ),

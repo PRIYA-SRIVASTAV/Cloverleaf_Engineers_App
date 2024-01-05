@@ -11,7 +11,8 @@ import 'DocumentListTile.dart';
 class SummaryTab extends StatefulWidget {
   var index;
   var work_id;
-  SummaryTab({required this.index,required this.work_id, super.key});
+
+  SummaryTab({required this.index, required this.work_id, super.key});
 
   @override
   State<SummaryTab> createState() => _SummaryTabState();
@@ -31,11 +32,13 @@ class _SummaryTabState extends State<SummaryTab> {
       });
     }
   }
+
   @override
   void initState() {
     super.initState();
     get_SE_work_order_status2_method();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,44 +149,32 @@ class _SummaryTabState extends State<SummaryTab> {
                           children: [
                             Expanded(
                               flex: 8,
-                              child: get_SE_work_order_status2
-                                      .data!.comment!.isNotEmpty
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      width: double.infinity,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 5.w),
-                                        child: get_SE_work_order_status2
-                                                    .data!
-                                                    .comment![widget.index]
-                                                    .commentType.toString() ==
-                                                "4"
-                                            ? Text(
-                                                get_SE_work_order_status2
-                                                    .data!
-                                                    .comment![widget.index]
-                                                    .comment
-                                                    .toString(),
-                                                style: GoogleFonts.lato(
-                                                    fontSize: 10.sp),
-                                              )
-                                            : Text(
-                                                "Reason not available!!",
-                                                style: GoogleFonts.lato(
-                                                    color: Colors.grey,
-                                                    fontSize: 10.sp),
-                                              ),
-                                      ),
-                                    )
-                                  : Text(
-                                      "Reason not available 2 !!",
-                                      style: GoogleFonts.lato(
-                                          color: Colors.grey, fontSize: 10.sp),
-                                    ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                width: double.infinity,
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 5.w),
+                                  child: get_SE_work_order_status2
+                                              .data!.reason!.commentType ==
+                                          4
+                                      ? Text(
+                                          get_SE_work_order_status2
+                                              .data!.reason!.comment
+                                              .toString(),
+                                          style:
+                                              GoogleFonts.lato(fontSize: 10.sp),
+                                        )
+                                      : Text(
+                                          "Reason not available !!",
+                                          style:
+                                              GoogleFonts.lato(fontSize: 10.sp),
+                                        ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -350,6 +341,7 @@ class _SummaryTabState extends State<SummaryTab> {
       ],
     );
   }
+
   void get_SE_work_order_status2_method() async {
     get_SE_work_order_status2 = await get_escalate_data_controller()
         .get_escalate_data_controller_method(widget.work_id);
