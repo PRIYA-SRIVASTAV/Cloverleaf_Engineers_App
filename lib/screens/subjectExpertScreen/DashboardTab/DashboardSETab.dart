@@ -13,7 +13,7 @@ import '../../../controller/is_update_active_controller.dart';
 import '../../../model/GetSEDashbordDataModel.dart';
 import '../../../model/GetUserStatusModel.dart';
 import '../BottomNavigationPageSE.dart';
-import '../DrawerSE/DrawerSE.dart';
+import '../DrawerSE/seCustomDrawer.dart';
 import '../DrawerSE/SEpayoutPage.dart';
 
 class DashboardSE extends StatefulWidget {
@@ -105,7 +105,7 @@ class _DashboardSEState extends State<DashboardSE> {
         ),
         backgroundColor: appThemeColor,
       ),
-      drawer: const AppDrawerSE(),
+      drawer: const seCustomDrawer(),
       backgroundColor: appThemeColor,
       body: Container(
         height: 100.h,

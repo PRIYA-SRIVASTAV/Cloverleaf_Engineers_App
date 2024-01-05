@@ -1,7 +1,7 @@
 import 'package:cloverleaf_project/constant/stringsConstant.dart';
 import 'package:cloverleaf_project/controller/Get_SE_Work_Order_List_Controller.dart';
 import 'package:cloverleaf_project/controller/SE_update_wo_status_controller.dart';
-import 'package:cloverleaf_project/screens/subjectExpertScreen/DrawerSE/DrawerSE.dart';
+import 'package:cloverleaf_project/screens/subjectExpertScreen/DrawerSE/seCustomDrawer.dart';
 import 'package:cloverleaf_project/screens/subjectExpertScreen/WorkOrdersTabSE/WorkOrderDescriptionSEPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,7 +62,7 @@ class _WorkOrderSEState extends State<WorkOrderSE> {
             ),
             backgroundColor: appThemeColor,
           ),
-          drawer: const AppDrawerSE(),
+          drawer: const seCustomDrawer(),
           backgroundColor: appThemeColor,
           body: Container(
             height: 100.h,

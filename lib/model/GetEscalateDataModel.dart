@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getEscalateDataModel = getEscalateDataModelFromJson(jsonString);
-
 import 'dart:convert';
 
 GetEscalateDataModel getEscalateDataModelFromJson(String str) => GetEscalateDataModel.fromJson(json.decode(str));
@@ -48,7 +44,7 @@ class Data {
   List<String>? clientImages;
   Reason? reason;
   EscalateWoData? escalateWoData;
-
+  int? uniqueId;
   Data({
     this.woStatus,
     this.assetName,
@@ -65,6 +61,7 @@ class Data {
     this.clientImages,
     this.reason,
     this.escalateWoData,
+    this.uniqueId,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -83,6 +80,7 @@ class Data {
     clientImages: json["client_images"] == null ? [] : List<String>.from(json["client_images"]!.map((x) => x)),
     reason: json["reason"] == null ? null : Reason.fromJson(json["reason"]),
     escalateWoData: json["escalate_wo_data"] == null ? null : EscalateWoData.fromJson(json["escalate_wo_data"]),
+    uniqueId: json["unique_id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -101,6 +99,7 @@ class Data {
     "client_images": clientImages == null ? [] : List<dynamic>.from(clientImages!.map((x) => x)),
     "reason": reason?.toJson(),
     "escalate_wo_data": escalateWoData?.toJson(),
+    "unique_id": uniqueId,
   };
 }
 

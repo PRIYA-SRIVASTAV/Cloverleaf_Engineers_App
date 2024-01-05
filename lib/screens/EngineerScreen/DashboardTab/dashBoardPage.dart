@@ -17,7 +17,7 @@ import '../../../controller/Post_current_location_controller.dart';
 import '../../../controller/is_update_active_controller.dart';
 import '../../../model/GetDashboardDataModel.dart';
 import '../../../model/GetUserStatusModel.dart';
-import '../Drawer/customDrawer.dart';
+import '../Drawer/engCustomDrawer.dart';
 
 class dashBoardPage extends StatefulWidget {
   dashBoardPage({super.key});
@@ -561,22 +561,15 @@ class _dashBoardPageState extends State<dashBoardPage> {
   void Get_User_status_method() async {
     get_user_status_data =
         await Get_User_status_controller().Get_User_status_controller_method();
-    if (get_user_status_data.data.toString() == "1") {
-      online_offline_status = true;
-      is_load_user_status = true;
-    } else {
-      online_offline_status = false;
-      is_load_user_status = true;
-    }
-    // setState(() {
-    //   if (get_user_status_data.data.toString() == "1") {
-    //     online_offline_status = true;
-    //     is_load_user_status = true;
-    //   } else {
-    //     online_offline_status = false;
-    //     is_load_user_status = true;
-    //   }
-    // });
+    setState(() {
+      if (get_user_status_data.data.toString() == "1") {
+        online_offline_status = true;
+        is_load_user_status = true;
+      } else {
+        online_offline_status = false;
+        is_load_user_status = true;
+      }
+    });
   }
 
   void Get_Dashboard_data_method() async {
@@ -590,10 +583,9 @@ class _dashBoardPageState extends State<dashBoardPage> {
       'Accelerated': double.parse(get_dashboard_data.data!.accPerc.toString()),
     };
     dataMap = percentage;
-    is_load_Dashboard_data = true;
-    // setState(() {
-    //   is_load_Dashboard_data = true;
-    // });
+    setState(() {
+      is_load_Dashboard_data = true;
+    });
   }
 
   void _showLanguageMenu(BuildContext context) {

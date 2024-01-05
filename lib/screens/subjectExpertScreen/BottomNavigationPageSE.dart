@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/colorConstant.dart';
-import 'CallLogsTab/CallLogsTab.dart';
+import 'CallLogsTab/seCallLogsTab.dart';
 import 'DashboardTab/DashboardSETab.dart';
 import 'WorkOrdersTabSE/WorkOdersTabSE.dart';
 
@@ -88,7 +88,7 @@ class _BottomNavigationPageSEState extends State<BottomNavigationPageSE> {
     List _pages = [
       DashboardSE(),
       WorkOrderSE(TabIndex: widget.SendTabIndex == null ? 0 : widget.SendTabIndex,),
-      CallLogsTab(),
+      seCallLogsTab(),
     ];
     return SafeArea(
       child: Scaffold(

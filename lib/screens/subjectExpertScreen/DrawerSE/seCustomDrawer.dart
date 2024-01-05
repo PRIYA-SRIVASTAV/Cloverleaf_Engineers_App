@@ -5,23 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../constant/colorConstant.dart';
 import '../../../../constant/testStyleConstant.dart';
 import '../../../../utils/helperWidget.dart';
+import '../../../constant/prefsConstant.dart';
 import '../../../controller/Get_SE_profile_details_controller.dart';
 import '../../../model/GetProfileSEModel.dart';
+import '../../../utils/helperMethods.dart';
 import 'SE_FAQ_Page.dart';
 import 'SEeditProfilePage.dart';
 import 'SEpayoutPage.dart';
 
-class AppDrawerSE extends StatefulWidget {
-  const AppDrawerSE({super.key});
+class seCustomDrawer extends StatefulWidget {
+  const seCustomDrawer({super.key});
 
   @override
-  State<AppDrawerSE> createState() => _AppDrawerSEState();
+  State<seCustomDrawer> createState() => _seCustomDrawerState();
 }
 
-class _AppDrawerSEState extends State<AppDrawerSE> {
+class _seCustomDrawerState extends State<seCustomDrawer> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController address1Controller = TextEditingController();
@@ -33,12 +36,25 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
   TextEditingController oldPassController = TextEditingController();
   TextEditingController newPassController = TextEditingController();
   TextEditingController confirmPassController = TextEditingController();
-
   late GetProfileSeDetailsModel get_SE_profile_details_data;
   bool is_load_SE_profile_details_data = false;
-
+  String? support_number;
+  directCall() async {
+    await launchUrl(
+        Uri(scheme: 'tel',path: "${support_number}"),
+        mode: LaunchMode.externalApplication
+    );
+    // await FlutterPhoneDirectCaller.callNumber(support_number!);
+  }
   @override
   void initState() {
+    getPref().then((value) {
+      if (mounted) {
+        setState(() {
+          support_number = value.getString(KEYSESUPPORTNUMBER);
+        });
+      }
+    });
     get_SE_profile_details_data_method();
     super.initState();
   }
@@ -48,8 +64,8 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
   Widget imageWidget() {
     return profileImage == null
         ? Container(
-            height: 20.h,
-            width: 20.h,
+            height: 18.h,
+            width: 18.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
             ),
@@ -70,8 +86,8 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
             ),
           )
         : Container(
-            height: 20.h,
-            width: 20.h,
+            height: 18.h,
+            width: 18.h,
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
@@ -94,15 +110,27 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
               padding: EdgeInsets.zero,
               children: [
                 SizedBox(
-                  height: 15.h,
+                  height: 18.h,
                   child: DrawerHeader(
                     decoration: BoxDecoration(
                       color: appThemeColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Settings', style: dashboardStyle),
+                        InkWell(
+                          onTap: () {
+                            directCall();
+                          },
+                          child: Column(
+                            children: [
+                              Icon(Icons.support_agent_outlined,color: Colors.white,size: 28.sp,),
+                              Text("Support",style: GoogleFonts.lato(color: Colors.white),)
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -114,7 +142,7 @@ class _AppDrawerSEState extends State<AppDrawerSE> {
                       child: imageWidget(),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 2.h,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 3.w),

@@ -29,7 +29,7 @@ class Login_Controller {
             value.setString(KEYENGTOKEN, r['token'].toString());
             value.setString(KEYENGUNIQUEID, r['data']['unique_id'].toString());
             value.setString(KEYUSERNAME, r['data']['name'].toString());
-            value.setString(KEYSUPPORTNUMBER,r['data']['support_number'].toString());
+            value.setString(KEYENGSUPPORTNUMBER,r['data']['support_number'].toString());
           });
           customFlutterToast(r["message"]);
           Navigator.push(
@@ -44,7 +44,7 @@ class Login_Controller {
             value.setString(KEYSETOKEN, r['token'].toString());
             value.setString(KEYSEUNIQUEID, r['data']['unique_id'].toString());
             value.setString(KEYUSERNAME, r['data']['name'].toString());
-            value.setString(KEYSUPPORTNUMBER,r['data']['support_number'].toString());
+            value.setString(KEYSESUPPORTNUMBER,r['data']['support_number'].toString());
           });
           customFlutterToast(r["message"]);
           Navigator.push(

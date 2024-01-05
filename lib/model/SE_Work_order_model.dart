@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getSeWorkOrderListModel = getSeWorkOrderListModelFromJson(jsonString);
-
 import 'dart:convert';
 
 GetSeWorkOrderListModel getSeWorkOrderListModelFromJson(String str) => GetSeWorkOrderListModel.fromJson(json.decode(str));
@@ -44,6 +40,7 @@ class Datum {
   int? assignedEngineerId;
   String? zegoUserId;
   String? assignedEngineerName;
+  int? engineerUniqueId;
   String? woStatusDate;
 
   Datum({
@@ -58,6 +55,7 @@ class Datum {
     this.assignedEngineerId,
     this.zegoUserId,
     this.assignedEngineerName,
+    this.engineerUniqueId,
     this.woStatusDate,
   });
 
@@ -73,6 +71,7 @@ class Datum {
     assignedEngineerId: json["assigned_engineer_id"],
     zegoUserId: json["zego_user_id"],
     assignedEngineerName: json["assigned_engineer_name"],
+    engineerUniqueId: json["engineer_unique_id"],
     woStatusDate: json["wo_status_date"],
   );
 
@@ -88,6 +87,7 @@ class Datum {
     "assigned_engineer_id": assignedEngineerId,
     "zego_user_id": zegoUserId,
     "assigned_engineer_name": assignedEngineerName,
+    "engineer_unique_id": engineerUniqueId,
     "wo_status_date": woStatusDate,
   };
 }

@@ -115,8 +115,8 @@ onUserLogin() async {
                         .Post_SE_Call_End_details_controller_method(
                             /*data.inviter!.id.toString(),
                             data.invitees[0].id.toString(),*/
-                            SE_unique_id.toString(),
-                            Eng_unique_id.toString(),
+                            SE_unique_id,
+                            Eng_unique_id,
                             MyZegoConst.callDuration);
                   },
                 ),
@@ -300,16 +300,14 @@ callApi(call_type) async {
   print("00000000000--->$user_type");
   if (user_type == "se") {
     var SE_unique_id;
-    var Eng_unique_id;
     await getPref().then((value) {
       SE_unique_id = value.getString(KEYSEUNIQUEID);
-      Eng_unique_id = value.getString(KEYENGUNIQUEID);
     });
     await Post_SE_Call_details_controller()
         .Post_SE_Call_Start_details_controller_method(
-            // MyZegoConst.SE_Zego_id, MyZegoConst.ENg_Zego_id,
-            SE_unique_id.toString(),
-            Eng_unique_id.toString(),
+            //MyZegoConst.SE_Zego_id,
+            SE_unique_id,
+            MyZegoConst.ENg_Zego_id,
             MyZegoConst.callWorkId,
             call_type);
     MyZegoConst.call_start_times = false;

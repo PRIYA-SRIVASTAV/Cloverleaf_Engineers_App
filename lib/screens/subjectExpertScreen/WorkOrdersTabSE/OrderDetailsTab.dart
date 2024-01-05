@@ -408,7 +408,7 @@ class _OrderDetailsTabState extends State<OrderDetailsTab> {
 
   void settingDataForPostApiCall() {
     MyZegoConst.callWorkId = get_SE_work_order_status2.data!.workId.toString();
-    MyZegoConst.ENg_Zego_id = get_SE_work_order_status2.data!.zegoUserId.toString();
+    MyZegoConst.ENg_Zego_id = get_SE_work_order_status2.data!.uniqueId.toString();
     MyZegoConst.SE_Zego_id = currentUser.id.toString();
   }
 }
