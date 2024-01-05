@@ -1,6 +1,7 @@
 const String KEYENGTOKEN = "KEY_ENG_TOKEN";
 const String KEYSETOKEN = "KEY_SE_TOKEN";
-const String KEYUNIQUEID = "KEY_UNIQUE_ID";
+const String KEYENGUNIQUEID = "KEY_ENG_UNIQUE_ID";
+const String KEYSEUNIQUEID = "KEY_SE_UNIQUE_ID";
 const String KEYUSERNAME = "KEY_USER_NAME";
 const String KEYPROFILEPIC = "KEY_PROFILEPIC";
 const String KEYID = "KEY_ID";

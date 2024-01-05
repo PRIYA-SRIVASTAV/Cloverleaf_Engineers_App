@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-GetSeCallLogsList getSeCallLogsListFromJson(String str) => GetSeCallLogsList.fromJson(json.decode(str));
+GetEngCallLogsList getEngCallLogsListFromJson(String str) => GetEngCallLogsList.fromJson(json.decode(str));
 
-String getSeCallLogsListToJson(GetSeCallLogsList data) => json.encode(data.toJson());
+String getEngCallLogsListToJson(GetEngCallLogsList data) => json.encode(data.toJson());
 
-class GetSeCallLogsList {
+class GetEngCallLogsList {
   bool? status;
   Data? data;
 
-  GetSeCallLogsList({
+  GetEngCallLogsList({
     this.status,
     this.data,
   });
 
-  factory GetSeCallLogsList.fromJson(Map<String, dynamic> json) => GetSeCallLogsList(
+  factory GetEngCallLogsList.fromJson(Map<String, dynamic> json) => GetEngCallLogsList(
     status: json["status"],
     data: json["data"] == null ? null : Data.fromJson(json["data"]),
   );
@@ -49,7 +49,7 @@ class Data {
 }
 
 class Older {
-  String? engName;
+  String? subjectExpertName;
   String? duration;
   int? callStatus;
   int? callType;
@@ -58,7 +58,7 @@ class Older {
   String? time;
 
   Older({
-    this.engName,
+    this.subjectExpertName,
     this.duration,
     this.callStatus,
     this.callType,
@@ -68,7 +68,7 @@ class Older {
   });
 
   factory Older.fromJson(Map<String, dynamic> json) => Older(
-    engName: json["eng_name"],
+    subjectExpertName: json["subject_expert_name"],
     duration: json["duration"],
     callStatus: json["call_status"],
     callType: json["call_type"],
@@ -78,7 +78,7 @@ class Older {
   );
 
   Map<String, dynamic> toJson() => {
-    "eng_name": engName,
+    "subject_expert_name": subjectExpertName,
     "duration": duration,
     "call_status": callStatus,
     "call_type": callType,

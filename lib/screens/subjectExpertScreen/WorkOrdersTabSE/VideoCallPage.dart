@@ -22,7 +22,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
     getPref().then((value) {
       if (mounted) {
         setState(() {
-          SEID = value.getString(KEYUNIQUEID);
+          SEID = value.getString(KEYENGUNIQUEID);
           SEName = value.getString(KEYUSERNAME);
         });
       }

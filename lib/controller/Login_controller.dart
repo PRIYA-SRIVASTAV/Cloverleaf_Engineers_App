@@ -27,7 +27,7 @@ class Login_Controller {
         if(r['data']['user_type']=='2'){
           await getPref().then((value) {
             value.setString(KEYENGTOKEN, r['token'].toString());
-            value.setString(KEYUNIQUEID, r['data']['unique_id'].toString());
+            value.setString(KEYENGUNIQUEID, r['data']['unique_id'].toString());
             value.setString(KEYUSERNAME, r['data']['name'].toString());
             value.setString(KEYSUPPORTNUMBER,r['data']['support_number'].toString());
           });
@@ -42,7 +42,7 @@ class Login_Controller {
         else{
           await getPref().then((value) {
             value.setString(KEYSETOKEN, r['token'].toString());
-            value.setString(KEYUNIQUEID, r['data']['unique_id'].toString());
+            value.setString(KEYSEUNIQUEID, r['data']['unique_id'].toString());
             value.setString(KEYUSERNAME, r['data']['name'].toString());
             value.setString(KEYSUPPORTNUMBER,r['data']['support_number'].toString());
           });

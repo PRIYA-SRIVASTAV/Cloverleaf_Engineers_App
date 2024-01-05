@@ -40,104 +40,108 @@ onUserLogin() async {
 
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
-      appID: 55373530 /*input your AppID*/,
-      appSign:
-          "1fd3a12c1d077c2b62f614f78874c990676539210c24f0942ee99c1c0adb76d9" /*input your AppSign*/,
-      userID: currentUser.id,
-      userName: currentUser.name,
-      androidNotificationConfig: ZegoAndroidNotificationConfig(
-        channelID: "ZegoUIKit",
-        channelName: "Call Notifications",
-        sound: "notification",
-        //icon: "notification_icon",
-      ),
-      iOSNotificationConfig: ZegoIOSNotificationConfig(
-        systemCallingIconName: 'CallKitIcon',
-      ),
-      plugins: [ZegoUIKitSignalingPlugin()],
-      controller: callController,
-      requireConfig: (ZegoCallInvitationData data) {
-        final config = (data.invitees.length > 1)
-            ? ZegoCallType.videoCall == data.type
-                ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
-                : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
-            : ZegoCallType.videoCall == data.type
-                ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
-                : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-        MyZegoConst.callType = ZegoCallType.voiceCall == data.type ? "1" : "2";
-        print("---------->call_type :${MyZegoConst.callType}");
-        if (MyZegoConst.call_start_times == true) {
-          callApi(MyZegoConst.callType);
-        }
-        //config.avatarBuilder = customAvatarBuilder;
-        /// support minimizing, show minimizing button
-        config.topMenuBarConfig.isVisible = true;
-        config.topMenuBarConfig.buttons
-            .insert(0, ZegoMenuBarButtonName.minimizingButton);
-        config.onHangUpConfirmation = (BuildContext context) async {
-          return await showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: appThemeColor,
-                title: const Text("Confirmation",
-                    style: TextStyle(color: Colors.white70)),
-                content: const Text(
-                    "Are you sure you want to cancel this call?",
-                    style: TextStyle(color: Colors.white70)),
-                actions: [
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.white)),
-                    child:
-                        Text("Cancel", style: TextStyle(color: appThemeColor)),
-                    onPressed: () => Navigator.of(context).pop(false),
-                  ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.white)),
-                      child:
-                          Text("Exit", style: TextStyle(color: appThemeColor)),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                        print("Call Durationsssss =====>>>${MyZegoConst.callDuration}");
-                        //   debugPrint(data.invitees.toString());
-                        debugPrint(data.invitees[0].id.toString());
-                        debugPrint(data.inviter?.id.toString());
-                        // debugPrint(data.inviter.toString());
-                        print("==callDuration========>${MyZegoConst.callDuration}");
-                        await Post_SE_Call_details_controller()
-                            .Post_SE_Call_End_details_controller_method(
-                                data.inviter!.id.toString(),
-                                data.invitees[0].id.toString(),
-                                MyZegoConst.callDuration);
-                      },
-                  ),
-                ],
-              );
-            },
-          );
-        };
-        config.durationConfig.onDurationUpdate = (Duration duration) {
-          MyZegoConst.callDuration = duration.inSeconds.toString();
-        };
-        //  config.onHangUp = () async{
-        // //    print("Call Durationsssss =====>>>${MyZegoConst.callDuration}");
-        // // //   debugPrint(data.invitees.toString());
-        // //    debugPrint(data.invitees[0].id.toString());
-        // //    debugPrint(data.inviter?.id.toString());
-        // //   // debugPrint(data.inviter.toString());
-        // //    print("==callDuration========>${MyZegoConst.callDuration}");
-        // //  //  await Post_SE_Call_details_controller().Post_SE_Call_End_details_controller_method(data.invitees.toString(),data.inviter.toString(),MyZegoConst.callDuration);
-        //  };
-        config.onError = (ZegoUIKitError error) {
-          debugPrint('onError:$error');
-        };
-        return config;
-      },
+    appID: 55373530 /*input your AppID*/,
+    appSign:
+        "1fd3a12c1d077c2b62f614f78874c990676539210c24f0942ee99c1c0adb76d9" /*input your AppSign*/,
+    userID: currentUser.id,
+    userName: currentUser.name,
+    androidNotificationConfig: ZegoAndroidNotificationConfig(
+      channelID: "ZegoUIKit",
+      channelName: "Call Notifications",
+      sound: "notification",
+      //icon: "notification_icon",
+    ),
+    iOSNotificationConfig: ZegoIOSNotificationConfig(
+      systemCallingIconName: 'CallKitIcon',
+    ),
+    plugins: [ZegoUIKitSignalingPlugin()],
+    controller: callController,
+    requireConfig: (ZegoCallInvitationData data) {
+      final config = (data.invitees.length > 1)
+          ? ZegoCallType.videoCall == data.type
+              ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
+              : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
+          : ZegoCallType.videoCall == data.type
+              ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+              : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
+      MyZegoConst.callType = ZegoCallType.voiceCall == data.type ? "1" : "2";
+      print("---------->call_type :${MyZegoConst.callType}");
+      if (MyZegoConst.call_start_times == true) {
+        callApi(MyZegoConst.callType);
+      }
+      //config.avatarBuilder = customAvatarBuilder;
+      /// support minimizing, show minimizing button
+      config.topMenuBarConfig.isVisible = true;
+      config.topMenuBarConfig.buttons
+          .insert(0, ZegoMenuBarButtonName.minimizingButton);
+      config.onHangUpConfirmation = (BuildContext context) async {
+        return await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: appThemeColor,
+              title: const Text("Confirmation",
+                  style: TextStyle(color: Colors.white70)),
+              content: const Text("Are you sure you want to cancel this call?",
+                  style: TextStyle(color: Colors.white70)),
+              actions: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  child: Text("Cancel", style: TextStyle(color: appThemeColor)),
+                  onPressed: () => Navigator.of(context).pop(false),
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  child: Text("Exit", style: TextStyle(color: appThemeColor)),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    print(
+                        "Call Durationsssss =====>>>${MyZegoConst.callDuration}");
+                    //   debugPrint(data.invitees.toString());
+                    debugPrint(data.invitees[0].id.toString());
+                    debugPrint(data.inviter?.id.toString());
+                    // debugPrint(data.inviter.toString());
+                    print("==callDuration========>${MyZegoConst.callDuration}");
+                    var SE_unique_id;
+                    var Eng_unique_id;
+                    await getPref().then((value) {
+                      SE_unique_id = value.getString(KEYSEUNIQUEID);
+                      Eng_unique_id = value.getString(KEYENGUNIQUEID);
+                    });
+                    await Post_SE_Call_details_controller()
+                        .Post_SE_Call_End_details_controller_method(
+                            /*data.inviter!.id.toString(),
+                            data.invitees[0].id.toString(),*/
+                            SE_unique_id.toString(),
+                            Eng_unique_id.toString(),
+                            MyZegoConst.callDuration);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      };
+      config.durationConfig.onDurationUpdate = (Duration duration) {
+        MyZegoConst.callDuration = duration.inSeconds.toString();
+      };
+      //  config.onHangUp = () async{
+      // //    print("Call Durationsssss =====>>>${MyZegoConst.callDuration}");
+      // // //   debugPrint(data.invitees.toString());
+      // //    debugPrint(data.invitees[0].id.toString());
+      // //    debugPrint(data.inviter?.id.toString());
+      // //   // debugPrint(data.inviter.toString());
+      // //    print("==callDuration========>${MyZegoConst.callDuration}");
+      // //  //  await Post_SE_Call_details_controller().Post_SE_Call_End_details_controller_method(data.invitees.toString(),data.inviter.toString(),MyZegoConst.callDuration);
+      //  };
+      config.onError = (ZegoUIKitError error) {
+        debugPrint('onError:$error');
+      };
+      return config;
+    },
   );
 }
 
@@ -251,7 +255,7 @@ List<ZegoUIKitUser> getInvitesFromTextCtrl(String textCtrlText) {
 }
 
 void onSendCallInvitationFinished(
-    String code, String message, List<String> errorInvitees){
+    String code, String message, List<String> errorInvitees) {
   MyZegoConst.call_start_times = true;
   if (errorInvitees.isNotEmpty) {
     String userIDs = "";
@@ -291,12 +295,23 @@ callApi(call_type) async {
     user_type = "eng";
   } else {
     user_type = "se";
-  };
+  }
+  ;
   print("00000000000--->$user_type");
   if (user_type == "se") {
+    var SE_unique_id;
+    var Eng_unique_id;
+    await getPref().then((value) {
+      SE_unique_id = value.getString(KEYSEUNIQUEID);
+      Eng_unique_id = value.getString(KEYENGUNIQUEID);
+    });
     await Post_SE_Call_details_controller()
-        .Post_SE_Call_Start_details_controller_method(MyZegoConst.SE_Zego_id,
-            MyZegoConst.ENg_Zego_id, MyZegoConst.callWorkId, call_type);
+        .Post_SE_Call_Start_details_controller_method(
+            // MyZegoConst.SE_Zego_id, MyZegoConst.ENg_Zego_id,
+            SE_unique_id.toString(),
+            Eng_unique_id.toString(),
+            MyZegoConst.callWorkId,
+            call_type);
     MyZegoConst.call_start_times = false;
   }
 }

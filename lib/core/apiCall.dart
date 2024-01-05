@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../constant/prefsConstant.dart';
 import '../model/GetAddPartsListModel.dart';
 import '../model/GetDashboardDataModel.dart';
+import '../model/GetEngCallLogsListModel.dart';
 import '../model/GetEscalateDataModel.dart';
 import '../model/GetLeaveCalenderModel.dart';
 import '../model/GetPartsModel.dart';
@@ -1400,17 +1401,37 @@ class ApiCalling {
 
   ///================================================================================================================================///
 
-  Future get_SE_Call_logs_list(SE_ZegoUserId) async {
+  Future get_SE_Call_logs_list(SE_unique_id) async {
     try {
       if (await isConnectedToInternet()) {
         Uri get_SE_Call_logs_list_Uri =
-            Uri.parse("${ApiEndpoints.get_SE_Call_logs_Url}${SE_ZegoUserId}");
+            Uri.parse("${ApiEndpoints.get_SE_Call_logs_Url}${SE_unique_id}");
         var get_SE_Call_logs_list_Response = await client.get(
             get_SE_Call_logs_list_Uri,
             headers: await headerWithContentTypeSE());
         MYAPILOGS("get SE Call logs List api", get_SE_Call_logs_list_Response);
         if (get_SE_Call_logs_list_Response.statusCode == 200) {
           return getSeCallLogsListFromJson(get_SE_Call_logs_list_Response.body);
+        } else {
+          Result.error("no internet connection");
+        }
+      } else {
+        customFlutterToast("Check your internet...");
+      }
+    } catch (_) {}
+  }
+
+  Future get_Eng_Call_logs_list(Eng_unique_id) async {
+    try {
+      if (await isConnectedToInternet()) {
+        Uri get_Eng_Call_logs_list_Uri =
+            Uri.parse("${ApiEndpoints.get_Eng_Call_logs_Url}${Eng_unique_id}");
+        var get_Eng_Call_logs_list_Response = await client.get(
+            get_Eng_Call_logs_list_Uri,
+            headers: await headerWithContentTypeENG());
+        MYAPILOGS("get ENG Call logs List api", get_Eng_Call_logs_list_Response);
+        if (get_Eng_Call_logs_list_Response.statusCode == 200) {
+          return getEngCallLogsListFromJson(get_Eng_Call_logs_list_Response.body);
         } else {
           Result.error("no internet connection");
         }
